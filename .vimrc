@@ -1,9 +1,10 @@
-set nocompatible
-filetype off
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle'))
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+call neobundle#begin(expand('~/.vim/bundle'))
+let g:neobundle_default_git_protocol='https'
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
@@ -31,44 +32,22 @@ NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'taku-o/vim-toggle'
 NeoBundle 'spolu/dwm.vim'
 NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'jiangmiao/auto-pairs'
+NeoBundle 'osyo-manga/vim-over'
 
 "---------------------
 "vim.org
 "---------------------
 NeoBundle 'molokai'
 
-filetype plugin on
-filetype indent on
+
+call neobundle#end()
+NeoBundleCheck
+
+filetype plugin indent on
 
 set t_Co=256
 colorscheme molokai
-
-" 改行コードの自動認識{{{
- set fileformats=dos,unix,mac
-if exists("loaded_ReCheckFENC")
-  finish
-endif
-let loaded_ReCheckFENC = 1
-
-" 日本語を含まない場合は fileencoding に encoding を使うようにする
-if has('autocmd')
-  function! AU_ReCheck_FENC()
-    if &fileencoding =~# 'iso-2022-jp' && search("[^\x01-\x7e]", 'n') == 0
-      let &fileencoding=&encoding
-      if s:MSWindows
-        let &fileencoding='cp932'
-      endif
-    endif
-  endfunction
-  autocmd BufReadPost * call AU_ReCheck_FENC()
-endif
-" }}}
-"----------------------------------------
-" メッセージの日本語化
-"----------------------------------------
-if has('unix')&&has('gui_running')
-  let $LANG='ja'
-endif
 
 "----------------------------------------
 " オプション設定
