@@ -1,3 +1,10 @@
+## vimを使う。
+export EDITOR=vim
+## vimがなくてもvimでviを起動する。
+if ! type vim > /dev/null 2>&1; then
+    alias vim=vi
+fi
+
 # Emacs ライクな操作を有効にする（文字入力中に Ctrl-F,B でカーソル移動など）
 # Vi ライクな操作が好みであれば `bindkey -v` とする
 bindkey -v
@@ -89,7 +96,7 @@ RPROMPT=""
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
-autoload -Uz colors
+autoload -Uz colors; colors
 
 # 以下の3つのメッセージをエクスポートする
 #   $vcs_info_msg_0_ : 通常メッセージ用 (緑)

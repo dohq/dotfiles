@@ -10,4 +10,4 @@ export PATH
 # Alias作りましょうねー
 alias vi='vim'
 alias emerge='emerge --quiet-build'
-alias sudo="sudo env PATH=$PATH"
+alias sudo='sudo '
