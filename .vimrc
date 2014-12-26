@@ -16,8 +16,8 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
@@ -53,29 +53,32 @@ colorscheme molokai
 " オプション設定
 "----------------------------------------
 autocmd BufWritePre * :%s/\s\+$//e
-set scrolloff=1000
-set hidden
-set number
-set title
-set laststatus=2
-set showcmd
-set ruler
+set ambiwidth=double
+set autoindent
+set backspace=indent,eol,start
 set clipboard+=unnamed
 set display=lastline
-set ambiwidth=double
-set shellslash
-set ignorecase
-set noswapfile
-set smartcase
-set incsearch
-set wildmenu
-set tabstop=4
-set shiftwidth=4
 set expandtab
-set autoindent
 set foldmethod=marker
+set hidden
+set ignorecase
+set incsearch
+set laststatus=2
+set noswapfile
+set number
+set matchtime=1
+set pumheight=10
+set ruler
+set scrolloff=1000
+set shellslash
+set showmatch
+set shiftwidth=4
+set showcmd
+set smartcase
+set tabstop=4
+set title
 set whichwrap=b,s,[,],<,>
-set backspace=indent,eol,start
+set wildmenu
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
@@ -103,6 +106,9 @@ nnoremap J 15j
 nnoremap K 15k
 nnoremap L 10l
 nnoremap H 10h
+" Yで行末までヤンク
+nnoremap Y y$
+
 "----------------------------------------
 " プラグインのセッティング
 "----------------------------------------
