@@ -34,6 +34,7 @@ NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'taku-o/vim-toggle'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
+NeoBundle 'tpope/vim-fugitive'
 
 "---------------------
 "vim.org
