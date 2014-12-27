@@ -1,3 +1,6 @@
+## sudo時にはsudo用のパスも使う。
+zstyle ':completion:sudo:*' environ PATH="$SUDO_PATH:$PATH"
+
 ## vimを使う。
 export EDITOR=vim
 ## vimがなくてもvimでviを起動する。

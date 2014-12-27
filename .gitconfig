@@ -1,0 +1,7 @@
+[user]
+	email = dorastone@gmail.com
+	name = dohq
+[core]
+	editor = vim
+[color]
+	ui = auto
