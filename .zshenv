@@ -4,8 +4,7 @@ export LD_LIBRARY_PATH
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-PATH=$PATH:$HOME/bin
-export PATH
+export PATH=/usr/local/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
