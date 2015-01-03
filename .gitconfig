@@ -1,7 +1,23 @@
 [user]
-	email = dorastone@gmail.com
-	name = dohq
+    name = dohq
+    email = dorastone@gmail.com
 [core]
-	editor = vim
+    editor = vim
+    quotepath = off
+    symlinks = false
+    autocrlf = input
 [color]
-	ui = auto
+    ui = auto
+    diff = always
+    status = always
+    branch = always
+    interactive = always
+[pack]
+    packSizeLimit = 2g
+[help]
+    format = html
+[diff "astextplain"]
+    textconv = astextplain
+[rebase]
+    autosquash = true
+
