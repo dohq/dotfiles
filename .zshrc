@@ -36,6 +36,9 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # 補完機能を有効にする
 autoload -Uz compinit; compinit
 
+# もしかして機能
+setopt correct
+
 # <Tab> でパス名の補完候補を表示したあと、
 zstyle ':completion:*:default' menu select=1
 
