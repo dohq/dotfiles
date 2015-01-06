@@ -2,11 +2,11 @@
 export LANG=ja_JP.UTF-8
 # PATH
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export PATH=/usr/local/bin:$PATH
 export LD_LIBRARY_PATH
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
-export PATH=/usr/local/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
