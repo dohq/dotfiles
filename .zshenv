@@ -1,12 +1,14 @@
 # LANG Setting
 export LANG=ja_JP.UTF-8
 # PATH
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/usr/local/bin:$PATH
 export LD_LIBRARY_PATH
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:~/.rvm/bin
 
 # Alias作りましょうねー
 alias vi='vim'
@@ -37,9 +39,11 @@ fi
 # hub alias
 function git(){hub "$@"}
 
-
 ### Virtualenvwrapper
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.virtualenvs
     source /usr/local/bin/virtualenvwrapper.sh
 fi
+
+### rvm
+source ~/.rvm/scripts/rvm
