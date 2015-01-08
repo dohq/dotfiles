@@ -5,7 +5,7 @@ export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export PATH=/usr/local/bin:$PATH
 export LD_LIBRARY_PATH
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/.rvm/bin

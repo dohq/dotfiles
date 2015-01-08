@@ -22,9 +22,9 @@ let g:textarea_ime_mode = "inactive"
 " キーマップ設定
 "+------------------------+
 
-"j/kの移動量を7倍に
-map j 7<C-e>
-map k 7<C-y>
+"j/kの移動量を10倍に
+map j 10<C-e>
+map k 10<C-y>
 "<BS>で「戻る」
 map <BS> H
 map <S-j> <C-p>
@@ -41,9 +41,9 @@ map s :stop
 map d <M-w>
 
 "new tab
-map t :tabopen google
+map t :tabopen
 "open tab
-map o :open google
+map o :open
 
 map gm :t http://gmail.com<CR>
 
@@ -52,31 +52,11 @@ map gm :t http://gmail.com<CR>
 " プラグイン設定
 "+------------------------+
 
-command calc -nargs=* echo JSON.parse(util.httpGet("http://suggestqueries.google.com/complete/search?client=firefox&hl=ja&q="+encodeURIComponent("<args>")).responseText)[1].filter(function(r) r.indexOf("=") == 0)[0].replace("= ","")
-
 " .vimperatorrcを再読み込み
 map <C-r> :source ~/.vimperatorrc<CR>
 
 let g:direct_sbm_use_services_by_tag = "h"
 let g:direct_sbm_use_services_by_post = "h"
-
-"For FeedSomeKeys_3.js plugin
-" autocmd VimperatorEnter .* <args> を lazy コマンドとして登録
-"command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
-"Gmail
-lazy fmaps -urls='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gb gc gl b <S-i> <C-h> <C-Enter>
-
-"Google Calendar
-lazy fmaps -urls='www\.google\.com/calendar' -events=vkeydown k j r t d w m c <Del> / + q s ?
-
-"Google Docs
-lazy fmaps -urls='docs\.google\.com/' <Del> <C-x> <C-d> <C-v> <C-c> <C-y> <C-z> <C-a>
-
-"Feedly
-lazy fmaps -urls='feedly\.com/' gm ga gg r j k n p o v m x s e t ? <S-m>
-
-set hintchars=hjklasdfgyuiopqwertnmzxcvb
-hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
 
 " 最後に読み込み完了を表示
 echo "### Finish loading vimperatorrc. ###"
