@@ -20,6 +20,8 @@ let g:textarea_ime_mode = "inactive"
 "+------------------------+
 " キーマップ設定
 "+------------------------+
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
 
 "j/kの移動量を10倍に
 map j 10<C-e>
