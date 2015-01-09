@@ -38,7 +38,6 @@ map <C-r> :source ~/.vimperatorrc<CR>
 map <S-Left> :tabmove! -1<CR>
 map <S-Right> :tabmove! +1<CR>
 
-map @ :sp -b <S-Insert><CR>
 map ^ :sp -r <S-Insert><CR>
 
 map c :history!
@@ -51,7 +50,7 @@ map t :tabopen
 map o :open
 
 map gm :t http://gmail.com<CR>
-
+map gc :t https://www.google.com/calendar/<CR>
 
 "+------------------------+
 " プラグイン設定
