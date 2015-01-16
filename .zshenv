@@ -13,7 +13,7 @@ export PATH=$PATH:~/.rvm/bin
 # Alias作りましょうねー
 alias vi='vim'
 alias emerge='emerge --quiet-build'
-alias la='ls -a'
+alias la='ls -la'
 alias ll='ls -l'
 alias rm='rm -i'
 alias cp='cp -i'
@@ -47,3 +47,6 @@ fi
 
 ### rvm
 source ~/.rvm/scripts/rvm
+
+### zsh-completions
+[ -d $HOME/.zsh/zsh-completions/src ] && fpath=($HOME/.zsh/zsh-completions/src $fpath)
