@@ -3,7 +3,7 @@ export LANG=ja_JP.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:/opt/local/bin:$PATH
 export LD_LIBRARY_PATH
 export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/_go
@@ -19,7 +19,10 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
-
+# Gitting
+alias gl="git log --pretty='medium-reverse' --graph --name-status"
+alias gm="git commit"
+alias gc="git clone"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
