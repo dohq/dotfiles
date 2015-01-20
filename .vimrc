@@ -35,6 +35,7 @@ NeoBundle 'taku-o/vim-toggle'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'majutsushi/tagbar'
 
 "---------------------
 "vim.org
@@ -162,14 +163,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#lock_iminsert = 1
 "}}}
 "TweetVim {{{
 " 1ページに表示する最大数
@@ -290,6 +284,8 @@ nmap <c-c> <Plug>DWMClose
 nmap <c-Space> <Plug>DWMFocus
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
+" tagbar
+nmap <F8> :TagbarToggle<CR>
 
 "vim-indent-guide
 let g:indent_guides_enable_on_vim_startup=1
