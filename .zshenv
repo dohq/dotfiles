@@ -3,12 +3,11 @@ export LANG=ja_JP.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/usr/local/bin:/opt/local/bin:$PATH
 export LD_LIBRARY_PATH
-export PATH=$PATH:$HOME/go/bin
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:~/.rvm/bin
+export PATH=/usr/local/bin:/opt/local:/usr/local/go/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
