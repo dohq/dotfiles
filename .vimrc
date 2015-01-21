@@ -22,9 +22,12 @@ NeoBundle 'Shougo/vimshell'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
+NeoBundle 'fuenor/qfixgrep'
+NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'itchyny/thumbnail.vim'
 NeoBundle 'jiangmiao/auto-pairs'
+NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'mattn/favstar-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -32,9 +35,10 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'spolu/dwm.vim'
 NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'taku-o/vim-toggle'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'yuratomo/gmail.vim'
 NeoBundle 'majutsushi/tagbar'
 
 "---------------------
@@ -51,16 +55,20 @@ filetype plugin indent on
 set t_Co=256
 colorscheme molokai
 
+set enc=utf-8
+set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+
 "----------------------------------------
 " オプション設定
 "----------------------------------------
 autocmd BufWritePre * :%s/\s\+$//e
 set ambiwidth=double
 set autoindent
+set expandtab
+set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
 set clipboard+=unnamed
 set display=lastline
-set expandtab
 set foldmethod=marker
 set hidden
 set ignorecase
@@ -74,10 +82,8 @@ set ruler
 set scrolloff=1000
 set shellslash
 set showmatch
-set shiftwidth=4
 set showcmd
 set smartcase
-set tabstop=4
 set title
 set whichwrap=b,s,[,],<,>
 set wildmenu
@@ -114,7 +120,15 @@ nnoremap Y y$
 "----------------------------------------
 " プラグインのセッティング
 "----------------------------------------
-
+" vimproc {{{
+if has('mac')
+  let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
+elseif has('win32')
+  let g:vimproc_dll_path = '.vim/bundle/vimproc.vim/autoload/vimproc_win32.dll'
+elseif has('win64')
+  let g:vimproc_dll_path = '.vim/bundle/vimproc.vim/autoload/vimproc_win64.dll'
+endif
+" }}}
 "NeoComplete {{{
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
@@ -273,6 +287,35 @@ nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 " コピーした文字列をハイライト付きで置換
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " }}}
+" EasyAlign{{{
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+let g:easy_align_bypass_fold = 1
+let g:easy_align_delimiters = {
+\ '>': { 'pattern': '>>\|=>\|>' },
+\ '/': {
+\     'pattern':         '//\+\|/\*\|\*/',
+\     'delimiter_align': 'l',
+\     'ignore_groups':   ['!Comment'] },
+\ ']': {
+\     'pattern':       '[[\]]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ ')': {
+\     'pattern':       '[()]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ 'd': {
+\     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+\     'left_margin':  0,
+\     'right_margin': 0
+\   }
+\ }
+" }}}
 
 " dwm.vim 設定（全てデフォルト）
 nnoremap <c-j> <c-w>w
@@ -284,8 +327,6 @@ nmap <c-c> <Plug>DWMClose
 nmap <c-Space> <Plug>DWMFocus
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
-" tagbar
-nmap <F8> :TagbarToggle<CR>
 
 "vim-indent-guide
 let g:indent_guides_enable_on_vim_startup=1
@@ -297,3 +338,5 @@ let g:vimshell_prompt = $USERNAME."% "
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
+" tagbar
+nmap <F8> :TagbarToggle<CR>
