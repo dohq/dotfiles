@@ -40,6 +40,7 @@ NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'yuratomo/gmail.vim'
 NeoBundle 'majutsushi/tagbar'
+NeoBundle 'thinca/vim-splash'
 
 "---------------------
 "vim.org
@@ -102,11 +103,6 @@ nmap g* g*zz
 nmap g# g#zz
 "Leader変更
 let mapleader = ","
-" インサートモードでもhjklで移動
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
 "インサートモードでj2回でノーマルモードに移行
 inoremap jj <ESC>
 " シフトで多めに移動
@@ -182,10 +178,13 @@ let g:neocomplete#lock_iminsert = 1
 "TweetVim {{{
 " 1ページに表示する最大数
 let g:tweetvim_tweet_per_page = 60
+" 表示内容をキャッシュしておく数(バッファを戻る、進むに使用)
+let g:tweetvim_cache_size     = 10
+" source(クライアント名) を表示するオプション
+let g:tweetvim_display_source = 1
 
-" F6と,uvでTweetVimのtimeline選択
+" F6でTweetVimのtimeline選択
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
-nnoremap ,uv :<C-u>Unite tweetvim<CR>
 
 " その他いろいろ
 nnoremap ,th :<C-u>TweetVimHomeTimeline<CR>
@@ -194,29 +193,28 @@ nnoremap ,ts :<C-u>TweetVimSay<CR>
 nnoremap ,tc :<C-u>TweetVimCommandSay
 "}}}
 " Unite{{{
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-" バッファ一覧
-noremap fb :Unite buffer<CR>
-" ファイル一覧
-noremap ff :Unite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
-noremap fh :Unite file_mru<CR>
+" The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    <Space>u [unite]
 
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" 初期設定関数を起動する
-au FileType unite call s:unite_my_settings()
-    function! s:unite_my_settings()
-    " Overwrite settings.
-endfunction
+" unite.vim keymap
+let g:unite_source_history_yank_enable =1
+nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,vr :UniteResume<CR>
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+let g:unite_source_grep_max_candidates = 200
+let g:unite_source_grep_recursive_opt = ''
+" unite-grepの便利キーマップ
+vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 "}}}
 "vim-lightline{{{
 let g:lightline = {
@@ -281,7 +279,7 @@ endfunction
 "}}}
 " over.vim {{{
 " over.vimの起動
-nnoremap <silent> <Leader>m :OverCommandLine<CR>
+nnoremap <silent> <Space>m :OverCommandLine<CR>
 " カーソル下の単語をハイライト付きで置換
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 " コピーした文字列をハイライト付きで置換
@@ -340,3 +338,5 @@ nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 " tagbar
 nmap <F8> :TagbarToggle<CR>
+" Gmail
+let g:gmail_user_name = 'dorastone@gmail.com'
