@@ -6,6 +6,7 @@
     quotepath = off
     symlinks = false
     autocrlf = input
+	excludesfile = /Users/dohq/.gitignore_global
 [color]
     ui = auto
     diff = always
@@ -23,3 +24,9 @@
 
 [pretty]
 	medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h% Creset %C(green reverse) %an %Creset %C(cyan)%ar%Creset%n%C(white bold)%w(80)%s%Creset%n%n%w(80,2,2)%b
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
