@@ -50,6 +50,9 @@ filetype plugin indent on
 set t_Co=256
 colorscheme molokai
 
+set enc=utf-8
+set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+
 "----------------------------------------
 " オプション設定
 "----------------------------------------

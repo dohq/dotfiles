@@ -1,0 +1,60 @@
+"------------------------+
+" 基本設定
+"+-----------------------+
+
+"メニュー/ツール/リンクを表示
+set toolbars=addons
+"ページ全体で検索語を強調表示
+set hlsearch
+set ignorecase
+"ビープ音を鳴らさずビジュアルベルを使用
+set visualbell
+
+set complete=S
+set focuscontent
+
+let g:ex_ime_mode = "inactive"
+let g:textarea_ime_mode = "inactive"
+
+
+"+------------------------+
+" キーマップ設定
+"+------------------------+
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
+
+"j/kの移動量を10倍に
+map j 10<C-e>
+map k 10<C-y>
+"<BS>で「戻る」
+map <BS> H
+map <S-j> <C-p>
+map <S-k> <C-n>
+
+" .vimperatorrcを再読み込み
+map <C-r> :source ~/.vimperatorrc<CR>
+
+"<S-Left>/<S-Right>で現在のタブの位置変更
+map <S-Left> :tabmove! -1<CR>
+map <S-Right> :tabmove! +1<CR>
+
+map ^ :sp -r <S-Insert><CR>
+
+map c :history!
+map s :stop
+map d <M-w>
+
+"new tab
+map t :tabopen
+"open tab
+map o :open
+
+map gm :t http://gmail.com<CR>
+map gc :t https://www.google.com/calendar/<CR>
+
+"+------------------------+
+" プラグイン設定
+"+------------------------+
+
+" 最後に読み込み完了を表示
+echo "### Finish loading vimperatorrc. ###"
