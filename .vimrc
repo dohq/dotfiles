@@ -41,6 +41,7 @@ NeoBundle 'vim-jp/vimdoc-ja'
 NeoBundle 'yuratomo/gmail.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'thinca/vim-splash'
+NeoBundle 'thinca/vim-quickrun'
 
 "---------------------
 "vim.org
