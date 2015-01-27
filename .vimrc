@@ -42,6 +42,13 @@ NeoBundle 'yuratomo/gmail.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'basyura/J6uil.vim'
+NeoBundleLazy 'lambdalisue/vim-gista', {
+    \ 'autoload': {
+    \    'commands': ['Gista'],
+    \    'mappings': '<Plug>(gista-',
+    \    'unite_sources': 'gista',
+    \}}
 
 "---------------------
 "vim.org
@@ -206,6 +213,7 @@ nnoremap    [unite]   <Nop>
 nmap    <Space>u [unite]
 
 " unite.vim keymap
+let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
@@ -323,6 +331,8 @@ let g:easy_align_delimiters = {
 \ }
 " }}}
 
+" gista-vim
+let g:gista#github_user = 'dohq'
 " dwm.vim 設定（全てデフォルト）
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
@@ -346,5 +356,11 @@ nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 " tagbar
 nmap <F8> :TagbarToggle<CR>
+if has('win32')
+  let g:tagbar_ctags_bin = './ctags.exe'
+elseif has('win64')
+  let g:tagbar_ctags_bin = './ctags.exe'
+endif
+
 " Gmail
 let g:gmail_user_name = 'dorastone@gmail.com'
