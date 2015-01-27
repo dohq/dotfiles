@@ -101,7 +101,6 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-"キーマッピング
 "検索文字列を中央に
 nmap n nzz
 nmap N Nzz
@@ -331,9 +330,7 @@ let g:easy_align_delimiters = {
 \ }
 " }}}
 
-" gista-vim
-let g:gista#github_user = 'dohq'
-" dwm.vim 設定（全てデフォルト）
+" dwm.vim
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
 nmap <m-r> <Plug>DWMRotateCounterclockwise
@@ -356,11 +353,9 @@ nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 " tagbar
 nmap <F8> :TagbarToggle<CR>
+" tagbar-windows
 if has('win32')
   let g:tagbar_ctags_bin = './ctags.exe'
 elseif has('win64')
   let g:tagbar_ctags_bin = './ctags.exe'
 endif
-
-" Gmail
-let g:gmail_user_name = 'dorastone@gmail.com'
