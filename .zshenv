@@ -3,10 +3,11 @@ export LANG=ja_JP.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export ANYENV_ROOT=$HOME/.anyenv
 export LD_LIBRARY_PATH
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:~/.rvm/bin
+export PATH=$ANYENV_ROOT/bin:$PATH
 export PATH=/usr/local/bin:/opt/local:/usr/local/go/bin:$PATH
 
 # Alias作りましょうねー
@@ -42,11 +43,8 @@ fi
 # hub alias
 function git(){hub "$@"}
 
-### Virtualenvwrapper
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-### zsh-completions
+# zsh-completions
 [ -d $HOME/.zsh/zsh-completions/src ] && fpath=($HOME/.zsh/zsh-completions/src $fpath)
+
+# anyenv
+eval "$(anyenv init -)"
