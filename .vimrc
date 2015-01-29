@@ -83,7 +83,7 @@ set ignorecase
 set incsearch
 set laststatus=2
 set noswapfile
-set number
+set nonumber
 set matchtime=1
 set pumheight=10
 set ruler
@@ -351,5 +351,5 @@ elseif has('win64')
 endif
 
 " Git-gutter
-nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
-nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
