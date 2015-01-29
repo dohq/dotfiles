@@ -18,9 +18,10 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias pp='ps ax | peco'
+alias cdot='cd /usr/local/Library/dohq_dotfiles'
 # Gitting
 alias gl="git log --pretty='medium-reverse' --graph --name-status"
-alias gm="git commit"
+alias gm="git commit -v"
 alias gc="git clone"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
