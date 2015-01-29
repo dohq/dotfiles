@@ -21,8 +21,6 @@ NeoBundle 'Shougo/vimshell'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
-NeoBundle 'fuenor/qfixgrep'
-NeoBundle 'fuenor/qfixhowm'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'itchyny/thumbnail.vim'
 NeoBundle 'jiangmiao/auto-pairs'
@@ -42,8 +40,8 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/J6uil.vim'
-NeoBundle 'Kuniwak/vint'
 NeoBundle 'itchyny/vim-cursorword'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -351,3 +349,7 @@ if has('win32')
 elseif has('win64')
   let g:tagbar_ctags_bin = './ctags.exe'
 endif
+
+" Git-gutter
+nnoremap <silent> ,gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> ,gh :<C-u>GitGutterLineHighlightsToggle<CR>
