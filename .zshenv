@@ -3,12 +3,14 @@ export LANG=ja_JP.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export ANYENV_ROOT=$HOME/.anyenv
 export LD_LIBRARY_PATH
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
-export PATH=$ANYENV_ROOT/bin:$PATH
 export PATH=/usr/local/bin:/opt/local:/usr/local/go/bin:$PATH
+if [ -d $HOME/.anyenv  ] ; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
 
 # Alias作りましょうねー
 alias vi='vim'
@@ -45,6 +47,3 @@ function git(){hub "$@"}
 
 # zsh-completions
 [ -d $HOME/.zsh/zsh-completions/src ] && fpath=($HOME/.zsh/zsh-completions/src $fpath)
-
-# anyenv
-eval "$(anyenv init -)"
