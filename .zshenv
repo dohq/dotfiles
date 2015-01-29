@@ -7,10 +7,6 @@ export LD_LIBRARY_PATH
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
 export PATH=/usr/local/bin:/opt/local:/usr/local/go/bin:$PATH
-if [ -d $HOME/.anyenv  ] ; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
-fi
 
 # Alias作りましょうねー
 alias vi='vim'
