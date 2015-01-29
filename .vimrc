@@ -42,6 +42,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/J6uil.vim'
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'idanarye/vim-merginal'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
