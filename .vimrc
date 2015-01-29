@@ -351,5 +351,6 @@ elseif has('win64')
 endif
 
 " Git-gutter
+let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
