@@ -434,3 +434,15 @@ nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 
 " vim-merginal
 nnoremap <silent> <Leader>br :<C-u>MerginalToggle<CR>
+
+" VimCalendar.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+" vim-autoft
+let g:autoft_config = [
+      \ { 'filetype': 'html' , 'pattern': '<\%(!DOCTYPE\|html\|head\|script\)' },
+      \ { 'filetype': 'c'    , 'pattern': '^\s*#\s*\%(include\|define\)\>' },
+      \ { 'filetype': 'diff' , 'pattern': '^diff -' },
+      \ { 'filetype': 'sh'   , 'pattern': '^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
+      \ ]
