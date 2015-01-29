@@ -1,5 +1,4 @@
 if has('vim_starting')
-  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('~/.vim/bundle'))
@@ -43,6 +42,8 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/J6uil.vim'
+NeoBundle 'Kuniwak/vint'
+NeoBundle 'itchyny/vim-cursorword'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -123,15 +124,6 @@ nnoremap Y y$
 "----------------------------------------
 " プラグインのセッティング
 "----------------------------------------
-" vimproc {{{
-if has('mac')
-  let g:vimproc_dll_path = $VIMRUNTIME . '/autoload/vimproc_mac.so'
-elseif has('win32')
-  let g:vimproc_dll_path = '.vim/bundle/vimproc.vim/autoload/vimproc_win32.dll'
-elseif has('win64')
-  let g:vimproc_dll_path = '.vim/bundle/vimproc.vim/autoload/vimproc_win64.dll'
-endif
-" }}}
 "NeoComplete {{{
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
