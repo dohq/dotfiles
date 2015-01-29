@@ -335,13 +335,16 @@ nmap <c-h> <Plug>DWMShrinkMaster
 "vim-indent-guide
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=4
+
 "VimShell
 let g:vimshell_interactive_update_time = 10
 let g:vimshell_prompt = $USERNAME."% "
+
 " vimshell map
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
+
 " tagbar
 nmap <F8> :TagbarToggle<CR>
 " tagbar-windows
@@ -355,3 +358,6 @@ endif
 let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
+
+" vim-merginal
+nnoremap <silent> <Leader>br :<C-u>MerginalToggle<CR>
