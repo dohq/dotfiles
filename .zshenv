@@ -6,8 +6,11 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 export LD_LIBRARY_PATH
 export GOPATH=$HOME/_go
 export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:~/.rvm/bin
 export PATH=/usr/local/bin:/opt/local:/usr/local/go/bin:$PATH
+if [ -d $HOME/.anyenv  ] ; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
 
 # Alias作りましょうねー
 alias vi='vim'
@@ -42,14 +45,5 @@ fi
 # hub alias
 function git(){hub "$@"}
 
-### Virtualenvwrapper
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-    export WORKON_HOME=$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-### rvm
-source /usr/local/rvm/scripts/rvm
-
-### zsh-completions
+# zsh-completions
 [ -d $HOME/.zsh/zsh-completions/src ] && fpath=($HOME/.zsh/zsh-completions/src $fpath)
