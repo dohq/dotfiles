@@ -41,6 +41,3 @@ fi
 
 # hub alias
 function git(){hub "$@"}
-
-# zsh-completions
-[ -d $HOME/.zsh/zsh-completions/src ] && fpath=($HOME/.zsh/zsh-completions/src $fpath)
