@@ -1,5 +1,4 @@
 if has('vim_starting')
-  set nocompatible
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('~/.vim/bundle'))
@@ -25,6 +24,7 @@ NeoBundle 'basyura/twibill.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'itchyny/thumbnail.vim'
 NeoBundle 'jiangmiao/auto-pairs'
+NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'mattn/favstar-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -32,9 +32,26 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'spolu/dwm.vim'
 NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'taku-o/vim-toggle'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'yuratomo/gmail.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'thinca/vim-splash'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'basyura/J6uil.vim'
+NeoBundle 'itchyny/vim-cursorword'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'idanarye/vim-merginal'
+NeoBundle 'itchyny/vim-autoft'
+NeoBundle 'itchyny/calendar.vim'
+NeoBundle 'gregsexton/gitv'
+NeoBundleLazy 'lambdalisue/vim-gista', {
+    \ 'autoload': {
+    \    'commands': ['Gista'],
+    \    'mappings': '<Plug>(gista-',
+    \    'unite_sources': 'gista',
+    \}}
 
 "---------------------
 "vim.org
@@ -50,33 +67,35 @@ filetype plugin indent on
 set t_Co=256
 colorscheme molokai
 
+set enc=utf-8
+set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+
 "----------------------------------------
 " オプション設定
 "----------------------------------------
 autocmd BufWritePre * :%s/\s\+$//e
 set ambiwidth=double
 set autoindent
+set expandtab
+set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
 set clipboard+=unnamed
 set display=lastline
-set expandtab
 set foldmethod=marker
 set hidden
 set ignorecase
 set incsearch
 set laststatus=2
 set noswapfile
-set number
+set nonumber
 set matchtime=1
 set pumheight=10
 set ruler
 set scrolloff=1000
 set shellslash
 set showmatch
-set shiftwidth=4
 set showcmd
 set smartcase
-set tabstop=4
 set title
 set whichwrap=b,s,[,],<,>
 set wildmenu
@@ -85,7 +104,6 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-"キーマッピング
 "検索文字列を中央に
 nmap n nzz
 nmap N Nzz
@@ -95,11 +113,6 @@ nmap g* g*zz
 nmap g# g#zz
 "Leader変更
 let mapleader = ","
-" インサートモードでもhjklで移動
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
 "インサートモードでj2回でノーマルモードに移行
 inoremap jj <ESC>
 " シフトで多めに移動
@@ -113,7 +126,6 @@ nnoremap Y y$
 "----------------------------------------
 " プラグインのセッティング
 "----------------------------------------
-
 "NeoComplete {{{
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
@@ -162,22 +174,25 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+let g:neocomplete#lock_iminsert = 1
 
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+"ポップアップメニューで表示される候補の数。初期値は100
+let g:neocomplete#max_list = 20
+" 補完候補が出ていたら確定、なければ改行
+ inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
+" buffer開いたらneoconでcache
+autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
 "}}}
 "TweetVim {{{
 " 1ページに表示する最大数
 let g:tweetvim_tweet_per_page = 60
+" 表示内容をキャッシュしておく数(バッファを戻る、進むに使用)
+let g:tweetvim_cache_size     = 10
+" source(クライアント名) を表示するオプション
+let g:tweetvim_display_source = 1
 
-" F6と,uvでTweetVimのtimeline選択
+" F6でTweetVimのtimeline選択
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
-nnoremap ,uv :<C-u>Unite tweetvim<CR>
 
 " その他いろいろ
 nnoremap ,th :<C-u>TweetVimHomeTimeline<CR>
@@ -186,101 +201,201 @@ nnoremap ,ts :<C-u>TweetVimSay<CR>
 nnoremap ,tc :<C-u>TweetVimCommandSay
 "}}}
 " Unite{{{
-" 入力モードで開始する
-let g:unite_enable_start_insert=1
-" バッファ一覧
-noremap fb :Unite buffer<CR>
-" ファイル一覧
-noremap ff :Unite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
-noremap fh :Unite file_mru<CR>
+" The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    <Space>u [unite]
 
-" ウィンドウを分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ウィンドウを縦に分割して開く
-au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" 初期設定関数を起動する
-au FileType unite call s:unite_my_settings()
-    function! s:unite_my_settings()
-    " Overwrite settings.
-endfunction
+" unite.vim keymap
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable =1
+nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,vr :UniteResume<CR>
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+let g:unite_source_grep_max_candidates = 200
+let g:unite_source_grep_recursive_opt = ''
+" unite-grepの便利キーマップ
+vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 "}}}
-"vim-lightline{{{
+" lightline.vim{{{
 let g:lightline = {
-      \ 'mode_map': { 'c': 'NORMAL' },
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'modified': 'MyModified',
-      \   'readonly': 'MyReadonly',
-      \   'fugitive': 'MyFugitive',
-      \   'filename': 'MyFilename',
-      \   'fileformat': 'MyFileformat',
-      \   'filetype': 'MyFiletype',
-      \   'fileencoding': 'MyFileencoding',
-      \   'mode': 'MyMode',
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [
+        \     ['mode', 'paste'],
+        \     ['fugitive', 'gitgutter', 'filename'],
+        \   ],
+        \   'right': [
+        \     ['lineinfo', 'syntastic'],
+        \     ['percent'],
+        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+        \   ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode',
+        \   'syntastic': 'SyntasticStatuslineFlag',
+        \   'charcode': 'MyCharCode',
+        \   'gitgutter': 'MyGitGutter',
+        \ },
+        \ 'separator': {'left': '⮀', 'right': '⮂'},
+        \ 'subseparator': {'left': '⮁', 'right': '⮃'}
+        \ }
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? '⭤' : ''
+  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
 endfunction
 
 function! MyFilename()
   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
         \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
         \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFugitive()
-  if &ft !~? 'vimfiler\|gundo' && exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? '⭠ '._ : ''
-  endif
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      let _ = fugitive#head()
+      return strlen(_) ? '⭠ '._ : ''
+    endif
+  catch
+  endtry
   return ''
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth('.') > 70 ? &fileformat : ''
 endfunction
 
 function! MyFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
 endfunction
 
 function! MyMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
+  return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
-"}}}
+
+function! MyGitGutter()
+  if ! exists('*GitGutterGetHunkSummary')
+        \ || ! get(g:, 'gitgutter_enabled', 0)
+        \ || winwidth('.') <= 90
+    return ''
+  endif
+  let symbols = [
+        \ g:gitgutter_sign_added . ' ',
+        \ g:gitgutter_sign_modified . ' ',
+        \ g:gitgutter_sign_removed . ' '
+        \ ]
+  let hunks = GitGutterGetHunkSummary()
+  let ret = []
+  for i in [0, 1, 2]
+    if hunks[i] > 0
+      call add(ret, symbols[i] . hunks[i])
+    endif
+  endfor
+  return join(ret, ' ')
+endfunction
+
+" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
+function! MyCharCode()
+  if winwidth('.') <= 70
+    return ''
+  endif
+
+  " Get the output of :ascii
+  redir => ascii
+  silent! ascii
+  redir END
+
+  if match(ascii, 'NUL') != -1
+    return 'NUL'
+  endif
+
+  " Zero pad hex values
+  let nrformat = '0x%02x'
+
+  let encoding = (&fenc == '' ? &enc : &fenc)
+
+  if encoding == 'utf-8'
+    " Zero pad with 4 zeroes in unicode files
+    let nrformat = '0x%04x'
+  endif
+
+  " Get the character and the numeric value from the return value of :ascii
+  " This matches the two first pieces of the return value, e.g.
+  " "<F>  70" => char: 'F', nr: '70'
+  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+
+  " Format the numeric value
+  let nr = printf(nrformat, nr)
+
+  return "'". char ."' ". nr
+endfunction
+" }}}
 " over.vim {{{
 " over.vimの起動
-nnoremap <silent> <Leader>m :OverCommandLine<CR>
+nnoremap <silent> <Space>m :OverCommandLine<CR>
 " カーソル下の単語をハイライト付きで置換
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 " コピーした文字列をハイライト付きで置換
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " }}}
+" EasyAlign{{{
+vmap <Enter> <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+let g:easy_align_bypass_fold = 1
+let g:easy_align_delimiters = {
+\ '>': { 'pattern': '>>\|=>\|>' },
+\ '/': {
+\     'pattern':         '//\+\|/\*\|\*/',
+\     'delimiter_align': 'l',
+\     'ignore_groups':   ['!Comment'] },
+\ ']': {
+\     'pattern':       '[[\]]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ ')': {
+\     'pattern':       '[()]',
+\     'left_margin':   0,
+\     'right_margin':  0,
+\     'stick_to_left': 0
+\   },
+\ 'd': {
+\     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+\     'left_margin':  0,
+\     'right_margin': 0
+\   }
+\ }
+" }}}
 
-" dwm.vim 設定（全てデフォルト）
+" dwm.vim
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
 nmap <m-r> <Plug>DWMRotateCounterclockwise
@@ -294,10 +409,41 @@ nmap <c-h> <Plug>DWMShrinkMaster
 "vim-indent-guide
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=4
+
 "VimShell
 let g:vimshell_interactive_update_time = 10
 let g:vimshell_prompt = $USERNAME."% "
+
 " vimshell map
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
+
+" tagbar
+nmap <F8> :TagbarToggle<CR>
+" tagbar-windows
+if has('win32')
+  let g:tagbar_ctags_bin = './ctags.exe'
+elseif has('win64')
+  let g:tagbar_ctags_bin = './ctags.exe'
+endif
+
+" Git-gutter
+let g:gitgutter_enabled = 1
+nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
+
+" vim-merginal
+nnoremap <silent> <Leader>br :<C-u>MerginalToggle<CR>
+
+" VimCalendar.vim
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+" vim-autoft
+let g:autoft_config = [
+      \ { 'filetype': 'html' , 'pattern': '<\%(!DOCTYPE\|html\|head\|script\)' },
+      \ { 'filetype': 'c'    , 'pattern': '^\s*#\s*\%(include\|define\)\>' },
+      \ { 'filetype': 'diff' , 'pattern': '^diff -' },
+      \ { 'filetype': 'sh'   , 'pattern': '^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
+      \ ]
