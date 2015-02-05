@@ -41,3 +41,6 @@ fi
 
 # hub alias
 function git(){hub "$@"}
+
+# rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
