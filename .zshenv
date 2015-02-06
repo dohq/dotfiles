@@ -42,8 +42,11 @@ fi
 # hub alias
 function git(){hub "$@"}
 
-# rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# anyenv
+if [ -d $HOME/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+fi
 
 # peco git add
 function peco-select-gitadd() {
