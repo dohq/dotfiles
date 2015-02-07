@@ -48,6 +48,12 @@ if [ -d $HOME/.anyenv ] ; then
     eval "$(anyenv init -)"
 fi
 
+# gobrew
+if [ -d $HOME/.gobrew ] ; then
+    export PATH="$HOME/.gobrew/bin:$PATH"
+    eval "$(gobrew init -)"
+fi
+
 # peco git add
 function peco-select-gitadd() {
     local SELECTED_FILE_TO_ADD="$(git status --porcelain | \
