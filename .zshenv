@@ -68,3 +68,6 @@ function peco-select-gitadd() {
 }
 zle -N peco-select-gitadd
 bindkey "^g^a" peco-select-gitadd
+
+#gitignore
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
