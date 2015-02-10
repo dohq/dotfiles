@@ -46,6 +46,9 @@ NeoBundle 'idanarye/vim-merginal'
 NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'gregsexton/gitv'
+NeoBundle "godlygeek/tabular"
+NeoBundle "joker1007/vim-markdown-quote-syntax"
+NeoBundle "rcmdnk/vim-markdown"
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
