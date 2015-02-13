@@ -31,7 +31,9 @@ zstyle ':zle:*' word-style unspecified
 ########################################
 # 補完
 #for zsh-completions
-fpath=(/usr/local/share/zsh-completions/src $fpath)
+if [ -e /usr/local/share/zsh-completions ]; then
+    fpath=(/usr/local/share/zsh-completions $fpath)
+fi
 
 # 補完機能を有効にする
 autoload -Uz compinit; compinit
