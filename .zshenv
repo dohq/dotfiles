@@ -18,7 +18,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias pp='ps ax | peco'
-alias cdot='cd /usr/local/Library/dohq_dotfiles'
 # Gitting
 alias gl="git log --pretty='medium-reverse' --graph --name-status"
 alias gm="git commit -v"
@@ -69,5 +68,21 @@ function peco-select-gitadd() {
 zle -N peco-select-gitadd
 bindkey "^g^a" peco-select-gitadd
 
-#gitignore
+# gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
+# android-ndk
+export NDK_HOME=$HOME/dev/ndk
+export NDK_PREFIX=$HOME/android/libs
+export NDK_HOST_ARM=arm-linux-androideabi
+export NDK_TOOLCHAIN_ARM=$HOME/dev/arm-android-8/toolchain
+export NDK_HOST_X86=i686-linux-android
+export NDK_TOOLCHAIN_X86=$HOME/dev/x86-android-9/toolchain
+export NDK_HOST_MIPS=mipsel-linux-android
+export NDK_TOOLCHAIN_MIPS=$HOME/dev/mips-android-9/toolchain
+export PATH=$PATH:$NDK_HOME:$NDK_TOOLCHAIN_ARM/bin:$NDK_TOOLCHAIN_X86/bin:$NDK_TOOLCHAIN_MIPS/bin
+
+# enhanced
+if [ -f ~/enhancd/enhancd.sh  ]; then
+  source ~/enhancd/enhancd.sh
+fi
