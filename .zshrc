@@ -82,7 +82,11 @@ if is-at-least 4.3.10; then
 
 # git 用のフォーマット
 # git のときはステージしているかどうかを表示
-zstyle ':vcs_info:git:*:-all-' command /usr/bin/git
+if [ -f /usr/local/bin/git ]; then
+  zstyle ':vcs_info:git:*:-all-' command /usr/local/bin/git
+else
+  zstyle ':vcs_info:git:*:-all-' command /usr/bin/git
+fi
 zstyle ':vcs_info:git:*' formats '(%s)-[%b]' '%c%u %m'
 zstyle ':vcs_info:git:*' actionformats '(%s)-[%b]' '%c%u %m' '<!%a>'
 zstyle ':vcs_info:git:*' check-for-changes true
