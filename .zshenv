@@ -2,11 +2,8 @@
 export LANG=ja_JP.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export LD_LIBRARY_PATH
-export GOPATH=$HOME/_go
-export PATH=$PATH:$GOPATH/bin
-export PATH=/usr/local/bin:/opt/local:/usr/local/go/bin:$PATH
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+export PATH=/usr/local/bin:/opt/local::$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
@@ -21,6 +18,7 @@ alias pp='ps ax | peco'
 # Gitting
 alias gl="git log --pretty='medium-reverse' --graph --name-status"
 alias gm="git commit -v"
+alias ga="git add"
 alias gc="git clone"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
@@ -38,9 +36,6 @@ elif which putclip >/dev/null 2>&1 ; then
     alias -g C='| putclip'
 fi
 
-# hub alias
-function git(){hub "$@"}
-
 # anyenv
 if [ -d $HOME/.anyenv ] ; then
     export PATH="$HOME/.anyenv/bin:$PATH"
@@ -53,36 +48,13 @@ if [ -d $HOME/.gobrew ] ; then
     eval "$(gobrew init -)"
 fi
 
-# peco git add
-function peco-select-gitadd() {
-    local SELECTED_FILE_TO_ADD="$(git status --porcelain | \
-                                  peco --query "$LBUFFER" | \
-                                  awk -F ' ' '{print $NF}')"
-    if [ -n "$SELECTED_FILE_TO_ADD" ]; then
-      BUFFER="git add $(echo "$SELECTED_FILE_TO_ADD" | tr '\n' ' ')"
-      CURSOR=$#BUFFER
-    fi
-    zle accept-line
-    # zle clear-screen
-}
-zle -N peco-select-gitadd
-bindkey "^g^a" peco-select-gitadd
-
-# gitignore
-function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
-
-# android-ndk
-export NDK_HOME=$HOME/dev/ndk
-export NDK_PREFIX=$HOME/android/libs
-export NDK_HOST_ARM=arm-linux-androideabi
-export NDK_TOOLCHAIN_ARM=$HOME/dev/arm-android-8/toolchain
-export NDK_HOST_X86=i686-linux-android
-export NDK_TOOLCHAIN_X86=$HOME/dev/x86-android-9/toolchain
-export NDK_HOST_MIPS=mipsel-linux-android
-export NDK_TOOLCHAIN_MIPS=$HOME/dev/mips-android-9/toolchain
-export PATH=$PATH:$NDK_HOME:$NDK_TOOLCHAIN_ARM/bin:$NDK_TOOLCHAIN_X86/bin:$NDK_TOOLCHAIN_MIPS/bin
-
 # enhanced
 if [ -f ~/enhancd/enhancd.sh  ]; then
   source ~/enhancd/enhancd.sh
 fi
+
+# gitignore
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+
+# hub alias
+function git(){hub "$@"}
