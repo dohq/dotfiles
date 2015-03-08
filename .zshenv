@@ -3,7 +3,7 @@ export LANG=ja_JP.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/usr/local/bin:/opt/local::$PATH
+export PATH=/usr/local/bin:/opt/local:~/android-sdk-macosx/platform-tools:~/android-sdk-macosx/tools:$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
