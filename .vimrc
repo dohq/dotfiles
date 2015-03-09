@@ -42,9 +42,7 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/J6uil.vim'
 NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'idanarye/vim-merginal'
 NeoBundle 'gregsexton/gitv'
-NeoBundle "godlygeek/tabular"
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
 NeoBundle "tukiyo/previm"
@@ -434,6 +432,3 @@ endif
 let g:gitgutter_enabled = 1
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
-
-" vim-merginal
-nnoremap <silent> <Leader>br :<C-u>MerginalToggle<CR>
