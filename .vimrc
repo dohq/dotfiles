@@ -46,6 +46,7 @@ NeoBundle 'gregsexton/gitv'
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
 NeoBundle "tukiyo/previm"
+NeoBundle 'itchyny/vim-autoft'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -432,3 +433,11 @@ endif
 let g:gitgutter_enabled = 1
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
+
+" vim-autoft
+let g:autoft_config = [
+      \ { 'filetype': 'html' , 'pattern': '<\%(!DOCTYPE\|html\|head\|script\)' },
+      \ { 'filetype': 'c'    , 'pattern': '^\s*#\s*\%(include\|define\)\>' },
+      \ { 'filetype': 'diff' , 'pattern': '^diff -' },
+      \ { 'filetype': 'sh'   , 'pattern': '^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
+      \ ]
