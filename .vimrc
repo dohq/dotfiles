@@ -115,7 +115,7 @@ nmap g# g#zz
 "Leader変更
 let mapleader = ","
 "インサートモードでj2回でノーマルモードに移行
-inoremap jj <ESC>
+inoremap jk <ESC>
 " シフトで多めに移動
 nnoremap J 15j
 nnoremap K 15k
