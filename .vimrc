@@ -7,10 +7,10 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
-      \     'windows' : 'tools\\update-dll-mingw',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
+      \     'windows': 'tools\\update-dll-mingw',
+      \     'cygwin':  'make -f make_cygwin.mak',
+      \     'mac':     'make -f make_mac.mak',
+      \     'unix':    'make -f make_unix.mak',
       \    },
       \ }
 NeoBundle 'Shougo/neocomplete.vim'
@@ -18,6 +18,7 @@ NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimfiler'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
@@ -34,7 +35,6 @@ NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'yuratomo/gmail.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
@@ -412,11 +412,12 @@ nmap <c-h> <Plug>DWMShrinkMaster
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=4
 
-"VimShell
-let g:vimshell_interactive_update_time = 10
-let g:vimshell_prompt = $USERNAME."% "
+" vimfiler
+let g:vimfiler_as_default_explorer=1
 
-" vimshell map
+"VimShell
+let g:vimshell_interactive_update_time = 5
+let g:vimshell_prompt = $USERNAME."% "
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
