@@ -74,7 +74,7 @@ set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,
 "----------------------------------------
 " オプション設定
 "----------------------------------------
-augroup vimrc
+augroup spdelete
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
@@ -174,6 +174,7 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Enable omni completion.
 augroup neocon
+autocmd!
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 let g:neocomplete#lock_iminsert = 1
 "ポップアップメニューで表示される候補の数。初期値は100
