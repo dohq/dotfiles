@@ -69,12 +69,16 @@ set t_Co=256
 colorscheme molokai
 
 set enc=utf-8
+scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 
 "----------------------------------------
 " オプション設定
 "----------------------------------------
-autocmd BufWritePre * :%s/\s\+$//e
+augroup vimrc
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 set ambiwidth=double
 set autoindent
 set expandtab
@@ -113,7 +117,7 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 "Leader変更
-let mapleader = ","
+let g:mapleader = ","
 "インサートモードでj2回でノーマルモードに移行
 inoremap jk <ESC>
 " シフトで多めに移動
@@ -170,19 +174,16 @@ inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+augroup neocon
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 let g:neocomplete#lock_iminsert = 1
-
 "ポップアップメニューで表示される候補の数。初期値は100
 let g:neocomplete#max_list = 20
 " 補完候補が出ていたら確定、なければ改行
  inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
 " buffer開いたらneoconでcache
 autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
+augroup END
 "}}}
 "TweetVim {{{
 " 1ページに表示する最大数
