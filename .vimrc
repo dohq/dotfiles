@@ -48,6 +48,7 @@ NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
 NeoBundle "tukiyo/previm"
 NeoBundle 'itchyny/vim-autoft'
+NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -60,23 +61,24 @@ NeoBundleLazy 'lambdalisue/vim-gista', {
 "---------------------
 NeoBundle 'molokai'
 
-
 call neobundle#end()
 NeoBundleCheck
-
 filetype plugin indent on
 
 set t_Co=256
+
+if &t_Co > 2 || has("cui_running")
 colorscheme molokai
+endif
 
 set enc=utf-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 
 "----------------------------------------
-" オプション設定
+" Option Settings
 "----------------------------------------
-augroup spdelete
+augroup spacend
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
@@ -93,10 +95,8 @@ set ignorecase
 set incsearch
 set laststatus=2
 set noswapfile
-set nonumber
 set matchtime=1
 set pumheight=10
-set ruler
 set scrolloff=1000
 set shellslash
 set showmatch
@@ -110,27 +110,23 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-"検索文字列を中央に
+" Keybind
 nmap n nzz
 nmap N Nzz
 nmap * *zz
 nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
-"Leader変更
 let g:mapleader = ","
-"インサートモードでj2回でノーマルモードに移行
 inoremap jk <ESC>
-" シフトで多めに移動
 nnoremap J 15j
 nnoremap K 15k
 nnoremap L 10l
 nnoremap H 10h
-" Yで行末までヤンク
 nnoremap Y y$
 
 "----------------------------------------
-" プラグインのセッティング
+" Plugin Settings
 "----------------------------------------
 "NeoComplete {{{
 " Use neocomplete.
@@ -206,17 +202,11 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif "}}}
 "TweetVim {{{
-" 1ページに表示する最大数
 let g:tweetvim_tweet_per_page = 60
-" 表示内容をキャッシュしておく数(バッファを戻る、進むに使用)
 let g:tweetvim_cache_size     = 10
-" source(クライアント名) を表示するオプション
 let g:tweetvim_display_source = 1
 
-" F6でTweetVimのtimeline選択
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
-
-" その他いろいろ
 nnoremap ,th :<C-u>TweetVimHomeTimeline<CR>
 nnoremap ,tm :<C-u>TweetVimMentions<CR>
 nnoremap ,ts :<C-u>TweetVimSay<CR>
@@ -379,14 +369,6 @@ function! MyCharCode()
   return "'". char ."' ". nr
 endfunction
 " }}}
-" over.vim {{{
-" over.vimの起動
-nnoremap <silent> <Space>m :OverCommandLine<CR>
-" カーソル下の単語をハイライト付きで置換
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-" コピーした文字列をハイライト付きで置換
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-" }}}
 " EasyAlign{{{
 vmap <Enter> <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -416,6 +398,11 @@ let g:easy_align_delimiters = {
 \   }
 \ }
 " }}}
+
+" over.vim
+nnoremap <silent> <Space>m :OverCommandLine<CR>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 
 " dwm.vim
 nnoremap <c-j> <c-w>w
@@ -463,3 +450,28 @@ let g:autoft_config = [
       \ { 'filetype': 'diff' , 'pattern': '^diff -' },
       \ { 'filetype': 'sh'   , 'pattern': '^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
       \ ]
+
+" vim-easymotion
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
+let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+
+vnoremap  <Up>     <nop>
+vnoremap  <Down>   <nop>
+vnoremap  <Left>   <nop>
+vnoremap  <Right>  <nop>
+inoremap  <Up>     <nop>
+inoremap  <Down>   <nop>
+inoremap  <Left>   <nop>
+inoremap  <Right>  <nop>
+noremap   <Up>     <nop>
+noremap   <Down>   <nop>
+noremap   <Left>   <nop>
+noremap   <Right>  <nop>
