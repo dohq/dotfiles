@@ -422,6 +422,9 @@ let g:indent_guides_guide_size=4
 " vimfiler
 let g:vimfiler_as_default_explorer=1
 
+" PrevimOpen
+let g:previm_enable_realtime = 1
+
 "VimShell
 let g:vimshell_interactive_update_time = 5
 let g:vimshell_prompt = $USERNAME."% "
