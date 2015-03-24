@@ -46,7 +46,8 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'gregsexton/gitv'
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
-NeoBundle "tukiyo/previm"
+NeoBundle 'tukiyo/previm'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundleLazy 'lambdalisue/vim-gista', {
@@ -118,7 +119,7 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 let g:mapleader = ","
-inoremap jk <ESC>
+inoremap jj <ESC>
 nnoremap J 15j
 nnoremap K 15k
 nnoremap L 10l
