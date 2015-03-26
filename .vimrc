@@ -50,6 +50,8 @@ NeoBundle 'tukiyo/previm'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'modsound/gips-vim.git'
+NeoBundle 'thinca/vim-quickrun'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -84,7 +86,7 @@ augroup spacend
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 set ambiwidth=double
-set autoindent
+"set autoindent
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
@@ -466,16 +468,3 @@ let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
-
-vnoremap  <Up>     <nop>
-vnoremap  <Down>   <nop>
-vnoremap  <Left>   <nop>
-vnoremap  <Right>  <nop>
-inoremap  <Up>     <nop>
-inoremap  <Down>   <nop>
-inoremap  <Left>   <nop>
-inoremap  <Right>  <nop>
-noremap   <Up>     <nop>
-noremap   <Down>   <nop>
-noremap   <Left>   <nop>
-noremap   <Right>  <nop>
