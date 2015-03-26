@@ -90,7 +90,6 @@ set ambiwidth=double
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
-set clipboard+=unnamed
 set display=lastline
 set foldmethod=marker
 set hidden
@@ -120,6 +119,7 @@ nmap * *zz
 nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
+vmap y "*Y
 let g:mapleader = ","
 inoremap jj <ESC>
 nnoremap J 15j
