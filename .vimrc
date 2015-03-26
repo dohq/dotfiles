@@ -460,6 +460,9 @@ let g:autoft_config = [
 " vim-easymotion
 let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-s2)
+xmap s <Plug>(easymotion-s2)
+" surround.vimと被らないように
+omap z <Plug>(easymotion-s2)
 map f <Plug>(easymotion-fl)
 map t <Plug>(easymotion-tl)
 map F <Plug>(easymotion-Fl)
@@ -468,3 +471,12 @@ let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
+
+" vim-quickrun
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+let g:quickrun_config = {
+\   "_" : {
+\       "runner" : "vimproc",
+\       "runner/vimproc/updatetime" : 60
+\   },
+\}
