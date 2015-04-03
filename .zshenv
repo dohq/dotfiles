@@ -15,6 +15,11 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias pp='ps ax | peco'
+case ${OSTYPE} in
+  darwin*)
+    alias lsusb='system_profiler SPUSBDataType'
+    ;;
+esac
 # Gitting
 alias gl="git log --pretty='medium-reverse' --graph --name-status"
 alias gm="git commit -v"
