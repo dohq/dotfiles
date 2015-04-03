@@ -52,7 +52,7 @@ NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'modsound/gips-vim.git'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'altercation/solarized'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -72,7 +72,8 @@ filetype plugin indent on
 set t_Co=256
 
 if &t_Co > 2 || has("cui_running")
-colorscheme molokai
+colorscheme solarized
+set background=dark
 endif
 
 set enc=utf-8
@@ -243,6 +244,7 @@ vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 "}}}
 " lightline.vim{{{
 let g:lightline = {
+        \ 'colorscheme': 'solarized',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [
@@ -485,4 +487,4 @@ let g:quickrun_config['_'] = {
 augroup sh
     autocmd!
     autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
-  augroup END
+augroup END
