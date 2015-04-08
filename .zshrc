@@ -13,7 +13,7 @@ SAVEHIST=1000000
 
 # プロンプト指定
 PROMPT="
-[%n"@"${HOST}] %{${fg[yellow]}%}%~%{${reset_color}%}
+[%n "@" ${HOST}] %{${fg[yellow]}%}%~%{${reset_color}%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
 # プロンプト指定(コマンドの続き)
 PROMPT2='[%n]> '
