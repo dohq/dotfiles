@@ -51,6 +51,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'modsound/gips-vim.git'
+NeoBundle 'mattn/emoji-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundleLazy 'lambdalisue/vim-gista', {
