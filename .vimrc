@@ -54,6 +54,8 @@ NeoBundle 'modsound/gips-vim.git'
 NeoBundle 'mattn/emoji-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'lilydjwg/colorizer'
+NeoBundle 'pasela/unite-webcolorname'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -61,29 +63,22 @@ NeoBundleLazy 'lambdalisue/vim-gista', {
     \    'unite_sources': 'gista',
     \}}
 
-"---------------------
-"vim.org
-"---------------------
 NeoBundle 'molokai'
 
 call neobundle#end()
 NeoBundleCheck
 filetype plugin indent on
 
+"----------------------------------------
+" Option Settings
+"----------------------------------------
 set t_Co=256
-
-if &t_Co > 2 || has("cui_running")
 colorscheme solarized
 set background=dark
-endif
 
 set enc=utf-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
-
-"----------------------------------------
-" Option Settings
-"----------------------------------------
 augroup spacend
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
@@ -110,10 +105,22 @@ set smartcase
 set title
 set whichwrap=b,s,[,],<,>
 set wildmenu
+set iminsert=0
+set imsearch=-1
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
+
+" infinite Undo
+if has('persistent_undo')
+  set undodir=~/.vim/undo
+  set undofile
+endif
+" open last line
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+" auto complete tag
+autocmd FileType html inoremap <silent> <buffer> </ </<C-x><C-o>
 
 " Keybind
 nmap n nzz
