@@ -221,9 +221,7 @@ let g:tweetvim_display_source = 1
 
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
 nnoremap ,th :<C-u>TweetVimHomeTimeline<CR>
-nnoremap ,tm :<C-u>TweetVimMentions<CR>
 nnoremap ,ts :<C-u>TweetVimSay<CR>
-nnoremap ,tc :<C-u>TweetVimCommandSay
 "}}}
 " Unite{{{
 " The prefix key.
