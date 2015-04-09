@@ -13,7 +13,7 @@ SAVEHIST=1000000
 
 # プロンプト指定
 PROMPT="
-[%n "@" ${HOST}] %{${fg[yellow]}%}%~%{${reset_color}%}
+[%n"@"%m %T] %{${fg[yellow]}%}%~%{${reset_color}%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
 # プロンプト指定(コマンドの続き)
 PROMPT2='[%n]> '
@@ -56,7 +56,6 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
 
 ########################################
 # vcs_info
@@ -215,7 +214,6 @@ RPROMPT="$prompt"
 }
 add-zsh-hook precmd _update_vcs_info_msg
 #}}}
-
 ########################################
 # オプション
 # 日本語ファイル名を表示可能にする
@@ -266,7 +264,6 @@ zle clear-screen
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
-
 #######################################
 # Home Endキーを有効に{{{
 # create a zkbd compatible hash;
@@ -306,7 +303,6 @@ zle -N zle-line-init
 zle -N zle-line-finish
 fi
 # }}}
-
 ########################################
 # OS 別の設定
 case ${OSTYPE} in
@@ -320,9 +316,6 @@ case ${OSTYPE} in
         alias ls='ls -F --color=auto'
         ;;
 esac
-
-PERL_MB_OPT="--install_base \"/Users/dohq/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/dohq/perl5"; export PERL_MM_OPT;
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
