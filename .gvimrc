@@ -23,4 +23,4 @@ colorscheme molokai
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-set guifont=Ricty\ Regular\ for\ Powerline:h14
+set guifont=Ricty\ Regular\ for\ Powerline:h16
