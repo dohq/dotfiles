@@ -494,3 +494,10 @@ augroup sh
     autocmd!
     autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
 augroup END
+
+" vim-fugitive
+nmap <F9> :Gwrite<CR>
+nmap <F10> :Gcommit -v<CR>
+
+:imap <F7> <nop>
+:set pastetoggle=<F7>
