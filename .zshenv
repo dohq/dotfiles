@@ -1,5 +1,7 @@
 # LANG Setting
 export LANG=ja_JP.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 # PATH
 export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
@@ -18,11 +20,12 @@ alias pp='ps ax | peco'
 case ${OSTYPE} in
   darwin*)
     alias lsusb='system_profiler SPUSBDataType'
+    alias updatedb='sudo /usr/libexec/locate.updatedb'
     ;;
 esac
 # Gitting
 alias gl="git log --pretty='medium-reverse' --graph --name-status"
-alias gm="git commit -v"
+alias gm="git commit"
 alias ga="git add"
 alias gc="git clone"
 alias gp="git push"
