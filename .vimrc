@@ -19,8 +19,8 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'Shougo/neosnippet'
+"NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
@@ -137,6 +137,11 @@ nnoremap K 15k
 nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
+" ノーマルモード時だけ ; と : を入れ替える
+nnoremap ; :
+nnoremap : ;
+imap <F7> <nop>
+set pastetoggle=<F7>
 
 "----------------------------------------
 " Plugin Settings
@@ -198,22 +203,22 @@ augroup END
 "}}}
 " NeoSnippet "{{{
 " Plugin key-mappings.
-imap <C-s>     <Plug>(neosnippet_expand_or_jump)
-smap <C-s>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-s>     <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif "}}}
+"imap <C-s>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-s>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-s>     <Plug>(neosnippet_expand_target)
+"
+"" SuperTab like snippets behavior.
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"\ "\<Plug>(neosnippet_expand_or_jump)"
+"\: "\<TAB>"
+"
+"" For snippet_complete marker.
+"if has('conceal')
+"  set conceallevel=2 concealcursor=i
+"endif "}}}
 "TweetVim {{{
 let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
@@ -498,6 +503,3 @@ augroup END
 " vim-fugitive
 nmap <F9> :Gwrite<CR>
 nmap <F10> :Gcommit -v<CR>
-
-:imap <F7> <nop>
-:set pastetoggle=<F7>
