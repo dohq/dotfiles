@@ -36,3 +36,5 @@
 	nffmerge = merge --no-ff
 [push]
 	default = current
+[ghq]
+	root = /Users/dohq/src
