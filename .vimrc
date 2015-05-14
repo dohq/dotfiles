@@ -112,16 +112,6 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-" infinite Undo
-if has('persistent_undo')
-  set undodir=~/.vim/undo
-  set undofile
-endif
-" open last line
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
-" auto complete tag
-autocmd FileType html inoremap <silent> <buffer> </ </<C-x><C-o>
-
 " Keybind
 nmap n nzz
 nmap N Nzz
@@ -445,6 +435,12 @@ let g:previm_enable_realtime = 1
 "VimShell
 let g:vimshell_interactive_update_time = 5
 let g:vimshell_prompt = $USERNAME."% "
+if has('darwin')
+  let g:vimshell_interactive_encodings = {
+  \'/':'utf-8-mac',
+  \}
+endif
+let g:vimshell_user_prompt = 'iconv(fnamemodify(getcwd(), ":~"), "utf-8-mac", "char")'
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
