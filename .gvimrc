@@ -3,6 +3,7 @@ set lines=48
 "----------------------------------------
 " IME
 "----------------------------------------
+set imdisable
 if has('multi_byte_ime') || has('xim')
   set iminsert=0 imsearch=0
   if has('xim') && has('GUI_GTK')
