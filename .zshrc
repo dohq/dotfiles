@@ -264,6 +264,22 @@ zle clear-screen
 zle -N peco-select-history
 bindkey '^r' peco-select-history
 
+#bindkey '^B' select branch for Peco
+function peco-branch () {
+    local branch=$(git branch -a | peco | tr -d ' ' | tr -d '*')
+    if [ -n "$branch" ]; then
+      if [ -n "$LBUFFER" ]; then
+        local new_left="${LBUFFER%\ } $branch"
+      else
+        local new_left="$branch"
+      fi
+      BUFFER=${new_left}${RBUFFER}
+      CURSOR=${#new_left}
+    fi
+}
+zle -N peco-branch
+bindkey '^b' peco-branch
+
 #######################################
 # Home Endキーを有効に{{{
 # create a zkbd compatible hash;
