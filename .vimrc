@@ -56,6 +56,9 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'pasela/unite-webcolorname'
+NeoBundleLazy 'fatih/vim-go', {
+            \ 'autoload' : { 'filetypes' : 'go'  }
+            \ }
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -84,7 +87,7 @@ augroup spacend
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
 set ambiwidth=double
-"set autoindent
+set autoindent
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
@@ -132,6 +135,9 @@ nnoremap ; :
 nnoremap : ;
 imap <F7> <nop>
 set pastetoggle=<F7>
+" highlight err
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
 
 "----------------------------------------
 " Plugin Settings
@@ -157,6 +163,7 @@ if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
 
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -454,6 +461,8 @@ elseif has('win64')
   let g:tagbar_ctags_bin = './ctags.exe'
 endif
 
+" vim-Gista
+let g:gista#github_user = 'dohq'
 " Git-gutter
 let g:gitgutter_enabled = 1
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
@@ -499,3 +508,8 @@ augroup END
 " vim-fugitive
 nmap <F9> :Gwrite<CR>
 nmap <F10> :Gcommit -v<CR>
+
+" vim-go
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
