@@ -68,3 +68,6 @@ function gpi () {
   [ "$#" -eq 0 ] && echo "Usage : gpi QUERY" && return 1
   ghs "$@" | peco | awk '{print $1}' | ghq import
 }
+
+# great cd command ! (http://qiita.com/b4b4r07/items/8f764b4e7bda99d8623b)
+[ -f ~/.dotfiles/cdinterface/cdinterface.sh  ] && ~/.dotfiles/cdinterface/cdinterface.sh
