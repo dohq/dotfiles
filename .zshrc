@@ -254,15 +254,21 @@ setopt extended_glob
 
 ########################################
 # キーバインド
-
 #bindkey '^R' history-incremental-pattern-search-backward
-peco-select-history() {
-BUFFER=$(history 1 | sort -k1,1nr | perl -ne 'BEGIN { my @lines = (); } s/^\s*\d+\s*//; $in=$_; if (!(grep {$in eq $_} @lines)) { push(@lines, $in); print $in; }' | peco --query "$LBUFFER")
-CURSOR=${#BUFFER}
-zle clear-screen
+setopt hist_ignore_all_dups
+function peco_select_history() {
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N peco_select_history
+bindkey '^r' peco_select_history
 
 #bindkey '^B' select branch for Peco
 function peco-branch () {
@@ -279,7 +285,17 @@ function peco-branch () {
 }
 zle -N peco-branch
 bindkey '^b' peco-branch
-
+# ghq list view peco
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^l' peco-src
 #######################################
 # Home Endキーを有効に{{{
 # create a zkbd compatible hash;
