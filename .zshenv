@@ -74,3 +74,8 @@ function gpi () {
   [ "$#" -eq 0 ] && echo "Usage : gpi QUERY" && return 1
   ghs "$@" | peco | awk '{print $1}' | ghq import
 }
+
+# export brew github api token
+if [ -f ~/.brew_api_token ];then
+  source ~/.brew_api_token
+fi
