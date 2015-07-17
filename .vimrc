@@ -1,8 +1,11 @@
-if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('~/.vim/bundle'))
-let g:neobundle_default_git_protocol='https'
+if 0 | endif
+ if has('vim_starting')
+   if &compatible
+     set nocompatible
+   endif
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+ endif
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimproc.vim', {
@@ -46,16 +49,19 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'gregsexton/gitv'
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
-NeoBundle 'tukiyo/previm'
+"NeoBundle 'tukiyo/previm'
+NeoBundle 'beckorz/previm'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'modsound/gips-vim.git'
+"NeoBundle 'modsound/gips-vim.git'
 NeoBundle 'mattn/emoji-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'lilydjwg/colorizer'
 NeoBundle 'pasela/unite-webcolorname'
+NeoBundle 'nixprime/cpsm'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundleLazy 'fatih/vim-go', {
             \ 'autoload' : { 'filetypes' : 'go'  }
             \ }
@@ -135,6 +141,9 @@ nnoremap ; :
 nnoremap : ;
 imap <F7> <nop>
 set pastetoggle=<F7>
+" bind K to grep word under cursor
+nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 " highlight err
 autocmd FileType go :highlight goErr cterm=bold ctermfg=214
 autocmd FileType go :match goErr /\<err\>/
@@ -243,12 +252,13 @@ nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-let g:unite_source_grep_max_candidates = 200
-let g:unite_source_grep_recursive_opt = ''
-" unite-grepの便利キーマップ
-vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+if executable('pt')
+  let g:unite_source_grep_command = 'pt'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_encoding = 'utf-8'
+endif
 "}}}
 " lightline.vim{{{
 let g:lightline = {
@@ -464,7 +474,7 @@ endif
 " vim-Gista
 let g:gista#github_user = 'dohq'
 " Git-gutter
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
 
@@ -513,3 +523,15 @@ nmap <F10> :Gcommit -v<CR>
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
+
+" CtrlP
+let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 1
+endif
