@@ -11,13 +11,19 @@ export PATH=/usr/local/bin:/opt/local:~/android-sdk-macosx/platform-tools:~/andr
 # Alias作りましょうねー
 alias vi='vim'
 alias emerge='emerge --quiet-build'
-alias la='ls -la'
-alias ll='ls -l'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
-alias pp='ps ax | peco'
+alias cls='clear'
+if [ -x "`which peco`" ]; then
+  alias ll='ls -lha | peco'
+  alias tp='top | peco'
+  alias pp='ps aux | peco'
+fi
+
+# pandocでPDF
+alias ppdf='pandoc -V documentclass=ltjarticle -V monofont=Consolas --latex-engine=lualatex -N --toc'
 
 # Macでlsusb
 case ${OSTYPE} in
