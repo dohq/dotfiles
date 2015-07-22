@@ -16,6 +16,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias cls='clear'
+alias tree='tree -N'
 if [ -x "`which peco`" ]; then
   alias ll='ls -lha | peco'
   alias tp='top | peco'
@@ -58,24 +59,18 @@ if [ -d $HOME/.gobrew ] ; then
     eval "$(gobrew init -)"
 fi
 
-# enhanced
-if [ -f ~/enhancd/enhancd.sh  ]; then
-  source ~/enhancd/enhancd.sh
-fi
-
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
 # hub alias
 function git(){hub "$@"}
 
-# ghs and ghq and peco = cool!
-function gpi () {
-  [ "$#" -eq 0 ] && echo "Usage : gpi QUERY" && return 1
-  ghs "$@" | peco | awk '{print $1}' | ghq import
-}
-
 # export brew github api token
 if [ -f ~/.brew_api_token ];then
   source ~/.brew_api_token
+fi
+
+# Docker
+if [ "`boot2docker status`" = "running" ]; then
+  eval $(boot2docker shellinit 2>/dev/null)
 fi
