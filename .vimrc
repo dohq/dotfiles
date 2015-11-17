@@ -22,8 +22,6 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
-"NeoBundle 'Shougo/neosnippet'
-"NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'basyura/TweetVim'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
@@ -40,7 +38,6 @@ NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'majutsushi/tagbar'
 NeoBundle 'thinca/vim-splash'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/J6uil.vim'
@@ -49,22 +46,11 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'gregsexton/gitv'
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
-"NeoBundle 'tukiyo/previm'
 NeoBundle 'beckorz/previm'
 NeoBundle 'tpope/vim-surround'
-NeoBundle 'itchyny/vim-autoft'
 NeoBundle 'Lokaltog/vim-easymotion'
-"NeoBundle 'modsound/gips-vim.git'
-NeoBundle 'mattn/emoji-vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'lilydjwg/colorizer'
-NeoBundle 'pasela/unite-webcolorname'
-NeoBundle 'nixprime/cpsm'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundleLazy 'fatih/vim-go', {
-            \ 'autoload' : { 'filetypes' : 'go'  }
-            \ }
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -73,6 +59,7 @@ NeoBundleLazy 'lambdalisue/vim-gista', {
     \}}
 
 NeoBundle 'molokai'
+let g:neobundle_default_git_protocol='https'
 
 call neobundle#end()
 NeoBundleCheck
@@ -85,7 +72,7 @@ set t_Co=256
 colorscheme solarized
 set background=dark
 
-set enc=utf-8
+set enc=UTF-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 augroup spacend
@@ -137,16 +124,10 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 " ノーマルモード時だけ ; と : を入れ替える
-nnoremap ; :
-nnoremap : ;
-imap <F7> <nop>
-set pastetoggle=<F7>
-" bind K to grep word under cursor
-nnoremap B :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
-" highlight err
-autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-autocmd FileType go :match goErr /\<err\>/
+if has('mac')
+ nnoremap ; :
+ nnoremap : ;
+endif
 
 "----------------------------------------
 " Plugin Settings
@@ -207,31 +188,12 @@ let g:neocomplete#max_list = 20
 autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
 augroup END
 "}}}
-" NeoSnippet "{{{
-" Plugin key-mappings.
-"imap <C-s>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-s>     <Plug>(neosnippet_expand_or_jump)
-"xmap <C-s>     <Plug>(neosnippet_expand_target)
-"
-"" SuperTab like snippets behavior.
-"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"\ "\<Plug>(neosnippet_expand_or_jump)"
-"\: "\<TAB>"
-"
-"" For snippet_complete marker.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=i
-"endif "}}}
 "TweetVim {{{
 let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
 
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
-nnoremap ,th :<C-u>TweetVimHomeTimeline<CR>
 nnoremap ,ts :<C-u>TweetVimSay<CR>
 "}}}
 " Unite{{{
@@ -242,6 +204,8 @@ nmap    <Space>u [unite]
 " unite.vim keymap
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
 nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
 nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
 nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
@@ -257,6 +221,7 @@ if executable('pt')
   let g:unite_source_grep_command = 'pt'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor'
   let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_max_candidates = 200
   let g:unite_source_grep_encoding = 'utf-8'
 endif
 "}}}
@@ -438,6 +403,7 @@ nmap <c-c> <Plug>DWMClose
 nmap <c-Space> <Plug>DWMFocus
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
+let g:dwm_master_pane_width=85
 
 "vim-indent-guide
 let g:indent_guides_enable_on_vim_startup=1
@@ -452,24 +418,9 @@ let g:previm_enable_realtime = 1
 "VimShell
 let g:vimshell_interactive_update_time = 5
 let g:vimshell_prompt = $USERNAME."% "
-if has('darwin')
-  let g:vimshell_interactive_encodings = {
-  \'/':'utf-8-mac',
-  \}
-endif
-let g:vimshell_user_prompt = 'iconv(fnamemodify(getcwd(), ":~"), "utf-8-mac", "char")'
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
-
-" tagbar
-nmap <F8> :TagbarToggle<CR>
-" tagbar-windows
-if has('win32')
-  let g:tagbar_ctags_bin = './ctags.exe'
-elseif has('win64')
-  let g:tagbar_ctags_bin = './ctags.exe'
-endif
 
 " vim-Gista
 let g:gista#github_user = 'dohq'
@@ -477,14 +428,6 @@ let g:gista#github_user = 'dohq'
 let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
-
-" vim-autoft
-let g:autoft_config = [
-      \ { 'filetype': 'html' , 'pattern': '<\%(!DOCTYPE\|html\|head\|script\)' },
-      \ { 'filetype': 'c'    , 'pattern': '^\s*#\s*\%(include\|define\)\>' },
-      \ { 'filetype': 'diff' , 'pattern': '^diff -' },
-      \ { 'filetype': 'sh'   , 'pattern': '^#!.*\%(\<sh\>\|\<bash\>\)\s*$' },
-      \ ]
 
 " vim-easymotion
 let g:EasyMotion_do_mapping = 0
@@ -518,20 +461,3 @@ augroup END
 " vim-fugitive
 nmap <F9> :Gwrite<CR>
 nmap <F10> :Gcommit -v<CR>
-
-" vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-
-" CtrlP
-let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 1
-endif
