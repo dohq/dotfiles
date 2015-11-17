@@ -263,7 +263,7 @@ function peco_select_history() {
   else
     tac="tail -r"
   fi
-  BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+  BUFFER=$(\history -n 1 | eval $tac | LANG=ja_JP.UTF-8 peco --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -285,17 +285,6 @@ function peco-branch () {
 }
 zle -N peco-branch
 bindkey '^b' peco-branch
-# ghq list view peco
-function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
-    zle accept-line
-  fi
-  zle clear-screen
-}
-zle -N peco-src
-bindkey '^l' peco-src
 #######################################
 # Home Endキーを有効に{{{
 # create a zkbd compatible hash;
