@@ -53,12 +53,6 @@ if [ -d $HOME/.anyenv ] ; then
     eval "$(anyenv init -)"
 fi
 
-# gobrew
-if [ -d $HOME/.gobrew ] ; then
-    export PATH="$HOME/.gobrew/bin:$PATH"
-    eval "$(gobrew init -)"
-fi
-
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 
@@ -68,9 +62,4 @@ function git(){hub "$@"}
 # export brew github api token
 if [ -f ~/.brew_api_token ];then
   source ~/.brew_api_token
-fi
-
-# Docker
-if [ "`boot2docker status`" = "running" ]; then
-  eval $(boot2docker shellinit 2>/dev/null)
 fi
