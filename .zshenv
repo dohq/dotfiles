@@ -63,3 +63,13 @@ function git(){hub "$@"}
 if [ -f ~/.brew_api_token ];then
   source ~/.brew_api_token
 fi
+
+# check if `docker-machine` command exists
+if command -v docker-machine > /dev/null; then
+  # fetch the first running machine name
+  local machine=$(docker-machine ls | grep Running | head -n 1 | awk '{ print $1 }')
+  if [ "$machine" != "" ]; then
+    eval "$(docker-machine env $machine)"
+    export DOCKER_IP=$(docker-machine ip $machine)
+  fi
+fi
