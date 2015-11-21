@@ -23,6 +23,10 @@ if [ -x "`which peco`" ]; then
   alias pp='ps aux | peco'
 fi
 
+# docker
+alias dip='docker ps -q | xargs docker inspect --format='{{.NetworkSettings.IPAddress}} -- {{.Name}}''
+alias dl='docker ps -l -q'
+
 # pandocでPDF
 alias ppdf='pandoc -V documentclass=ltjarticle -V monofont=Consolas --latex-engine=lualatex -N --toc'
 
