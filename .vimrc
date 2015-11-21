@@ -70,7 +70,6 @@ filetype plugin indent on
 "----------------------------------------
 set t_Co=256
 colorscheme solarized
-set background=light
 
 set enc=UTF-8
 scriptencoding utf-8
