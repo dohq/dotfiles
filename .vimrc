@@ -38,10 +38,12 @@ NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'thinca/vim-splash'
+if has("gui_running")
+  NeoBundle 'thinca/vim-splash'
+endif
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'basyura/J6uil.vim'
-NeoBundle 'itchyny/vim-cursorword'
+"NeoBundle 'itchyny/vim-cursorword'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'gregsexton/gitv'
 NeoBundle "joker1007/vim-markdown-quote-syntax"

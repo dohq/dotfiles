@@ -4,9 +4,7 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # PATH
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-export PATH=/usr/local/bin:/opt/local:~/android-sdk-macosx/platform-tools:~/android-sdk-macosx/tools:$PATH
+export PATH=/usr/local/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
