@@ -83,6 +83,8 @@ if is-at-least 4.3.10; then
 # git のときはステージしているかどうかを表示
 if [ -f /usr/local/bin/git ]; then
   zstyle ':vcs_info:git:*:-all-' command /usr/local/bin/git
+elif [ -d $HOME/.linuxbrew ]; then
+  zstyle ':vcs_info:git:*:-all-' command $HOME/.linuxbrew/bin/git
 else
   zstyle ':vcs_info:git:*:-all-' command /usr/bin/git
 fi
