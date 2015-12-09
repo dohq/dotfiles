@@ -2,6 +2,11 @@
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+case ${OSTYPE} in
+  linux )
+    MAIL=/var/spool/mail/`whoami` && export MAIL
+    ;;
+esac
 
 # PATH
 export PATH=/usr/local/bin:$PATH
@@ -74,4 +79,12 @@ if command -v docker-machine > /dev/null; then
     eval "$(docker-machine env $machine)"
     export DOCKER_IP=$(docker-machine ip $machine)
   fi
+fi
+
+# linuxbrew
+if [ -d $HOME/.linuxbrew ]; then
+  export PATH="$HOME/.linuxbrew/bin:$PATH"
+  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+  export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
