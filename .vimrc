@@ -27,7 +27,6 @@ NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'itchyny/thumbnail.vim'
-NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'mattn/favstar-vim'
 NeoBundle 'mattn/webapi-vim'
@@ -53,6 +52,8 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'kana/vim-smartinput'
+NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -462,3 +463,6 @@ augroup END
 " vim-fugitive
 nmap <F9> :Gwrite<CR>
 nmap <F10> :Gcommit -v<CR>
+
+" smart input
+call smartinput_endwise#define_default_rules()
