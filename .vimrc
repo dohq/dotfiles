@@ -54,6 +54,8 @@ NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
+NeoBundle 'soramugi/auto-ctags.vim'
+NeoBundle "tsukkee/unite-tag"
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -218,6 +220,14 @@ nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
+" split unite window
+au FileType unite nnoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
+
+" 2tap esc key exit
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" Grep
 nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 if executable('pt')
   let g:unite_source_grep_command = 'pt'
@@ -466,3 +476,12 @@ nmap <F10> :Gcommit -v<CR>
 
 " smart input
 call smartinput_endwise#define_default_rules()
+
+" auto ctags
+let g:auto_ctags = 1
+let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
+
+" .mdのファイルもfiletypeがmarkdownとなるようにする
+au BufRead,BufNewFile *.md set filetype=markdown
+" markdownの折りたたみなし
+let g:vim_markdown_folding_disabled=1
