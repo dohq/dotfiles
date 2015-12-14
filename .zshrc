@@ -291,6 +291,8 @@ bindkey '^b' peco-branch
 # Home Endキーを有効に
 bindkey  "^[[1~"   beginning-of-line
 bindkey  "^[[4~"   end-of-line
+bindkey    "^[[3~"          delete-char
+bindkey    "^[3;5~"         delete-char
 ########################################
 # OS 別の設定
 case ${OSTYPE} in
