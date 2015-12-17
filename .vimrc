@@ -109,6 +109,7 @@ set whichwrap=b,s,[,],<,>
 set wildmenu
 set iminsert=0
 set imsearch=-1
+set nf=""
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
