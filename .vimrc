@@ -56,6 +56,8 @@ NeoBundle 'kana/vim-smartinput'
 NeoBundle 'cohama/vim-smartinput-endwise'
 NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle "tsukkee/unite-tag"
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundleLazy 'lambdalisue/vim-gista', {
     \ 'autoload': {
     \    'commands': ['Gista'],
@@ -191,6 +193,25 @@ let g:neocomplete#max_list = 20
 " buffer開いたらneoconでcache
 autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
 augroup END
+"}}}
+" Neo Snipet {{{
+"Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 "}}}
 "TweetVim {{{
 let g:tweetvim_tweet_per_page = 60
@@ -478,7 +499,7 @@ nmap <F10> :Gcommit -v<CR>
 call smartinput_endwise#define_default_rules()
 
 " auto ctags
-let g:auto_ctags = 1
+"let g:auto_ctags = 1
 let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
