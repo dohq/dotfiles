@@ -10,24 +10,32 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/vimproc.vim', {
       \ 'build' : {
-      \     'windows': 'tools\\update-dll-mingw',
-      \     'cygwin':  'make -f make_cygwin.mak',
       \     'mac':     'make -f make_mac.mak',
       \     'unix':    'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'cohama/lexima.vim'
+NeoBundle "joker1007/vim-markdown-quote-syntax"
+NeoBundle "rcmdnk/vim-markdown"
+NeoBundle "tsukkee/unite-tag"
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'basyura/TweetVim'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'basyura/J6uil.vim'
+NeoBundle 'basyura/TweetVim', 'dev'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
+NeoBundle 'beckorz/previm'
 NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'itchyny/thumbnail.vim'
-NeoBundle 'junegunn/vim-easy-align'
 NeoBundle 'mattn/favstar-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -35,37 +43,13 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'spolu/dwm.vim'
 NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
 if has("gui_running")
   NeoBundle 'thinca/vim-splash'
 endif
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'basyura/J6uil.vim'
-"NeoBundle 'itchyny/vim-cursorword'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'gregsexton/gitv'
-NeoBundle "joker1007/vim-markdown-quote-syntax"
-NeoBundle "rcmdnk/vim-markdown"
-NeoBundle 'beckorz/previm'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'kana/vim-smartinput'
-NeoBundle 'cohama/vim-smartinput-endwise'
-NeoBundle 'soramugi/auto-ctags.vim'
-NeoBundle "tsukkee/unite-tag"
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundleLazy 'lambdalisue/vim-gista', {
-    \ 'autoload': {
-    \    'commands': ['Gista'],
-    \    'mappings': '<Plug>(gista-',
-    \    'unite_sources': 'gista',
-    \}}
 
-NeoBundle 'molokai'
 let g:neobundle_default_git_protocol='https'
 
 call neobundle#end()
@@ -456,8 +440,6 @@ nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 
-" vim-Gista
-let g:gista#github_user = 'dohq'
 " Git-gutter
 let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
@@ -478,32 +460,15 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 
-" vim-quickrun
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-let g:quickrun_config = {}
-let g:quickrun_config['_'] = {
-            \   'runner'                    : 'vimproc',
-            \   'runner/vimproc/updatetime' : 100,
-            \   'outputter'                 : 'multi:buffer:quickfix',
-            \   'outputter/buffer/split'    : ''
-            \}
-augroup sh
-    autocmd!
-    autocmd FileType sh setlocal errorformat=%f:\ line\ %l:\ %m
-augroup END
-
 " vim-fugitive
 nmap <F9> :Gwrite<CR>
 nmap <F10> :Gcommit -v<CR>
-
-" smart input
-call smartinput_endwise#define_default_rules()
-
-" auto ctags
-"let g:auto_ctags = 1
-let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " markdownの折りたたみなし
 let g:vim_markdown_folding_disabled=1
+
+" Lexima
+call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
+call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
