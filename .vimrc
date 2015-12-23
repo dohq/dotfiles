@@ -14,6 +14,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix':    'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'lambdalisue/vim-unified-diff'
 NeoBundle 'cohama/lexima.vim'
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"

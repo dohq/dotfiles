@@ -13,6 +13,7 @@ export PATH=/usr/local/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='vim'
+alias nvi='nvim'
 alias emerge='emerge --quiet-build'
 alias rm='rm -i'
 alias cp='cp -i'
