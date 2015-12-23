@@ -14,6 +14,7 @@ NeoBundle 'Shougo/vimproc.vim', {
       \     'unix':    'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'lambdalisue/vim-unified-diff'
 NeoBundle 'cohama/lexima.vim'
 NeoBundle "joker1007/vim-markdown-quote-syntax"
 NeoBundle "rcmdnk/vim-markdown"
@@ -418,7 +419,7 @@ nmap <m-r> <Plug>DWMRotateCounterclockwise
 nmap <m-t> <Plug>DWMRotateClockwise
 nmap <c-n> <Plug>DWMNew
 nmap <c-c> <Plug>DWMClose
-nmap <c-Space> <Plug>DWMFocus
+"nmap <c-Space> <Plug>DWMFocus
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
 let g:dwm_master_pane_width=85

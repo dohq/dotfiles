@@ -9,6 +9,7 @@ Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neopairs.vim'
+Plug 'Shougo/vimproc.vim'
 Plug 'basyura/J6uil.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'kassio/neoterm'
@@ -17,7 +18,9 @@ Plug 'osyo-manga/vim-over'
 Plug 'spolu/dwm.vim'
 Plug 'benekastah/neomake'
 Plug 'justinmk/vim-dirvish'
-Plug 'Shougo/vimproc.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sgur/ctrlp-extensions.vim'
+Plug 'rking/ag.vim'
 
 " Input
 Plug 'tpope/vim-surround'
@@ -252,6 +255,29 @@ nnoremap <silent> <Space>m :OverCommandLine<CR>
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 
+" CtrlP
+" {{{
+nnoremap <Space>a :<C-u>CtrlP<Space>
+nnoremap <Space>b :<C-u>CtrlPBuffer<CR>
+nnoremap <Space>d :<C-u>CtrlPDir<CR>
+nnoremap <Space>f :<C-u>CtrlP<CR>
+nnoremap <Space>l :<C-u>CtrlPLine<CR>
+nnoremap <Space>m :<C-u>CtrlPMRUFiles<CR>
+nnoremap <Space>q :<C-u>CtrlPQuickfix<CR>
+nnoremap <Space>s :<C-u>CtrlPMixed<CR>
+nnoremap <Space>t :<C-u>CtrlPTag<CR>
+let g:ctrlp_map = '<Nop>'
+let g:ctrlp_user_command = 'files -a %s'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
+" The Silver Searcher
+if executable('ag')
+  let g:ctrlp_use_caching=0
+  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+endif
+"}}}
+
 " dwm.vim
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
@@ -259,7 +285,7 @@ nmap <m-r> <Plug>DWMRotateCounterclockwise
 nmap <m-t> <Plug>DWMRotateClockwise
 nmap <c-n> <Plug>DWMNew
 nmap <c-c> <Plug>DWMClose
-" nmap <c-Space> <Plug>DWMFocus
+"nmap <c-Space> <Plug>DWMFocus
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
 let g:dwm_master_pane_width=85
@@ -271,8 +297,31 @@ let g:indent_guides_guide_size=4
 " dirvish
 let g:dirvish_hijack_netrw = 1
 
+" vim-fugitive
+nmap <F9> :Gwrite<CR>
+nmap <F10> :Gcommit -v<CR>
+
+" Lexima
+call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
+call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
+
 " TwitVim
 let twitvim_show_header = 0
 let twitvim_filter_enable = 1
 let twitvim_filter_regex = '!\v^【(自動|定期).*|(.*https?://ask\.fm.*)|#(countkun|1topi|bookmeter)|(.*(#|＃)[^\s]+){5,}|#RTした人全員|.*分以内に.*RTされたら|^!(RT)|^[^RT].*RT|RT\s.*RT\s'
+
+" vim-easymotion
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+xmap s <Plug>(easymotion-s2)
+" surround.vimと被らないように
+omap z <Plug>(easymotion-s2)
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
+let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
 "}}}
