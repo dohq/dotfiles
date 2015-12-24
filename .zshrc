@@ -287,6 +287,34 @@ function peco-branch () {
 }
 zle -N peco-branch
 bindkey '^b' peco-branch
+
+#bindkey '^g' list ghq src
+function peco-src () {
+  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N peco-src
+bindkey '^g' peco-src
+
+#bindkey '^g^a' select git add target for peco
+function peco-select-git-add() {
+    local SELECTED_FILE_TO_ADD="$(git status --porcelain | \
+                                  peco --query "$LBUFFER" | \
+                                  awk -F ' ' '{print $NF}')"
+    if [ -n "$SELECTED_FILE_TO_ADD" ]; then
+      BUFFER="git add $(echo "$SELECTED_FILE_TO_ADD" | tr '\n' ' ')"
+      CURSOR=$#BUFFER
+    fi
+    zle accept-line
+    # zle clear-screen
+}
+zle -N peco-select-git-add
+
+bindkey "^g^a" peco-select-git-add
 #######################################
 # Home Endキーを有効に
 bindkey  "^[[1~"   beginning-of-line

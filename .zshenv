@@ -72,6 +72,11 @@ if [ -f ~/.brew_api_token ];then
   source ~/.brew_api_token
 fi
 
+# export heroku
+if [ -d /usr/local/heroku/bin ];then
+  PATH=/usr/local/heroku/bin:$PATH
+fi
+
 # check if `docker-machine` command exists
 if command -v docker-machine > /dev/null; then
   # fetch the first running machine name

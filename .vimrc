@@ -28,10 +28,8 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/vimshell'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'basyura/J6uil.vim'
 NeoBundle 'basyura/TweetVim', 'dev'
 NeoBundle 'basyura/bitly.vim'
 NeoBundle 'basyura/twibill.vim'
@@ -40,16 +38,24 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'mattn/favstar-vim'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'spolu/dwm.vim'
-NeoBundle 'supermomonga/vimshell-kawaii.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'vim-jp/vimdoc-ja'
-if has("gui_running")
-  NeoBundle 'thinca/vim-splash'
-endif
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'basyura/J6uil.vim', {
+      \   'autoload' : { 'commands' : [ 'J6uil' ] }
+      \ }
+NeoBundleLazy 'mattn/benchvimrc-vim', {
+      \   'autoload' : { 'commands' : [ 'BenchVimrc' ] }
+      \ }
+NeoBundleLazy 'supermomonga/vimshell-kawaii.vim', {
+      \   'autoload' : { 'commands' : [ 'vimshell' ] }
+      \ }
+NeoBundleLazy 'osyo-manga/vim-over', {
+      \   'autoload' : { 'commands' : [ 'OverCommandLine' ] }
+      \ }
 
 let g:neobundle_default_git_protocol='https'
 
