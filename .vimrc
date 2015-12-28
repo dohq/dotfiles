@@ -1,67 +1,51 @@
 if 0 | endif
- if has('vim_starting')
-   if &compatible
-     set nocompatible
-   endif
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
- endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
+endif
 
-NeoBundle 'Shougo/vimproc.vim', {
-      \ 'build' : {
-      \     'mac':     'make -f make_mac.mak',
-      \     'unix':    'make -f make_unix.mak',
-      \    },
-      \ }
-NeoBundle 'lambdalisue/vim-unified-diff'
-NeoBundle 'cohama/lexima.vim'
-NeoBundle "joker1007/vim-markdown-quote-syntax"
-NeoBundle "rcmdnk/vim-markdown"
-NeoBundle "tsukkee/unite-tag"
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'Shougo/context_filetype.vim'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'basyura/TweetVim', 'dev'
-NeoBundle 'basyura/bitly.vim'
-NeoBundle 'basyura/twibill.vim'
-NeoBundle 'beckorz/previm'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'mattn/favstar-vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'spolu/dwm.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'vim-jp/vimdoc-ja'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'basyura/J6uil.vim', {
-      \   'autoload' : { 'commands' : [ 'J6uil' ] }
-      \ }
-NeoBundleLazy 'mattn/benchvimrc-vim', {
-      \   'autoload' : { 'commands' : [ 'BenchVimrc' ] }
-      \ }
-NeoBundleLazy 'supermomonga/vimshell-kawaii.vim', {
-      \   'autoload' : { 'commands' : [ 'vimshell' ] }
-      \ }
-NeoBundleLazy 'osyo-manga/vim-over', {
-      \   'autoload' : { 'commands' : [ 'OverCommandLine' ] }
-      \ }
-
-let g:neobundle_default_git_protocol='https'
-
-call neobundle#end()
-NeoBundleCheck
-filetype plugin indent on
+call plug#begin('~/.vim/plugged')
+  Plug 'junegunn/vim-plug',
+     \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
+" Plugin list
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
+Plug 'Shougo/vimfiler'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimshell' | Plug 'supermomonga/vimshell-kawaii.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'basyura/J6uil.vim'
+Plug 'basyura/TweetVim', { 'branch': 'dev' }
+Plug 'basyura/bitly.vim'
+Plug 'basyura/twibill.vim'
+Plug 'beckorz/previm'
+Plug 'cohama/lexima.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'joker1007/vim-markdown-quote-syntax'
+Plug 'lambdalisue/vim-unified-diff'
+Plug 'mattn/favstar-vim'
+Plug 'mattn/webapi-vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'osyo-manga/vim-over'
+Plug 'rcmdnk/vim-markdown'
+Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
+Plug 'spolu/dwm.vim'
+Plug 'yuratomo/w3m.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tsukkee/unite-tag'
+Plug 'tyru/open-browser.vim'
+Plug 'vim-jp/vimdoc-ja'
+call plug#end()
 
 "----------------------------------------
 " Option Settings
@@ -69,9 +53,11 @@ filetype plugin indent on
 set t_Co=256
 colorscheme solarized
 
+filetype plugin indent on
 set enc=UTF-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+" save as delete tailing Space
 augroup spacend
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
