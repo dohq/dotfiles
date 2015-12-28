@@ -1,6 +1,19 @@
-" Plugin
-"{{{
+if 0 | endif
+if has('vim_starting')
+  set rtp+=~/.vim/plugged/vim-plug
+  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/plugged/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+  end
+endif
+
+" Plugin list
 call plug#begin('~/.vim/plugged')
+  Plug 'junegunn/vim-plug',
+     \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'sgur/ctrlp-extensions.vim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
@@ -8,8 +21,8 @@ Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neopairs.vim'
 Plug 'Shougo/vimproc.vim'
+Plug 'scrooloose/syntastic'
 Plug 'basyura/J6uil.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'kassio/neoterm'
@@ -18,32 +31,29 @@ Plug 'osyo-manga/vim-over'
 Plug 'spolu/dwm.vim'
 Plug 'benekastah/neomake'
 Plug 'justinmk/vim-dirvish'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'rking/ag.vim'
-
+Plug 'rcmdnk/vim-markdown'
 " Input
 Plug 'tpope/vim-surround'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'cohama/lexima.vim'
-
+Plug 'cohama/lexima.vim' | Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-
 " Tweet
 Plug 'vim-scripts/TwitVim'
-
 " Colorscheme
 Plug 'altercation/vim-colors-solarized'
-
 call plug#end()
-"}}}
-" Global Setting
-"{{{
+
+""""""""""""""""""
+" Global Setting "
+""""""""""""""""""
+" Color
 colorscheme solarized
 set background=dark
 
+" Basic
+filetype plugin indent on
 set enc=UTF-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
@@ -101,8 +111,7 @@ if has('mac')
  nnoremap ; :
  nnoremap : ;
 endif
-"}}}
-" Plugin Settings {{{
+" Plugin Settings
 " lightline.vim{{{
 let g:lightline = {
         \ 'colorscheme': 'solarized',
@@ -236,38 +245,19 @@ function! MyCharCode()
   return "'". char ."' ". nr
 endfunction
 " }}}
-" Neoterm
-let g:neoterm_position = 'horizontal'
-let g:neoterm_automap_keys = ',tt'
-" Deoplete
-let g:deoplete#auto_completion_start_length = 1
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_auto_pairs = 1
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.go = ''
-" UltiSnips
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsExpandTrigger = "<S-s>"
-let g:UltiSnipsJumpForwardTrigger = "<S-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<S-k>"
-" over.vim
-nnoremap <silent> <Space>m :OverCommandLine<CR>
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-
-" CtrlP
-" {{{
+" CtrlP{{{
 nnoremap <Space>a :<C-u>CtrlP<Space>
 nnoremap <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <Space>d :<C-u>CtrlPDir<CR>
 nnoremap <Space>f :<C-u>CtrlP<CR>
 nnoremap <Space>l :<C-u>CtrlPLine<CR>
-nnoremap <Space>m :<C-u>CtrlPMRUFiles<CR>
+nnoremap <Space>r :<C-u>CtrlPMRUFiles<CR>
 nnoremap <Space>q :<C-u>CtrlPQuickfix<CR>
 nnoremap <Space>s :<C-u>CtrlPMixed<CR>
 nnoremap <Space>t :<C-u>CtrlPTag<CR>
 let g:ctrlp_map = '<Nop>'
-let g:ctrlp_user_command = 'files -a %s'
+"let g:ctrlp_user_command = 'files -a %s'
+let g:ctrlp_user_command = 'ag --nocolor --nogroup -g ""'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
@@ -282,7 +272,19 @@ if executable('ag')
   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
 endif
 "}}}
-
+" Neoterm
+let g:neoterm_position = 'horizontal'
+let g:neoterm_automap_keys = ',tt'
+" Deoplete
+let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_auto_pairs = 1
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.go = ''
+" over.vim
+nnoremap <silent> <Space>m :OverCommandLine<CR>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " dwm.vim
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
@@ -311,9 +313,22 @@ call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
 call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
 
 " TwitVim
-let twitvim_show_header = 0
+let twitvim_show_header = 1
 let twitvim_filter_enable = 1
 let twitvim_filter_regex = '!\v^【(自動|定期).*|(.*https?://ask\.fm.*)|#(countkun|1topi|bookmeter)|(.*(#|＃)[^\s]+){5,}|#RTした人全員|.*分以内に.*RTされたら|^!(RT)|^[^RT].*RT|RT\s.*RT\s'
+let twitvim_count = 40
+nnoremap <C-t> :<C-u>PosttoTwitter<CR>
+nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
+nnoremap ,tu :<C-u>UserTwitter<CR><C-w>j
+nnoremap ,tr :<C-u>RepliesTwitter<CR><C-w>j
+nnoremap ,tn :<C-u>NextTwitter<CR>
+
+autocmd FileType twitvim call s:twitvim_my_settings()
+function! s:twitvim_my_settings()
+  set nowrap
+endfunction
+syntax on
+filetype detect
 
 " vim-easymotion
 let g:EasyMotion_do_mapping = 0
@@ -329,4 +344,22 @@ let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
-"}}}
+
+" Neosnippet
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
