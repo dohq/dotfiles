@@ -33,6 +33,7 @@ Plug 'benekastah/neomake'
 Plug 'justinmk/vim-dirvish'
 Plug 'rcmdnk/vim-markdown'
 " Input
+Plug 'tyru/eskk.vim'
 Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim' | Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
@@ -363,3 +364,19 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+" eskk
+let g:eskk#directory = expand('$CACHE/eskk')
+let g:eskk#large_dictionary = {
+\ 'path': '~/skk/SKK-JISYO.L',
+\ 'sorted': 1,
+\}
+" Don't keep state.
+let g:eskk#keep_state = 0
+let g:eskk#show_annotation = 1
+"let g:eskk#rom_input_style = 'msime'
+let g:eskk_revert_henkan_style = "okuri"
+let g:eskk#egg_like_newline = 1
+let g:eskk#egg_like_newline_completion = 1
+let g:eskk#tab_select_completion = 1
+let g:eskk#start_completion_length = 3

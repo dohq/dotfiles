@@ -45,6 +45,7 @@ Plug 'tpope/vim-surround'
 Plug 'tsukkee/unite-tag'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'ujihisa/neco-look'
 call plug#end()
 
 "----------------------------------------
@@ -139,6 +140,20 @@ endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 "let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
 
+if !exists('g:neocomplete#text_mode_filetypes')
+    let g:neocomplete#text_mode_filetypes = {}
+endif
+let g:neocomplete#text_mode_filetypes = {
+            \ 'rst': 1,
+            \ 'markdown': 1,
+            \ 'gitrebase': 1,
+            \ 'gitcommit': 1,
+            \ 'vcs-commit': 1,
+            \ 'hybrid': 1,
+            \ 'text': 1,
+            \ 'help': 1,
+            \ 'tex': 1,
+            \ }
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
