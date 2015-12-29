@@ -12,7 +12,7 @@ esac
 export PATH=/usr/local/bin:$PATH
 
 # Alias作りましょうねー
-alias vi='vim'
+alias vi='nvim'
 alias nvi='nvim'
 alias emerge='emerge --quiet-build'
 alias rm='rm -i'
