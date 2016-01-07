@@ -44,6 +44,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/TwitVim'
 " Colorscheme
 Plug 'altercation/vim-colors-solarized'
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 """"""""""""""""""

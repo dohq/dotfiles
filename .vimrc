@@ -1,16 +1,16 @@
 if 0 | endif
 if has('vim_starting')
-  set rtp+=~/.vim/plugged/vim-plug
-  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+  set rtp+=~/.vim/bundle/vim-plug
+  if !isdirectory(expand('~/.vim/bundle/vim-plug'))
     echo 'install vim-plug...'
-    call system('mkdir -p ~/.vim/plugged/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+    call system('mkdir -p ~/.vim/bundle/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug/autoload')
   end
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.vim/bundle')
   Plug 'junegunn/vim-plug',
-     \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
+     \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
 " Plugin list
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
@@ -46,6 +46,7 @@ Plug 'tsukkee/unite-tag'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'ujihisa/neco-look'
+Plug 'tyru/eskk.vim'
 call plug#end()
 
 "----------------------------------------
@@ -413,6 +414,37 @@ let g:easy_align_delimiters = {
 \   }
 \ }
 " }}}
+" vim-easymotion{{{
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+xmap s <Plug>(easymotion-s2)
+" surround.vimと被らないように
+omap z <Plug>(easymotion-s2)
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
+let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+" }}}
+" ESKK {{{
+let g:eskk#directory = expand('$HOME/$CACHE/eskk')
+let g:eskk#large_dictionary = {
+\ 'path': '$HOME/skk/SKK-JISYO.L',
+\ 'sorted': 1,
+\}
+" Don't keep state.
+let g:eskk#keep_state = 0
+let g:eskk#show_annotation = 1
+"let g:eskk#rom_input_style = 'msime'
+let g:eskk_revert_henkan_style = "okuri"
+let g:eskk#egg_like_newline = 1
+let g:eskk#egg_like_newline_completion = 1
+let g:eskk#tab_select_completion = 1
+let g:eskk#start_completion_length = 3
+"}}}
 
 " over.vim
 nnoremap <silent> <Space>m :OverCommandLine<CR>
@@ -452,21 +484,6 @@ nnoremap <silent> vp :VimShellPop<CR>
 let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
-
-" vim-easymotion
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
-xmap s <Plug>(easymotion-s2)
-" surround.vimと被らないように
-omap z <Plug>(easymotion-s2)
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
-let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_enter_jump_first = 1
-let g:EasyMotion_space_jump_first = 1
 
 " vim-fugitive
 nmap <F9> :Gwrite<CR>
