@@ -5,10 +5,10 @@
   editor = vim
   quotepath = off
   symlinks = true
-  autocrlf = input
-	excludesfile = ~/.gitignore_global
-	preloadindex = true
-	fscache = true
+  autocrlf = Input
+  excludesfile = ~/.gitignore_global
+  preloadindex = true
+  fscache = true
 [color]
   ui = auto
   diff = always
@@ -26,16 +26,20 @@
 [alias]
   pr = !hub browse -- compare/$(git symbolic-ref --short HEAD)'?'expand=1'&'body=%23%23%20%E7%9B%AE%E7%9A%84%0A%0A%23%23%20%E5%A4%89%E6%9B%B4%E5%86%85%E5%AE%B9
 [pretty]
-	medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h% Creset %C(green reverse) %an %Creset %C(cyan)%ar%Creset%n%C(white bold)%w(80)%s%Creset%n%n%w(80,2,2)%b
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[alias]
-	nffmerge = merge --no-ff
+  medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h% Creset %C(green reverse) %an %Creset %C(cyan)%ar%Creset%n%C(white bold)%w(80)%s%Creset%n%n%w(80,2,2)%b
+
+[difftool]
+  Tool = vimdiff
+  prompt = false
+[difftool "vimdiff"]
+  cmd = gvim -d \"$LOCAL\" \"$REMOTE\"
+[merge]
+  Tool = vimdiff
+[mergetool "vimdiff"]
+  cmd = gvim -d \"$LOCAL\" \"$REMOTE\"
+  trustExitCode = true
+  keepBackup = false
 [push]
 	default = current
 [ghq]
-      root = ~/go/src
+  root = ~/go/src
