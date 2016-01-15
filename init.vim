@@ -1,4 +1,47 @@
+" Startup: {{{
+" Skip initialization for vim-tiny or vim-small
+" take account of '-eval'
+"if !1 | finish | endif
 if 0 | endif
+" Use plain vim
+" when vim was invoked by 'sudo' command
+" or, invoked as 'git difftool'
+if exists('$SUDO_USER') || exists('$GIT_DIR')
+finish
+endif
+if has('vim_starting')
+" Necesary for lots of cool vim things
+"set nocompatible
+" http://rbtnn.hateblo.jp/entry/2014/11/30/174749
+" Define the entire vimrc encoding
+scriptencoding utf-8
+" Initialize runtimepath
+set runtimepath&
+" Vim starting time
+if has('reltime')
+let g:startuptime = reltime()
+augroup vimrc-startuptime
+autocmd! VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+\ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+augroup END
+endif
+endif
+" Script variables
+" boolean
+let s:true = 1
+let s:false = 0
+" platform
+let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_cygwin = has('win32unix')
+let s:is_mac = !s:is_windows && !s:is_cygwin
+\ && (has('mac') || has('macunix') || has('gui_macvim') ||
+\ (!executable('xdg-open') &&
+\ system('uname') =~? '^darwin'))
+let s:is_linux = !s:is_mac && has('unix')
+let s:vimrc = expand("<sfile>:p")
+let $MYVIMRC = s:vimrc
+"}}}
+
 if has('vim_starting')
   set rtp+=~/.vim/plugged/vim-plug
   if !isdirectory(expand('~/.vim/plugged/vim-plug'))
@@ -12,9 +55,6 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug 'junegunn/vim-plug',
      \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/echodoc.vim'
@@ -22,28 +62,44 @@ Plug 'Shougo/neco-syntax'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/vimproc.vim'
-Plug 'scrooloose/syntastic'
+Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
+Plug 'tsukkee/unite-tag'
 Plug 'basyura/J6uil.vim'
-Plug 'itchyny/lightline.vim'
 Plug 'kassio/neoterm'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'osyo-manga/vim-over'
-Plug 'spolu/dwm.vim'
-Plug 'benekastah/neomake'
 Plug 'justinmk/vim-dirvish'
+Plug 'vim-jp/vital.vim'
+
+" Format
+"Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
 Plug 'rcmdnk/vim-markdown'
+Plug 'lambdalisue/vim-unified-diff'
+Plug 'vim-scripts/sh.vim--Cla'
+" UI
+Plug 'spolu/dwm.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'altercation/vim-colors-solarized'
+" Tweet
+Plug 'basyura/TweetVim'
+Plug 'basyura/bitly.vim'
+Plug 'basyura/twibill.vim'
+Plug 'mattn/favstar-vim'
+Plug 'mattn/webapi-vim'
 " Input
 Plug 'tyru/eskk.vim'
+Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
+Plug 'ujihisa/neco-look'
 Plug 'tpope/vim-surround'
-Plug 'cohama/lexima.vim' | Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
+Plug 'cohama/lexima.vim'
+Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
+Plug 'osyo-manga/vim-over'
+Plug 'Lokaltog/vim-easymotion'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-" Tweet
-Plug 'vim-scripts/TwitVim'
-" Colorscheme
-Plug 'altercation/vim-colors-solarized'
+Plug 'lambdalisue/vim-gista', { 'on':  ['Gista'] }
+Plug 'lambdalisue/vim-gista-unite'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
@@ -88,6 +144,8 @@ set whichwrap=b,s,[,],<,>
 set wildmenu
 set iminsert=0
 set imsearch=-1
+set clipboard=unnamed,unnamedplus
+set completeopt+=noinsert
 set nf=""
 if &t_Co > 2 || has("gui_running")
   syntax on
@@ -114,7 +172,33 @@ if has('mac')
  nnoremap ; :
  nnoremap : ;
 endif
+
 " Plugin Settings
+" Deoplete {{{
+let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_auto_pairs = 1
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni_patterns = {}
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><C-g> deoplete#mappings#undo_completion()
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+return deoplete#mappings#close_popup() . "\<CR>"
+endfunction
+" Use auto delimiter
+call deoplete#custom#set('_', 'converters',
+\ ['converter_auto_paren',
+\ 'converter_auto_delimiter', 'remove_overlap'])
+" <S-TAB>: completion back.
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"}}}
 " lightline.vim{{{
 let g:lightline = {
         \ 'colorscheme': 'solarized',
@@ -248,107 +332,7 @@ function! MyCharCode()
   return "'". char ."' ". nr
 endfunction
 " }}}
-" CtrlP{{{
-nnoremap <Space>a :<C-u>CtrlP<Space>
-nnoremap <Space>b :<C-u>CtrlPBuffer<CR>
-nnoremap <Space>d :<C-u>CtrlPDir<CR>
-nnoremap <Space>f :<C-u>CtrlP<CR>
-nnoremap <Space>l :<C-u>CtrlPLine<CR>
-nnoremap <Space>r :<C-u>CtrlPMRUFiles<CR>
-nnoremap <Space>q :<C-u>CtrlPQuickfix<CR>
-nnoremap <Space>s :<C-u>CtrlPMixed<CR>
-nnoremap <Space>t :<C-u>CtrlPTag<CR>
-let g:ctrlp_map = '<Nop>'
-"let g:ctrlp_user_command = 'files -a %s'
-let g:ctrlp_user_command = 'ag --nocolor --nogroup -g ""'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_extensions = ['tag', 'quickfix', 'dir', 'line', 'mixed']
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:18'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-" The Silver Searcher
-if executable('ag')
-  let g:ctrlp_use_caching=0
-  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-endif
-"}}}
-" Neoterm
-let g:neoterm_position = 'horizontal'
-let g:neoterm_automap_keys = ',tt'
-" Deoplete
-let g:deoplete#auto_completion_start_length = 1
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_auto_pairs = 1
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.go = ''
-" over.vim
-nnoremap <silent> <Space>m :OverCommandLine<CR>
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-" dwm.vim
-nnoremap <c-j> <c-w>w
-nnoremap <c-k> <c-w>W
-nmap <m-r> <Plug>DWMRotateCounterclockwise
-nmap <m-t> <Plug>DWMRotateClockwise
-nmap <c-n> <Plug>DWMNew
-nmap <c-c> <Plug>DWMClose
-"nmap <c-Space> <Plug>DWMFocus
-nmap <c-l> <Plug>DWMGrowMaster
-nmap <c-h> <Plug>DWMShrinkMaster
-let g:dwm_master_pane_width=85
-
-" vim-indent-guide
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=4
-
-" dirvish
-let g:dirvish_hijack_netrw = 1
-
-" vim-fugitive
-nmap <F9> :Gwrite<CR>
-nmap <F10> :Gcommit -v<CR>
-
-" Lexima
-call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
-call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
-
-" TwitVim
-let twitvim_show_header = 1
-let twitvim_filter_enable = 1
-let twitvim_filter_regex = '!\v^【(自動|定期).*|(.*https?://ask\.fm.*)|#(countkun|1topi|bookmeter)|(.*(#|＃)[^\s]+){5,}|#RTした人全員|.*分以内に.*RTされたら|^!(RT)|^[^RT].*RT|RT\s.*RT\s'
-let twitvim_count = 40
-nnoremap <C-t> :<C-u>PosttoTwitter<CR>
-nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
-nnoremap ,tu :<C-u>UserTwitter<CR><C-w>j
-nnoremap ,tr :<C-u>RepliesTwitter<CR><C-w>j
-nnoremap ,tn :<C-u>NextTwitter<CR>
-
-autocmd FileType twitvim call s:twitvim_my_settings()
-function! s:twitvim_my_settings()
-  set nowrap
-endfunction
-syntax on
-filetype detect
-
-" vim-easymotion
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
-xmap s <Plug>(easymotion-s2)
-" surround.vimと被らないように
-omap z <Plug>(easymotion-s2)
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
-let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_enter_jump_first = 1
-let g:EasyMotion_space_jump_first = 1
-
-" Neosnippet
+" Neosnippet {{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -365,9 +349,8 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 " For conceal markers.
 if has('conceal')
   set conceallevel=2 concealcursor=niv
-endif
-
-" eskk
+endif "}}}
+" eskk {{{
 let g:eskk#directory = expand('$CACHE/eskk')
 let g:eskk#large_dictionary = {
 \ 'path': '~/skk/SKK-JISYO.L',
@@ -381,4 +364,108 @@ let g:eskk_revert_henkan_style = "okuri"
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 let g:eskk#tab_select_completion = 1
-let g:eskk#start_completion_length = 3
+let g:eskk#start_completion_length = 3 "}}}
+" vim-easymotion {{{
+let g:EasyMotion_do_mapping = 0
+nmap s <Plug>(easymotion-s2)
+xmap s <Plug>(easymotion-s2)
+" surround.vimと被らないように
+omap z <Plug>(easymotion-s2)
+map f <Plug>(easymotion-fl)
+map t <Plug>(easymotion-tl)
+map F <Plug>(easymotion-Fl)
+map T <Plug>(easymotion-Tl)
+let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1 "}}}
+" dwm.vim {{{
+nnoremap <c-j> <c-w>w
+nnoremap <c-k> <c-w>W
+nmap <m-r> <Plug>DWMRotateCounterclockwise
+nmap <m-t> <Plug>DWMRotateClockwise
+nmap <c-n> <Plug>DWMNew
+nmap <c-c> <Plug>DWMClose
+nmap <c-l> <Plug>DWMGrowMaster
+nmap <c-h> <Plug>DWMShrinkMaster
+let g:dwm_master_pane_width=85 "}}}
+"TweetVim {{{
+let g:tweetvim_tweet_per_page = 60
+let g:tweetvim_cache_size     = 10
+let g:tweetvim_display_source = 1
+
+nnoremap <F6> :<C-u>Unite tweetvim<CR>
+nnoremap ,ts :<C-u>TweetVimSay<CR>
+"}}}
+" Unite{{{
+" The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    <Space>u [unite]
+
+" unite.vim keymap
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable =1
+let g:unite_enable_ignore_case = 1
+let g:unite_enable_smart_case = 1
+nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
+nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
+nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
+nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,vr :UniteResume<CR>
+" split unite window
+au FileType unite nnoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
+
+" 2tap esc key exit
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+" Grep
+nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+if executable('pt')
+  let g:unite_source_grep_command = 'pt'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_max_candidates = 200
+  let g:unite_source_grep_encoding = 'utf-8'
+endif
+"}}}
+
+" over.vim
+nnoremap <silent> <Space>m :OverCommandLine<CR>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+
+" vim-indent-guide
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_guide_size=4
+
+" dirvish
+let g:dirvish_hijack_netrw = 1
+
+" vim-fugitive
+nmap <F9> :Gwrite<CR>
+nmap <F10> :Gcommit -v<CR>
+
+" Lexima
+call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
+call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
+
+" Neoterm
+let g:neoterm_position = 'horizontal'
+let g:neoterm_automap_keys = ',tt'
+
+" Git-gutter
+let g:gitgutter_enabled = 1
+nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
+nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
+
+" Gista
+let g:gista#github_user = 'dohq'
+let g:gista#update_on_write = 1
+let g:gista#auto_yank_after_save = 0
+let g:gista#auto_yank_after_post = 0
