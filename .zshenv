@@ -61,9 +61,6 @@ if [ -d $HOME/.anyenv ] ; then
     eval "$(anyenv init -)"
 fi
 
-# gitignore
-function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
-
 # hub alias
 function git(){hub "$@"}
 
