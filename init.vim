@@ -66,9 +66,9 @@ Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
 Plug 'tsukkee/unite-tag'
 Plug 'basyura/J6uil.vim'
 Plug 'kassio/neoterm'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'justinmk/vim-dirvish'
 Plug 'vim-jp/vital.vim'
+Plug 'thinca/vim-quickrun'
 
 " Format
 "Plug 'scrooloose/syntastic'
@@ -76,12 +76,16 @@ Plug 'benekastah/neomake'
 Plug 'rcmdnk/vim-markdown'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'vim-scripts/sh.vim--Cla'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'osyo-manga/vim-watchdogs'
 " UI
 Plug 'spolu/dwm.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
+"Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 " Tweet
-Plug 'basyura/TweetVim'
+Plug 'basyura/TweetVim', { 'branch' : 'dev' }
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'mattn/favstar-vim'
@@ -98,12 +102,58 @@ Plug 'Lokaltog/vim-easymotion'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'lambdalisue/vim-gista', { 'on':  ['Gista'] }
+Plug 'lambdalisue/vim-gista', { 'on' : ['Gista'] }
 Plug 'lambdalisue/vim-gista-unite'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
+" PluginCheckInstall {{{
+let s:plug = {
+      \ "plugs": get(g:, 'plugs', {})
+      \ }
+
+function! s:plug.is_installed(name)
+  return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
+endfunction
+
+if s:plug.is_installed("vim-myplugin")
+  " setting
+endif
+function! s:plug.check_installation()
+  if empty(self.plugs)
+    return
+  endif
+
+  let list = []
+  for [name, spec] in items(self.plugs)
+    if !isdirectory(spec.dir)
+      call add(list, spec.uri)
+    endif
+  endfor
+
+  if len(list) > 0
+    let unplugged = map(list, 'substitute(v:val, "^.*github\.com/\\(.*/.*\\)\.git$", "\\1", "g")')
+
+    " Ask whether installing plugs like Plug
+    echomsg 'Not installed plugs: ' . string(unplugged)
+    if confirm('Install plugs now?', "yes\nNo", 2) == 1
+      PlugInstall
+      " Close window for vim-plug
+      silent! close
+      " Restart vim
+      silent! !vim
+      quit!
+    endif
+  endif
+endfunction
+
+augroup check-plug
+  autocmd!
+  autocmd VimEnter * if !argc() | call s:plug.check_installation() | endif
+augroup END
+
+" }}}
 """"""""""""""""""
 " Global Setting "
 """"""""""""""""""
@@ -146,11 +196,11 @@ set iminsert=0
 set imsearch=-1
 set clipboard=unnamed,unnamedplus
 set completeopt+=noinsert
+set lazyredraw
+set ttyfast
 set nf=""
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
+syntax on
+set hlsearch
 
 " Keybind
 nmap n nzz
@@ -172,6 +222,7 @@ if has('mac')
  nnoremap ; :
  nnoremap : ;
 endif
+
 
 " Plugin Settings
 " Deoplete {{{
@@ -408,24 +459,16 @@ let g:unite_source_history_yank_enable =1
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1
 nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
-nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
+nnoremap <silent> [unite]g :<C-u>Unite<Space>grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
 nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
 nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
 nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,vr :UniteResume<CR>
-" split unite window
-au FileType unite nnoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
+nnoremap <silent> [unite]c :<C-u>Unite<Space>codic<CR>
+nnoremap <silent> [unite]s :UniteResume<CR>
 
-" 2tap esc key exit
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
-" Grep
-nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 if executable('pt')
   let g:unite_source_grep_command = 'pt'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor'
@@ -441,8 +484,12 @@ nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 
 " vim-indent-guide
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=4
+"let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_guide_size=4
+
+" IndentLine
+let g:indentLine_enabled = 1
+"let g:indentLine_char = '|'
 
 " dirvish
 let g:dirvish_hijack_netrw = 1
@@ -463,9 +510,3 @@ let g:neoterm_automap_keys = ',tt'
 let g:gitgutter_enabled = 1
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
-
-" Gista
-let g:gista#github_user = 'dohq'
-let g:gista#update_on_write = 1
-let g:gista#auto_yank_after_save = 0
-let g:gista#auto_yank_after_post = 0
