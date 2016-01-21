@@ -9,7 +9,11 @@ case ${OSTYPE} in
 esac
 
 # PATH
-export PATH=/usr/local/bin:$PATH
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+
+export PATH=/usr/local/bin:$HOME/.cabal/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='nvim'
@@ -55,10 +59,23 @@ alias gd="git diff"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
+# linuxbrew
+if [ -d $HOME/.linuxbrew ]; then
+  export PATH="$HOME/.linuxbrew/bin:$PATH"
+  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+  export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
+fi
+
 # anyenv
 if [ -d $HOME/.anyenv ] ; then
-    export PATH="$HOME/.anyenv/bin:$PATH"
-    eval "$(anyenv init -)"
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
+
+# byobu
+if [ -d $HOME/.byobu ] ; then
+  export BYOBU_PREFIX=$(brew --prefix)
 fi
 
 # hub alias
@@ -82,12 +99,4 @@ if command -v docker-machine > /dev/null; then
     eval "$(docker-machine env $machine)"
     export DOCKER_IP=$(docker-machine ip $machine)
   fi
-fi
-
-# linuxbrew
-if [ -d $HOME/.linuxbrew ]; then
-  export PATH="$HOME/.linuxbrew/bin:$PATH"
-  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-  export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
