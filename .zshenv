@@ -2,17 +2,13 @@
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-case ${OSTYPE} in
-  linux )
-    MAIL=/var/spool/mail/`whoami` && export MAIL
-    ;;
-esac
 
 # PATH
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
-
 export PATH=/usr/local/bin:$HOME/.cabal/bin:$PATH
 
 # Alias作りましょうねー
