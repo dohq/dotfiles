@@ -34,6 +34,10 @@ zstyle ':zle:*' word-style unspecified
 if [ -e $(brew --prefix)/share/zsh-completions ]; then
     fpath=($(brew --prefix)/share/zsh-completions $fpath)
 fi
+#for zsh-ons
+if [ -e $(brew --prefix)/share/zsh/site-functions ]; then
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fi
 
 # 補完機能を有効にする
 autoload -Uz compinit; compinit
