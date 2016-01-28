@@ -127,6 +127,7 @@ nnoremap K 15k
 nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " ノーマルモード時だけ ; と : を入れ替える
 if has('mac')
  nnoremap ; :
