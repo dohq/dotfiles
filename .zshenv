@@ -63,8 +63,11 @@ if [ -d $HOME/.linuxbrew ]; then
   export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
 
+# cabal
 if [ -d $HOME/.cabal ] ; then
     export PATH="$HOME/.cabal//bin:$PATH"
+fi
+
 # anyenv
 if [ -d $HOME/.anyenv ] ; then
   export PATH="$HOME/.anyenv/bin:$PATH"
