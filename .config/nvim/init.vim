@@ -17,7 +17,6 @@ Plug 'tsukkee/unite-tag'
 
 Plug 'ynkdir/vim-funlib'
 
-=======
 " executable
 Plug 'thinca/vim-quickrun'
 Plug 'cohama/vim-hier'
@@ -362,17 +361,10 @@ let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
 
-<<<<<<< HEAD:init.vim
-nnoremap <silent> <Space>ts :<C-u>TweetVimSay<Space><CR>
-nnoremap <silent> <Space>tl :<C-u>Unite tweetvim<Space><CR>
-nnoremap <F6> :<C-u>Unite tweetvim<CR>
-nnoremap ,ts :<C-u>TweetVimSay<CR>
-=======
 nnoremap    [TweetVim]   <Nop>
 nmap    <Space>t [TweetVim]
 nnoremap <silent> [TweetVim]l :<C-u>Unite<Space>tweetvim<CR>
 nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
->>>>>>> b820c93ab710217db1a4b00a0243c1ec7013ad71:.config/nvim/init.vim
 "}}}
 " Unite{{{
 " The prefix key.
@@ -463,13 +455,10 @@ let g:dirvish_hijack_netrw = 1
 call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
 call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
 
-<<<<<<< HEAD:init.vim
 " Neoterm
 let g:neoterm_position = 'horizontal'
 
-=======
->>>>>>> b820c93ab710217db1a4b00a0243c1ec7013ad71:.config/nvim/init.vim
 " Git-gutter
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
