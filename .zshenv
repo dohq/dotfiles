@@ -63,11 +63,9 @@ if [ -d $HOME/.linuxbrew ]; then
   export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
 
-# anyenv
-<<<<<<< HEAD
 if [ -d $HOME/.cabal ] ; then
     export PATH="$HOME/.cabal//bin:$PATH"
-=======
+# anyenv
 if [ -d $HOME/.anyenv ] ; then
   export PATH="$HOME/.anyenv/bin:$PATH"
   eval "$(anyenv init -)"
@@ -76,7 +74,6 @@ fi
 # byobu
 if [ -d $HOME/.byobu ] ; then
   export BYOBU_PREFIX=$(brew --prefix)
->>>>>>> b820c93ab710217db1a4b00a0243c1ec7013ad71
 fi
 
 # hub alias
