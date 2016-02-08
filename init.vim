@@ -70,6 +70,8 @@ Plug 'justinmk/vim-dirvish'
 Plug 'vim-jp/vital.vim'
 Plug 'thinca/vim-quickrun'
 
+Plug 'ynkdir/vim-funlib'
+
 " Format
 "Plug 'scrooloose/syntastic'
 Plug 'benekastah/neomake'
@@ -445,6 +447,8 @@ let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
 
+nnoremap <silent> <Space>ts :<C-u>TweetVimSay<Space><CR>
+nnoremap <silent> <Space>tl :<C-u>Unite tweetvim<Space><CR>
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
 nnoremap ,ts :<C-u>TweetVimSay<CR>
 "}}}
@@ -483,13 +487,8 @@ nnoremap <silent> <Space>m :OverCommandLine<CR>
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 
-" vim-indent-guide
-"let g:indent_guides_enable_on_vim_startup=1
-"let g:indent_guides_guide_size=4
-
 " IndentLine
 let g:indentLine_enabled = 1
-"let g:indentLine_char = '|'
 
 " dirvish
 let g:dirvish_hijack_netrw = 1
@@ -504,7 +503,6 @@ call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}
 
 " Neoterm
 let g:neoterm_position = 'horizontal'
-let g:neoterm_automap_keys = ',tt'
 
 " Git-gutter
 let g:gitgutter_enabled = 1

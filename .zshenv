@@ -56,9 +56,8 @@ alias gd="git diff"
 alias sudo='sudo '
 
 # anyenv
-if [ -d $HOME/.anyenv ] ; then
-    export PATH="$HOME/.anyenv/bin:$PATH"
-    eval "$(anyenv init -)"
+if [ -d $HOME/.cabal ] ; then
+    export PATH="$HOME/.cabal//bin:$PATH"
 fi
 
 # hub alias
