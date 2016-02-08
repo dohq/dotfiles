@@ -1,97 +1,54 @@
-" Startup: {{{
-" Skip initialization for vim-tiny or vim-small
-" take account of '-eval'
-"if !1 | finish | endif
-if 0 | endif
-" Use plain vim
-" when vim was invoked by 'sudo' command
-" or, invoked as 'git difftool'
-if exists('$SUDO_USER') || exists('$GIT_DIR')
-finish
-endif
-if has('vim_starting')
-" Necesary for lots of cool vim things
-"set nocompatible
-" http://rbtnn.hateblo.jp/entry/2014/11/30/174749
-" Define the entire vimrc encoding
-scriptencoding utf-8
-" Initialize runtimepath
-set runtimepath&
-" Vim starting time
-if has('reltime')
-let g:startuptime = reltime()
-augroup vimrc-startuptime
-autocmd! VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
-\ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
-augroup END
-endif
-endif
-" Script variables
-" boolean
-let s:true = 1
-let s:false = 0
-" platform
-let s:is_windows = has('win16') || has('win32') || has('win64')
-let s:is_cygwin = has('win32unix')
-let s:is_mac = !s:is_windows && !s:is_cygwin
-\ && (has('mac') || has('macunix') || has('gui_macvim') ||
-\ (!executable('xdg-open') &&
-\ system('uname') =~? '^darwin'))
-let s:is_linux = !s:is_mac && has('unix')
-let s:vimrc = expand("<sfile>:p")
-let $MYVIMRC = s:vimrc
-"}}}
-
-if has('vim_starting')
-  set rtp+=~/.vim/plugged/vim-plug
-  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
-    echo 'install vim-plug...'
-    call system('mkdir -p ~/.vim/plugged/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
-  end
-endif
+setglobal rtp+=$HOME/.vim/plugged/vim-plug
+if !isdirectory(expand('$HOME/.vim/plugged/vim-plug'))
+  echo 'install vim-plug...'
+  call system('mkdir -p $HOME/.vim/plugged/vim-plug')
+  call system('git clone https://github.com/junegunn/vim-plug.git $HOME/.vim/plugged/vim-plug/autoload')
+end
 
 " Plugin list
-call plug#begin('~/.vim/plugged')
+call plug#begin('$HOME/.vim/plugged')
   Plug 'junegunn/vim-plug',
-     \ {'dir': '~/.vim/plugged/vim-plug/autoload'}
-Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neco-vim'
-Plug 'Shougo/neoinclude.vim'
+     \ {'dir': '$HOME/.vim/plugged/vim-plug/autoload'}
+Plug 'kassio/neoterm'
+Plug 'justinmk/vim-dirvish'
 Plug 'Shougo/vimproc.vim'
 Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
 Plug 'tsukkee/unite-tag'
-Plug 'basyura/J6uil.vim'
-Plug 'kassio/neoterm'
-Plug 'justinmk/vim-dirvish'
-Plug 'vim-jp/vital.vim'
-Plug 'thinca/vim-quickrun'
 
 Plug 'ynkdir/vim-funlib'
 
+=======
+" executable
+Plug 'thinca/vim-quickrun'
+Plug 'cohama/vim-hier'
+Plug 'dannyob/quickfixstatus'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'osyo-manga/vim-watchdogs'
+" Shougo ware
+Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neoinclude.vim'
 " Format
-"Plug 'scrooloose/syntastic'
-Plug 'benekastah/neomake'
 Plug 'rcmdnk/vim-markdown'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'vim-scripts/sh.vim--Cla'
-Plug 'osyo-manga/shabadou.vim'
-Plug 'osyo-manga/vim-watchdogs'
+Plug 'Konfekt/FastFold'
+" Go lang
+Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go'
 " UI
 Plug 'spolu/dwm.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
-"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
-" Tweet
+" Sociales
 Plug 'basyura/TweetVim', { 'branch' : 'dev' }
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'mattn/favstar-vim'
 Plug 'mattn/webapi-vim'
+Plug 'basyura/J6uil.vim'
 " Input
 Plug 'tyru/eskk.vim'
 Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
@@ -101,6 +58,7 @@ Plug 'cohama/lexima.vim'
 Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
 Plug 'osyo-manga/vim-over'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/echodoc.vim'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -110,52 +68,6 @@ Plug 'lambdalisue/vim-gista-unite'
 Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
-" PluginCheckInstall {{{
-let s:plug = {
-      \ "plugs": get(g:, 'plugs', {})
-      \ }
-
-function! s:plug.is_installed(name)
-  return has_key(self.plugs, a:name) ? isdirectory(self.plugs[a:name].dir) : 0
-endfunction
-
-if s:plug.is_installed("vim-myplugin")
-  " setting
-endif
-function! s:plug.check_installation()
-  if empty(self.plugs)
-    return
-  endif
-
-  let list = []
-  for [name, spec] in items(self.plugs)
-    if !isdirectory(spec.dir)
-      call add(list, spec.uri)
-    endif
-  endfor
-
-  if len(list) > 0
-    let unplugged = map(list, 'substitute(v:val, "^.*github\.com/\\(.*/.*\\)\.git$", "\\1", "g")')
-
-    " Ask whether installing plugs like Plug
-    echomsg 'Not installed plugs: ' . string(unplugged)
-    if confirm('Install plugs now?', "yes\nNo", 2) == 1
-      PlugInstall
-      " Close window for vim-plug
-      silent! close
-      " Restart vim
-      silent! !vim
-      quit!
-    endif
-  endif
-endfunction
-
-augroup check-plug
-  autocmd!
-  autocmd VimEnter * if !argc() | call s:plug.check_installation() | endif
-augroup END
-
-" }}}
 """"""""""""""""""
 " Global Setting "
 """"""""""""""""""
@@ -165,8 +77,7 @@ set background=dark
 
 " Basic
 filetype plugin indent on
-set enc=UTF-8
-scriptencoding utf-8
+syntax on
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 augroup spacend
   autocmd!
@@ -197,12 +108,12 @@ set wildmenu
 set iminsert=0
 set imsearch=-1
 set clipboard=unnamed,unnamedplus
-set completeopt+=noinsert
+set completeopt+=noselect
 set lazyredraw
 set ttyfast
 set nf=""
-syntax on
 set hlsearch
+set cmdheight=2
 
 " Keybind
 nmap n nzz
@@ -212,13 +123,14 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 vmap y "*Y
-let g:mapleader = ","
+let g:mapleader = ','
 inoremap jj <ESC>
 nnoremap J 15j
 nnoremap K 15k
 nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " ノーマルモード時だけ ; と : を入れ替える
 if has('mac')
  nnoremap ; :
@@ -228,29 +140,33 @@ endif
 
 " Plugin Settings
 " Deoplete {{{
-let g:deoplete#auto_completion_start_length = 1
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_refresh_always = 1
+let g:deoplete#auto_completion_start_length = 2
 let g:deoplete#enable_auto_pairs = 1
 let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni_patterns = {}
-
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#sources#go = 'vim-go'
+let g:deoplete#omni#input_patterns.ruby =
+\ ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+" disable buffer source
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources._ = ['buffer']
+"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deolete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><C-g> deoplete#mappings#undo_completion()
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-return deoplete#mappings#close_popup() . "\<CR>"
+ "Enterで補完を確定(endwiseとの関係でおかしくなる対策）
+function! s:my_crinsert()
+  return pumvisible() ? deoplete#mappings#smart_close_popup() : "\<Cr>"
 endfunction
-" Use auto delimiter
-call deoplete#custom#set('_', 'converters',
-\ ['converter_auto_paren',
-\ 'converter_auto_delimiter', 'remove_overlap'])
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent> <CR> <C-R>=<SID>my_crinsert()<CR>
+
+if has("patch-7.4.314")
+  set shortmess+=c
+endif
 "}}}
 " lightline.vim{{{
 let g:lightline = {
@@ -410,15 +326,14 @@ let g:eskk#large_dictionary = {
 \ 'sorted': 1,
 \}
 " Don't keep state.
-let g:eskk#keep_state = 0
 let g:eskk#show_annotation = 1
-"let g:eskk#rom_input_style = 'msime'
-let g:eskk_revert_henkan_style = "okuri"
+let g:eskk#rom_input_style = 'msime'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 let g:eskk#tab_select_completion = 1
-let g:eskk#start_completion_length = 3 "}}}
+let g:eskk#start_completion_length = 2 "}}}
 " vim-easymotion {{{
+let g:EasyMotion_do_shade = 0
 let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-s2)
 xmap s <Plug>(easymotion-s2)
@@ -447,10 +362,17 @@ let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
 
+<<<<<<< HEAD:init.vim
 nnoremap <silent> <Space>ts :<C-u>TweetVimSay<Space><CR>
 nnoremap <silent> <Space>tl :<C-u>Unite tweetvim<Space><CR>
 nnoremap <F6> :<C-u>Unite tweetvim<CR>
 nnoremap ,ts :<C-u>TweetVimSay<CR>
+=======
+nnoremap    [TweetVim]   <Nop>
+nmap    <Space>t [TweetVim]
+nnoremap <silent> [TweetVim]l :<C-u>Unite<Space>tweetvim<CR>
+nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
+>>>>>>> b820c93ab710217db1a4b00a0243c1ec7013ad71:.config/nvim/init.vim
 "}}}
 " Unite{{{
 " The prefix key.
@@ -471,15 +393,59 @@ nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]c :<C-u>Unite<Space>codic<CR>
+nnoremap <silent> [unite]t :<C-u>Unite<Space>tag<CR>
 nnoremap <silent> [unite]s :UniteResume<CR>
 
+ " use pt
+" https://github.com/monochromegane/the_platinum_searcher
 if executable('pt')
-  let g:unite_source_grep_command = 'pt'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
-  let g:unite_source_grep_recursive_opt = ''
-  let g:unite_source_grep_max_candidates = 200
-  let g:unite_source_grep_encoding = 'utf-8'
+set grepprg=pt\ --hidden\ --nogroup\ --nocolor\ --smart-case
+let g:unite_source_grep_command = 'pt'
+let g:unite_source_grep_default_opts =
+\ '--hidden --nogroup --nocolor --smart-case'
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_grep_encoding = 'utf-8'
 endif
+"}}}
+" vim-fugitive{{{
+nnoremap    [fugitive]   <Nop>
+nmap    <Space>g [fugitive]
+nnoremap <silent> [fugitive]a :<C-u>Gwrite<CR>
+nnoremap <silent> [fugitive]c :<C-u>Gcommit<CR>
+nnoremap <silent> [fugitive]d :<C-u>Gdiff<CR>
+nnoremap <silent> [fugitive]s :<C-u>Gstatus<CR>
+" }}}
+" watchdogs {{{
+let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_CursorHold_enable = 1
+let g:quickrun_config = {
+\	'watchdogs_checker/_' : {
+\		'outputter/quickfix/open_cmd' : '',
+\	},
+\}
+" watchdogs.vim の設定を追加
+call watchdogs#setup(g:quickrun_config)
+" :WatchdogsRun の出力先を buffer に指定する
+let g:quickrun_config["watchdogs_checker/_"] = {
+\	"outputter" : "buffer",
+\}
+"}}}
+" vim-go {{{
+au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_build_constraints = 1
+let g:go_term_mode = "split"
+let g:go_term_enabled = 1
+" Keymapping
+nnoremap    [vim-go]   <Nop>
+nmap    <Space>l [vim-go]
+au FileType go nmap [vim-go]r <Plug>(go-run)
+au FileType go nmap [vim-go]b <Plug>(go-build)
+au FileType go nmap [vim-go]t <Plug>(go-test)
+au FileType go nmap [vim-go]c <Plug>(go-coverage)
+au FileType go nmap [vim-go]d <Plug>(go-doc-vertical)
 "}}}
 
 " over.vim
@@ -493,17 +459,16 @@ let g:indentLine_enabled = 1
 " dirvish
 let g:dirvish_hijack_netrw = 1
 
-" vim-fugitive
-nmap <F9> :Gwrite<CR>
-nmap <F10> :Gcommit -v<CR>
-
 " Lexima
 call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
 call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
 
+<<<<<<< HEAD:init.vim
 " Neoterm
 let g:neoterm_position = 'horizontal'
 
+=======
+>>>>>>> b820c93ab710217db1a4b00a0243c1ec7013ad71:.config/nvim/init.vim
 " Git-gutter
 let g:gitgutter_enabled = 1
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>

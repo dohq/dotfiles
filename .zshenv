@@ -2,14 +2,14 @@
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-case ${OSTYPE} in
-  linux )
-    MAIL=/var/spool/mail/`whoami` && export MAIL
-    ;;
-esac
 
 # PATH
-export PATH=/usr/local/bin:$PATH
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+export PATH=/usr/local/bin:$HOME/.cabal/bin:$PATH
 
 # Alias作りましょうねー
 alias vi='nvim'
@@ -55,9 +55,28 @@ alias gd="git diff"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
+# linuxbrew
+if [ -d $HOME/.linuxbrew ]; then
+  export PATH="$HOME/.linuxbrew/bin:$PATH"
+  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+  export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
+fi
+
 # anyenv
+<<<<<<< HEAD
 if [ -d $HOME/.cabal ] ; then
     export PATH="$HOME/.cabal//bin:$PATH"
+=======
+if [ -d $HOME/.anyenv ] ; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
+
+# byobu
+if [ -d $HOME/.byobu ] ; then
+  export BYOBU_PREFIX=$(brew --prefix)
+>>>>>>> b820c93ab710217db1a4b00a0243c1ec7013ad71
 fi
 
 # hub alias
@@ -81,12 +100,4 @@ if command -v docker-machine > /dev/null; then
     eval "$(docker-machine env $machine)"
     export DOCKER_IP=$(docker-machine ip $machine)
   fi
-fi
-
-# linuxbrew
-if [ -d $HOME/.linuxbrew ]; then
-  export PATH="$HOME/.linuxbrew/bin:$PATH"
-  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-  export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 fi
