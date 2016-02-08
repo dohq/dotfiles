@@ -88,13 +88,3 @@ fi
 if [ -d /usr/local/heroku/bin ];then
   PATH=/usr/local/heroku/bin:$PATH
 fi
-
-# check if `docker-machine` command exists
-if command -v docker-machine > /dev/null; then
-  # fetch the first running machine name
-  local machine=$(docker-machine ls | grep Running | head -n 1 | awk '{ print $1 }')
-  if [ "$machine" != "" ]; then
-    eval "$(docker-machine env $machine)"
-    export DOCKER_IP=$(docker-machine ip $machine)
-  fi
-fi
