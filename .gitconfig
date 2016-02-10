@@ -42,4 +42,4 @@
 [push]
 	default = current
 [ghq]
-  root = ~/go/src
+  root = ~/src
