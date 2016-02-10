@@ -1,5 +1,5 @@
-set columns=85
-set lines=30
+set columns=100
+set lines=40
 "----------------------------------------
 " IME
 "----------------------------------------
@@ -25,4 +25,4 @@ set background=dark
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-set guifont=Ricty\ Regular\ for\ Powerline:h12
+set guifont=Ricty\ Regular\ for\ Powerline:h16
