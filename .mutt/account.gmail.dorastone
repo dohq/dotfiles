@@ -1,5 +1,5 @@
 set imap_user = "dorastone@gmail.com"
-source "gpg -d ~/.mutt/gmail_passwords.gpg |"
+source "gpg -d ~/.mutt/dorastone_passwords.gpg |"
 set from = "dorastone@gmail.com"
 set realname = "R.Maejima"
 
