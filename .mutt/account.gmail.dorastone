@@ -1,0 +1,34 @@
+set imap_user = "dorastone@gmail.com"
+source "gpg -d ~/.mutt/gmail_passwords.gpg |"
+set from = "dorastone@gmail.com"
+set realname = "R.Maejima"
+
+# Basic config, you can leave this as is ---------------
+#set mbox_type = Maildir
+set folder = "imaps://imap.gmail.com:993"
+#set folder = ~/.Mail/dorastone
+set spoolfile = "+INBOX"
+set imap_check_subscribed
+set hostname = gmail.com
+set mail_check = 120
+set timeout = 15
+set imap_keepalive = 300
+set postponed = "+[GMail]/Drafts"
+set record = "+[GMail]/Sent Mail"
+set header_cache=~/.mutt/gmail.dorastone/cache/headers
+set message_cachedir=~/.mutt/gmail.dorastone/cache/bodies
+set certificate_file=~/.mutt/gmail.dorastone/certificates
+set signature =~/.mutt/gmail.dorastone/signature
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
+
+# Gmail-style keyboard shortcuts ----------------------
+macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
+macro index,pager d "<enter-command>set trash=\"imaps://imap.googlemail.com/[GMail]/Bin\"\n <delete-message>" "Gmail delete message"
+macro index,pager gi "<change-folder>=INBOX<enter>" "Go to inbox"
+macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
+macro index,pager gs "<change-folder>=[Gmail]/starred<enter>" "Go to starred messages"
+macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"

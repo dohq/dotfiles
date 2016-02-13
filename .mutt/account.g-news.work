@@ -1,0 +1,28 @@
+set imap_user = "maejima@g-news.co.jp"
+source "gpg -d ~/.mutt/g-news_passwords.gpg |"
+set from = "maejima@g-news.co.jp"
+set realname = "R.Maejima"
+
+# Basic config, you can leave this as is ---------------
+set charset="utf-8"
+set assumed_charset="iso-2022-jp:euc-jp: shift_jis:utf-8"
+set attach_charset="iso-2022-jp:euc-jp: shift_jis:utf-8"
+set send_charset="us-ascii:iso-8859-1:iso-2022-jp:utf-8"
+set folder = "imap://pop7.gmoserver.jp:143"
+set spoolfile = "imap://pop7.gmoserver.jp:143/INBOX"
+set imap_check_subscribed
+set hostname = g-news.co.jp
+set mail_check = 120
+set timeout = 15
+set imap_keepalive = 300
+set postponed = "+INBOX/Drafts"
+set record = "+INBOX/Sent"
+set header_cache=~/.mutt/g-news.work/cache/headers
+set message_cachedir=~/.mutt/g-news.work/cache/bodies
+set certificate_file=~/.mutt/g-news.work/certificates
+set signature =~/.mutt/g-news.work/signature
+set move = no
+set include
+set sort = 'threads'
+set sort_aux = 'reverse-last-date-received'
+set auto_tag = yes
