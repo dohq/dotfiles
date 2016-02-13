@@ -22,7 +22,7 @@ macro index a     "|abook --add-email\n" 'add sender to abook'
 macro pager a     "|abook --add-email\n" 'add sender to abook'
 
 # Source color Settings
-source ~/.mutt/color_mutt.rc
+source ~/.mutt/color/mutt-colors-solarized-dark-256.muttrc
 
 # Change the following line to a different editor you prefer.
 set editor = "vim"
