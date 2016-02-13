@@ -35,6 +35,7 @@
   cmd = gvim -d \"$LOCAL\" \"$REMOTE\"
 [merge]
   Tool = vimdiff
+	ff = false
 [mergetool "vimdiff"]
   cmd = gvim -d \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
