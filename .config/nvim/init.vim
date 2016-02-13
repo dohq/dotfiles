@@ -72,6 +72,8 @@ call plug#end()
 """"""""""""""""""
 " Color
 colorscheme solarized
+" disable italic
+let g:solarized_italic = 0
 set background=dark
 
 " Basic
@@ -130,6 +132,12 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+"insert_mode move
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
 " ノーマルモード時だけ ; と : を入れ替える
 if has('mac')
  nnoremap ; :
