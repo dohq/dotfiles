@@ -42,7 +42,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
 " Sociales
-Plug 'basyura/TweetVim', { 'branch' : 'dev' }
+Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'mattn/favstar-vim'
