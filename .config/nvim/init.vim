@@ -33,6 +33,7 @@ Plug 'rcmdnk/vim-markdown'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'vim-scripts/sh.vim--Cla'
 Plug 'Konfekt/FastFold'
+Plug 'ekalinin/Dockerfile.vim'
 " Go lang
 Plug 'fatih/vim-go'
 Plug 'zchee/deoplete-go'
