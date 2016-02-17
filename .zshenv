@@ -91,3 +91,17 @@ fi
 if [ -d /usr/local/heroku/bin ];then
   PATH=/usr/local/heroku/bin:$PATH
 fi
+
+# docker-machine env
+function dm-use() {
+  if [ $# != 1 ]; then
+    echo $DOCKER_MACHINE_NAME
+  else
+    eval $(docker-machine env $1)
+  fi
+}
+
+# export heroku
+if [ -d $HOME/.zplug ];then
+  zplug load
+fi
