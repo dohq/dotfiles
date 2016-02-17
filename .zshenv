@@ -100,8 +100,3 @@ function dm-use() {
     eval $(docker-machine env $1)
   fi
 }
-
-# export heroku
-if [ -d $HOME/.zplug ];then
-  zplug load
-fi

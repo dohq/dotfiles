@@ -1,7 +1,21 @@
 #######################################
 # zplug
+[[ -d ~/.zplug ]] || {
+    git clone https://github.com/b4b4r07/zplug ~/.zplug
+    source ~/.zplug/zplug
+    zplug update --self
+}
 source ~/.zplug/zplug
 source ~/.zsh_plug
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    else
+        echo
+    fi
+fi
+zplug load --verbose
 
 ########################################
 # 環境変数
