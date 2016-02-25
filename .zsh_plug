@@ -1,0 +1,20 @@
+ #gitroot
+zplug "mollifier/cd-gitroot"
+
+# Emoji
+zplug "stedolan/jq", from:gh-r, as:command \
+    | zplug "b4b4r07/emoji-cli", if:"which jq"
+
+# enhanced
+zplug "b4b4r07/enhancd", of:enhancd.sh
+
+# syntaxhilight
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
+
+# comp
+zplug "zsh-users/zsh-completions"
+zplug "felixr/docker-zsh-completion"
+zplug "sdurrheimer/docker-compose-zsh-completion"
+
+# zaw
+zplug "zsh-users/zaw"
