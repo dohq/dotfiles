@@ -9,7 +9,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
-export PATH=/usr/local/bin:$HOME/.cabal/bin:$PATH
+export PATH=/usr/local/bin:$HOME/.cabal/bin:/sbin:$PATH
 
 # Alias作りましょうねー
 alias vi='nvim'
