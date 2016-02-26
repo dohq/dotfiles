@@ -1,4 +1,4 @@
- #gitroot
+#gitroot
 zplug "mollifier/cd-gitroot"
 
 # Emoji
@@ -18,3 +18,6 @@ zplug "sdurrheimer/docker-compose-zsh-completion"
 
 # zaw
 zplug "zsh-users/zaw"
+
+# color
+zplug "seebi/dircolors-solarized"
