@@ -109,7 +109,7 @@ set whichwrap=b,s,[,],<,>
 set wildmenu
 set iminsert=0
 set imsearch=-1
-set clipboard=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
 set completeopt+=noselect
 set lazyredraw
 set ttyfast
