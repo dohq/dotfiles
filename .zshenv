@@ -57,6 +57,7 @@ alias sudo='sudo '
 
 # linuxbrew
 if [ -d $HOME/.linuxbrew ]; then
+  export HOMEBREW_BUILD_FROM_SOURCE=1
   export PATH="$HOME/.linuxbrew/bin:$PATH"
   export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
   export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
