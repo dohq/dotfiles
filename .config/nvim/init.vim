@@ -1,21 +1,19 @@
 setglobal rtp+=$HOME/.vim/plugged/vim-plug
-if !isdirectory(expand('$HOME/.vim/plugged/vim-plug'))
-  echo 'install vim-plug...'
-  call system('mkdir -p $HOME/.vim/plugged/vim-plug')
-  call system('git clone https://github.com/junegunn/vim-plug.git $HOME/.vim/plugged/vim-plug/autoload')
-end
+if empty(glob('~/.vim/plugged/vim-plug'))
+  silent !curl -fLo ~/.vim/plugged/vim-plug --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
 
 " Plugin list
 call plug#begin('$HOME/.vim/plugged')
   Plug 'junegunn/vim-plug',
      \ {'dir': '$HOME/.vim/plugged/vim-plug/autoload'}
-Plug 'kassio/neoterm'
+Plug 'kassio/neoterm', { 'on': 'Terminal' }
 Plug 'justinmk/vim-dirvish'
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
-Plug 'tsukkee/unite-tag'
-
-Plug 'ynkdir/vim-funlib'
+Plug 'rhysd/unite-codic.vim', { 'on': 'Unite' }
+Plug 'tsukkee/unite-tag', { 'on': 'Unite' }
+Plug 'koron/codic-vim', { 'on': 'Codic' }
 
 " executable
 Plug 'thinca/vim-quickrun'
@@ -24,46 +22,47 @@ Plug 'dannyob/quickfixstatus'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-watchdogs'
 " Shougo ware
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'Shougo/unite.vim', { 'on': 'Unite' }
+Plug 'Shougo/unite-outline', { 'on': 'Unite' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neoinclude.vim'
 " Format
-Plug 'rcmdnk/vim-markdown'
+Plug 'rcmdnk/vim-markdown', { 'for': 'markdown' }
 Plug 'lambdalisue/vim-unified-diff'
-Plug 'vim-scripts/sh.vim--Cla'
+Plug 'vim-scripts/sh.vim--Cla', { 'for': 'sh' }
 Plug 'Konfekt/FastFold'
-Plug 'ekalinin/Dockerfile.vim'
 " Go lang
-Plug 'fatih/vim-go'
-Plug 'zchee/deoplete-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'for': 'go' }
 " UI
 Plug 'spolu/dwm.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
 " Sociales
-Plug 'basyura/TweetVim'
-Plug 'basyura/bitly.vim'
-Plug 'basyura/twibill.vim'
-Plug 'mattn/favstar-vim'
+Plug 'basyura/TweetVim', { 'on': 'TweetVim' }
+Plug 'basyura/bitly.vim', { 'on': 'TweetVim' }
+Plug 'basyura/twibill.vim', { 'on': 'TweetVim' }
+Plug 'mattn/favstar-vim', { 'on': 'TweetVim' }
 Plug 'mattn/webapi-vim'
-Plug 'basyura/J6uil.vim'
+Plug 'basyura/J6uil.vim', { 'on': 'J6uil' }
 " Input
 Plug 'tyru/eskk.vim'
-Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
 Plug 'ujihisa/neco-look'
 Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim'
 Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
-Plug 'osyo-manga/vim-over'
+Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/echodoc.vim'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'lambdalisue/vim-gista', { 'on' : ['Gista'] }
-Plug 'lambdalisue/vim-gista-unite'
+Plug 'lambdalisue/vim-gista', { 'on' : 'Gista' }
+Plug 'lambdalisue/vim-gista-unite', { 'on' : ['Gista', 'Unite'] }
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
@@ -133,11 +132,6 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
-"insert_mode move
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
 
 " ノーマルモード時だけ ; と : を入れ替える
 if has('mac')
@@ -330,7 +324,7 @@ endif "}}}
 " eskk {{{
 let g:eskk#directory = expand('$CACHE/eskk')
 let g:eskk#large_dictionary = {
-\ 'path': '~/skk/SKK-JISYO.L',
+\ 'path': '~/.vim/skk/SKK-JISYO.L',
 \ 'sorted': 1,
 \}
 " Don't keep state.
