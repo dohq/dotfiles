@@ -228,15 +228,8 @@ nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
-" split unite window
-au FileType unite nnoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
-au FileType unite inoremap <silent> <buffer> <expr> <C-i> unite#do_action('split')
 
-" 2tap esc key exit
-au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
-au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 " Grep
-nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 if executable('pt')
   let g:unite_source_grep_command = 'pt'
   let g:unite_source_grep_default_opts = '--nogroup --nocolor'

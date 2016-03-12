@@ -7,9 +7,9 @@ export LC_ALL=en_US.UTF-8
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-export GOROOT=/usr/local/opt/go/libexec
+export GOROOT=/usr/local/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
-export PATH=/usr/local/bin:$HOME/.cabal/bin:$PATH
+export PATH=/usr/local/bin:$HOME/.cabal/bin:/sbin:$PATH
 
 # Alias作りましょうねー
 alias vi='nvim'
@@ -57,6 +57,7 @@ alias sudo='sudo '
 
 # linuxbrew
 if [ -d $HOME/.linuxbrew ]; then
+  export HOMEBREW_BUILD_FROM_SOURCE=1
   export PATH="$HOME/.linuxbrew/bin:$PATH"
   export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
   export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
