@@ -44,10 +44,10 @@ Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Yggdroot/indentLine'
 " Sociales
-Plug 'basyura/TweetVim', { 'on': 'TweetVim' }
-Plug 'basyura/bitly.vim', { 'on': 'TweetVim' }
-Plug 'basyura/twibill.vim', { 'on': 'TweetVim' }
-Plug 'mattn/favstar-vim', { 'on': 'TweetVim' }
+Plug 'basyura/TweetVim', { 'on': [ 'TweetVim', 'TweetVimSay' ] }
+Plug 'basyura/bitly.vim', { 'on': [ 'TweetVim', 'TweetVimSay' ] }
+Plug 'basyura/twibill.vim', { 'on': [ 'TweetVim', 'TweetVimSay' ] }
+Plug 'mattn/favstar-vim', { 'on': [ 'TweetVim', 'TweetVimSay' ] }
 Plug 'mattn/webapi-vim'
 Plug 'basyura/J6uil.vim', { 'on': 'J6uil' }
 " Input
@@ -325,7 +325,7 @@ endif "}}}
 " eskk {{{
 let g:eskk#directory = expand('$CACHE/eskk')
 let g:eskk#large_dictionary = {
-\ 'path': '~/.vim/skk/SKK-JISYO.L',
+\ 'path': '~/skk/SKK-JISYO.L',
 \ 'sorted': 1,
 \}
 " Don't keep state.
