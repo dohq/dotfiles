@@ -31,6 +31,7 @@ Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neoinclude.vim'
 " Format
 Plug 'rcmdnk/vim-markdown', { 'for': 'markdown' }
+Plug 'cespare/vim-toml', { 'for': 'toml' }
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'vim-scripts/sh.vim--Cla', { 'for': 'sh' }
 Plug 'Konfekt/FastFold'

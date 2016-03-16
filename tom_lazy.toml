@@ -1,0 +1,69 @@
+[[plugins]]
+  repo = 'airblade/vim-gitgutter'
+  on_cmd = 'GitGutterToggle'
+
+[[plugins]]
+  repo = 'basyura/J6uil.vim'
+  on_cmd = 'J6uil'
+
+[[plugins]]
+  repo = 'basyura/TweetVim'
+  on_cmd = TweetVim
+  depends = ['mattn/favstar-vim']
+  depends = ['tyru/open-browser.vim']
+  depends = ['basyura/twibill.vim']
+
+[[plugins]]
+  repo = 'mattn/favstar-vim'
+  on_source = ['TweetVim']
+
+[[plugins]]
+  repo = 'basyura/twibill.vim'
+  on_source = ['TweetVim']
+
+[[plugins]]
+  repo = 'beckorz/previm'
+  on_ft = ['markdown']
+
+[[plugins]]
+  repo = 'cohama/lexima.vim'
+  on_i = 1
+
+[[plugins]]
+  repo = 'fatih/vim-go'
+  on_ft = ['go']
+
+[[plugins]]
+  repo = 'kassio/neoterm'
+  if 'has('nvim')'
+
+[[plugins]]
+  repo = 'koron/codic-vim'
+  on_source = ['Unite']
+
+[[plugins]]
+  repo = 'lambdalisue/vim-gista'
+  on_cmd = 'gista'
+  depends = 'vim-gista-unite'
+
+[[plugins]]
+  repo = 'lambdalisue/vim-gista-unite'
+  on_cmd = 'unite'
+
+[[plugins]]
+  repo = 'osyo-manga/vim-over'
+  on_i = 1
+  on_cmd = ['OverCommandLine']
+
+[[plugins]]
+  repo = 'rcmdnk/vim-markdown'
+  on_ft = ['markdown']
+
+[[plugins]]
+  repo = 'Shougo/context_filetype.vim'
+  on_source = ['neosnippet']
+
+[[plugins]]
+  repo = 'Shougo/deoplete.nvim'
+  if 'has('nvim')'
+
