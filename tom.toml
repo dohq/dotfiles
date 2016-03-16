@@ -31,33 +31,16 @@
 [[plugins]]
   repo = 'osyo-manga/vim-watchdogs'
 [[plugins]]
-  repo = 'rhysd/unite-codic.vim'
-[[plugins]]
   repo = 'Shougo/echodoc.vim'
 [[plugins]]
-  repo = 'Shougo/neocomplete.vim'
-[[plugins]]
   repo = 'Shougo/neoinclude.vim'
-[[plugins]]
-  repo = 'Shougo/neomru.vim'
-[[plugins]]
-  repo = 'Shougo/neosnippet'
-[[plugins]]
-  repo = 'Shougo/neosnippet-snippets'
-[[plugins]]
-  repo = 'Shougo/unite-outline'
-[[plugins]]
-  repo = 'Shougo/unite.vim'
-[[plugins]]
-  repo = 'Shougo/vimfiler'
 [[plugins]]
   repo = 'Shougo/vimproc.vim'
 [[plugins]]
   repo = 'Shougo/vimshell'
+  depends = ['vimshell-kawaii']
 [[plugins]]
   repo = 'spolu/dwm.vim'
-[[plugins]]
-  repo = 'supermomonga/vimshell-kawaii.vim'
 [[plugins]]
   repo = 'thinca/vim-quickrun'
 [[plugins]]
@@ -65,18 +48,12 @@
 [[plugins]]
   repo = 'tpope/vim-surround'
 [[plugins]]
-  repo = 'tsukkee/unite-tag'
-[[plugins]]
   repo = 'tyru/eskk.vim'
 [[plugins]]
   repo = 'ujihisa/neco-look'
 [[plugins]]
   repo = 'vim-jp/vimdoc-ja'
 [[plugins]]
-  repo = 'vim-scripts/sh.vim--Cla'
-[[plugins]]
   repo = 'Yggdroot/indentLine'
 [[plugins]]
   repo = 'yuratomo/w3m.vim'
-[[plugins]]
-  repo = 'zchee/deoplete-go'

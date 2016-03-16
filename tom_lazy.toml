@@ -1,10 +1,10 @@
 [[plugins]]
   repo = 'airblade/vim-gitgutter'
-  on_cmd = 'GitGutterToggle'
+  on_cmd = ['GitGutterToggle']
 
 [[plugins]]
   repo = 'basyura/J6uil.vim'
-  on_cmd = 'J6uil'
+  on_cmd = ['J6uil']
 
 [[plugins]]
   repo = 'basyura/TweetVim'
@@ -34,8 +34,60 @@
   on_ft = ['go']
 
 [[plugins]]
+  repo = 'tsukkee/unite-tag'
+  on_source = ['unite']
+
+[[plugins]]
+  repo = 'supermomonga/vimshell-kawaii.vim'
+  on_source = ['vimshell']
+
+[[plugins]]
+  repo = 'Shougo/unite.vim'
+  on_cmd = ['Unite']
+
+[[plugins]]
+  repo = 'Shougo/unite-outline'
+  on_source = ['unite']
+
+[[plugins]]
+  repo = 'Shougo/neosnippet'
+  depends = ['Shougo/neosnippet-snippets']
+  on_i = 1
+
+[[plugins]]
+  repo = 'Shougo/neomru.vim'
+  on_source = ['unite']
+
+[[plugins]]
+  repo = 'Shougo/vimfiler'
+  on_cmd = ['vimfiler']
+
+[[plugins]]
+  repo = 'Shougo/neosnippet-snippets'
+  on_source = ['Shougo/neosnippet']
+
+[[plugins]]
+  repo = 'vim-scripts/sh.vim--Cla'
+  on_ft = ['sh']
+
+[[plugins]]
+  repo = 'zchee/deoplete-go'
+  depends = ['Shougo/deoplete']
+  on_ft = ['go']
+
+[[plugins]]
   repo = 'kassio/neoterm'
   if 'has('nvim')'
+
+[[plugins]]
+  repo = 'Shougo/neocomplete.vim'
+  if = 'has('vim')'
+  on_i = 1
+
+[[plugins]]
+  repo = 'rhysd/unite-codic.vim'
+  depends = ['koron/codic']
+  on_source = ['unite']
 
 [[plugins]]
   repo = 'koron/codic-vim'
@@ -43,12 +95,12 @@
 
 [[plugins]]
   repo = 'lambdalisue/vim-gista'
-  on_cmd = 'gista'
-  depends = 'vim-gista-unite'
+  on_cmd = ['gista']
+  depends = ['lambdalisue/vim-gista-unite']
 
 [[plugins]]
   repo = 'lambdalisue/vim-gista-unite'
-  on_cmd = 'unite'
+  on_source  = ['unite']
 
 [[plugins]]
   repo = 'osyo-manga/vim-over'
