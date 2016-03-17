@@ -1,54 +1,41 @@
-if 0 | endif
+""" init
 if has('vim_starting')
-  set rtp+=~/.vim/bundle/vim-plug
-  if !isdirectory(expand('~/.vim/bundle/vim-plug'))
-    echo 'install vim-plug...'
-    call system('mkdir -p ~/.vim/bundle/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug/autoload')
-  end
-endif
+  " minimal vim
+  if 0 | endif
+  " if compatible_mode
+  if &compatible
+    set nocompatible
+  endif
+  " init augroup
+  augroup MyAutoCmd
+    autocmd!
+  augroup END
 
-call plug#begin('~/.vim/bundle')
-  Plug 'junegunn/vim-plug',
-     \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
-" Plugin list
-Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
-Plug 'Shougo/vimfiler'
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/vimshell' | Plug 'supermomonga/vimshell-kawaii.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'altercation/vim-colors-solarized'
-Plug 'basyura/J6uil.vim'
-Plug 'basyura/TweetVim', { 'branch': 'dev' }
-Plug 'basyura/bitly.vim'
-Plug 'basyura/twibill.vim'
-Plug 'beckorz/previm'
-Plug 'cohama/lexima.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'joker1007/vim-markdown-quote-syntax'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'mattn/favstar-vim'
-Plug 'mattn/webapi-vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'osyo-manga/vim-over'
-Plug 'rcmdnk/vim-markdown'
-Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
-Plug 'spolu/dwm.vim'
-Plug 'yuratomo/w3m.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tsukkee/unite-tag'
-Plug 'tyru/open-browser.vim'
-Plug 'vim-jp/vimdoc-ja'
-Plug 'ujihisa/neco-look'
-Plug 'tyru/eskk.vim'
-Plug 'lambdalisue/vim-gista', { 'on':  ['Gista'] }
-call plug#end()
+""" Plugin
+	let s:dein_dir = expand('~/.vim/dein')
+	let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+	if !isdirectory(s:dein_repo_dir)
+	  execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+	endif
+	execute 'set runtimepath^=' . s:dein_repo_dir
+
+	call dein#begin(s:dein_dir)
+	let s:toml = '~/.config/vim/tom.toml'
+	let s:lazy_toml = '~/.config/vim/tom_lazy.toml'
+		if dein#load_cache([expand('<sfile>', s:toml, s:lazy_toml)])
+		  call dein#load_toml(s:toml, {'lazy': 0})
+		  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+		  call dein#save_cache()
+		endif
+	call dein#end()
+
+	if dein#check_install(['vimproc'])
+	  call dein#install(['vimproc'])
+	endif
+	if dein#check_install()
+	  call dein#install()
+	endif
+endif
 
 "----------------------------------------
 " Option Settings

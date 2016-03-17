@@ -1,0 +1,59 @@
+[[plugins]]
+  repo = 'altercation/vim-colors-solarized'
+[[plugins]]
+  repo = 'basyura/bitly.vim'
+[[plugins]]
+  repo = 'tyru/open-browser.vim'
+[[plugins]]
+  repo = 'cohama/vim-hier'
+[[plugins]]
+  repo = 'dannyob/quickfixstatus'
+[[plugins]]
+  repo = 'itchyny/lightline.vim'
+[[plugins]]
+  repo = 'joker1007/vim-markdown-quote-syntax'
+[[plugins]]
+  repo = 'justinmk/vim-dirvish'
+[[plugins]]
+  repo = 'Konfekt/FastFold'
+[[plugins]]
+  repo = 'lambdalisue/vim-unified-diff'
+[[plugins]]
+  repo = 'Lokaltog/vim-easymotion'
+[[plugins]]
+  repo = 'ludovicchabant/vim-gutentags'
+[[plugins]]
+  repo = 'mattn/webapi-vim'
+[[plugins]]
+  repo = 'nathanaelkane/vim-indent-guides'
+[[plugins]]
+  repo = 'osyo-manga/shabadou.vim'
+[[plugins]]
+  repo = 'osyo-manga/vim-watchdogs'
+[[plugins]]
+  repo = 'Shougo/echodoc.vim'
+[[plugins]]
+  repo = 'Shougo/neoinclude.vim'
+[[plugins]]
+  repo = 'Shougo/vimproc.vim'
+[[plugins]]
+  repo = 'Shougo/vimshell'
+  depends = ['vimshell-kawaii']
+[[plugins]]
+  repo = 'spolu/dwm.vim'
+[[plugins]]
+  repo = 'thinca/vim-quickrun'
+[[plugins]]
+  repo = 'tpope/vim-fugitive'
+[[plugins]]
+  repo = 'tpope/vim-surround'
+[[plugins]]
+  repo = 'tyru/eskk.vim'
+[[plugins]]
+  repo = 'ujihisa/neco-look'
+[[plugins]]
+  repo = 'vim-jp/vimdoc-ja'
+[[plugins]]
+  repo = 'Yggdroot/indentLine'
+[[plugins]]
+  repo = 'yuratomo/w3m.vim'
