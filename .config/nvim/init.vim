@@ -60,7 +60,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/echodoc.vim'
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterEnable' }
 Plug 'lambdalisue/vim-gista', { 'on' : 'Gista' }
 Plug 'lambdalisue/vim-gista-unite', { 'on' : ['Gista', 'Unite'] }
 " Tags
@@ -358,7 +358,7 @@ nmap <c-n> <Plug>DWMNew
 nmap <c-c> <Plug>DWMClose
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
-let g:dwm_master_pane_width=85 "}}}
+"let g:dwm_master_pane_width=85 "}}}
 "TweetVim {{{
 let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
