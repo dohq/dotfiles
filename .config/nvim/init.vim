@@ -39,6 +39,7 @@ Plug 'Konfekt/FastFold'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'zchee/deoplete-go', { 'for': 'go' }
 " UI
+Plug 'junegunn/limelight.vim'
 Plug 'spolu/dwm.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -55,7 +56,8 @@ Plug 'tyru/eskk.vim'
 Plug 'ujihisa/neco-look'
 Plug 'tpope/vim-surround'
 Plug 'cohama/lexima.vim'
-Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/echodoc.vim'
@@ -325,7 +327,7 @@ endif "}}}
 " eskk {{{
 let g:eskk#directory = expand('$CACHE/eskk')
 let g:eskk#large_dictionary = {
-\ 'path': '~/skk/SKK-JISYO.L',
+\ 'path': '~/.vim/skk/SKK-JISYO.L',
 \ 'sorted': 1,
 \}
 " Don't keep state.
@@ -442,6 +444,31 @@ au FileType go nmap [vim-go]b <Plug>(go-build)
 au FileType go nmap [vim-go]t <Plug>(go-test)
 au FileType go nmap [vim-go]c <Plug>(go-coverage)
 au FileType go nmap [vim-go]d <Plug>(go-doc-vertical)
+"}}}
+" Limelight {{{
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
 "}}}
 
 " over.vim

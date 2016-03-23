@@ -1,23 +1,17 @@
-#gitroot
-zplug "mollifier/cd-gitroot"
-
-# Emoji
-zplug "stedolan/jq", from:gh-r, as:command \
-    | zplug "b4b4r07/emoji-cli", if:"which jq"
-
 # enhanced
+# cdコマンドを便利にする。便利
 zplug "b4b4r07/enhancd", of:enhancd.sh
 
 # syntaxhilight
+# コマンドにシンタックスハイライトを適用する。便利？
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
 # comp
+# コマンドを色々補完する。超便利
 zplug "zsh-users/zsh-completions"
 zplug "felixr/docker-zsh-completion"
 zplug "sdurrheimer/docker-compose-zsh-completion"
 
-# zaw
-zplug "zsh-users/zaw"
-
 # color
+# 色付ける。便利
 zplug "seebi/dircolors-solarized"

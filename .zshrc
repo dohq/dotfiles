@@ -334,16 +334,21 @@ case ${OSTYPE} in
 esac
 
 # gpg-agent
-case "$OSTYPE" in
-  linux )
-    envfile="$HOME/.gnupg/gpg-agent.env"
-    if [[ -e "$envfile" ]] && kill -0 $(grep GPG_AGENT_INFO "$envfile" | cut -d: -f 2) 2>/dev/null; then
-        eval "$(cat "$envfile")"
+case "${OSTYPE}" in
+  linux* )
+  SOCKET=S.gpg-agent
+  PIDOF=`pidof gpg-agent`
+  RETVAL=$?
+  if [ "$RETVAL" -eq 1 ]; then
+    echo "Starting gpg-agent daemon."
+      eval `gpg-agent --daemon `
     else
-        eval "$(gpg-agent --daemon --enable-ssh-support --write-env-file "$envfile")"
-    fi
-    export GPG_AGENT_INFO  # the env file does not contain the export statement
-    export SSH_AUTH_SOCK   # enable gpg-agent for ssh
+      echo "Daemon gpg-agent already running."
+  fi
+  # Nasty way to find gpg-agent's socket file...
+  GPG_SOCKET_FILE=`find /tmp/gpg-* -name $SOCKET`
+  echo "Updating socket file link."
+  \cp -fs $GPG_SOCKET_FILE $HOME/.gnupg/S.gpg-agent
    ;;
   *)
 esac
