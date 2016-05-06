@@ -27,10 +27,6 @@ if [ -x "`which peco`" ]; then
   alias pp='ps aux | peco'
 fi
 
-# docker
-alias dip='docker ps -q | xargs docker inspect --format='{{.NetworkSettings.IPAddress}} -- {{.Name}}''
-alias dl='docker ps -l -q'
-
 # pandocでPDF
 alias ppdf='pandoc -V documentclass=ltjarticle -V monofont=Consolas --latex-engine=lualatex -N --toc'
 
@@ -55,15 +51,6 @@ alias gd="git diff"
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
-# linuxbrew
-if [ -d $HOME/.linuxbrew ]; then
-  export HOMEBREW_BUILD_FROM_SOURCE=1
-  export PATH="$HOME/.linuxbrew/bin:$PATH"
-  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-  export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
-fi
-
 # cabal
 if [ -d $HOME/.cabal ] ; then
     export PATH="$HOME/.cabal//bin:$PATH"
@@ -73,11 +60,6 @@ fi
 if [ -d $HOME/.anyenv ] ; then
   export PATH="$HOME/.anyenv/bin:$PATH"
   eval "$(anyenv init -)"
-fi
-
-# byobu
-if [ -d $HOME/.byobu ] ; then
-  export BYOBU_PREFIX=$(brew --prefix)
 fi
 
 # hub alias
@@ -92,12 +74,3 @@ fi
 if [ -d /usr/local/heroku/bin ];then
   PATH=/usr/local/heroku/bin:$PATH
 fi
-
-# docker-machine env
-function dm-use() {
-  if [ $# != 1 ]; then
-    echo $DOCKER_MACHINE_NAME
-  else
-    eval $(docker-machine env $1)
-  fi
-}

@@ -55,7 +55,7 @@ call plug#end()
 "----------------------------------------
 set t_Co=256
 colorscheme solarized
-set background=dark
+set background=light
 
 filetype plugin indent on
 set enc=UTF-8
@@ -112,10 +112,8 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 " ノーマルモード時だけ ; と : を入れ替える
-if has('mac')
- nnoremap ; :
- nnoremap : ;
-endif
+nnoremap ; :
+nnoremap : ;
 
 "----------------------------------------
 " Plugin Settings

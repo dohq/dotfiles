@@ -1,9 +1,9 @@
 setglobal rtp+=$HOME/.vim/plugged/vim-plug
-if empty(glob('~/.vim/plugged/vim-plug'))
-  silent !curl -fLo ~/.vim/plugged/vim-plug --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
+if !isdirectory(expand('~/.vim/plugged/vim-plug'))
+  echo 'install vim-plug...'
+  call system('mkdir -p ~/.vim/plugged/vim-plug')
+  call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
+end
 
 " Plugin list
 call plug#begin('$HOME/.vim/plugged')
@@ -137,7 +137,7 @@ nnoremap Y y$
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " ノーマルモード時だけ ; と : を入れ替える
-if has('mac')
+if has('mac') || has('unix')
  nnoremap ; :
  nnoremap : ;
 endif
