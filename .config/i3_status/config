@@ -1,0 +1,51 @@
+general {
+	colors = 		True
+	color_good = 		"#A4886C"
+	color_bad = 		"#A4886C"
+	color_degraded =	"#A4886C"
+	interval = 		1
+}
+
+order += "disk /"
+order += "volume master"
+order += "wireless _first_"
+order += "tztime local"
+
+
+disk "/" {
+	format = 	"root : %avail"
+	prefix_type = 	"custom"
+}
+
+cpu_usage {
+	format = 	": %usage"
+}
+
+wireless _first_ {
+	format_up = 	": %bitrate"
+	format_down = 	"☡"
+}
+
+battery 0 {
+        format = 			"%status %percentage"
+	format_down = 			" NULL"
+	status_chr = 			": CHR"
+	status_bat = 			": BAT"
+	status_full =			": FULL"
+	hide_seconds = 			true
+	last_full_capacity =	 	true
+	integer_battery_capacity = 	true
+
+}
+
+volume master {
+	format = 	": %volume"
+	device = 	"default"
+	mixer = 	"Master"
+	mixer_idx = 	0
+}
+
+tztime local {
+#	format = 	":%l:%M%p"
+	format =	"%l:%M%p"
+}
