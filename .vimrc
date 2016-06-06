@@ -24,7 +24,7 @@ Plug 'Shougo/vimshell' | Plug 'supermomonga/vimshell-kawaii.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'basyura/J6uil.vim'
-Plug 'basyura/TweetVim', { 'branch': 'dev' }
+Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'beckorz/previm'
@@ -34,12 +34,15 @@ Plug 'joker1007/vim-markdown-quote-syntax'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'mattn/favstar-vim'
 Plug 'mattn/webapi-vim'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'mattn/vim-terminal'
+"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-over'
 Plug 'rcmdnk/vim-markdown'
 Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
 Plug 'spolu/dwm.vim'
+if has('linux') || has('darwin')
 Plug 'yuratomo/w3m.vim'
+endif
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tsukkee/unite-tag'
@@ -48,6 +51,13 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'ujihisa/neco-look'
 Plug 'tyru/eskk.vim'
 Plug 'lambdalisue/vim-gista', { 'on':  ['Gista'] }
+Plug 'Yggdroot/indentLine'
+Plug 'b4b4r07/vim-shellutils'
+Plug 'thinca/vim-quickrun'
+Plug 'ynkdir/vim-funlib'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'mattn/sonictemplate-vim'
 call plug#end()
 
 "----------------------------------------
@@ -55,7 +65,7 @@ call plug#end()
 "----------------------------------------
 set t_Co=256
 colorscheme solarized
-set background=light
+let g:solarized_italic = 0
 
 filetype plugin indent on
 set enc=UTF-8
@@ -73,6 +83,7 @@ set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
 set display=lastline
 set foldmethod=marker
+set completeopt=menuone
 set hidden
 set ignorecase
 set incsearch
@@ -112,8 +123,17 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 " ノーマルモード時だけ ; と : を入れ替える
-nnoremap ; :
-nnoremap : ;
+let g:hostname = substitute(system('hostname'), '\n', '', '')
+if g:hostname == "X220-.*"
+  nnoremap ; :
+  nnoremap : ;
+endif
+
+" 80column
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=9
+endif
 
 "----------------------------------------
 " Plugin Settings
@@ -131,6 +151,7 @@ if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+let g:neocomplete#keyword_patterns['go'] = '\h\w*\.\?'
 
 if !exists('g:neocomplete#text_mode_filetypes')
     let g:neocomplete#text_mode_filetypes = {}
@@ -199,12 +220,16 @@ if has('conceal')
 endif
 "}}}
 "TweetVim {{{
+" The prefix key.
+nnoremap    [TweetVim]   <Nop>
+nmap    <Space>t [TweetVim]
+
+nnoremap <silent> [TweetVim]l :<C-u>Unite<Space>tweetvim<CR>
+nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
+
 let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
-
-nnoremap <F6> :<C-u>Unite tweetvim<CR>
-nnoremap ,ts :<C-u>TweetVimSay<CR>
 "}}}
 " Unite{{{
 " The prefix key.
@@ -370,8 +395,7 @@ function! MyCharCode()
 endfunction
 " }}}
 " EasyAlign{{{
-vmap <Enter> <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+vnoremap <silent> <Enter> :EasyAlign<cr>
 let g:easy_align_bypass_fold = 1
 let g:easy_align_delimiters = {
 \ '>': { 'pattern': '>>\|=>\|>' },
@@ -414,7 +438,7 @@ let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 " }}}
 " ESKK {{{
-let g:eskk#directory = expand('$HOME/$CACHE/eskk')
+let g:eskk#directory = expand('$HOME/.cache/eskk')
 let g:eskk#large_dictionary = {
 \ 'path': '~/.vim/skk/SKK-JISYO.L',
 \ 'sorted': 1,
@@ -429,54 +453,91 @@ let g:eskk#egg_like_newline_completion = 1
 let g:eskk#tab_select_completion = 1
 let g:eskk#start_completion_length = 3
 "}}}
-
-" over.vim
-nnoremap <silent> <Space>m :OverCommandLine<CR>
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-
-" dwm.vim
+" Git {{{
+let g:gitgutter_enabled = 0
+nnoremap    [Git]   <Nop>
+nmap    <Space>g [Git]
+nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
+nnoremap <silent> [Git]h :<C-u>GitGutterLineHighlightsToggle<CR>
+" vim-fugitive
+nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
+nnoremap <silent> [Git]m :<C-u>Gcommit<CR>
+" }}}
+" dwm.vim {{{
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
 nmap <m-r> <Plug>DWMRotateCounterclockwise
 nmap <m-t> <Plug>DWMRotateClockwise
 nmap <c-n> <Plug>DWMNew
 nmap <c-c> <Plug>DWMClose
-"nmap <c-Space> <Plug>DWMFocus
 nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
-let g:dwm_master_pane_width=85
+"let g:dwm_master_pane_width=85
+" }}}
+" QuickRun {{{
+" <C-c> で実行を強制終了させる
+" quickrun.vim が実行していない場合には <C-c> を呼び出す
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+au FileType qf nnoremap <silent><buffer>q :quit<CR>
+
+let g:quickrun_config = get(g:, 'quickrun_config', {})
+
+let g:quickrun_config = {
+\   "_" : {
+\       "hook/koshikoshi/enable" : 1,
+\       "hook/koshikoshi/wait" : 20,
+\       "runner/vimproc/updatetime" : 10,
+\       "outputter/buffer/close_on_empty" : 1,
+\       "outputter/buffer/split" : ":rightbelow 8sp",
+\       "outputter/error/error" : "quickfix",
+\       "outputter/error/success" : "buffer",
+\       "outputter" : "error",
+\       "runner" : "vimproc",
+\   },
+\}
+" }}}
+" vim-go {{{
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
+" }}}
+
+" over.vim
+nnoremap <silent> <Space>m :OverCommandLine<CR>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 
 "vim-indent-guide
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=4
+"let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_guide_size=4
+
+" vim-indent-line
+let g:indentLine_color_term = 111
+let g:indentLine_color_gui = '#708090'
+let g:indentLine_char = '¦'
+let g:indent_guides_start_level = 2
 
 " vimfiler
 let g:vimfiler_as_default_explorer=1
-
-" PrevimOpen
-let g:previm_enable_realtime = 1
 
 "VimShell
 let g:vimshell_interactive_update_time = 5
 let g:vimshell_prompt = $USERNAME."% "
 nnoremap <silent> vs :VimShell<CR>
-nnoremap <silent> vsc :VimShellCreate<CR>
 nnoremap <silent> vp :VimShellPop<CR>
-
-" Git-gutter
-let g:gitgutter_enabled = 0
-nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
-nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
-
-" vim-fugitive
-nmap <F9> :Gwrite<CR>
-nmap <F10> :Gcommit -v<CR>
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " markdownの折りたたみなし
 let g:vim_markdown_folding_disabled=1
+" PrevimOpen
+let g:previm_enable_realtime = 1
 
 " Lexima
 call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
