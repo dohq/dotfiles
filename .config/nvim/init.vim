@@ -62,12 +62,15 @@ Plug 'osyo-manga/vim-over', { 'on': 'OverCommandLine' }
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/echodoc.vim'
 " Git
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/vim-gita'
 Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterEnable' }
-Plug 'lambdalisue/vim-gista', { 'on' : 'Gista' }
-Plug 'lambdalisue/vim-gista-unite', { 'on' : ['Gista', 'Unite'] }
+Plug 'lambdalisue/vim-gista'
+Plug 'lambdalisue/vim-gista-unite'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
+" Tools
+Plug 'chimay/unite-mpc'
 call plug#end()
 
 """"""""""""""""""
@@ -135,6 +138,20 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+
+" Reload VIMRC
+if has('vim_starting')
+  function s:reload_vimrc() abort
+    execute printf('source %s', $MYVIMRC)
+    if has('gui_running')
+      execute printf('source %s', $MYGVIMRC)
+    endif
+    redraw
+    echo printf('.vimrc/.gvimrc has reloaded (%s).', strftime('%c'))
+  endfunction
+endif
+nmap <silent> <Plug>(my-reload-vimrc) :<C-u>call <SID>reload_vimrc()<CR>
+nmap <Leader>v <Plug>(my-reload-vimrc)<Paste>
 
 " ノーマルモード時だけ ; と : を入れ替える
 if has('mac') || has('unix')
@@ -406,6 +423,14 @@ let g:unite_source_grep_encoding = 'utf-8'
 endif
 "}}}
 " vim-fugitive{{{
+nnoremap    [vim-Gita]   <Nop>
+nmap    <Space>g [vim-Gita]
+nnoremap <silent> [vim-Gita]a :<C-u>Gita<Space>add<CR>
+nnoremap <silent> [vim-Gita]c :<C-u>Gita<Space>commit<CR>
+nnoremap <silent> [vim-Gita]d :<C-u>Gita<Space>diff<CR>
+nnoremap <silent> [vim-Gita]s :<C-u>Gita<Space>status<CR>
+" }}}
+" vim-fugitive{{{
 nnoremap    [fugitive]   <Nop>
 nmap    <Space>g [fugitive]
 nnoremap <silent> [fugitive]a :<C-u>Gwrite<CR>
@@ -430,12 +455,13 @@ let g:quickrun_config["watchdogs_checker/_"] = {
 "}}}
 " vim-go {{{
 au BufNewFile,BufRead *.go set noexpandtab tabstop=4 shiftwidth=4
+let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
-let g:go_highlight_functions = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_term_mode = "split"
-let g:go_term_enabled = 1
+let g:go_fmt_command = "goimports"
 " Keymapping
 nnoremap    [vim-go]   <Nop>
 nmap    <Space>l [vim-go]
@@ -493,3 +519,6 @@ let g:neoterm_position = 'horizontal'
 let g:gitgutter_enabled = 0
 nnoremap <silent> <Leader>gg :<C-u>GitGutterToggle<CR>
 nnoremap <silent> <Leader>gh :<C-u>GitGutterLineHighlightsToggle<CR>
+
+" Vim-Gista
+let g:gista#client#default_username = 'dohq'

@@ -55,7 +55,7 @@ call plug#end()
 "----------------------------------------
 set t_Co=256
 colorscheme solarized
-set background=light
+set background=dark
 
 filetype plugin indent on
 set enc=UTF-8
