@@ -56,10 +56,17 @@ Plug 'b4b4r07/vim-shellutils'
 Plug 'thinca/vim-quickrun'
 Plug 'ynkdir/vim-funlib'
 Plug 'osyo-manga/shabadou.vim'
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'jceb/vim-hier'
+Plug 'dannyob/quickfixstatus'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'mattn/sonictemplate-vim'
+Plug 'itchyny/vim-parenmatch'
+Plug 'itchyny/vim-cursorword'
+Plug 'KazuakiM/vim-qfsigns'
 call plug#end()
 
+filetype plugin indent on
 "----------------------------------------
 " Option Settings
 "----------------------------------------
@@ -67,15 +74,20 @@ set t_Co=256
 colorscheme solarized
 let g:solarized_italic = 0
 
-filetype plugin indent on
+" Encoding
 set enc=UTF-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+
 " save as delete tailing Space
 augroup spacend
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
 augroup END
+
+" disable matchparen
+let g:loaded_matchparen = 1
+
 set ambiwidth=double
 set autoindent
 set expandtab
@@ -101,8 +113,9 @@ set whichwrap=b,s,[,],<,>
 set wildmenu
 set iminsert=0
 set imsearch=-1
+set cmdheight=2
 set nf=""
-if &t_Co > 2 || has("gui_running")
+if &t_Co > 2 || has('gui_running')
   syntax on
   set hlsearch
 endif
@@ -115,7 +128,7 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 vmap y "*Y
-let g:mapleader = ","
+let g:mapleader = ','
 inoremap jj <ESC>
 nnoremap J 15j
 nnoremap K 15k
@@ -123,8 +136,8 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 " ノーマルモード時だけ ; と : を入れ替える
-let g:hostname = substitute(system('hostname'), '\n', '', '')
-if g:hostname == "X220-.*"
+let s:hostname = substitute(system('hostname'), '\n', '', '')
+if s:hostname ==# 'X220-arch'
   nnoremap ; :
   nnoremap : ;
 endif
@@ -271,7 +284,7 @@ let g:lightline = {
         \     ['fugitive', 'gitgutter', 'filename'],
         \   ],
         \   'right': [
-        \     ['lineinfo', 'syntastic'],
+        \     ['lineinfo'],
         \     ['percent'],
         \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
         \   ]
@@ -285,7 +298,6 @@ let g:lightline = {
         \   'filetype': 'MyFiletype',
         \   'fileencoding': 'MyFileencoding',
         \   'mode': 'MyMode',
-        \   'syntastic': 'SyntasticStatuslineFlag',
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
         \ },
@@ -294,7 +306,7 @@ let g:lightline = {
         \ }
 
 function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! MyReadonly()
@@ -302,12 +314,12 @@ function! MyReadonly()
 endfunction
 
 function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
+  return ('' !=? MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft ==# 'unite' ? unite#get_status_string() :
+        \  &ft ==# 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
+        \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' !=# MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFugitive()
@@ -376,9 +388,9 @@ function! MyCharCode()
   " Zero pad hex values
   let nrformat = '0x%02x'
 
-  let encoding = (&fenc == '' ? &enc : &fenc)
+  let encoding = (&fenc ==? '' ? &enc : &fenc)
 
-  if encoding == 'utf-8'
+  if encoding ==# 'utf-8'
     " Zero pad with 4 zeroes in unicode files
     let nrformat = '0x%04x'
   endif
@@ -393,6 +405,9 @@ function! MyCharCode()
 
   return "'". char ."' ". nr
 endfunction
+
+" after WatchdogsRun reload lightline.vim
+let g:Qfstatusline#UpdateCmd = function('lightline#update')
 " }}}
 " EasyAlign{{{
 vnoremap <silent> <Enter> :EasyAlign<cr>
@@ -446,8 +461,7 @@ let g:eskk#large_dictionary = {
 " Don't keep state.
 let g:eskk#keep_state = 0
 let g:eskk#show_annotation = 1
-"let g:eskk#rom_input_style = 'msime'
-let g:eskk_revert_henkan_style = "okuri"
+let g:eskk_revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 let g:eskk#tab_select_completion = 1
@@ -478,34 +492,110 @@ nmap <c-h> <Plug>DWMShrinkMaster
 " <C-c> で実行を強制終了させる
 " quickrun.vim が実行していない場合には <C-c> を呼び出す
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-au FileType qf nnoremap <silent><buffer>q :quit<CR>
+augroup quitqf
+  autocmd!
+  au FileType qf nnoremap <silent><buffer>q :quit<CR>
+augroup END
 
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 
 let g:quickrun_config = {
-\   "_" : {
-\       "hook/koshikoshi/enable" : 1,
-\       "hook/koshikoshi/wait" : 20,
-\       "runner/vimproc/updatetime" : 10,
-\       "outputter/buffer/close_on_empty" : 1,
-\       "outputter/buffer/split" : ":rightbelow 8sp",
-\       "outputter/error/error" : "quickfix",
-\       "outputter/error/success" : "buffer",
-\       "outputter" : "error",
-\       "runner" : "vimproc",
+\   '_' : {
+\       'hook/koshikoshi/enable' : 1,
+\       'hook/koshikoshi/wait' : 20,
+\       'runner/vimproc/updatetime' : 10,
+\       'outputter/buffer/close_on_empty' : 1,
+\       'outputter/buffer/split' : ':rightbelow 8sp',
+\       'outputter/error/error' : 'quickfix',
+\       'outputter/error/success' : 'buffer',
+\       'outputter' : 'error',
+\       'runner' : 'vimproc',
 \   },
 \}
 " }}}
+" pyfleaks {{{
+let s:pyflakes = executable('pyflakes3') ? 'pyflakes3' :
+      \          executable('python3') ? 'python3' :
+      \          executable('pyflakes') ? 'pyflakes' :
+      \          'python'
+let s:cmdopt = executable('pyflakes3') ? '' :
+      \          executable('python3') ? '-m pyflakes' :
+      \          executable('pyflakes') ? '' :
+      \          '-m pyflakes'
+" }}}
+" watchdogs {{{
+
+" watchdogs writecehck
+let g:watchdogs_check_BufWritePost_enable = 1
+" watchdogs timercheck
+let g:watchdogs_check_CursorHold_enable = 1
+
+" init
+if !exists('g:quickrun_config')
+    let g:quickrun_config = {}
+endif
+
+" watchdogs CheckTools
+let g:quickrun_config = {
+\   'watchdogs_checker/pyflakes3' : {
+\       'command' : s:pyflakes,
+\       'cmdopt' : s:cmdopt,
+\       'exec'    : '%c %o %s:p',
+\       'errorformat' : '%f:%l:%m',
+\   },
+\   'python/watchdogs_checker' : {
+\       'type' : 'watchdogs_checker/pyflakes3',
+\   },
+\   'watchdogs_checker/golint' : {
+\       'command':     'golint',
+\       'exec':        '%c %o %s:p',
+\       'errorformat' : '%f:%l:%c: %m,%-G%.%#',
+\   },
+\   'go/watchdogs_checker' : {
+\       'type' : 'watchdogs_checker/golint'
+\   },
+\   'watchdogs_checker/vint' : {
+\       'command'   : 'vint',
+\       'exec'      : '%c %o %s:p',
+\   },
+\   'vim/watchdogs_checker': {
+\       'type': executable('vint') ? 'watchdogs_checker/vint' : '',
+\   },
+\}
+
+" watchdogs global settings
+let g:quickrun_config['watchdogs_checker/_'] = {
+\   'outputter/quickfix/open_cmd' : '',
+\   'hook/qfstatusline_update/enable_exit' : 1,
+\   'hook/qfstatusline_update/priority_exit' : 4,
+\   'hook/qfsigns_update/enable_exit':   1,
+\   'hook/qfsigns_update/priority_exit': 3,
+\}
+
+" don't remove
+call watchdogs#setup(g:quickrun_config)
+" }}}
 " vim-go {{{
-autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-autocmd FileType go :match goErr /\<err\>/
+" highlight error
+augroup hierr
+  autocmd!
+  autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+  autocmd FileType go :match goErr /\<err\>/
+augroup END
+
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
+" }}}
+" qfsign {{{
+" If syntax error, cursor is moved at line setting sign.
+let g:qfsigns#AutoJump = 1
+" If syntax error, view split and cursor is moved at line setting sign.
+let g:qfsigns#AutoJump = 2
 " }}}
 
 " over.vim
@@ -528,7 +618,7 @@ let g:vimfiler_as_default_explorer=1
 
 "VimShell
 let g:vimshell_interactive_update_time = 5
-let g:vimshell_prompt = $USERNAME."% "
+let g:vimshell_prompt = $USERNAME.'% '
 nnoremap <silent> vs :VimShell<CR>
 nnoremap <silent> vp :VimShellPop<CR>
 
@@ -538,7 +628,3 @@ au BufRead,BufNewFile *.md set filetype=markdown
 let g:vim_markdown_folding_disabled=1
 " PrevimOpen
 let g:previm_enable_realtime = 1
-
-" Lexima
-call lexima#add_rule({'at': '\%#.*[-0-9a-zA-Z_,:]', 'char': '{', 'input': '{'})
-call lexima#add_rule({'at': '\%#\n\s*}', 'char': '}', 'input': '}', 'delete': '}'})
