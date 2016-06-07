@@ -72,6 +72,7 @@ filetype plugin indent on
 "----------------------------------------
 set t_Co=256
 colorscheme solarized
+set background=dark
 let g:solarized_italic = 0
 
 " Encoding
