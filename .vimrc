@@ -70,25 +70,17 @@ filetype plugin indent on
 "----------------------------------------
 " Option Settings
 "----------------------------------------
+" color {{{
 set t_Co=256
 colorscheme solarized
-set background=dark
 let g:solarized_italic = 0
-
-" Encoding
+"}}}
+" Encoding {{{
 set enc=UTF-8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
-
-" save as delete tailing Space
-augroup spacend
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
-
-" disable matchparen
-let g:loaded_matchparen = 1
-
+" }}}
+" set opt {{{
 set ambiwidth=double
 set autoindent
 set expandtab
@@ -120,8 +112,8 @@ if &t_Co > 2 || has('gui_running')
   syntax on
   set hlsearch
 endif
-
-" Keybind
+" }}}
+" Keybind {{{
 nmap n nzz
 nmap N Nzz
 nmap * *zz
@@ -142,6 +134,16 @@ if s:hostname ==# 'X220-arch'
   nnoremap ; :
   nnoremap : ;
 endif
+" }}}
+
+" disable matchparen
+let g:loaded_matchparen = 1
+
+" save as delete tailing Space
+augroup spacend
+  autocmd!
+  autocmd BufWritePre * :%s/\s\+$//e
+augroup END
 
 " 80column
 if (exists('+colorcolumn'))
@@ -171,16 +173,16 @@ if !exists('g:neocomplete#text_mode_filetypes')
     let g:neocomplete#text_mode_filetypes = {}
 endif
 let g:neocomplete#text_mode_filetypes = {
-            \ 'rst': 1,
-            \ 'markdown': 1,
-            \ 'gitrebase': 1,
-            \ 'gitcommit': 1,
-            \ 'vcs-commit': 1,
-            \ 'hybrid': 1,
-            \ 'text': 1,
-            \ 'help': 1,
-            \ 'tex': 1,
-            \ }
+\ 'rst': 1,
+\ 'markdown': 1,
+\ 'gitrebase': 1,
+\ 'gitcommit': 1,
+\ 'vcs-commit': 1,
+\ 'hybrid': 1,
+\ 'text': 1,
+\ 'help': 1,
+\ 'tex': 1,
+\}
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
@@ -277,34 +279,34 @@ endif
 "}}}
 " lightline.vim{{{
 let g:lightline = {
-        \ 'colorscheme': 'solarized',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [
-        \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
-        \   ],
-        \   'right': [
-        \     ['lineinfo'],
-        \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-        \   ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'charcode': 'MyCharCode',
-        \   'gitgutter': 'MyGitGutter',
-        \ },
-        \ 'separator': {'left': '⮀', 'right': '⮂'},
-        \ 'subseparator': {'left': '⮁', 'right': '⮃'}
-        \ }
+\ 'colorscheme': 'solarized',
+\ 'mode_map': {'c': 'NORMAL'},
+\ 'active': {
+\   'left': [
+\     ['mode', 'paste'],
+\     ['fugitive', 'gitgutter', 'filename'],
+\   ],
+\   'right': [
+\     ['lineinfo'],
+\     ['percent'],
+\     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+\   ]
+\ },
+\ 'component_function': {
+\   'modified': 'MyModified',
+\   'readonly': 'MyReadonly',
+\   'fugitive': 'MyFugitive',
+\   'filename': 'MyFilename',
+\   'fileformat': 'MyFileformat',
+\   'filetype': 'MyFiletype',
+\   'fileencoding': 'MyFileencoding',
+\   'mode': 'MyMode',
+\   'charcode': 'MyCharCode',
+\   'gitgutter': 'MyGitGutter',
+\ },
+\   'separator': {'left': '⮀', 'right': '⮂'},
+\   'subseparator': {'left': '⮁', 'right': '⮃'}
+\}
 
 function! MyModified()
   return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -316,11 +318,11 @@ endfunction
 
 function! MyFilename()
   return ('' !=? MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft ==# 'unite' ? unite#get_status_string() :
-        \  &ft ==# 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-        \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' !=# MyModified() ? ' ' . MyModified() : '')
+\ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
+\  &ft ==# 'unite' ? unite#get_status_string() :
+\  &ft ==# 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
+\ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
+\ ('' !=# MyModified() ? ' ' . MyModified() : '')
 endfunction
 
 function! MyFugitive()
@@ -352,15 +354,15 @@ endfunction
 
 function! MyGitGutter()
   if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
+\ || ! get(g:, 'gitgutter_enabled', 0)
+\ || winwidth('.') <= 90
     return ''
   endif
   let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
-        \ ]
+\   g:gitgutter_sign_added . ' ',
+\   g:gitgutter_sign_modified . ' ',
+\   g:gitgutter_sign_removed . ' '
+\ ]
   let hunks = GitGutterGetHunkSummary()
   let ret = []
   for i in [0, 1, 2]
@@ -436,7 +438,7 @@ let g:easy_align_delimiters = {
 \     'left_margin':  0,
 \     'right_margin': 0
 \   }
-\ }
+\}
 " }}}
 " vim-easymotion{{{
 let g:EasyMotion_do_mapping = 0
@@ -501,17 +503,17 @@ augroup END
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 
 let g:quickrun_config = {
-\   '_' : {
-\       'hook/koshikoshi/enable' : 1,
-\       'hook/koshikoshi/wait' : 20,
-\       'runner/vimproc/updatetime' : 10,
-\       'outputter/buffer/close_on_empty' : 1,
-\       'outputter/buffer/split' : ':rightbelow 8sp',
-\       'outputter/error/error' : 'quickfix',
-\       'outputter/error/success' : 'buffer',
-\       'outputter' : 'error',
-\       'runner' : 'vimproc',
-\   },
+\ '_' : {
+\     'hook/koshikoshi/enable' : 1,
+\     'hook/koshikoshi/wait' : 20,
+\     'runner/vimproc/updatetime' : 10,
+\     'outputter/buffer/close_on_empty' : 1,
+\     'outputter/buffer/split' : ':rightbelow 8sp',
+\     'outputter/error/error' : 'quickfix',
+\     'outputter/error/success' : 'buffer',
+\     'outputter' : 'error',
+\     'runner' : 'vimproc',
+\ },
 \}
 " }}}
 " pyfleaks {{{
@@ -598,21 +600,23 @@ let g:qfsigns#AutoJump = 1
 " If syntax error, view split and cursor is moved at line setting sign.
 let g:qfsigns#AutoJump = 2
 " }}}
+" vim-indent-line {{{
+let g:indentLine_color_term = 111
+let g:indentLine_color_gui = '#708090'
+let g:indentLine_char = '¦'
+let g:indent_guides_start_level = 2
+" }}}
 
 " over.vim
 nnoremap <silent> <Space>m :OverCommandLine<CR>
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 
-"vim-indent-guide
-"let g:indent_guides_enable_on_vim_startup=1
-"let g:indent_guides_guide_size=4
-
-" vim-indent-line
-let g:indentLine_color_term = 111
-let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '¦'
-let g:indent_guides_start_level = 2
+" vint
+augroup chkvint
+  autocmd!
+  autocmd BufWritePost .vimrc,*.vim WatchdogsRunSilent
+augroup END
 
 " vimfiler
 let g:vimfiler_as_default_explorer=1
