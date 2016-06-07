@@ -9,9 +9,9 @@ if has('vim_starting')
 endif
 
 call plug#begin('~/.vim/bundle')
-  Plug 'junegunn/vim-plug',
-     \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
-" Plugin list
+" vim-plug selfmgr
+Plug 'junegunn/vim-plug', {'dir': '~/.vim/bundle/vim-plug/autoload'}
+" Plugin list {{{
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neocomplete.vim'
@@ -35,7 +35,6 @@ Plug 'lambdalisue/vim-unified-diff'
 Plug 'mattn/favstar-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/vim-terminal'
-"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'osyo-manga/vim-over'
 Plug 'rcmdnk/vim-markdown'
 Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
@@ -64,12 +63,31 @@ Plug 'mattn/sonictemplate-vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'itchyny/vim-cursorword'
 Plug 'KazuakiM/vim-qfsigns'
+Plug 'koron/vim-gosrc'
+" }}}
 call plug#end()
 
 filetype plugin indent on
 "----------------------------------------
 " Option Settings
 "----------------------------------------
+" Stop include plugin {{{
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+" }}}
 " color {{{
 set t_Co=256
 colorscheme solarized
@@ -150,6 +168,9 @@ if (exists('+colorcolumn'))
     set colorcolumn=80
     highlight ColorColumn ctermbg=9
 endif
+
+" sudo write
+cabbr w!! w !sudo tee > /dev/null %
 
 "----------------------------------------
 " Plugin Settings
@@ -504,15 +525,14 @@ let g:quickrun_config = get(g:, 'quickrun_config', {})
 
 let g:quickrun_config = {
 \ '_' : {
-\     'hook/koshikoshi/enable' : 1,
-\     'hook/koshikoshi/wait' : 20,
+\     'hook/u_nya_/enable' : 1,
+\     'runner' : 'vimproc',
 \     'runner/vimproc/updatetime' : 10,
 \     'outputter/buffer/close_on_empty' : 1,
 \     'outputter/buffer/split' : ':rightbelow 8sp',
 \     'outputter/error/error' : 'quickfix',
 \     'outputter/error/success' : 'buffer',
 \     'outputter' : 'error',
-\     'runner' : 'vimproc',
 \ },
 \}
 " }}}
@@ -606,26 +626,31 @@ let g:indentLine_color_gui = '#708090'
 let g:indentLine_char = '¦'
 let g:indent_guides_start_level = 2
 " }}}
-
-" over.vim
-nnoremap <silent> <Space>m :OverCommandLine<CR>
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
-
-" vint
+" vint {{{
 augroup chkvint
   autocmd!
   autocmd BufWritePost .vimrc,*.vim WatchdogsRunSilent
 augroup END
+" }}}
+" over.vim {{{
+nnoremap <silent> <Space>m :OverCommandLine<CR>
+nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
+nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
+" }}}
+"VimShell {{{
+" The prefix key.
+nnoremap    [VimShell]   <Nop>
+nmap    <Space>s [VimShell]
+
+nnoremap <silent> [VimShell]s :<C-u>VimShell<CR>
+nnoremap <silent> [VimShell]p :<C-u>VimShellPop<CR>
+
+let g:vimshell_interactive_update_time = 5
+let g:vimshell_prompt = $USERNAME.'% '
+"}}}
 
 " vimfiler
 let g:vimfiler_as_default_explorer=1
-
-"VimShell
-let g:vimshell_interactive_update_time = 5
-let g:vimshell_prompt = $USERNAME.'% '
-nnoremap <silent> vs :VimShell<CR>
-nnoremap <silent> vp :VimShellPop<CR>
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
