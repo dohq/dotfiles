@@ -1,26 +1,55 @@
+" Last Change: 09-Jun-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
   if !isdirectory(expand('~/.vim/bundle/vim-plug'))
     echo 'install vim-plug...'
     call system('mkdir -p ~/.vim/bundle/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug/autoload')
+    call system('curl -fLo ~/.vim/bundle/vim-plug --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   end
 endif
+" Kaoriya-settings {{{
+if has('kaoriya')
+" plugins下のディレクトリをruntimepathへ追加する。
+  for s:path in split(glob($VIM.'/plugins/*'), '\n')
+    if s:path !~# '\~$' && isdirectory(s:path)
+      let &runtimepath = &runtimepath.','.s:path
+    end
+  endfor
+  unlet s:path
+
+" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+  if has('win64') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
+    let $PATH = $VIM . ';' . $PATH
+  endif
+
+" vimproc: 同梱のvimprocを無効化する
+  if kaoriya#switch#enabled('disable-vimproc')
+    let &rtp = join(filter(split(&rtp, ','), 'v:val !~# "[/\\\\]plugins[/\\\\]vimproc$"'), ',')
+  endif
+endif
+" }}}
 
 call plug#begin('~/.vim/bundle')
 " vim-plug selfmgr
-Plug 'junegunn/vim-plug', {'dir': '~/.vim/bundle/vim-plug/autoload'}
-" Plugin list {{{
+Plug 'junegunn/vim-plug',
+      \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
+" Plugin list
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
 Plug 'Shougo/vimfiler'
 Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/vimshell' | Plug 'supermomonga/vimshell-kawaii.vim'
+Plug 'Shougo/vimshell'
+Plug 'supermomonga/vimshell-kawaii.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'basyura/J6uil.vim'
@@ -37,7 +66,8 @@ Plug 'mattn/webapi-vim'
 Plug 'mattn/vim-terminal'
 Plug 'osyo-manga/vim-over'
 Plug 'rcmdnk/vim-markdown'
-Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
+Plug 'rhysd/unite-codic.vim'
+Plug 'koron/codic-vim'
 Plug 'spolu/dwm.vim'
 if has('linux') || has('darwin')
 Plug 'yuratomo/w3m.vim'
@@ -62,9 +92,10 @@ Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'itchyny/vim-cursorword'
-Plug 'KazuakiM/vim-qfsigns'
+Plug 'KazuakiM/vim-qfstatusline'
 Plug 'koron/vim-gosrc'
-" }}}
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'thinca/vim-showtime'
 call plug#end()
 
 filetype plugin indent on
@@ -87,6 +118,8 @@ let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
+let g:loaded_matchparen        = 1
+
 " }}}
 " color {{{
 set t_Co=256
@@ -147,15 +180,18 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 " ノーマルモード時だけ ; と : を入れ替える
-let s:hostname = substitute(system('hostname'), '\n', '', '')
+let s:hostname = substitute(vimproc#system('hostname'), '\n', '', '')
 if s:hostname ==# 'X220-arch'
   nnoremap ; :
   nnoremap : ;
 endif
-" }}}
 
-" disable matchparen
-let g:loaded_matchparen = 1
+" Omni complations like eclipse
+imap <C-Space> <C-x><C-o>
+
+" <S-K> search help
+set keywordprg=:help
+" }}}
 
 " save as delete tailing Space
 augroup spacend
@@ -181,7 +217,33 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Set max list
+let g:neocomplete#max_list = 20
+" Enable underbar complation
+let g:neocomplete#enable_underbar_completion = 1
+let g:neocomplete#enable_camel_case_completion  =  1
+" Auto close previw window
+let g:neocomplete#enable_auto_close_preview = 1
+" Auto Select first candidate
+"let g:neocomplete#enable_auto_select = 1
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+\   'default' : '',
+\}
+
+" delimiter_patterns
+if !exists('g:neocomplete#delimiter_patterns')
+  let g:neocomplete#delimiter_patterns= {}
+endif
+
+" Enable omni completion.
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.go = '[^. \t]\.\%(\h\w*\)\?'
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -190,32 +252,18 @@ endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 let g:neocomplete#keyword_patterns['go'] = '\h\w*\.\?'
 
-if !exists('g:neocomplete#text_mode_filetypes')
-    let g:neocomplete#text_mode_filetypes = {}
-endif
-let g:neocomplete#text_mode_filetypes = {
-\ 'rst': 1,
-\ 'markdown': 1,
-\ 'gitrebase': 1,
-\ 'gitcommit': 1,
-\ 'vcs-commit': 1,
-\ 'hybrid': 1,
-\ 'text': 1,
-\ 'help': 1,
-\ 'tex': 1,
-\}
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"  return neocomplete#smart_close_popup() . "\<CR>"
-"  " For no inserting <CR> key.
-"  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-"endfunction
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	return neocomplete#close_popup() . "\<CR>"
+	" For no inserting <CR> key.
+	"return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -224,17 +272,11 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-" Enable omni completion.
-augroup neocon
-autocmd!
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-let g:neocomplete#lock_iminsert = 1
-"ポップアップメニューで表示される候補の数。初期値は100
-let g:neocomplete#max_list = 20
-" 補完候補が出ていたら確定、なければ改行
- inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
 " buffer開いたらneoconでcache
-autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
+augroup neocon
+  autocmd!
+ inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
+  autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
 augroup END
 "}}}
 " Neo Snipet {{{
@@ -308,7 +350,7 @@ let g:lightline = {
 \     ['fugitive', 'gitgutter', 'filename'],
 \   ],
 \   'right': [
-\     ['lineinfo'],
+\     ['qfstatusline'], ['lineinfo'],
 \     ['percent'],
 \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
 \   ]
@@ -324,9 +366,16 @@ let g:lightline = {
 \   'mode': 'MyMode',
 \   'charcode': 'MyCharCode',
 \   'gitgutter': 'MyGitGutter',
+\   'tags': 'MyTags',
 \ },
-\   'separator': {'left': '⮀', 'right': '⮂'},
-\   'subseparator': {'left': '⮁', 'right': '⮃'}
+\ 'component_expand': {
+\   'qfstatusline': 'qfstatusline#Update',
+\ },
+\ 'component_type': {
+\   'qfstatusline': 'error',
+\ },
+\ 'separator': {'left': '⮀', 'right': '⮂'},
+\ 'subseparator': {'left': '⮁', 'right': '⮃'}
 \}
 
 function! MyModified()
@@ -501,7 +550,7 @@ nnoremap <silent> [Git]h :<C-u>GitGutterLineHighlightsToggle<CR>
 nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
 nnoremap <silent> [Git]m :<C-u>Gcommit<CR>
 " }}}
-" dwm.vim {{{
+" dwm {{{
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
 nmap <m-r> <Plug>DWMRotateCounterclockwise
@@ -588,11 +637,10 @@ let g:quickrun_config = {
 
 " watchdogs global settings
 let g:quickrun_config['watchdogs_checker/_'] = {
-\   'outputter/quickfix/open_cmd' : '',
-\   'hook/qfstatusline_update/enable_exit' : 1,
-\   'hook/qfstatusline_update/priority_exit' : 4,
-\   'hook/qfsigns_update/enable_exit':   1,
-\   'hook/qfsigns_update/priority_exit': 3,
+\   'hook/close_quickfix/enable_exit' : 1,
+\   'hook/back_window/priority_exit':         1,
+\   'hook/qfstatusline_update/enable_exit':   1,
+\   'hook/qfstatusline_update/priority_exit': 2,
 \}
 
 " don't remove
@@ -608,11 +656,15 @@ augroup END
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = 'goimports'
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 " }}}
 " qfsign {{{
 " If syntax error, cursor is moved at line setting sign.
@@ -625,12 +677,6 @@ let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 let g:indentLine_char = '¦'
 let g:indent_guides_start_level = 2
-" }}}
-" vint {{{
-augroup chkvint
-  autocmd!
-  autocmd BufWritePost .vimrc,*.vim WatchdogsRunSilent
-augroup END
 " }}}
 " over.vim {{{
 nnoremap <silent> <Space>m :OverCommandLine<CR>
