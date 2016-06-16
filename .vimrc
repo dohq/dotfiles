@@ -495,7 +495,7 @@ nnoremap <silent> [Git]m :<C-u>Gita commit<CR>
 nnoremap <silent> [Git]s :<C-u>Gita status<CR>
 nnoremap <silent> [Git]d :<C-u>Gita diff<CR>
 nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
-nnoremap <silent> [Git]p :<C-u>CdCurrent | !git push<CR>
+nnoremap <silent> [Git]p :<C-u>CdCurrent | :!git push<CR>
 " }}}
 " dwm {{{
 nnoremap <c-j> <c-w>w
