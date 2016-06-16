@@ -38,64 +38,60 @@ Plug 'junegunn/vim-plug',
 " Plugin list
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neoinclude.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
-Plug 'Shougo/vimfiler'
+Plug 'Shougo/neocomplete.vim', {'on': []}
+Plug 'Shougo/neosnippet', {'on': [] }
+Plug 'Shougo/neosnippet-snippets', {'on': [] }
+Plug 'Shougo/neoinclude.vim', {'on': []}
+Plug 'Shougo/neco-syntax', {'on': []}
+Plug 'cohama/lexima.vim', {'on': []}
+Plug 'tyru/eskk.vim', {'on' : []}
+
+Plug 'Shougo/neomru.vim', {'on': 'Unite'}
+Plug 'Shougo/unite-outline', {'on': 'Unite'}
+Plug 'Shougo/unite.vim', {'on': 'Unite'}
+Plug 'Shougo/vimfiler', {'on': 'VimFiler'}
 Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/vimshell'
-Plug 'supermomonga/vimshell-kawaii.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
 Plug 'altercation/vim-colors-solarized'
-Plug 'basyura/J6uil.vim'
+Plug 'b4b4r07/vim-shellutils'
+Plug 'basyura/J6uil.vim', {'on': 'J6uil'}
 Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
-Plug 'beckorz/previm'
-Plug 'cohama/lexima.vim'
+Plug 'beckorz/previm', {'for': 'markdown'}
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'itchyny/lightline.vim'
-Plug 'joker1007/vim-markdown-quote-syntax'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'lambdalisue/vim-gita'
-Plug 'mattn/favstar-vim'
+Plug 'itchyny/vim-cursorword'
+Plug 'itchyny/vim-parenmatch'
+Plug 'jceb/vim-hier'
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'koron/codic-vim', {'on' : 'Unite'}
+Plug 'koron/vim-gosrc'
+Plug 'lambdalisue/vim-gista', { 'on':  'Gista' }
+Plug 'lambdalisue/vim-gita', {'on' : 'Gita'}
+Plug 'lambdalisue/vim-unified-diff', {'for' : 'diff'}
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mattn/favstar-vim', {'on': 'TweetVimSay'}
+Plug 'mattn/sonictemplate-vim', {'on' : 'Template'}
 Plug 'mattn/webapi-vim'
-Plug 'mattn/vim-terminal'
-Plug 'osyo-manga/vim-over'
-Plug 'rcmdnk/vim-markdown'
-Plug 'rhysd/unite-codic.vim'
-Plug 'koron/codic-vim'
+Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
+Plug 'rhysd/unite-codic.vim', {'on': 'Unite'}
 Plug 'spolu/dwm.vim'
-if has('linux') || has('darwin')
-Plug 'yuratomo/w3m.vim'
-endif
+Plug 'supermomonga/vimshell-kawaii.vim', {'on': ['VimShell', 'VimShellPop']}
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-showtime', {'on' : 'ShowtimeStart'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tsukkee/unite-tag'
-Plug 'tyru/open-browser.vim'
-Plug 'vim-jp/vimdoc-ja'
+Plug 'tsukkee/unite-tag', {'on' : 'Unite'}
+Plug 'tyru/open-browser.vim', {'on' : 'OpenBrowser'}
 Plug 'ujihisa/neco-look'
-Plug 'tyru/eskk.vim'
-Plug 'lambdalisue/vim-gista', { 'on':  ['Gista'] }
-Plug 'Yggdroot/indentLine'
-Plug 'b4b4r07/vim-shellutils'
-Plug 'thinca/vim-quickrun'
+Plug 'vim-jp/vimdoc-ja'
 Plug 'ynkdir/vim-funlib'
-Plug 'osyo-manga/shabadou.vim'
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'jceb/vim-hier'
-Plug 'dannyob/quickfixstatus'
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'mattn/sonictemplate-vim'
-Plug 'itchyny/vim-parenmatch'
-Plug 'itchyny/vim-cursorword'
-Plug 'koron/vim-gosrc'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'thinca/vim-showtime'
 call plug#end()
 
 filetype plugin indent on
@@ -197,6 +193,22 @@ set keywordprg=:help
 augroup spacend
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
+augroup END
+
+" Load InsertMode Plugin
+augroup load_insert
+  autocmd!
+  autocmd InsertEnter * call plug#load(
+\     'neocomplete.vim',
+\     'neosnippet',
+\     'neosnippet-snippets',
+\     'neco-syntax',
+\     'neoinclude.vim',
+\     'lexima.vim',
+\     'eskk.vim'
+\)
+\ | :NeoCompleteEnable
+\ | autocmd! load_insert
 augroup END
 
 " 80column
