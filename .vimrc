@@ -1,70 +1,97 @@
+" Last Change: 16-Jun-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
   if !isdirectory(expand('~/.vim/bundle/vim-plug'))
     echo 'install vim-plug...'
     call system('mkdir -p ~/.vim/bundle/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/bundle/vim-plug/autoload')
+    call system('curl -fLo ~/.vim/bundle/vim-plug --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   end
 endif
+" Kaoriya-settings {{{
+if has('kaoriya')
+" plugins下のディレクトリをruntimepathへ追加する。
+  for s:path in split(glob($VIM.'/plugins/*'), '\n')
+    if s:path !~# '\~$' && isdirectory(s:path)
+      let &runtimepath = &runtimepath.','.s:path
+    end
+  endfor
+  unlet s:path
+
+" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+  if has('win64') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
+    let $PATH = $VIM . ';' . $PATH
+  endif
+
+" vimproc: 同梱のvimprocを無効化する
+  if kaoriya#switch#enabled('disable-vimproc')
+    let &rtp = join(filter(split(&rtp, ','), 'v:val !~# "[/\\\\]plugins[/\\\\]vimproc$"'), ',')
+  endif
+endif
+" }}}
 
 call plug#begin('~/.vim/bundle')
 " vim-plug selfmgr
-Plug 'junegunn/vim-plug', {'dir': '~/.vim/bundle/vim-plug/autoload'}
-" Plugin list {{{
+Plug 'junegunn/vim-plug',
+      \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
+" Plugin list
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
-Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'Shougo/neosnippet' | Plug 'Shougo/neosnippet-snippets'
-Plug 'Shougo/unite.vim' | Plug 'Shougo/unite-outline'
-Plug 'Shougo/vimfiler'
+Plug 'Shougo/neocomplete.vim', {'on': []}
+Plug 'Shougo/neosnippet', {'on': [] }
+Plug 'Shougo/neosnippet-snippets', {'on': [] }
+Plug 'Shougo/neoinclude.vim', {'on': []}
+Plug 'Shougo/neco-syntax', {'on': []}
+Plug 'cohama/lexima.vim', {'on': []}
+Plug 'tyru/eskk.vim', {'on' : []}
+
+Plug 'Shougo/neomru.vim', {'on': 'Unite'}
+Plug 'Shougo/unite-outline', {'on': 'Unite'}
+Plug 'Shougo/unite.vim', {'on': 'Unite'}
+Plug 'Shougo/vimfiler', {'on': 'VimFiler'}
 Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/vimshell' | Plug 'supermomonga/vimshell-kawaii.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
 Plug 'altercation/vim-colors-solarized'
-Plug 'basyura/J6uil.vim'
+Plug 'b4b4r07/vim-shellutils'
+Plug 'basyura/J6uil.vim', {'on': 'J6uil'}
 Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
-Plug 'beckorz/previm'
-Plug 'cohama/lexima.vim'
+Plug 'beckorz/previm', {'for': 'markdown'}
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'itchyny/lightline.vim'
-Plug 'joker1007/vim-markdown-quote-syntax'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'mattn/favstar-vim'
+Plug 'itchyny/vim-cursorword'
+Plug 'itchyny/vim-parenmatch'
+Plug 'jceb/vim-hier'
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'koron/codic-vim', {'on' : 'Unite'}
+Plug 'koron/vim-gosrc'
+Plug 'lambdalisue/vim-gista', { 'on':  'Gista' }
+Plug 'lambdalisue/vim-gita', {'on' : 'Gita'}
+Plug 'lambdalisue/vim-unified-diff', {'for' : 'diff'}
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mattn/favstar-vim', {'on': 'TweetVimSay'}
+Plug 'mattn/sonictemplate-vim', {'on' : 'Template'}
 Plug 'mattn/webapi-vim'
-Plug 'mattn/vim-terminal'
-Plug 'osyo-manga/vim-over'
-Plug 'rcmdnk/vim-markdown'
-Plug 'rhysd/unite-codic.vim' | Plug 'koron/codic-vim'
+Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
+Plug 'rhysd/unite-codic.vim', {'on': 'Unite'}
 Plug 'spolu/dwm.vim'
-if has('linux') || has('darwin')
-Plug 'yuratomo/w3m.vim'
-endif
+Plug 'supermomonga/vimshell-kawaii.vim', {'on': ['VimShell', 'VimShellPop']}
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-showtime', {'on' : 'ShowtimeStart'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tsukkee/unite-tag'
-Plug 'tyru/open-browser.vim'
-Plug 'vim-jp/vimdoc-ja'
+Plug 'tsukkee/unite-tag', {'on' : 'Unite'}
+Plug 'tyru/open-browser.vim', {'on' : 'OpenBrowser'}
 Plug 'ujihisa/neco-look'
-Plug 'tyru/eskk.vim'
-Plug 'lambdalisue/vim-gista', { 'on':  ['Gista'] }
-Plug 'Yggdroot/indentLine'
-Plug 'b4b4r07/vim-shellutils'
-Plug 'thinca/vim-quickrun'
+Plug 'vim-jp/vimdoc-ja'
 Plug 'ynkdir/vim-funlib'
-Plug 'osyo-manga/shabadou.vim'
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'jceb/vim-hier'
-Plug 'dannyob/quickfixstatus'
-Plug 'fatih/vim-go', {'for': 'go'}
-Plug 'mattn/sonictemplate-vim'
-Plug 'itchyny/vim-parenmatch'
-Plug 'itchyny/vim-cursorword'
-Plug 'KazuakiM/vim-qfsigns'
-Plug 'koron/vim-gosrc'
-" }}}
 call plug#end()
 
 filetype plugin indent on
@@ -87,6 +114,8 @@ let g:loaded_netrw             = 1
 let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
+let g:loaded_matchparen        = 1
+
 " }}}
 " color {{{
 set t_Co=256
@@ -147,20 +176,39 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 " ノーマルモード時だけ ; と : を入れ替える
-let s:hostname = substitute(system('hostname'), '\n', '', '')
+let s:hostname = substitute(vimproc#system('hostname'), '\n', '', '')
 if s:hostname ==# 'X220-arch'
   nnoremap ; :
   nnoremap : ;
 endif
-" }}}
 
-" disable matchparen
-let g:loaded_matchparen = 1
+" Omni complations like eclipse
+imap <C-Space> <C-x><C-o>
+
+" <S-K> search help
+set keywordprg=:help
+" }}}
 
 " save as delete tailing Space
 augroup spacend
   autocmd!
   autocmd BufWritePre * :%s/\s\+$//e
+augroup END
+
+" Load InsertMode Plugin
+augroup load_insert
+  autocmd!
+  autocmd InsertEnter * call plug#load(
+\     'neocomplete.vim',
+\     'neosnippet',
+\     'neosnippet-snippets',
+\     'neco-syntax',
+\     'neoinclude.vim',
+\     'lexima.vim',
+\     'eskk.vim'
+\)
+\ | :NeoCompleteEnable
+\ | autocmd! load_insert
 augroup END
 
 " 80column
@@ -181,7 +229,33 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Set max list
+let g:neocomplete#max_list = 20
+" Enable underbar complation
+let g:neocomplete#enable_underbar_completion = 1
+let g:neocomplete#enable_camel_case_completion  =  1
+" Auto close previw window
+let g:neocomplete#enable_auto_close_preview = 1
+" Auto Select first candidate
+"let g:neocomplete#enable_auto_select = 1
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+\   'default' : '',
+\}
+
+" delimiter_patterns
+if !exists('g:neocomplete#delimiter_patterns')
+  let g:neocomplete#delimiter_patterns= {}
+endif
+
+" Enable omni completion.
+if !exists('g:neocomplete#force_omni_input_patterns')
+  let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_omni_input_patterns.go = '[^. \t]\.\%(\h\w*\)\?'
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -190,32 +264,18 @@ endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 let g:neocomplete#keyword_patterns['go'] = '\h\w*\.\?'
 
-if !exists('g:neocomplete#text_mode_filetypes')
-    let g:neocomplete#text_mode_filetypes = {}
-endif
-let g:neocomplete#text_mode_filetypes = {
-\ 'rst': 1,
-\ 'markdown': 1,
-\ 'gitrebase': 1,
-\ 'gitcommit': 1,
-\ 'vcs-commit': 1,
-\ 'hybrid': 1,
-\ 'text': 1,
-\ 'help': 1,
-\ 'tex': 1,
-\}
 " Plugin key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-"  return neocomplete#smart_close_popup() . "\<CR>"
-"  " For no inserting <CR> key.
-"  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-"endfunction
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	return neocomplete#close_popup() . "\<CR>"
+	" For no inserting <CR> key.
+	"return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
@@ -224,17 +284,11 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-" Enable omni completion.
-augroup neocon
-autocmd!
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-let g:neocomplete#lock_iminsert = 1
-"ポップアップメニューで表示される候補の数。初期値は100
-let g:neocomplete#max_list = 20
-" 補完候補が出ていたら確定、なければ改行
- inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
 " buffer開いたらneoconでcache
-autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
+augroup neocon
+  autocmd!
+ inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
+  autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
 augroup END
 "}}}
 " Neo Snipet {{{
@@ -305,28 +359,24 @@ let g:lightline = {
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['fugitive', 'gitgutter', 'filename'],
+\     ['git', 'filename'],
 \   ],
 \   'right': [
 \     ['lineinfo'],
 \     ['percent'],
-\     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+\     ['fileformat', 'fileencoding', 'filetype'],
 \   ]
 \ },
 \ 'component_function': {
 \   'modified': 'MyModified',
 \   'readonly': 'MyReadonly',
-\   'fugitive': 'MyFugitive',
+\   'git': 'MyGit',
 \   'filename': 'MyFilename',
 \   'fileformat': 'MyFileformat',
 \   'filetype': 'MyFiletype',
 \   'fileencoding': 'MyFileencoding',
 \   'mode': 'MyMode',
-\   'charcode': 'MyCharCode',
-\   'gitgutter': 'MyGitGutter',
 \ },
-\   'separator': {'left': '⮀', 'right': '⮂'},
-\   'subseparator': {'left': '⮁', 'right': '⮃'}
 \}
 
 function! MyModified()
@@ -346,11 +396,13 @@ function! MyFilename()
 \ ('' !=# MyModified() ? ' ' . MyModified() : '')
 endfunction
 
-function! MyFugitive()
+function! MyGit()
   try
     if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      let _ = fugitive#head()
+      "let _ = fugitive#head()
+      let _ = gita#statusline#format('%rn/%rb')
       return strlen(_) ? '⭠ '._ : ''
+      "return strlen(_) ? _ : ''
     endif
   catch
   endtry
@@ -372,66 +424,6 @@ endfunction
 function! MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
-
-function! MyGitGutter()
-  if ! exists('*GitGutterGetHunkSummary')
-\ || ! get(g:, 'gitgutter_enabled', 0)
-\ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-\   g:gitgutter_sign_added . ' ',
-\   g:gitgutter_sign_modified . ' ',
-\   g:gitgutter_sign_removed . ' '
-\ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
-
-" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-function! MyCharCode()
-  if winwidth('.') <= 70
-    return ''
-  endif
-
-  " Get the output of :ascii
-  redir => ascii
-  silent! ascii
-  redir END
-
-  if match(ascii, 'NUL') != -1
-    return 'NUL'
-  endif
-
-  " Zero pad hex values
-  let nrformat = '0x%02x'
-
-  let encoding = (&fenc ==? '' ? &enc : &fenc)
-
-  if encoding ==# 'utf-8'
-    " Zero pad with 4 zeroes in unicode files
-    let nrformat = '0x%04x'
-  endif
-
-  " Get the character and the numeric value from the return value of :ascii
-  " This matches the two first pieces of the return value, e.g.
-  " "<F>  70" => char: 'F', nr: '70'
-  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-
-  " Format the numeric value
-  let nr = printf(nrformat, nr)
-
-  return "'". char ."' ". nr
-endfunction
-
-" after WatchdogsRun reload lightline.vim
-let g:Qfstatusline#UpdateCmd = function('lightline#update')
 " }}}
 " EasyAlign{{{
 vnoremap <silent> <Enter> :EasyAlign<cr>
@@ -498,10 +490,13 @@ nmap    <Space>g [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]h :<C-u>GitGutterLineHighlightsToggle<CR>
 " vim-fugitive
-nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
-nnoremap <silent> [Git]m :<C-u>Gcommit<CR>
+nnoremap <silent> [Git]a :<C-u>Gita add %<CR>
+nnoremap <silent> [Git]m :<C-u>Gita commit<CR>
+nnoremap <silent> [Git]s :<C-u>Gita status<CR>
+nnoremap <silent> [Git]d :<C-u>Gita diff<CR>
+nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
 " }}}
-" dwm.vim {{{
+" dwm {{{
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
 nmap <m-r> <Plug>DWMRotateCounterclockwise
@@ -536,16 +531,6 @@ let g:quickrun_config = {
 \ },
 \}
 " }}}
-" pyfleaks {{{
-let s:pyflakes = executable('pyflakes3') ? 'pyflakes3' :
-      \          executable('python3') ? 'python3' :
-      \          executable('pyflakes') ? 'pyflakes' :
-      \          'python'
-let s:cmdopt = executable('pyflakes3') ? '' :
-      \          executable('python3') ? '-m pyflakes' :
-      \          executable('pyflakes') ? '' :
-      \          '-m pyflakes'
-" }}}
 " watchdogs {{{
 
 " watchdogs writecehck
@@ -560,14 +545,8 @@ endif
 
 " watchdogs CheckTools
 let g:quickrun_config = {
-\   'watchdogs_checker/pyflakes3' : {
-\       'command' : s:pyflakes,
-\       'cmdopt' : s:cmdopt,
-\       'exec'    : '%c %o %s:p',
-\       'errorformat' : '%f:%l:%m',
-\   },
 \   'python/watchdogs_checker' : {
-\       'type' : 'watchdogs_checker/pyflakes3',
+\       'type' : 'watchdogs_checker/flake8',
 \   },
 \   'watchdogs_checker/golint' : {
 \       'command':     'golint',
@@ -588,11 +567,8 @@ let g:quickrun_config = {
 
 " watchdogs global settings
 let g:quickrun_config['watchdogs_checker/_'] = {
-\   'outputter/quickfix/open_cmd' : '',
-\   'hook/qfstatusline_update/enable_exit' : 1,
-\   'hook/qfstatusline_update/priority_exit' : 4,
-\   'hook/qfsigns_update/enable_exit':   1,
-\   'hook/qfsigns_update/priority_exit': 3,
+\   'hook/close_quickfix/enable_exit' : 1,
+\   'hook/back_window/priority_exit':         1,
 \}
 
 " don't remove
@@ -608,29 +584,21 @@ augroup END
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = 'goimports'
-" }}}
-" qfsign {{{
-" If syntax error, cursor is moved at line setting sign.
-let g:qfsigns#AutoJump = 1
-" If syntax error, view split and cursor is moved at line setting sign.
-let g:qfsigns#AutoJump = 2
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 " }}}
 " vim-indent-line {{{
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 let g:indentLine_char = '¦'
 let g:indent_guides_start_level = 2
-" }}}
-" vint {{{
-augroup chkvint
-  autocmd!
-  autocmd BufWritePost .vimrc,*.vim WatchdogsRunSilent
-augroup END
 " }}}
 " over.vim {{{
 nnoremap <silent> <Space>m :OverCommandLine<CR>
