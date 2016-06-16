@@ -1,4 +1,4 @@
-" Last Change: 09-Jun-2016.
+" Last Change: 16-Jun-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -61,6 +61,7 @@ Plug 'cohama/lexima.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'joker1007/vim-markdown-quote-syntax'
 Plug 'lambdalisue/vim-unified-diff'
+Plug 'lambdalisue/vim-gita'
 Plug 'mattn/favstar-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/vim-terminal'
@@ -92,7 +93,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'itchyny/vim-cursorword'
-Plug 'KazuakiM/vim-qfstatusline'
 Plug 'koron/vim-gosrc'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'thinca/vim-showtime'
@@ -347,35 +347,24 @@ let g:lightline = {
 \ 'active': {
 \   'left': [
 \     ['mode', 'paste'],
-\     ['fugitive', 'gitgutter', 'filename'],
+\     ['git', 'filename'],
 \   ],
 \   'right': [
-\     ['qfstatusline'], ['lineinfo'],
+\     ['lineinfo'],
 \     ['percent'],
-\     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+\     ['fileformat', 'fileencoding', 'filetype'],
 \   ]
 \ },
 \ 'component_function': {
 \   'modified': 'MyModified',
 \   'readonly': 'MyReadonly',
-\   'fugitive': 'MyFugitive',
+\   'git': 'MyGit',
 \   'filename': 'MyFilename',
 \   'fileformat': 'MyFileformat',
 \   'filetype': 'MyFiletype',
 \   'fileencoding': 'MyFileencoding',
 \   'mode': 'MyMode',
-\   'charcode': 'MyCharCode',
-\   'gitgutter': 'MyGitGutter',
-\   'tags': 'MyTags',
 \ },
-\ 'component_expand': {
-\   'qfstatusline': 'qfstatusline#Update',
-\ },
-\ 'component_type': {
-\   'qfstatusline': 'error',
-\ },
-\ 'separator': {'left': '⮀', 'right': '⮂'},
-\ 'subseparator': {'left': '⮁', 'right': '⮃'}
 \}
 
 function! MyModified()
@@ -395,11 +384,13 @@ function! MyFilename()
 \ ('' !=# MyModified() ? ' ' . MyModified() : '')
 endfunction
 
-function! MyFugitive()
+function! MyGit()
   try
     if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      let _ = fugitive#head()
+      "let _ = fugitive#head()
+      let _ = gita#statusline#format('%rn/%rb')
       return strlen(_) ? '⭠ '._ : ''
+      "return strlen(_) ? _ : ''
     endif
   catch
   endtry
@@ -421,66 +412,6 @@ endfunction
 function! MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
-
-function! MyGitGutter()
-  if ! exists('*GitGutterGetHunkSummary')
-\ || ! get(g:, 'gitgutter_enabled', 0)
-\ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-\   g:gitgutter_sign_added . ' ',
-\   g:gitgutter_sign_modified . ' ',
-\   g:gitgutter_sign_removed . ' '
-\ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
-
-" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-function! MyCharCode()
-  if winwidth('.') <= 70
-    return ''
-  endif
-
-  " Get the output of :ascii
-  redir => ascii
-  silent! ascii
-  redir END
-
-  if match(ascii, 'NUL') != -1
-    return 'NUL'
-  endif
-
-  " Zero pad hex values
-  let nrformat = '0x%02x'
-
-  let encoding = (&fenc ==? '' ? &enc : &fenc)
-
-  if encoding ==# 'utf-8'
-    " Zero pad with 4 zeroes in unicode files
-    let nrformat = '0x%04x'
-  endif
-
-  " Get the character and the numeric value from the return value of :ascii
-  " This matches the two first pieces of the return value, e.g.
-  " "<F>  70" => char: 'F', nr: '70'
-  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
-
-  " Format the numeric value
-  let nr = printf(nrformat, nr)
-
-  return "'". char ."' ". nr
-endfunction
-
-" after WatchdogsRun reload lightline.vim
-let g:Qfstatusline#UpdateCmd = function('lightline#update')
 " }}}
 " EasyAlign{{{
 vnoremap <silent> <Enter> :EasyAlign<cr>
@@ -547,8 +478,11 @@ nmap    <Space>g [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]h :<C-u>GitGutterLineHighlightsToggle<CR>
 " vim-fugitive
-nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
-nnoremap <silent> [Git]m :<C-u>Gcommit<CR>
+nnoremap <silent> [Git]a :<C-u>Gita add<CR>
+nnoremap <silent> [Git]m :<C-u>Gita commit<CR>
+nnoremap <silent> [Git]s :<C-u>Gita status<CR>
+nnoremap <silent> [Git]d :<C-u>Gita diff<CR>
+nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
 " }}}
 " dwm {{{
 nnoremap <c-j> <c-w>w
@@ -585,16 +519,6 @@ let g:quickrun_config = {
 \ },
 \}
 " }}}
-" pyfleaks {{{
-let s:pyflakes = executable('pyflakes3') ? 'pyflakes3' :
-      \          executable('python3') ? 'python3' :
-      \          executable('pyflakes') ? 'pyflakes' :
-      \          'python'
-let s:cmdopt = executable('pyflakes3') ? '' :
-      \          executable('python3') ? '-m pyflakes' :
-      \          executable('pyflakes') ? '' :
-      \          '-m pyflakes'
-" }}}
 " watchdogs {{{
 
 " watchdogs writecehck
@@ -609,14 +533,8 @@ endif
 
 " watchdogs CheckTools
 let g:quickrun_config = {
-\   'watchdogs_checker/pyflakes3' : {
-\       'command' : s:pyflakes,
-\       'cmdopt' : s:cmdopt,
-\       'exec'    : '%c %o %s:p',
-\       'errorformat' : '%f:%l:%m',
-\   },
 \   'python/watchdogs_checker' : {
-\       'type' : 'watchdogs_checker/pyflakes3',
+\       'type' : 'watchdogs_checker/flake8',
 \   },
 \   'watchdogs_checker/golint' : {
 \       'command':     'golint',
@@ -639,8 +557,6 @@ let g:quickrun_config = {
 let g:quickrun_config['watchdogs_checker/_'] = {
 \   'hook/close_quickfix/enable_exit' : 1,
 \   'hook/back_window/priority_exit':         1,
-\   'hook/qfstatusline_update/enable_exit':   1,
-\   'hook/qfstatusline_update/priority_exit': 2,
 \}
 
 " don't remove
@@ -665,12 +581,6 @@ let g:go_fmt_command = 'goimports'
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
-" }}}
-" qfsign {{{
-" If syntax error, cursor is moved at line setting sign.
-let g:qfsigns#AutoJump = 1
-" If syntax error, view split and cursor is moved at line setting sign.
-let g:qfsigns#AutoJump = 2
 " }}}
 " vim-indent-line {{{
 let g:indentLine_color_term = 111
