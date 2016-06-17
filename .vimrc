@@ -1,4 +1,4 @@
-" Last Change: 16-Jun-2016.
+" Last Change: 17-Jun-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -28,6 +28,11 @@ if has('kaoriya')
   if kaoriya#switch#enabled('disable-vimproc')
     let &rtp = join(filter(split(&rtp, ','), 'v:val !~# "[/\\\\]plugins[/\\\\]vimproc$"'), ',')
   endif
+
+" go-extra: 同梱のgo-extraを無効化する
+  if kaoriya#switch#enabled('disable-go-extra')
+    let &rtp = join(filter(split(&rtp, ','), 'v:val !~# "[/\\\\]plugins[/\\\\]go-extra$"'), ',')
+  endif
 endif
 " }}}
 
@@ -36,6 +41,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'junegunn/vim-plug',
       \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
 " Plugin list
+" InsertEnter
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neocomplete.vim', {'on': []}
@@ -45,6 +51,8 @@ Plug 'Shougo/neoinclude.vim', {'on': []}
 Plug 'Shougo/neco-syntax', {'on': []}
 Plug 'cohama/lexima.vim', {'on': []}
 Plug 'tyru/eskk.vim', {'on' : []}
+Plug 'osyo-manga/vim-watchdogs', {'on' : []}
+Plug 'osyo-manga/shabadou.vim', {'on' : []}
 
 Plug 'Shougo/neomru.vim', {'on': 'Unite'}
 Plug 'Shougo/unite-outline', {'on': 'Unite'}
@@ -77,8 +85,6 @@ Plug 'mattn/favstar-vim', {'on': 'TweetVimSay'}
 Plug 'mattn/sonictemplate-vim', {'on' : 'Template'}
 Plug 'mattn/webapi-vim'
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'osyo-manga/shabadou.vim'
 Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
 Plug 'rhysd/unite-codic.vim', {'on': 'Unite'}
 Plug 'spolu/dwm.vim'
@@ -205,9 +211,12 @@ augroup load_insert
 \     'neco-syntax',
 \     'neoinclude.vim',
 \     'lexima.vim',
+\     'vim-watchdogs',
+\     'shabadou.vim',
 \     'eskk.vim'
 \)
 \ | :NeoCompleteEnable
+\ | call watchdogs#setup(g:quickrun_config)
 \ | autocmd! load_insert
 augroup END
 
@@ -570,9 +579,6 @@ let g:quickrun_config['watchdogs_checker/_'] = {
 \   'hook/close_quickfix/enable_exit' : 1,
 \   'hook/back_window/priority_exit':         1,
 \}
-
-" don't remove
-call watchdogs#setup(g:quickrun_config)
 " }}}
 " vim-go {{{
 " highlight error
