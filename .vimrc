@@ -1,4 +1,4 @@
-" Last Change: 17-Jun-2016.
+" Last Change: 30-Jun-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -50,9 +50,9 @@ Plug 'Shougo/neosnippet-snippets', {'on': [] }
 Plug 'Shougo/neoinclude.vim', {'on': []}
 Plug 'Shougo/neco-syntax', {'on': []}
 Plug 'cohama/lexima.vim', {'on': []}
-Plug 'tyru/eskk.vim', {'on' : []}
-Plug 'osyo-manga/vim-watchdogs', {'on' : []}
-Plug 'osyo-manga/shabadou.vim', {'on' : []}
+Plug 'tyru/eskk.vim', {'on': []}
+Plug 'osyo-manga/vim-watchdogs', {'on': []}
+Plug 'osyo-manga/shabadou.vim', {'on': []}
 
 Plug 'Shougo/neomru.vim', {'on': 'Unite'}
 Plug 'Shougo/unite-outline', {'on': 'Unite'}
@@ -69,20 +69,20 @@ Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'beckorz/previm', {'for': 'markdown'}
-Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go', 'tag': 'v1.6'}
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'jceb/vim-hier'
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
-Plug 'koron/codic-vim', {'on' : 'Unite'}
+Plug 'koron/codic-vim', {'on': 'Unite'}
 Plug 'koron/vim-gosrc'
-Plug 'lambdalisue/vim-gista', { 'on':  'Gista' }
-Plug 'lambdalisue/vim-gita', {'on' : 'Gita'}
-Plug 'lambdalisue/vim-unified-diff', {'for' : 'diff'}
+Plug 'lambdalisue/vim-gista', {'on': 'Gista' }
+Plug 'lambdalisue/vim-gita', {'on': 'Gita'}
+Plug 'lambdalisue/vim-unified-diff', {'for': 'diff'}
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/favstar-vim', {'on': 'TweetVimSay'}
-Plug 'mattn/sonictemplate-vim', {'on' : 'Template'}
+Plug 'mattn/sonictemplate-vim', {'on': 'Template'}
 Plug 'mattn/webapi-vim'
 Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
 Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
@@ -90,14 +90,20 @@ Plug 'rhysd/unite-codic.vim', {'on': 'Unite'}
 Plug 'spolu/dwm.vim'
 Plug 'supermomonga/vimshell-kawaii.vim', {'on': ['VimShell', 'VimShellPop']}
 Plug 'thinca/vim-quickrun'
-Plug 'thinca/vim-showtime', {'on' : 'ShowtimeStart'}
+Plug 'thinca/vim-showtime', {'on': 'ShowtimeStart'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tsukkee/unite-tag', {'on' : 'Unite'}
-Plug 'tyru/open-browser.vim', {'on' : 'OpenBrowser'}
+Plug 'tsukkee/unite-tag', {'on': 'Unite'}
+Plug 'tyru/open-browser.vim', {'on': 'OpenBrowser'}
 Plug 'ujihisa/neco-look'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'ynkdir/vim-funlib'
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'dohq/chalice', {'on': 'Chalice'}
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'miyakogi/vim-quickrun-job'
+Plug 'osyo-manga/vim-agrep'
+Plug 'davinche/godown-vim', {'for': 'markdown'}
 call plug#end()
 
 filetype plugin indent on
@@ -529,14 +535,15 @@ let g:quickrun_config = get(g:, 'quickrun_config', {})
 
 let g:quickrun_config = {
 \ '_' : {
-\     'hook/u_nya_/enable' : 1,
-\     'runner' : 'vimproc',
-\     'runner/vimproc/updatetime' : 10,
+\     'hook/u_nya_/enable': 1,
+\     'runner': 'job',
+\     'runner/job/updatetime': 50,
+\     'runner/vimproc/updatetime': 10,
 \     'outputter/buffer/close_on_empty' : 1,
-\     'outputter/buffer/split' : ':rightbelow 8sp',
-\     'outputter/error/error' : 'quickfix',
-\     'outputter/error/success' : 'buffer',
-\     'outputter' : 'error',
+\     'outputter/buffer/split': ':rightbelow 8sp',
+\     'outputter/error/error': 'quickfix',
+\     'outputter/error/success': 'buffer',
+\     'outputter': 'error',
 \ },
 \}
 " }}}
@@ -551,6 +558,14 @@ let g:watchdogs_check_CursorHold_enable = 1
 if !exists('g:quickrun_config')
     let g:quickrun_config = {}
 endif
+
+" watchdogs globalSettings
+let g:quickrun_config = {
+\   'watchdogs_checker/_' : {
+\       'hook/close_quickfix/enable_exit' : 1,
+\       'hook/back_window/priority_exit': 1,
+\   },
+\}
 
 " watchdogs CheckTools
 let g:quickrun_config = {
@@ -569,15 +584,16 @@ let g:quickrun_config = {
 \       'command'   : 'vint',
 \       'exec'      : '%c %o %s:p',
 \   },
-\   'vim/watchdogs_checker': {
+\   'vim/watchdogs_checker' : {
 \       'type': executable('vint') ? 'watchdogs_checker/vint' : '',
 \   },
-\}
-
-" watchdogs global settings
-let g:quickrun_config['watchdogs_checker/_'] = {
-\   'hook/close_quickfix/enable_exit' : 1,
-\   'hook/back_window/priority_exit':         1,
+\  'coffee/watchdogs_checker' : {
+\       'type' : 'watchdogs_checker/coffeelint'
+\   },
+\   'watchdogs_checker/coffeelint' : {
+\       'command'   : 'coffeelint',
+\       'exec'      : '%c %o %s:p',
+\   },
 \}
 " }}}
 " vim-go {{{
@@ -621,6 +637,13 @@ nnoremap <silent> [VimShell]p :<C-u>VimShellPop<CR>
 
 let g:vimshell_interactive_update_time = 5
 let g:vimshell_prompt = $USERNAME.'% '
+"}}}
+"vim-agrep {{{
+let g:agrep#config = {
+\   'command' : 'pt',
+\   'option'  : '--nogroup --nocolor',
+\   'open_cmd' : 'split'
+\}
 "}}}
 
 " vimfiler

@@ -1,7 +1,17 @@
 "------------------------+
 " 基本設定
 "+-----------------------+
+" Load vimppm
+source C:\app\vim\vimperator\vimppm\vimppm\plugin\vimppm.js
+"source ~/vimperator/vimppm/plugin/vimppm/vimppm.js
 
+" Plugins
+vimppm '_smooziee.js'
+vimppm 'copy.js'
+vimppm 'caret-hint.js'
+
+" タイトルを Vimperator から Firefox に変更
+set titlestring=Firefox
 "メニュー/ツール/リンクを表示
 set toolbars=addons
 "ページ全体で検索語を強調表示
@@ -9,52 +19,66 @@ set hlsearch
 set ignorecase
 "ビープ音を鳴らさずビジュアルベルを使用
 set visualbell
-
-set complete=S
+" 自動補完の候補
+set complete=sl
+" コマンドモードではIMEをOFFに
+style! -name=commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+" 入力欄に自動フォーカスしない
 set focuscontent
+" アドオンインストール時の待ち時間カット
+set! security.dialog_enable_delay=0
+" キャレット幅を変更
+set! ui.caretWidth=2
 
 let g:ex_ime_mode = "inactive"
 let g:textarea_ime_mode = "inactive"
 
-
 "+------------------------+
 " キーマップ設定
 "+------------------------+
-set hintchars=hjklasdfgyuiopqwertnmzxcvb
-hi Hint z-index:5000; font-size:12px; color:white; background-color:gray; border-color:lightgray; border-width:2px; border-style:solid; padding:0px 2px 0px 2px; position:absolute; font-family: Menlo, Consolas, Monaco, monospace; text-transform: uppercase;
+set hintchars=asdfghjkl;
+
+" ヒント表示色
+highlight Hint font-family: Arial; font-size: 16px; font-weight: bold; text-shadow: -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black, 1px 1px 2px black; color: #33cccc;
+highlight HintElem color: gray; background-color: #a1e4e6;
+highlight HintActive color: black; background-color: #ff8700;
 
 "j/kの移動量を10倍に
-map j 10<C-e>
-map k 10<C-y>
+"map j 5<C-e>
+"map k 5<C-y>
 "<BS>で「戻る」
 map <BS> H
 map <S-j> <C-p>
 map <S-k> <C-n>
 
 " .vimperatorrcを再読み込み
-map <C-r> :source ~/.vimperatorrc<CR>
+map <S-r> :source ~/.vimperatorrc<CR>
 
 "<S-Left>/<S-Right>で現在のタブの位置変更
-map <S-Left> :tabmove! -1<CR>
-map <S-Right> :tabmove! +1<CR>
+map <S-Up> :tabmove! -1<CR>
+map <S-Down> :tabmove! +1<CR>
 
-map ^ :sp -r <S-Insert><CR>
-
-map c :history!
+map <C-h> :history!
+map <C-b> :bmarks!
 map s :stop
-map d <M-w>
+map x :tabc<CR>
 
 "new tab
-map t :tabopen
+map t :tabopen<Space>
 "open tab
-map o :open
+map o :open<Space>
 
+"QuickMark
 map gm :t http://gmail.com<CR>
-map gc :t https://www.google.com/calendar/<CR>
+map gc :t https://calendar.google.com/<CR>
+map gq :t https://qiita.com<CR>
+map gt :t http://www.teratail.com<CR>
+map gs :t http://dohq.slack.com<CR>
 
 "+------------------------+
 " プラグイン設定
 "+------------------------+
-
+"smooth scroll
+let g:smooziee_scroll_amount="200"
 " 最後に読み込み完了を表示
 echo "### Finish loading vimperatorrc. ###"
