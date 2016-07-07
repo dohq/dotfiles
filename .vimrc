@@ -1,4 +1,4 @@
-" Last Change: 30-Jun-2016.
+" Last Change: 01-Jul-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -104,6 +104,7 @@ Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'miyakogi/vim-quickrun-job'
 Plug 'osyo-manga/vim-agrep'
 Plug 'davinche/godown-vim', {'for': 'markdown'}
+Plug 'aereal/vim-colors-japanesque'
 call plug#end()
 
 filetype plugin indent on
