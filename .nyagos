@@ -1,0 +1,33 @@
+-- set aliases
+alias {
+  ll = "ls -la $*",
+  rm = "del $*",
+  mv = "move $*",
+  gl = "git log --pretty='medium-reverse' --graph --name-status",
+  ga = "git add",
+  gm = "git commit -v",
+  git= "hub $*"
+}
+nyagos.alias["."] = nyagos.alias.start
+
+share.org_prompter=nyagos.prompt
+nyagos.prompt = function(this)
+    local prompt_message = this
+    -- プロンプトにgit_branch_nameを表示する
+    local git_branch_name = nyagos.eval('git rev-parse --abbrev-ref HEAD 2>nul')
+    if (git_branch_name ~= '') then
+        -- もちろんgit_branch_nameに適当な色をつけたりしてもOK
+        prompt_message =  '[' .. git_branch_name .. '] ' .. prompt_message
+    end
+
+    -- ここで改行をくっつける
+    prompt_massage = prompt_message .. '$_$$$s'
+
+    return share.org_prompter('$e[36;40;1m'..prompt_message..'$e[37;1m')
+end
+
+-- set envs
+set{
+    -- PROMPT="\x1b[42;30m[$P]\x1b[0m$_\x1b[43;30m$$\x1b[0m$s"
+    PROMPT='$L'.. nyagos.env.computername .. ':$P$G$_$$$s'
+}

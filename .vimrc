@@ -1,4 +1,4 @@
-" Last Change: 01-Jul-2016.
+" Last Change: 13-Jul-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -42,8 +42,6 @@ Plug 'junegunn/vim-plug',
       \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
 " Plugin list
 " InsertEnter
-Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neocomplete.vim', {'on': []}
 Plug 'Shougo/neosnippet', {'on': [] }
 Plug 'Shougo/neosnippet-snippets', {'on': [] }
@@ -54,57 +52,47 @@ Plug 'tyru/eskk.vim', {'on': []}
 Plug 'osyo-manga/vim-watchdogs', {'on': []}
 Plug 'osyo-manga/shabadou.vim', {'on': []}
 
-Plug 'Shougo/neomru.vim', {'on': 'Unite'}
-Plug 'Shougo/unite-outline', {'on': 'Unite'}
-Plug 'Shougo/unite.vim', {'on': 'Unite'}
-Plug 'Shougo/vimfiler', {'on': 'VimFiler'}
-Plug 'Shougo/vimproc.vim'
-Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
-Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
-Plug 'altercation/vim-colors-solarized'
-Plug 'b4b4r07/vim-shellutils'
+Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
 Plug 'basyura/J6uil.vim', {'on': 'J6uil'}
+Plug 'beckorz/previm', {'for': 'markdown'}
+Plug 'fatih/vim-go', {'for': 'go', 'tag': 'v1.6'}
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'lambdalisue/vim-gista', {'on': 'Gista' }
+Plug 'lambdalisue/vim-gita', {'on': 'Gita'}
+Plug 'lambdalisue/vim-unified-diff', {'for': 'diff'}
+Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
+Plug 'supermomonga/vimshell-kawaii.vim', {'on': ['VimShell', 'VimShellPop']}
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
+Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'thinca/vim-quickrun'
+Plug 'altercation/vim-colors-solarized'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'Shougo/vimproc.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'Yggdroot/indentLine'
 Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
-Plug 'beckorz/previm', {'for': 'markdown'}
-Plug 'fatih/vim-go', {'for': 'go', 'tag': 'v1.6'}
+Plug 'tyru/open-browser.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'jceb/vim-hier'
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
-Plug 'koron/codic-vim', {'on': 'Unite'}
-Plug 'koron/vim-gosrc'
-Plug 'lambdalisue/vim-gista', {'on': 'Gista' }
-Plug 'lambdalisue/vim-gita', {'on': 'Gita'}
-Plug 'lambdalisue/vim-unified-diff', {'for': 'diff'}
+Plug 'koron/codic-vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'mattn/favstar-vim', {'on': 'TweetVimSay'}
-Plug 'mattn/sonictemplate-vim', {'on': 'Template'}
 Plug 'mattn/webapi-vim'
-Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
-Plug 'rcmdnk/vim-markdown', {'for': 'markdown'}
-Plug 'rhysd/unite-codic.vim', {'on': 'Unite'}
 Plug 'spolu/dwm.vim'
-Plug 'supermomonga/vimshell-kawaii.vim', {'on': ['VimShell', 'VimShellPop']}
-Plug 'thinca/vim-quickrun'
-Plug 'thinca/vim-showtime', {'on': 'ShowtimeStart'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'tsukkee/unite-tag', {'on': 'Unite'}
-Plug 'tyru/open-browser.vim', {'on': 'OpenBrowser'}
-Plug 'ujihisa/neco-look'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'ynkdir/vim-funlib'
-Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'dohq/chalice', {'on': 'Chalice'}
-Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-Plug 'miyakogi/vim-quickrun-job'
-Plug 'osyo-manga/vim-agrep'
-Plug 'davinche/godown-vim', {'for': 'markdown'}
-Plug 'aereal/vim-colors-japanesque'
+Plug 'sheerun/vim-polyglot'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'mattn/ctrlp-register'
+Plug 'mattn/ctrlp-codic'
 call plug#end()
 
 filetype plugin indent on
@@ -233,6 +221,11 @@ if (exists('+colorcolumn'))
     highlight ColorColumn ctermbg=9
 endif
 
+if executable('pt')
+  " Use pt over grep
+  set grepprg=pt\ --nogroup\ --nocolor
+endif
+
 " sudo write
 cabbr w!! w !sudo tee > /dev/null %
 
@@ -337,36 +330,6 @@ nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
 let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
-"}}}
-" Unite{{{
-" The prefix key.
-nnoremap    [unite]   <Nop>
-nmap    <Space>u [unite]
-
-" unite.vim keymap
-let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable =1
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
-nnoremap <silent> [unite]u :<C-u>Unite<Space>file<CR>
-nnoremap <silent> [unite]g :<C-u>Unite<Space>grep<CR>
-nnoremap <silent> [unite]f :<C-u>Unite<Space>buffer<CR>
-nnoremap <silent> [unite]b :<C-u>Unite<Space>bookmark<CR>
-nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
-nnoremap <silent> [unite]h :<C-u>Unite<Space>history/yank<CR>
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> [unite]c :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,vr :UniteResume<CR>
-
-" Grep
-if executable('pt')
-  let g:unite_source_grep_command = 'pt'
-  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
-  let g:unite_source_grep_recursive_opt = ''
-  let g:unite_source_grep_max_candidates = 200
-  let g:unite_source_grep_encoding = 'utf-8'
-endif
 "}}}
 " lightline.vim{{{
 let g:lightline = {
@@ -523,31 +486,6 @@ nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
 "let g:dwm_master_pane_width=85
 " }}}
-" QuickRun {{{
-" <C-c> で実行を強制終了させる
-" quickrun.vim が実行していない場合には <C-c> を呼び出す
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-augroup quitqf
-  autocmd!
-  au FileType qf nnoremap <silent><buffer>q :quit<CR>
-augroup END
-
-let g:quickrun_config = get(g:, 'quickrun_config', {})
-
-let g:quickrun_config = {
-\ '_' : {
-\     'hook/u_nya_/enable': 1,
-\     'runner': 'job',
-\     'runner/job/updatetime': 50,
-\     'runner/vimproc/updatetime': 10,
-\     'outputter/buffer/close_on_empty' : 1,
-\     'outputter/buffer/split': ':rightbelow 8sp',
-\     'outputter/error/error': 'quickfix',
-\     'outputter/error/success': 'buffer',
-\     'outputter': 'error',
-\ },
-\}
-" }}}
 " watchdogs {{{
 
 " watchdogs writecehck
@@ -597,6 +535,26 @@ let g:quickrun_config = {
 \   },
 \}
 " }}}
+" QuickRun {{{
+" <C-c> で実行を強制終了させる
+" quickrun.vim が実行していない場合には <C-c> を呼び出す
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+augroup quitqf
+  autocmd!
+  au FileType qf nnoremap <silent><buffer>q :quit<CR>
+augroup END
+
+let g:quickrun_config = get(g:, 'quickrun_config', {})
+
+let g:quickrun_config = {
+\ '_' : {
+\     'hook/u_nya_/enable': 1,
+\     'runner': 'job',
+\     'runner/job/updatetime': 10,
+\     'outputter/buffer/close_on_empty': 1,
+\ },
+\}
+" }}}
 " vim-go {{{
 " highlight error
 augroup hierr
@@ -624,7 +582,7 @@ let g:indentLine_char = '¦'
 let g:indent_guides_start_level = 2
 " }}}
 " over.vim {{{
-nnoremap <silent> <Space>m :OverCommandLine<CR>
+nnoremap <silent> <Space>o :OverCommandLine<CR>
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " }}}
@@ -646,13 +604,54 @@ let g:agrep#config = {
 \   'open_cmd' : 'split'
 \}
 "}}}
+"pandoc {{{
+let g:pandoc#modules#disabled=['folding']
+"}}}
+" Memolist{{{
+" The prefix key.
+nnoremap    [memo]   <Nop>
+nmap    <Space>m [memo]
+
+" unite.vim keymap
+nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
+"nnoremap <silent> [memo]l :<C-u>MemoList<CR>
+nnoremap <silent> [memo]l :<C-u>exe "CtrlP" g:memolist_path<cr><f5>
+nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
+let g:memolist_memo_suffix = 'md'
+let g:memolist_path = '~/Dev/memo'
+let g:memolist_unite = 1
+let g:memolist_unite_option = '-start-insert'
+"}}}
+"CtrlP {{{
+nnoremap    [CtrlP]   <Nop>
+nmap    <Space>u [CtrlP]
+nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
+nnoremap <silent> [CtrlP]f :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
+nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
+nnoremap <silent> [CtrlP]s :<C-u>CtrlPLine<CR>
+nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
+nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
+
+let g:ctrlp_user_command = 'files -a %s'
+let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
+let g:ctrlp_map = '<Nop>'
+" Guess vcs root dir
+let g:ctrlp_working_path_mode = 'ra'
+" Open new file in current window
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+"}}}
 
 " vimfiler
 let g:vimfiler_as_default_explorer=1
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
-" markdownの折りたたみなし
-let g:vim_markdown_folding_disabled=1
 " PrevimOpen
 let g:previm_enable_realtime = 1
