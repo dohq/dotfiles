@@ -67,6 +67,7 @@ Plug 'elzr/vim-json', {'for': 'json'}
 Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'thinca/vim-quickrun'
+Plug 'miyakogi/vim-quickrun-job'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim'
@@ -552,6 +553,9 @@ let g:quickrun_config = {
 \     'hook/u_nya_/enable': 1,
 \     'runner': 'job',
 \     'runner/job/updatetime': 10,
+\     'outputter/error/success': 'buffer',
+\     'outputter/error/error': 'quickfix',
+\     'outputter/buffer/split': ':rightbelow 8sp',
 \     'outputter/buffer/close_on_empty': 1,
 \ },
 \}
