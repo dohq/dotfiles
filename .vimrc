@@ -5,7 +5,7 @@ if has('vim_starting')
   if !isdirectory(expand('~/.vim/bundle/vim-plug'))
     echo 'install vim-plug...'
     call system('mkdir -p ~/.vim/bundle/vim-plug')
-    call system('curl -fLo ~/.vim/bundle/vim-plug --create-dirs
+    call system('curl -fLo ~/.vim/bundle/vim-plug/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   end
 endif
@@ -121,6 +121,7 @@ let g:loaded_matchparen        = 1
 " color {{{
 set t_Co=256
 colorscheme solarized
+set background=dark
 let g:solarized_italic = 0
 "}}}
 " Encoding {{{
