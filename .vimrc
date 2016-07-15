@@ -1,4 +1,4 @@
-" Last Change: 13-Jul-2016.
+" Last Change: 15-Jul-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -94,6 +94,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-register'
 Plug 'mattn/ctrlp-codic'
+Plug 'kaneshin/ctrlp-filetype'
 call plug#end()
 
 filetype plugin indent on
@@ -637,8 +638,12 @@ nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> [CtrlP]s :<C-u>CtrlPLine<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
+nnoremap <silent> [CtrlP]p :<C-u>CtrlPFiletype<CR>
 
-let g:ctrlp_user_command = 'files -a %s'
+if !executable('files')
+  call system('go get github.com/mattn/files')
+  let g:ctrlp_user_command = 'files -a %s'
+endif
 let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
