@@ -1,6 +1,6 @@
 # enhanced
 # cdコマンドを便利にする。便利
-zplug "b4b4r07/enhancd", of:enhancd.sh
+zplug "b4b4r07/enhancd", use:enhancd.sh
 
 # syntaxhilight
 # コマンドにシンタックスハイライトを適用する。便利？
@@ -15,3 +15,9 @@ zplug "sdurrheimer/docker-compose-zsh-completion"
 # color
 # 色付ける。便利
 zplug "seebi/dircolors-solarized"
+zplug "chrissicool/zsh-256color"
+
+# tmuxを便利に
+zplug "arks22/tmuximum", as:command
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux

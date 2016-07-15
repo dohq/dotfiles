@@ -229,7 +229,7 @@ if executable('pt')
 endif
 
 " sudo write
-cabbr w!! w !sudo tee > /dev/null %
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 "----------------------------------------
 " Plugin Settings
