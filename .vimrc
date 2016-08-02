@@ -37,9 +37,6 @@ endif
 " }}}
 
 call plug#begin('~/.vim/bundle')
-" vim-plug selfmgr
-Plug 'junegunn/vim-plug',
-      \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
 " Plugin list
 " InsertEnter
 Plug 'Shougo/neocomplete.vim', {'on': []}
@@ -70,7 +67,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'miyakogi/vim-quickrun-job'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
 Plug 'basyura/TweetVim'
@@ -318,10 +315,6 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" For conceal markers.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
 "}}}
 "TweetVim {{{
 " The prefix key.
