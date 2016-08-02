@@ -1,4 +1,4 @@
-" Last Change: 15-Jul-2016.
+" Last Change: 01-Aug-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -94,6 +94,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-register'
 Plug 'mattn/ctrlp-codic'
+Plug 'mattn/ctrlp-launcher'
 Plug 'kaneshin/ctrlp-filetype'
 call plug#end()
 
@@ -635,6 +636,7 @@ nnoremap <silent> [CtrlP]s :<C-u>CtrlPLine<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
 nnoremap <silent> [CtrlP]p :<C-u>CtrlPFiletype<CR>
+nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 
 if !executable('files')
   call system('go get github.com/mattn/files')

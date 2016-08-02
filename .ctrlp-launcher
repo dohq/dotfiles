@@ -1,0 +1,19 @@
+# CtrlP-Launcher
+
+#
+Browser			call feedkeys("\<Plug>(openbrowser-open)")
+
+# Windows
+Explorer		!start rundll32 url.dll,FileProtocolHandler .
+Command Prompt		!start cmd
+System Property		!start c:/windows/system32/control.exe system.cpl
+Task Manager		!start taskmgr
+Service Manager		!c:/windows/system32/services.msc
+Internet Explorer	!start iexplore
+
+# Twitter
+T-Home	TweetVimHomeTimeline
+T-HighSchool	TweetVimListStatuses Highschool-4
+T-mahoutsukai	TweetVimListStatuses mahou-tsukai
+
+# vim:set ts=4
