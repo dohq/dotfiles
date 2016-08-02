@@ -37,9 +37,6 @@ endif
 " }}}
 
 call plug#begin('~/.vim/bundle')
-" vim-plug selfmgr
-Plug 'junegunn/vim-plug',
-      \ {'dir': '~/.vim/bundle/vim-plug/autoload'}
 " Plugin list
 " InsertEnter
 Plug 'Shougo/neocomplete.vim', {'on': []}
@@ -70,7 +67,7 @@ Plug 'thinca/vim-quickrun'
 Plug 'miyakogi/vim-quickrun-job'
 Plug 'altercation/vim-colors-solarized'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
 Plug 'basyura/TweetVim'
