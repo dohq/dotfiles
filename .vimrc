@@ -45,9 +45,13 @@ Plug 'Shougo/neosnippet-snippets', {'on': [] }
 Plug 'Shougo/neoinclude.vim', {'on': []}
 Plug 'Shougo/neco-syntax', {'on': []}
 Plug 'cohama/lexima.vim', {'on': []}
-Plug 'tyru/eskk.vim', {'on': []}
 Plug 'osyo-manga/vim-watchdogs', {'on': []}
 Plug 'osyo-manga/shabadou.vim', {'on': []}
+Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
+      \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
+      \ cd ~/.vim/skk &&
+      \ gzip -d SKK-JISYO.L.gz
+      \ '}
 
 Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
 Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
