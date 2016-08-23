@@ -1,4 +1,4 @@
-" Last Change: 01-Aug-2016.
+" Last Change: 23-Aug-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -52,9 +52,11 @@ Plug 'osyo-manga/shabadou.vim', {'on': []}
 Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
 Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
 Plug 'basyura/J6uil.vim', {'on': 'J6uil'}
-Plug 'beckorz/previm', {'for': 'markdown'}
+"Plug 'beckorz/previm', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
 Plug 'fatih/vim-go', {'for': 'go', 'tag': 'v1.6'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
 Plug 'lambdalisue/vim-gista', {'on': 'Gista' }
 Plug 'lambdalisue/vim-gita', {'on': 'Gita'}
 Plug 'lambdalisue/vim-unified-diff', {'for': 'diff'}
@@ -66,6 +68,7 @@ Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'thinca/vim-quickrun'
 Plug 'miyakogi/vim-quickrun-job'
 Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'junegunn/vim-easy-align'
@@ -120,9 +123,11 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-colorscheme solarized
-set background=dark
-let g:solarized_italic = 0
+set termguicolors
+colorscheme solarized8_dark
+let g:solarized_term_italics = 0
+"set background=dark
+"let g:solarized_italic = 0
 "}}}
 " Encoding {{{
 set enc=UTF-8
@@ -183,6 +188,10 @@ if s:hostname ==# 'X220-arch'
   nnoremap ; :
   nnoremap : ;
 endif
+
+" TagJump
+nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
 
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
@@ -552,6 +561,8 @@ let g:quickrun_config = {
 \     'outputter/error/error': 'quickfix',
 \     'outputter/buffer/split': ':rightbelow 8sp',
 \     'outputter/buffer/close_on_empty': 1,
+\     'hook/quickfix_replate_tempname_to_bufnr/enable_exit': 1,
+\     'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
 \ },
 \}
 " }}}
@@ -659,4 +670,6 @@ let g:vimfiler_as_default_explorer=1
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
-let g:previm_enable_realtime = 1
+"let g:previm_enable_realtime = 1
+let g:mkdp_path_to_chrome = 'C:\Program Files\Mozilla Firefox\firefox.exe'
+
