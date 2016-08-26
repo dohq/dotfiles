@@ -1,11 +1,13 @@
 #######################################
 # zplug
 [[ -d ~/.zplug ]] || {
-    git clone https://github.com/b4b4r07/zplug ~/.zplug
-    source ~/.zplug/zplug
-    zplug update --self
+  # Check if zplug is installed
+  if [[ ! -d ~/.zplug ]]; then
+    git clone https://github.com/zplug/zplug ~/.zplug
+    source ~/.zplug/init.zsh && zplug update --self
+  fi
 }
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 source ~/.zsh_plug
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
