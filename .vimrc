@@ -1,4 +1,4 @@
-" Last Change: 23-Aug-2016.
+" Last Change: 31-Aug-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -39,42 +39,40 @@ endif
 call plug#begin('~/.vim/bundle')
 " Plugin list
 " InsertEnter
-Plug 'Shougo/neocomplete.vim', {'on': []}
-Plug 'Shougo/neosnippet', {'on': [] }
-Plug 'Shougo/neosnippet-snippets', {'on': [] }
-Plug 'Shougo/neoinclude.vim', {'on': []}
-Plug 'Shougo/neco-syntax', {'on': []}
-Plug 'cohama/lexima.vim', {'on': []}
-Plug 'osyo-manga/vim-watchdogs', {'on': []}
-Plug 'osyo-manga/shabadou.vim', {'on': []}
+Plug 'airblade/vim-gitgutter',              {'on' : 'GitGutterEnable'}
+Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
+Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
+Plug 'beckorz/previm',                      {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.vim',         {'for': 'markdown'}
+Plug 'fatih/vim-go',                        {'for': 'go', 'tag': 'v1.6'}
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
+Plug 'lambdalisue/vim-gista',               {'on' : 'Gista' }
+Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
+Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
+Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
+Plug 'supermomonga/vimshell-kawaii.vim',    {'on' : ['VimShell', 'VimShellPop']}
+Plug 'elzr/vim-json',                       {'for': 'json'}
+Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
+Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
+Plug 'Shougo/neocomplete.vim',              {'on': []}
+Plug 'Shougo/neosnippet',                   {'on': [] }
+Plug 'Shougo/neosnippet-snippets',          {'on': [] }
+Plug 'Shougo/neoinclude.vim',               {'on': []}
+Plug 'Shougo/neco-syntax',                  {'on': []}
+Plug 'cohama/lexima.vim',                   {'on': []}
+Plug 'osyo-manga/vim-watchdogs',            {'on': []}
+Plug 'osyo-manga/shabadou.vim',             {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'airblade/vim-gitgutter', {'on': 'GitGutterEnable'}
-Plug 'Shougo/vimshell', {'on': ['VimShell', 'VimShellPop']}
-Plug 'basyura/J6uil.vim', {'on': 'J6uil'}
-"Plug 'beckorz/previm', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.vim', {'for': 'markdown'}
-Plug 'fatih/vim-go', {'for': 'go', 'tag': 'v1.6'}
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
-Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
-Plug 'lambdalisue/vim-gista', {'on': 'Gista' }
-Plug 'lambdalisue/vim-gita', {'on': 'Gita'}
-Plug 'lambdalisue/vim-unified-diff', {'for': 'diff'}
-Plug 'osyo-manga/vim-over', {'on': 'OverCommandLine'}
-Plug 'supermomonga/vimshell-kawaii.vim', {'on': ['VimShell', 'VimShellPop']}
-Plug 'elzr/vim-json', {'for': 'json'}
-Plug 'kchmck/vim-coffee-script', {'for': 'coffee'}
-Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'thinca/vim-quickrun'
-Plug 'miyakogi/vim-quickrun-job'
-Plug 'altercation/vim-colors-solarized'
 Plug 'lifepillar/vim-solarized8'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
 Plug 'basyura/TweetVim'
@@ -129,7 +127,7 @@ let g:loaded_matchparen        = 1
 set t_Co=256
 set termguicolors
 colorscheme solarized8_dark
-let g:solarized_term_italics = 0
+"let g:solarized_term_italics = 0
 "set background=dark
 "let g:solarized_italic = 0
 "}}}
@@ -329,6 +327,42 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 "}}}
+" Quickrun {{{
+let g:quickrun_config = get(g:, 'quickrun_config', {})
+let g:quickrun_config = {
+\ '_' : {
+\   'runner':                          'vimproc',
+\   'runner/vimproc/updatetime':       60,
+\   'outputter':                       'error',
+\   'outputter/error/success':         'buffer',
+\   'outputter/error/error':           'quickfix',
+\   'outputter/buffer/split':          ':rightbelow 8sp',
+\   'outputter/buffer/close_on_empty': 1,
+\   },
+\}
+"}}}
+" Watchdogs {{{
+let g:watchdogs_check_BufWritePost_enable = 1
+let g:watchdogs_check_CursorHold_enable   = 1
+
+if !exists('g:quickrun_config')
+    let g:quickrun_config = {}
+endif
+let g:quickrun_config = {
+\ 'watchdogs_checker/_': {
+\   'hook/close_quickfix/enable_exit':                       1,
+\   'hook/quickfix_replate_tempname_to_bufnr/enable_exit':   1,
+\   'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
+\   },
+\   'vim/watchdogs_checker': {
+\      'type': executable('vint') ? 'watchdogs_checker/vint' : '',
+\   },
+\   'watchdogs_checker/vint': {
+\      'command'   : 'vint',
+\      'exec'      : '%c %o %s:p ',
+\   },
+\}
+" }}}
 "TweetVim {{{
 " The prefix key.
 nnoremap    [TweetVim]   <Nop>
@@ -496,80 +530,6 @@ nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
 "let g:dwm_master_pane_width=85
 " }}}
-" watchdogs {{{
-
-" watchdogs writecehck
-let g:watchdogs_check_BufWritePost_enable = 1
-" watchdogs timercheck
-let g:watchdogs_check_CursorHold_enable = 1
-
-" init
-if !exists('g:quickrun_config')
-    let g:quickrun_config = {}
-endif
-
-" watchdogs globalSettings
-let g:quickrun_config = {
-\   'watchdogs_checker/_' : {
-\       'hook/close_quickfix/enable_exit' : 1,
-\       'hook/back_window/priority_exit': 1,
-\   },
-\}
-
-" watchdogs CheckTools
-let g:quickrun_config = {
-\   'python/watchdogs_checker' : {
-\       'type' : 'watchdogs_checker/flake8',
-\   },
-\   'watchdogs_checker/golint' : {
-\       'command':     'golint',
-\       'exec':        '%c %o %s:p',
-\       'errorformat' : '%f:%l:%c: %m,%-G%.%#',
-\   },
-\   'go/watchdogs_checker' : {
-\       'type' : 'watchdogs_checker/golint'
-\   },
-\   'watchdogs_checker/vint' : {
-\       'command'   : 'vint',
-\       'exec'      : '%c %o %s:p',
-\   },
-\   'vim/watchdogs_checker' : {
-\       'type': executable('vint') ? 'watchdogs_checker/vint' : '',
-\   },
-\  'coffee/watchdogs_checker' : {
-\       'type' : 'watchdogs_checker/coffeelint'
-\   },
-\   'watchdogs_checker/coffeelint' : {
-\       'command'   : 'coffeelint',
-\       'exec'      : '%c %o %s:p',
-\   },
-\}
-" }}}
-" QuickRun {{{
-" <C-c> で実行を強制終了させる
-" quickrun.vim が実行していない場合には <C-c> を呼び出す
-nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-augroup quitqf
-  autocmd!
-  au FileType qf nnoremap <silent><buffer>q :quit<CR>
-augroup END
-
-let g:quickrun_config = get(g:, 'quickrun_config', {})
-
-let g:quickrun_config = {
-\ '_' : {
-\     'hook/u_nya_/enable': 1,
-\     'runner': 'job',
-\     'runner/job/updatetime': 10,
-\     'outputter/error/success': 'buffer',
-\     'outputter/error/error': 'quickfix',
-\     'outputter/buffer/split': ':rightbelow 8sp',
-\     'outputter/buffer/close_on_empty': 1,
-\     'hook/quickfix_replate_tempname_to_bufnr/enable_exit': 1,
-\     'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
-\ },
-\}
-" }}}
 " vim-go {{{
 " highlight error
 augroup hierr
@@ -611,13 +571,6 @@ nnoremap <silent> [VimShell]p :<C-u>VimShellPop<CR>
 
 let g:vimshell_interactive_update_time = 5
 let g:vimshell_prompt = $USERNAME.'% '
-"}}}
-"vim-agrep {{{
-let g:agrep#config = {
-\   'command' : 'pt',
-\   'option'  : '--nogroup --nocolor',
-\   'open_cmd' : 'split'
-\}
 "}}}
 "pandoc {{{
 let g:pandoc#modules#disabled=['folding']
@@ -676,4 +629,3 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
 "let g:previm_enable_realtime = 1
 let g:mkdp_path_to_chrome = 'C:\Program Files\Mozilla Firefox\firefox.exe'
-
