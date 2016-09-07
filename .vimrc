@@ -1,4 +1,4 @@
-" Last Change: 31-Aug-2016.
+" Last Change: 07-Sep-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -64,6 +64,7 @@ Plug 'Shougo/neco-syntax',                  {'on': []}
 Plug 'cohama/lexima.vim',                   {'on': []}
 Plug 'osyo-manga/vim-watchdogs',            {'on': []}
 Plug 'osyo-manga/shabadou.vim',             {'on': []}
+Plug 'KazuakiM/vim-qfsigns',                {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
@@ -220,7 +221,8 @@ augroup load_insert
 \     'lexima.vim',
 \     'vim-watchdogs',
 \     'shabadou.vim',
-\     'eskk.vim'
+\     'eskk.vim',
+\     'vim-qfsigns',
 \)
 \ | :NeoCompleteEnable
 \ | call watchdogs#setup(g:quickrun_config)
@@ -351,6 +353,9 @@ endif
 let g:quickrun_config = {
 \ 'watchdogs_checker/_': {
 \   'hook/close_quickfix/enable_exit':                       1,
+\   'hook/copen/enable_exist_data':                          1,
+\   'hook/qfsigns_update/enable_exit':                       1,
+\   'hook/qfsigns_update/priority_exit':                     3,
 \   'hook/quickfix_replate_tempname_to_bufnr/enable_exit':   1,
 \   'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
 \   },
@@ -620,6 +625,36 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
+" Lexima {{{
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
+
+function! s:set_lexima(rule)
+    call lexima#add_rule(a:rule)
+    let ignore_rule = a:rule
+    let ignore_rule.syntax = ['String', 'Comment']
+    let ignore_rule.input = ignore_rule.char
+    call lexima#add_rule(ignore_rule)
+endfunction
+
+
+call s:set_lexima({'at': '\%#',     'char': '[',    'input': '[]<Left>'})
+call s:set_lexima({'at': '\%#]',    'char': '[',    'input': '['})
+call s:set_lexima({'at': '\[\%#\]', 'char': ']',    'input': '<Right>'})
+call s:set_lexima({'at': '\[\%#\]', 'char': '[',    'input': '[]<Left>'})
+call s:set_lexima({'at': '\[\%#\]', 'char': '<BS>', 'input': '<BS><Del>'})
+
+
+for [begin, end] in [['(', ')'], ['{', '}']]
+    let bracket = begin.end
+    call s:set_lexima({'at': '\%#',     'char': begin, 'input': bracket.'<Left>'})
+    call s:set_lexima({'at': '\%#'.end, 'char': begin, 'input': begin})
+
+    call s:set_lexima({'at': begin.'\%#'.end, 'char': end,   'input': '<Right>'})
+    call s:set_lexima({'at': begin.'\%#'.end, 'char': begin, 'input': bracket.'<Left>'})
+    call s:set_lexima({'at': begin.'\%#'.end, 'char': '<BS>', 'input': '<BS><Del>'})
+endfor
+" }}}
 
 " vimfiler
 let g:vimfiler_as_default_explorer=1
