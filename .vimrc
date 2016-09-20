@@ -57,11 +57,10 @@ Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Shougo/neocomplete.vim',              {'on': []}
-Plug 'Shougo/neosnippet',                   {'on': [] }
-Plug 'Shougo/neosnippet-snippets',          {'on': [] }
+Plug 'Shougo/neosnippet',                   {'on': []}
+Plug 'Shougo/neosnippet-snippets',          {'on': []}
 Plug 'Shougo/neoinclude.vim',               {'on': []}
 Plug 'Shougo/neco-syntax',                  {'on': []}
-Plug 'cohama/lexima.vim',                   {'on': []}
 Plug 'osyo-manga/vim-watchdogs',            {'on': []}
 Plug 'osyo-manga/shabadou.vim',             {'on': []}
 Plug 'KazuakiM/vim-qfsigns',                {'on': []}
@@ -71,6 +70,7 @@ Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
+Plug 'cohama/lexima.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'lifepillar/vim-solarized8'
 Plug 'Lokaltog/vim-easymotion'
@@ -218,7 +218,6 @@ augroup load_insert
 \     'neosnippet-snippets',
 \     'neco-syntax',
 \     'neoinclude.vim',
-\     'lexima.vim',
 \     'vim-watchdogs',
 \     'shabadou.vim',
 \     'eskk.vim',
@@ -626,34 +625,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 "}}}
 " Lexima {{{
-let g:lexima_no_default_rules = 1
-call lexima#set_default_rules()
-
-function! s:set_lexima(rule)
-    call lexima#add_rule(a:rule)
-    let ignore_rule = a:rule
-    let ignore_rule.syntax = ['String', 'Comment']
-    let ignore_rule.input = ignore_rule.char
-    call lexima#add_rule(ignore_rule)
-endfunction
-
-
-call s:set_lexima({'at': '\%#',     'char': '[',    'input': '[]<Left>'})
-call s:set_lexima({'at': '\%#]',    'char': '[',    'input': '['})
-call s:set_lexima({'at': '\[\%#\]', 'char': ']',    'input': '<Right>'})
-call s:set_lexima({'at': '\[\%#\]', 'char': '[',    'input': '[]<Left>'})
-call s:set_lexima({'at': '\[\%#\]', 'char': '<BS>', 'input': '<BS><Del>'})
-
-
-for [begin, end] in [['(', ')'], ['{', '}']]
-    let bracket = begin.end
-    call s:set_lexima({'at': '\%#',     'char': begin, 'input': bracket.'<Left>'})
-    call s:set_lexima({'at': '\%#'.end, 'char': begin, 'input': begin})
-
-    call s:set_lexima({'at': begin.'\%#'.end, 'char': end,   'input': '<Right>'})
-    call s:set_lexima({'at': begin.'\%#'.end, 'char': begin, 'input': bracket.'<Left>'})
-    call s:set_lexima({'at': begin.'\%#'.end, 'char': '<BS>', 'input': '<BS><Del>'})
-endfor
+call lexima#add_rule({'char': '[', 'input_after': ']',})
 " }}}
 
 " vimfiler
