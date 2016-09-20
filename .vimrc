@@ -1,4 +1,4 @@
-" Last Change: 31-Aug-2016.
+" Last Change: 07-Sep-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -57,19 +57,20 @@ Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Shougo/neocomplete.vim',              {'on': []}
-Plug 'Shougo/neosnippet',                   {'on': [] }
-Plug 'Shougo/neosnippet-snippets',          {'on': [] }
+Plug 'Shougo/neosnippet',                   {'on': []}
+Plug 'Shougo/neosnippet-snippets',          {'on': []}
 Plug 'Shougo/neoinclude.vim',               {'on': []}
 Plug 'Shougo/neco-syntax',                  {'on': []}
-Plug 'cohama/lexima.vim',                   {'on': []}
 Plug 'osyo-manga/vim-watchdogs',            {'on': []}
 Plug 'osyo-manga/shabadou.vim',             {'on': []}
+Plug 'KazuakiM/vim-qfsigns',                {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
+Plug 'cohama/lexima.vim'
 Plug 'thinca/vim-quickrun'
 Plug 'lifepillar/vim-solarized8'
 Plug 'Lokaltog/vim-easymotion'
@@ -217,10 +218,10 @@ augroup load_insert
 \     'neosnippet-snippets',
 \     'neco-syntax',
 \     'neoinclude.vim',
-\     'lexima.vim',
 \     'vim-watchdogs',
 \     'shabadou.vim',
-\     'eskk.vim'
+\     'eskk.vim',
+\     'vim-qfsigns',
 \)
 \ | :NeoCompleteEnable
 \ | call watchdogs#setup(g:quickrun_config)
@@ -351,6 +352,9 @@ endif
 let g:quickrun_config = {
 \ 'watchdogs_checker/_': {
 \   'hook/close_quickfix/enable_exit':                       1,
+\   'hook/copen/enable_exist_data':                          1,
+\   'hook/qfsigns_update/enable_exit':                       1,
+\   'hook/qfsigns_update/priority_exit':                     3,
 \   'hook/quickfix_replate_tempname_to_bufnr/enable_exit':   1,
 \   'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
 \   },
@@ -620,6 +624,9 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
+" Lexima {{{
+call lexima#add_rule({'char': '[', 'input_after': ']',})
+" }}}
 
 " vimfiler
 let g:vimfiler_as_default_explorer=1
