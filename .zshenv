@@ -19,7 +19,7 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias cls='clear'
 alias tree='tree -N'
-alias nm="echo '@dohq 頼まれてた処理が終わったニャ' | sh ~/bin/notify-me.sh"
+alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
 if [ -x "`which peco`" ]; then
   alias ll='ls -lha | peco'
   alias tp='top | peco'
