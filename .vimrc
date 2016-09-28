@@ -1,4 +1,4 @@
-" Last Change: 07-Sep-2016.
+" Last Change: 20-Sep-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -625,7 +625,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 "}}}
 " Lexima {{{
-call lexima#add_rule({'char': '[', 'input_after': ']',})
+"call lexima#add_rule({'char': '[', 'input_after': ']',})
 " }}}
 
 " vimfiler
@@ -635,4 +635,4 @@ let g:vimfiler_as_default_explorer=1
 au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
 "let g:previm_enable_realtime = 1
-let g:mkdp_path_to_chrome = 'C:\Program Files\Mozilla Firefox\firefox.exe'
+let g:mkdp_path_to_chrome = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
