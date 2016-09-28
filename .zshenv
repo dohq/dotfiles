@@ -7,8 +7,6 @@ export LC_ALL=en_US.UTF-8
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-#export GOROOT=/usr/local/go
-#export PATH=$PATH:$GOROOT/bin
 export PATH=/usr/local/bin:$HOME/.cabal/bin:/sbin:$GOPATH/bin:$PATH
 
 # Alias作りましょうねー
@@ -21,6 +19,7 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias cls='clear'
 alias tree='tree -N'
+alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
 if [ -x "`which peco`" ]; then
   alias ll='ls -lha | peco'
   alias tp='top | peco'
