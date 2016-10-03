@@ -1,4 +1,4 @@
-" Last Change: 07-Sep-2016.
+" Last Change: 30-Sep-2016.
 if 0 | endif
 if has('vim_starting')
   set rtp+=~/.vim/bundle/vim-plug
@@ -87,7 +87,6 @@ Plug 'jceb/vim-hier'
 Plug 'koron/codic-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/webapi-vim'
-Plug 'spolu/dwm.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
@@ -96,9 +95,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-register'
-Plug 'mattn/ctrlp-codic'
 Plug 'mattn/ctrlp-launcher'
 Plug 'kaneshin/ctrlp-filetype'
+Plug 'mattn/ctrlp-filer'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'sgur/ctrlp-extensions.vim'
 Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
@@ -188,22 +189,17 @@ nnoremap K 15k
 nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
-" ノーマルモード時だけ ; と : を入れ替える
-let s:hostname = substitute(vimproc#system('hostname'), '\n', '', '')
-if s:hostname ==# 'X220-arch'
-  nnoremap ; :
-  nnoremap : ;
-endif
 
 " TagJump
-nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
-nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+map <C-g> :Gtags
+map <C-h> :Gtags -f %<CR>
+map <C-j> :GtagsCursor<CR>
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
 
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
 
-" <S-K> search help
-set keywordprg=:help
 " }}}
 
 " save as delete tailing Space
@@ -225,7 +221,7 @@ augroup load_insert
 \     'shabadou.vim',
 \     'eskk.vim',
 \     'vim-qfsigns',
-\)
+\ )
 \ | :NeoCompleteEnable
 \ | call watchdogs#setup(g:quickrun_config)
 \ | autocmd! load_insert
@@ -238,6 +234,10 @@ endif
 
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+
+" replace ;:
+nnoremap ; :
+nnoremap : ;
 
 "----------------------------------------
 " Plugin Settings
@@ -520,17 +520,6 @@ nnoremap <silent> [Git]s :<C-u>Gita status<CR>
 nnoremap <silent> [Git]d :<C-u>Gita diff<CR>
 nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
 " }}}
-" dwm {{{
-nnoremap <c-j> <c-w>w
-nnoremap <c-k> <c-w>W
-nmap <m-r> <Plug>DWMRotateCounterclockwise
-nmap <m-t> <Plug>DWMRotateClockwise
-nmap <c-n> <Plug>DWMNew
-nmap <c-c> <Plug>DWMClose
-nmap <c-l> <Plug>DWMGrowMaster
-nmap <c-h> <Plug>DWMShrinkMaster
-"let g:dwm_master_pane_width=85
-" }}}
 " vim-go {{{
 " highlight error
 augroup hierr
@@ -594,7 +583,7 @@ let g:memolist_unite_option = '-start-insert'
 "CtrlP {{{
 nnoremap    [CtrlP]   <Nop>
 nmap    <Space>u [CtrlP]
-nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
+nnoremap <silent> [CtrlP]u :<C-u>CtrlPMenu<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
@@ -604,11 +593,15 @@ nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
 nnoremap <silent> [CtrlP]p :<C-u>CtrlPFiletype<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 
-if !executable('files')
-  call system('go get github.com/mattn/files')
+if executable('files')
+  let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'files -a %s'
 endif
-let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
+    if !has('python')
+        echo 'In order to use pymatcher plugin, you need +python compiled vim'
+    else
+        let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'
@@ -617,19 +610,16 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'file': '\v\.(exe|so|dll|o)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
 " Lexima {{{
-call lexima#add_rule({'char': '[', 'input_after': ']',})
+"call lexima#add_rule({'char': '[', 'input_after': ']',})
 " }}}
-
-" vimfiler
-let g:vimfiler_as_default_explorer=1
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
 "let g:previm_enable_realtime = 1
-let g:mkdp_path_to_chrome = 'C:\Program Files\Mozilla Firefox\firefox.exe'
+let g:mkdp_path_to_chrome = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
