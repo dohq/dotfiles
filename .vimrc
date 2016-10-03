@@ -100,6 +100,7 @@ Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'sgur/ctrlp-extensions.vim'
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 filetype plugin indent on
@@ -127,11 +128,13 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-set termguicolors
-colorscheme solarized8_dark
+"set termguicolors
+"colorscheme solarized8_dark
+colorscheme solarized
+set background=dark
 "let g:solarized_term_italics = 0
 "set background=dark
-"let g:solarized_italic = 0
+let g:solarized_italic = 0
 "}}}
 " Encoding {{{
 set enc=UTF-8
