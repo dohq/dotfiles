@@ -99,6 +99,7 @@ Plug 'mattn/ctrlp-register'
 Plug 'mattn/ctrlp-codic'
 Plug 'mattn/ctrlp-launcher'
 Plug 'kaneshin/ctrlp-filetype'
+Plug 'altercation/vim-colors-solarized'
 call plug#end()
 
 filetype plugin indent on
@@ -126,11 +127,13 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-set termguicolors
-colorscheme solarized8_dark
+"set termguicolors
+"colorscheme solarized8_dark
+colorscheme solarized
+set background=dark
 "let g:solarized_term_italics = 0
 "set background=dark
-"let g:solarized_italic = 0
+let g:solarized_italic = 0
 "}}}
 " Encoding {{{
 set enc=UTF-8
@@ -227,12 +230,6 @@ augroup load_insert
 \ | call watchdogs#setup(g:quickrun_config)
 \ | autocmd! load_insert
 augroup END
-
-" 80column
-if (exists('+colorcolumn'))
-    set colorcolumn=80
-    highlight ColorColumn ctermbg=9
-endif
 
 if executable('pt')
   " Use pt over grep
