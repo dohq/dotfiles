@@ -177,3 +177,8 @@ target/
 
 # ctags
 tags
+
+# gtags
+GPATH
+GRTAGS
+GTAGS
