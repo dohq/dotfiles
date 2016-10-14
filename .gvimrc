@@ -22,8 +22,9 @@ source $VIMRUNTIME/menu.vim
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-colorscheme solarized8_dark
-set background=dark
+colorscheme base16-ashes
+"set background=dark
+"let g:solarized_italic = 0
 
 "----------------------------------------
 " FontSetting

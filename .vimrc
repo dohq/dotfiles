@@ -1,13 +1,13 @@
-" Last Change: 30-Sep-2016.
+" Last Change: 14-Oct-2016.
 if 0 | endif
 if has('vim_starting')
-  set rtp+=~/.vim/bundle/vim-plug
+set rtp+=~/.vim/bundle/vim-plug
   if !isdirectory(expand('~/.vim/bundle/vim-plug'))
     echo 'install vim-plug...'
     call system('mkdir -p ~/.vim/bundle/vim-plug')
     call system('curl -fLo ~/.vim/bundle/vim-plug/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-  end
+  endif
 endif
 " Kaoriya-settings {{{
 if has('kaoriya')
@@ -39,24 +39,8 @@ endif
 call plug#begin('~/.vim/bundle')
 " Plugin list
 " InsertEnter
-Plug 'airblade/vim-gitgutter',              {'on' : 'GitGutterEnable'}
-Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
-Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-Plug 'beckorz/previm',                      {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.vim',         {'for': 'markdown'}
-Plug 'fatih/vim-go',                        {'for': 'go', 'tag': 'v1.6'}
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
-Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
-Plug 'lambdalisue/vim-gista',               {'on' : 'Gista' }
-Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
-Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
-Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
-Plug 'supermomonga/vimshell-kawaii.vim',    {'on' : ['VimShell', 'VimShellPop']}
-Plug 'elzr/vim-json',                       {'for': 'json'}
-Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
-Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Shougo/neocomplete.vim',              {'on': []}
+Plug 'cohama/lexima.vim',                   {'on': []}
 Plug 'Shougo/neosnippet',                   {'on': []}
 Plug 'Shougo/neosnippet-snippets',          {'on': []}
 Plug 'Shougo/neoinclude.vim',               {'on': []}
@@ -70,9 +54,27 @@ Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'cohama/lexima.vim'
+Plug 'airblade/vim-gitgutter',              {'on' : 'GitGutterEnable'}
+Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
+Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
+Plug 'beckorz/previm',                      {'for': 'markdown'}
+Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
+Plug 'fatih/vim-go',                        {'for': 'go', 'tag': 'v1.6'}
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
+Plug 'lambdalisue/vim-gista',               {'on' : 'Gista' }
+Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
+Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
+Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
+Plug 'supermomonga/vimshell-kawaii.vim',    {'on' : ['VimShell', 'VimShellPop']}
+Plug 'elzr/vim-json',                       {'for': 'json'}
+Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
+Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'thinca/vim-quickrun'
 Plug 'lifepillar/vim-solarized8'
+Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/base16-vim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
@@ -84,7 +86,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'jceb/vim-hier'
-Plug 'koron/codic-vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-fugitive'
@@ -99,8 +100,7 @@ Plug 'mattn/ctrlp-launcher'
 Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'bronson/vim-trailing-whitespace'
 call plug#end()
 
 filetype plugin indent on
@@ -202,12 +202,6 @@ imap <C-Space> <C-x><C-o>
 
 " }}}
 
-" save as delete tailing Space
-augroup spacend
-  autocmd!
-  autocmd BufWritePre * :%s/\s\+$//e
-augroup END
-
 " Load InsertMode Plugin
 augroup load_insert
   autocmd!
@@ -221,6 +215,7 @@ augroup load_insert
 \     'shabadou.vim',
 \     'eskk.vim',
 \     'vim-qfsigns',
+\     'lexima.vim',
 \ )
 \ | :NeoCompleteEnable
 \ | call watchdogs#setup(g:quickrun_config)
@@ -541,9 +536,11 @@ let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 " }}}
 " vim-indent-line {{{
+let g:indentLine_setColors = 0
+let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '¦'
+let g:indentLine_char = '┆'
 let g:indent_guides_start_level = 2
 " }}}
 " over.vim {{{
@@ -583,7 +580,7 @@ let g:memolist_unite_option = '-start-insert'
 "CtrlP {{{
 nnoremap    [CtrlP]   <Nop>
 nmap    <Space>u [CtrlP]
-nnoremap <silent> [CtrlP]u :<C-u>CtrlPMenu<CR>
+nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
@@ -597,29 +594,31 @@ if executable('files')
   let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'files -a %s'
 endif
-    if !has('python')
-        echo 'In order to use pymatcher plugin, you need +python compiled vim'
-    else
-        let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+if !has('python')
+    echo 'In order to use pymatcher plugin, you need +python compiled vim'
+else
+    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
+let g:ctrlp_lazy_update = 1
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'
 " Open new file in current window
 let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:10'
+let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|o)$',
+  \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
 " Lexima {{{
-"call lexima#add_rule({'char': '[', 'input_after': ']',})
 " }}}
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
 "let g:previm_enable_realtime = 1
-let g:mkdp_path_to_chrome = 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe'
+let g:mkdp_auto_start = 1
+let g:mkdp_auto_open = 1
+let g:mkdp_path_to_chrome = 'C:\Program Files\Cyberfox\Cyberfox.exe'
