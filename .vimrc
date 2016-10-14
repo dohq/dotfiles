@@ -128,13 +128,7 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-"set termguicolors
-"colorscheme solarized8_dark
-colorscheme solarized
-set background=dark
-"let g:solarized_term_italics = 0
-"set background=dark
-let g:solarized_italic = 0
+colorscheme base16-ashes
 "}}}
 " Encoding {{{
 set enc=UTF-8
