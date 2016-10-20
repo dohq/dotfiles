@@ -1,4 +1,4 @@
-" Last Change: 14-Oct-2016.
+" Last Change: 20-Oct-2016.
 if 0 | endif
 if has('vim_starting')
 set rtp+=~/.vim/bundle/vim-plug
@@ -184,12 +184,21 @@ nnoremap L 10l
 nnoremap H 10h
 nnoremap Y y$
 
-" TagJump
-map <C-g> :Gtags
-map <C-h> :Gtags -f %<CR>
-map <C-j> :GtagsCursor<CR>
-map <C-n> :cn<CR>
-map <C-p> :cp<CR>
+" gtags
+" 検索結果Windowを閉じる
+nnoremap <C-q> <C-w><C-w><C-w>q
+" Grep 準備
+nnoremap <C-g> :Gtags -g
+" このファイルの関数一覧
+nnoremap <C-l> :Gtags -f %<CR>
+" カーソル以下の定義元を探す
+nnoremap <C-j> :Gtags <C-r><C-w><CR>
+" カーソル以下の使用箇所を探す
+nnoremap <C-k> :Gtags -r <C-r><C-w><CR>
+" 次の検索結果
+nnoremap <C-n> :cn<CR>
+" 前の検索結果
+nnoremap <C-p> :cp<CR>
 
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
@@ -367,7 +376,7 @@ let g:tweetvim_display_source = 1
 "}}}
 " lightline.vim{{{
 let g:lightline = {
-\ 'colorscheme': 'solarized',
+\ 'colorscheme': 'wombat',
 \ 'mode_map': {'c': 'NORMAL'},
 \ 'active': {
 \   'left': [
@@ -530,12 +539,12 @@ let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 " }}}
 " vim-indent-line {{{
-let g:indentLine_setColors = 0
+let g:indentLine_setColors = 1
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '┆'
-let g:indent_guides_start_level = 2
+let g:indentLine_char = '▸'
+let g:indent_guides_start_level = 1
 " }}}
 " over.vim {{{
 nnoremap <silent> <Space>o :OverCommandLine<CR>
