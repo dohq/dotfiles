@@ -1,4 +1,4 @@
-" Last Change: 20-Oct-2016.
+" Last Change: 08-Nov-2016.
 if 0 | endif
 if has('vim_starting')
 set rtp+=~/.vim/bundle/vim-plug
@@ -119,10 +119,10 @@ let g:loaded_vimball           = 1
 let g:loaded_vimballPlugin     = 1
 let g:loaded_getscript         = 1
 let g:loaded_getscriptPlugin   = 1
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
+let g:loaded_netrw             = 0
+let g:loaded_netrwPlugin       = 0
+let g:loaded_netrwSettings     = 0
+let g:loaded_netrwFileHandlers = 0
 let g:loaded_matchparen        = 1
 
 " }}}
@@ -203,6 +203,9 @@ nnoremap <C-p> :cp<CR>
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
 
+" InsertMode move cursor liught
+inoremap <C-l> <C-g>U<Right>
+
 " }}}
 
 " Load InsertMode Plugin
@@ -236,6 +239,9 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " replace ;:
 nnoremap ; :
 nnoremap : ;
+
+" grep window on qf
+autocmd QuickFixCmdPost *grep* cwindow
 
 "----------------------------------------
 " Plugin Settings
@@ -539,7 +545,7 @@ let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 " }}}
 " vim-indent-line {{{
-let g:indentLine_setColors = 1
+let g:indentLine_setColors = 0
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
@@ -616,12 +622,16 @@ let g:ctrlp_custom_ignore = {
   \ }
 "}}}
 " Lexima {{{
+inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
+
+"exclude whitespace
+let g:extra_whitespace_ignored_filetypes = ['J6uil']
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
 "let g:previm_enable_realtime = 1
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_open = 1
+let g:mkdp_auto_start = 0
+let g:mkdp_auto_open = 0
 let g:mkdp_path_to_chrome = 'C:\Program Files\Cyberfox\Cyberfox.exe'
