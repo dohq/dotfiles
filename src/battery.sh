@@ -1,12 +1,10 @@
 #!/bin/sh
 #--------------------------------
-# tmux-battery
-#
-# @author kazuakiM
+# tmux-battery status
 #--------------------------------
-battery=`pmset -g ps|egrep -o '[0-9]{1,3}%'|egrep -o '[0-9]{1,3}'|tr -d '\n'`
+battery=`cat /sys/class/power_supply/BAT0/capacity`
 if [ "$battery" -lt 20 ]; then
-    if [ "`pmset -g ps|egrep -o 'discharging'|tr -d '\n'`" = 'discharging' ]; then
+  if [ "`upower -i $(upower -e | grep 'BAT') | grep -E "state" | sed -r -e 's/ +//g' | cut -d ":" -f2`" = 'discharging' ]; then
         echo "#[fg=colour234,bg=colour1,bold] $battery%"
     else
         echo "#[fg=colour234,bg=colour166,bold] $battery%"
