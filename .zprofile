@@ -31,6 +31,11 @@ if [ -x "`which peco`" ]; then
   alias pp='ps aux | peco'
 fi
 
+# terminal color
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+base16_ashes
+
 # pandocでPDF
 alias ppdf='pandoc -V documentclass=ltjarticle -V monofont=Consolas --latex-engine=lualatex -N --toc'
 
@@ -78,4 +83,3 @@ fi
 if [ -d /usr/local/heroku/bin ];then
   PATH=/usr/local/heroku/bin:$PATH
 fi
-

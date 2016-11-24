@@ -18,6 +18,6 @@ zplug "seebi/dircolors-solarized"
 zplug "chrissicool/zsh-256color"
 
 # tmuxを便利に
-zplug "arks22/tmuximum", as:command
+zplug "arks22/tmuximum", as:command, use:bin/tmuximum
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
