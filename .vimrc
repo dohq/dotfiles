@@ -72,8 +72,6 @@ Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'thinca/vim-quickrun'
-Plug 'lifepillar/vim-solarized8'
-Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
@@ -101,6 +99,7 @@ Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'felixjung/vim-base16-lightline'
 call plug#end()
 
 filetype plugin indent on
@@ -128,7 +127,10 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-colorscheme base16-ashes
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 "}}}
 " Encoding {{{
 set enc=UTF-8
@@ -367,7 +369,7 @@ let g:tweetvim_display_source = 1
 "}}}
 " lightline.vim{{{
 let g:lightline = {
-\ 'colorscheme': 'solarized',
+\ 'colorscheme': 'base16_ashes',
 \ 'mode_map': {'c': 'NORMAL'},
 \ 'active': {
 \   'left': [
