@@ -1,4 +1,4 @@
-" Last Change: 08-Nov-2016.
+" Last Change: 05-Dec-2016.
 if 0 | endif
 if has('vim_starting')
 set rtp+=~/.vim/bundle/vim-plug
@@ -72,8 +72,6 @@ Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'thinca/vim-quickrun'
-Plug 'lifepillar/vim-solarized8'
-Plug 'altercation/vim-colors-solarized'
 Plug 'chriskempson/base16-vim'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
@@ -101,6 +99,7 @@ Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'bronson/vim-trailing-whitespace'
+Plug 'felixjung/vim-base16-lightline'
 call plug#end()
 
 filetype plugin indent on
@@ -128,7 +127,10 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-colorscheme base16-ashes
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 "}}}
 " Encoding {{{
 set enc=UTF-8
@@ -241,7 +243,11 @@ nnoremap ; :
 nnoremap : ;
 
 " grep window on qf
-autocmd QuickFixCmdPost *grep* cwindow
+"autocmd QuickFixCmdPost *grep* cwindow
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
+autocmd FileType help,qf nnoremap <buffer> q <C-w>c
+
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 
 "----------------------------------------
 " Plugin Settings
@@ -382,7 +388,7 @@ let g:tweetvim_display_source = 1
 "}}}
 " lightline.vim{{{
 let g:lightline = {
-\ 'colorscheme': 'wombat',
+\ 'colorscheme': 'base16_ashes',
 \ 'mode_map': {'c': 'NORMAL'},
 \ 'active': {
 \   'left': [
@@ -626,7 +632,7 @@ inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 
 "exclude whitespace
-let g:extra_whitespace_ignored_filetypes = ['J6uil']
+let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim']
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown

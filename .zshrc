@@ -335,26 +335,6 @@ case ${OSTYPE} in
         ;;
 esac
 
-# gpg-agent
-#case "${OSTYPE}" in
-#  linux* )
-#  SOCKET=S.gpg-agent
-#  PIDOF=`pidof gpg-agent`
-#  RETVAL=$?
-#  if [ "$RETVAL" -eq 1 ]; then
-#    echo "Starting gpg-agent daemon."
-#      eval `gpg-agent --daemon `
-#    else
-#      echo "Daemon gpg-agent already running."
-#  fi
-#  # Nasty way to find gpg-agent's socket file...
-#  GPG_SOCKET_FILE=`find /tmp/gpg-* -name $SOCKET`
-#  echo "Updating socket file link."
-#  \cp -fs $GPG_SOCKET_FILE $HOME/.gnupg/S.gpg-agent
-#   ;;
-#  *)
-#esac
-
 #tmux-autoconnect
 function tmux_automatically_attach_session()
 {
