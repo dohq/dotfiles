@@ -244,8 +244,12 @@ nnoremap : ;
 
 " grep window on qf
 "autocmd QuickFixCmdPost *grep* cwindow
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep copen
-autocmd FileType help,qf nnoremap <buffer> q <C-w>c
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
+augroup ctrlq
+  autocmd!
+  autocmd FileType help,qf nnoremap <buffer> q <C-w>c
+augroup END
+
 
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 
@@ -337,10 +341,13 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 "}}}
 " Quickrun {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
+let g:quickrun_config['vim'] = {
+\   "hook/output_encode/enable" : 1,
+\   "hook/output_encode/encoding" : "utf-8",
+\}
 let g:quickrun_config = {
 \ '_' : {
-\   'runner':                          'vimproc',
-\   'runner/vimproc/updatetime':       60,
+\   'runner':                          'job',
 \   'outputter':                       'error',
 \   'outputter/error/success':         'buffer',
 \   'outputter/error/error':           'quickfix',
