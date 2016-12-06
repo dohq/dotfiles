@@ -1,4 +1,4 @@
-" Last Change: 05-Dec-2016.
+" Last Change: 06-Dec-2016.
 if 0 | endif
 if has('vim_starting')
 set rtp+=~/.vim/bundle/vim-plug
@@ -127,7 +127,7 @@ let g:loaded_matchparen        = 1
 " }}}
 " color {{{
 set t_Co=256
-if filereadable(expand("~/.vimrc_background"))
+if filereadable(expand('~/.vimrc_background'))
     let base16colorspace=256
     source ~/.vimrc_background
 endif
@@ -632,7 +632,7 @@ inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 
 "exclude whitespace
-let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim']
+let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
 
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
