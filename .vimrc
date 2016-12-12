@@ -58,6 +58,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'mattn/vim-terminal'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -301,42 +302,78 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
 \ '_' : {
-\   'runner':                          'job',
+\   'runner':                          'vimproc',
+\   'runner/vimproc/updatetime':       60,
 \   'outputter':                       'error',
 \   'outputter/error/success':         'buffer',
 \   'outputter/error/error':           'quickfix',
-\   'outputter/buffer/split':          ':rightbelow 8sp',
+\   'outputter/buffer/split':          ':botright 8sp',
 \   'outputter/buffer/close_on_empty': 1,
-\   'hook/output_encode/enable':       1,
-\   'hook/output_encode/encoding':     'utf-8',
+\   'hook/time/enable':                1,
 \   },
+\ 'sql' : {
+\ 'exec': '%c %o \@%s',
+\ 'command': 'sqlplus',
+\ 'cmdopt': '-S %{get(g:, "quickrun_oracle_conn", "/nolog")}',
+\ 'hook/output_encode/encoding': 'sjis',
+\ 'hook/eval/enable': 1,
+\ 'hook/eval/template':
+\   'set echo off' . "\r" .
+\   'set linesize 1000' . "\r" .
+\   'set trimspool on' . "\r" .
+\   'set feedback off' . "\r" .
+\   'set colsep ","' . "\r" .
+\   'set heading on' . "\r" .
+\   'set underline off' . "\r" .
+\   '%s',
+\  },
+\}
+
+let g:quickrun_oracle_conn = 'bpobat/bpobat\@172.16.211.42/bpodb01.sbps'
+
+" SQL to csv
+let g:quickrun_config['sql'] = {
+\ 'exec': '%c %o \@%s',
+\ 'command': 'sqlplus',
+\ 'cmdopt': '-S %{get(g:, "quickrun_oracle_conn", "/nolog")}',
+\ 'hook/output_encode/encoding': 'sjis',
+\ 'hook/eval/enable': 1,
+\ 'hook/eval/template':
+\   'set echo off' . "\r" .
+\   'set linesize 1000' . "\r" .
+\   'set trimspool on' . "\r" .
+\   'set feedback off' . "\r" .
+\   'set colsep ","' . "\r" .
+\   'set heading on' . "\r" .
+\   'set underline off' . "\r" .
+\   '%s',
 \}
 "}}}
-" Watchdogs {{{
-let g:watchdogs_check_BufWritePost_enable = 1
-let g:watchdogs_check_CursorHold_enable   = 1
-
-if !exists('g:quickrun_config')
-    let g:quickrun_config = {}
-endif
-let g:quickrun_config = {
-\ 'watchdogs_checker/_': {
-\   'hook/close_quickfix/enable_exit':                       1,
-\   'hook/copen/enable_exist_data':                          1,
-\   'hook/qfsigns_update/enable_exit':                       1,
-\   'hook/qfsigns_update/priority_exit':                     3,
-\   'hook/quickfix_replate_tempname_to_bufnr/enable_exit':   1,
-\   'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
-\   },
-\   'vim/watchdogs_checker': {
-\      'type': executable('vint') ? 'watchdogs_checker/vint' : '',
-\   },
-\   'watchdogs_checker/vint': {
-\      'command'   : 'vint',
-\      'exec'      : '%c %o %s:p ',
-\   },
-\}
-" }}}
+"" Watchdogs {{{
+"let g:watchdogs_check_BufWritePost_enable = 1
+"let g:watchdogs_check_CursorHold_enable   = 1
+"
+"if !exists('g:quickrun_config')
+"    let g:quickrun_config = {}
+"endif
+"let g:quickrun_config = {
+"\ 'watchdogs_checker/_': {
+"\   'hook/close_quickfix/enable_exit':                       1,
+"\   'hook/copen/enable_exist_data':                          1,
+"\   'hook/qfsigns_update/enable_exit':                       1,
+"\   'hook/qfsigns_update/priority_exit':                     3,
+"\   'hook/quickfix_replate_tempname_to_bufnr/enable_exit':   1,
+"\   'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
+"\   },
+"\   'vim/watchdogs_checker': {
+"\      'type': executable('vint') ? 'watchdogs_checker/vint' : '',
+"\   },
+"\   'watchdogs_checker/vint': {
+"\      'command'   : 'vint',
+"\      'exec'      : '%c %o %s:p ',
+"\   },
+"\}
+"" }}}
 "TweetVim {{{
 " The prefix key.
 nnoremap    [TweetVim]   <Nop>
