@@ -1,4 +1,4 @@
-" Last Change: 09-Dec-2016.
+" Last Change: 12-Dec-2016.
 if 0 | endif
 if has('vim_starting')
 set rtp+=~/.vim/bundle/vim-plug
@@ -9,32 +9,6 @@ set rtp+=~/.vim/bundle/vim-plug
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
   endif
 endif
-" Kaoriya-settings {{{
-if has('kaoriya')
-" plugins下のディレクトリをruntimepathへ追加する。
-  for s:path in split(glob($VIM.'/plugins/*'), '\n')
-    if s:path !~# '\~$' && isdirectory(s:path)
-      let &runtimepath = &runtimepath.','.s:path
-    end
-  endfor
-  unlet s:path
-
-" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
-  if has('win64') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
-    let $PATH = $VIM . ';' . $PATH
-  endif
-
-" vimproc: 同梱のvimprocを無効化する
-  if kaoriya#switch#enabled('disable-vimproc')
-    let &rtp = join(filter(split(&rtp, ','), 'v:val !~# "[/\\\\]plugins[/\\\\]vimproc$"'), ',')
-  endif
-
-" go-extra: 同梱のgo-extraを無効化する
-  if kaoriya#switch#enabled('disable-go-extra')
-    let &rtp = join(filter(split(&rtp, ','), 'v:val !~# "[/\\\\]plugins[/\\\\]go-extra$"'), ',')
-  endif
-endif
-" }}}
 
 call plug#begin('~/.vim/bundle')
 " Plugin list
@@ -47,23 +21,20 @@ Plug 'Shougo/neoinclude.vim',               {'on': []}
 Plug 'Shougo/neco-syntax',                  {'on': []}
 Plug 'osyo-manga/vim-watchdogs',            {'on': []}
 Plug 'osyo-manga/shabadou.vim',             {'on': []}
-Plug 'KazuakiM/vim-qfsigns',                {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'airblade/vim-gitgutter',              {'on' : 'GitGutterEnable'}
+Plug 'KazuakiM/vim-qfsigns'
 Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
 Plug 'beckorz/previm',                      {'for': 'markdown'}
 Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
-Plug 'fatih/vim-go',                        {'for': 'go', 'tag': 'v1.6'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
-Plug 'lambdalisue/vim-gista',               {'on' : 'Gista' }
-Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
+Plug 'fatih/vim-go',                        {'for': 'go'}
 Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
 Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
 Plug 'supermomonga/vimshell-kawaii.vim',    {'on' : ['VimShell', 'VimShellPop']}
@@ -72,7 +43,7 @@ Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'thinca/vim-quickrun'
-Plug 'chriskempson/base16-vim'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
 Plug 'Yggdroot/indentLine'
@@ -80,17 +51,23 @@ Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'tyru/open-browser.vim'
-Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'jceb/vim-hier'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/webapi-vim'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'ynkdir/vim-funlib'
-Plug 'sheerun/vim-polyglot'
+" Visual
+Plug 'chriskempson/base16-vim'
+Plug 'felixjung/vim-base16-lightline'
+Plug 'itchyny/lightline.vim'
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
+Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
+" CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-register'
@@ -99,8 +76,6 @@ Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'suy/vim-ctrlp-commandline'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'felixjung/vim-base16-lightline'
 call plug#end()
 
 filetype plugin indent on
@@ -258,24 +233,14 @@ set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 " Plugin Settings
 "----------------------------------------
 "NeoComplete {{{
-" Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" Set max list
 let g:neocomplete#max_list = 20
-" Enable underbar complation
 let g:neocomplete#enable_underbar_completion = 1
 let g:neocomplete#enable_camel_case_completion  =  1
-" Auto close previw window
 let g:neocomplete#enable_auto_close_preview = 1
-" Auto Select first candidate
-"let g:neocomplete#enable_auto_select = 1
-
-" Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
 \   'default' : '',
 \}
@@ -307,8 +272,6 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
 	return neocomplete#close_popup() . "\<CR>"
-	" For no inserting <CR> key.
-	"return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -331,21 +294,12 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" SuperTab like snippets behavior.
-"imap <expr><TAB>
-" \ pumvisible() ? "\<C-n>" :
-" \ neosnippet#expandable_or_jumpable() ?
-" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 "}}}
 " Quickrun {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
-let g:quickrun_config['vim'] = {
-\   "hook/output_encode/enable" : 1,
-\   "hook/output_encode/encoding" : "utf-8",
-\}
 let g:quickrun_config = {
 \ '_' : {
 \   'runner':                          'job',
@@ -354,6 +308,8 @@ let g:quickrun_config = {
 \   'outputter/error/error':           'quickfix',
 \   'outputter/buffer/split':          ':rightbelow 8sp',
 \   'outputter/buffer/close_on_empty': 1,
+\   'hook/output_encode/enable':       1,
+\   'hook/output_encode/encoding':     'utf-8',
 \   },
 \}
 "}}}
@@ -441,10 +397,10 @@ endfunction
 function! MyGit()
   try
     if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      "let _ = fugitive#head()
+      let _ = fugitive#head()
       let _ = gita#statusline#format('%rn/%rb')
       return strlen(_) ? '⭠ '._ : ''
-      "return strlen(_) ? _ : ''
+      return strlen(_) ? _ : ''
     endif
   catch
   endtry
@@ -526,7 +482,6 @@ let g:eskk#tab_select_completion = 1
 let g:eskk#start_completion_length = 3
 "}}}
 " Git {{{
-let g:gitgutter_enabled = 0
 nnoremap    [Git]   <Nop>
 nmap    <Space>g [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
