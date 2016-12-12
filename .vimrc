@@ -1,4 +1,4 @@
-" Last Change: 06-Dec-2016.
+" Last Change: 09-Dec-2016.
 if 0 | endif
 if has('vim_starting')
 set rtp+=~/.vim/bundle/vim-plug
@@ -98,6 +98,7 @@ Plug 'mattn/ctrlp-launcher'
 Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
+Plug 'suy/vim-ctrlp-commandline'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'felixjung/vim-base16-lightline'
 call plug#end()
@@ -611,6 +612,7 @@ nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
 nnoremap <silent> [CtrlP]p :<C-u>CtrlPFiletype<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
+nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 
 if executable('files')
   let g:ctrlp_use_caching = 0
