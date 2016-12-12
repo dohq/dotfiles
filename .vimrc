@@ -198,7 +198,6 @@ augroup load_insert
 \     'vim-watchdogs',
 \     'shabadou.vim',
 \     'eskk.vim',
-\     'vim-qfsigns',
 \     'lexima.vim',
 \ )
 \ | :NeoCompleteEnable
