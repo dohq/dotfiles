@@ -25,16 +25,8 @@ Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'dannyob/quickfixstatus'
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'osyo-manga/shabadou.vim'
-Plug 'KazuakiM/vim-qfsigns'
 Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-Plug 'beckorz/previm',                      {'for': 'markdown'}
-Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
-Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'fatih/vim-go',                        {'for': 'go'}
 Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
 Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
@@ -43,7 +35,13 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
+Plug 'tyru/caw.vim'
+Plug 'Shougo/context_filetype.vim'
 Plug 'thinca/vim-quickrun'
+Plug 'dannyob/quickfixstatus'
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'KazuakiM/vim-qfsigns'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
@@ -78,6 +76,21 @@ Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'suy/vim-ctrlp-commandline'
+" Python
+Plug 'davidhalter/jedi-vim',                {'for': 'python', 'do': 'pip install
+      \ flake8 pyflakes pep8 pylint jedi'
+      \ }
+Plug 'andviro/flake8-vim'
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'kana/vim-textobj-indent'
+Plug 'bps/vim-textobj-python'
+" Markdown
+Plug 'beckorz/previm',                      {'for': 'markdown'}
+Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
+
 call plug#end()
 
 filetype plugin indent on
@@ -139,6 +152,7 @@ set smartcase
 set title
 set whichwrap=b,s,[,],<,>
 set wildmenu
+set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
 set iminsert=0
 set imsearch=-1
 set cmdheight=2
@@ -215,6 +229,8 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " replace ;:
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 " grep window on qf
 "autocmd QuickFixCmdPost *grep* cwindow
@@ -223,9 +239,6 @@ augroup ctrlq
   autocmd!
   autocmd FileType help,qf nnoremap <buffer> q <C-w>c
 augroup END
-
-
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 
 "----------------------------------------
 " Plugin Settings
@@ -253,6 +266,7 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.go = '[^. \t]\.\%(\h\w*\)\?'
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\%(\h\w*\)\?'
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -613,6 +627,26 @@ let g:ctrlp_custom_ignore = {
 "}}}
 " Lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+" }}}
+" Jedi {{{
+augroup jejiomni
+  autocmd!
+  au FileType python setlocal omnifunc=jedi#completions
+augroup END
+
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#popup_select_first = 0
+"let g:jedi#popup_on_dot = 0
+let g:jedi#goto_command = '<leader>d'
+let g:jedi#goto_assignments_command = '<leader>g'
+let g:jedi#goto_definitions_command = ''
+let g:jedi#documentation_command = 'K'
+let g:jedi#usages_command = '<leader>n'
+let g:jedi#rename_command = '<leader>R'
+" }}}
+" caw.vim {{{
+nmap <Leader>c      <Plug>(caw:prefix)
+vmap <Leader>c      <Plug>(caw:prefix)
 " }}}
 
 "exclude whitespace
