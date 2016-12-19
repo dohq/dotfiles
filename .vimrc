@@ -53,11 +53,9 @@ Plug 'tyru/open-browser.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'jceb/vim-hier'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'mattn/vim-terminal'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -80,11 +78,10 @@ Plug 'suy/vim-ctrlp-commandline'
 Plug 'davidhalter/jedi-vim',                {'for': 'python', 'do': 'pip install
       \ flake8 pyflakes pep8 pylint jedi'
       \ }
-Plug 'andviro/flake8-vim'
-Plug 'hynek/vim-python-pep8-indent'
-Plug 'jmcantrell/vim-virtualenv'
-Plug 'kana/vim-textobj-indent'
-Plug 'bps/vim-textobj-python'
+Plug 'andviro/flake8-vim',                  {'for': 'python'}
+Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
+Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
+Plug 'bps/vim-textobj-python',              {'for': 'python'}
 " Markdown
 Plug 'beckorz/previm',                      {'for': 'markdown'}
 Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
@@ -233,7 +230,6 @@ vnoremap ; :
 vnoremap : ;
 
 " grep window on qf
-"autocmd QuickFixCmdPost *grep* cwindow
 autocmd QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
 augroup ctrlq
   autocmd!
@@ -315,32 +311,14 @@ let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
 \ '_' : {
 \   'runner':                          'vimproc',
-\   'runner/vimproc/updatetime':       10,
+\   'runner/vimproc/updatetime':       60,
 \   'outputter':                       'error',
 \   'outputter/error/success':         'buffer',
 \   'outputter/error/error':           'quickfix',
 \   'outputter/buffer/split':          ':botright 8sp',
 \   'outputter/buffer/close_on_empty': 1,
 \   },
-\ 'sql' : {
-\ 'exec': '%c %o \@%s',
-\ 'command': 'sqlplus',
-\ 'cmdopt': '-S %{get(g:, "quickrun_oracle_conn", "/nolog")}',
-\ 'hook/output_encode/encoding': 'sjis',
-\ 'hook/eval/enable': 1,
-\ 'hook/eval/template':
-\   'set echo off' . "\r" .
-\   'set linesize 1000' . "\r" .
-\   'set trimspool on' . "\r" .
-\   'set feedback off' . "\r" .
-\   'set colsep ","' . "\r" .
-\   'set heading on' . "\r" .
-\   'set underline off' . "\r" .
-\   '%s',
-\  },
 \}
-
-let g:quickrun_oracle_conn = 'bpobat/bpobat\@172.16.211.42/bpodb01.sbps'
 
 " SQL to csv
 let g:quickrun_config['sql'] = {
