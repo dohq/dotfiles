@@ -19,21 +19,14 @@ Plug 'Shougo/neosnippet',                   {'on': []}
 Plug 'Shougo/neosnippet-snippets',          {'on': []}
 Plug 'Shougo/neoinclude.vim',               {'on': []}
 Plug 'Shougo/neco-syntax',                  {'on': []}
-Plug 'osyo-manga/vim-watchdogs',            {'on': []}
-Plug 'osyo-manga/shabadou.vim',             {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'KazuakiM/vim-qfsigns'
 Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-Plug 'beckorz/previm',                      {'for': 'markdown'}
-Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
-Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'fatih/vim-go',                        {'for': 'go'}
 Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
 Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
@@ -42,7 +35,13 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
+Plug 'tyru/caw.vim'
+Plug 'Shougo/context_filetype.vim'
 Plug 'thinca/vim-quickrun'
+Plug 'dannyob/quickfixstatus'
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'KazuakiM/vim-qfsigns'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
@@ -54,7 +53,6 @@ Plug 'tyru/open-browser.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'jceb/vim-hier'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
@@ -76,6 +74,20 @@ Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'suy/vim-ctrlp-commandline'
+" Python
+Plug 'davidhalter/jedi-vim',                {'for': 'python', 'do': 'pip install
+      \ flake8 pyflakes pep8 pylint jedi'
+      \ }
+Plug 'andviro/flake8-vim',                  {'for': 'python'}
+Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
+Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
+Plug 'bps/vim-textobj-python',              {'for': 'python'}
+" Markdown
+Plug 'beckorz/previm',                      {'for': 'markdown'}
+Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
+
 call plug#end()
 
 filetype plugin indent on
@@ -137,6 +149,7 @@ set smartcase
 set title
 set whichwrap=b,s,[,],<,>
 set wildmenu
+set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
 set iminsert=0
 set imsearch=-1
 set cmdheight=2
@@ -195,13 +208,10 @@ augroup load_insert
 \     'neosnippet-snippets',
 \     'neco-syntax',
 \     'neoinclude.vim',
-\     'vim-watchdogs',
-\     'shabadou.vim',
 \     'eskk.vim',
 \     'lexima.vim',
 \ )
 \ | :NeoCompleteEnable
-\ | call watchdogs#setup(g:quickrun_config)
 \ | autocmd! load_insert
 augroup END
 
@@ -216,17 +226,15 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " replace ;:
 nnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 " grep window on qf
-"autocmd QuickFixCmdPost *grep* cwindow
 autocmd QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
 augroup ctrlq
   autocmd!
   autocmd FileType help,qf nnoremap <buffer> q <C-w>c
 augroup END
-
-
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 
 "----------------------------------------
 " Plugin Settings
@@ -254,6 +262,7 @@ if !exists('g:neocomplete#force_omni_input_patterns')
   let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.go = '[^. \t]\.\%(\h\w*\)\?'
+let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\%(\h\w*\)\?'
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -301,41 +310,45 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
 \ '_' : {
-\   'runner':                          'job',
+\   'runner':                          'vimproc',
+\   'runner/vimproc/updatetime':       60,
 \   'outputter':                       'error',
 \   'outputter/error/success':         'buffer',
 \   'outputter/error/error':           'quickfix',
-\   'outputter/buffer/split':          ':rightbelow 8sp',
+\   'outputter/buffer/split':          ':botright 8sp',
 \   'outputter/buffer/close_on_empty': 1,
-\   'hook/output_encode/enable':       1,
-\   'hook/output_encode/encoding':     'utf-8',
 \   },
+\}
+
+" SQL to csv
+let g:quickrun_config['sql'] = {
+\ 'exec': '%c %o \@%s',
+\ 'command': 'sqlplus',
+\ 'cmdopt': '-S %{get(g:, "quickrun_oracle_conn", "/nolog")}',
+\ 'hook/output_encode/encoding': 'sjis',
+\ 'hook/eval/enable': 1,
+\ 'hook/eval/template':
+\   'set echo off' . "\r" .
+\   'set linesize 1000' . "\r" .
+\   'set trimspool on' . "\r" .
+\   'set feedback off' . "\r" .
+\   'set colsep ","' . "\r" .
+\   'set heading on' . "\r" .
+\   'set underline off' . "\r" .
+\   '%s',
 \}
 "}}}
 " Watchdogs {{{
+let g:watchdogs_check_CursorHold_enable = 1
 let g:watchdogs_check_BufWritePost_enable = 1
-let g:watchdogs_check_CursorHold_enable   = 1
 
 if !exists('g:quickrun_config')
     let g:quickrun_config = {}
 endif
-let g:quickrun_config = {
-\ 'watchdogs_checker/_': {
-\   'hook/close_quickfix/enable_exit':                       1,
-\   'hook/copen/enable_exist_data':                          1,
-\   'hook/qfsigns_update/enable_exit':                       1,
-\   'hook/qfsigns_update/priority_exit':                     3,
-\   'hook/quickfix_replate_tempname_to_bufnr/enable_exit':   1,
-\   'hook/quickfix_replate_tempname_to_bufnr/priority_exit': -10,
-\   },
-\   'vim/watchdogs_checker': {
-\      'type': executable('vint') ? 'watchdogs_checker/vint' : '',
-\   },
-\   'watchdogs_checker/vint': {
-\      'command'   : 'vint',
-\      'exec'      : '%c %o %s:p ',
-\   },
-\}
+"let g:quickrun_config['watchdogs_checker/_'] = {
+"\   "hook/close_quickfix/enable_exit" : 1,
+"\   }
+call watchdogs#setup(g:quickrun_config)
 " }}}
 "TweetVim {{{
 " The prefix key.
@@ -592,6 +605,26 @@ let g:ctrlp_custom_ignore = {
 "}}}
 " Lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+" }}}
+" Jedi {{{
+augroup jejiomni
+  autocmd!
+  au FileType python setlocal omnifunc=jedi#completions
+augroup END
+
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#popup_select_first = 0
+"let g:jedi#popup_on_dot = 0
+let g:jedi#goto_command = '<leader>d'
+let g:jedi#goto_assignments_command = '<leader>g'
+let g:jedi#goto_definitions_command = ''
+let g:jedi#documentation_command = 'K'
+let g:jedi#usages_command = '<leader>n'
+let g:jedi#rename_command = '<leader>R'
+" }}}
+" caw.vim {{{
+nmap <Leader>c      <Plug>(caw:prefix)
+vmap <Leader>c      <Plug>(caw:prefix)
 " }}}
 
 "exclude whitespace
