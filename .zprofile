@@ -10,8 +10,10 @@ export GOPATH=$HOME/go
 export PATH=/usr/local/bin:$HOME/.cabal/bin:/sbin:$GOPATH/bin:$PATH
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+
+# build AOSP OPT
 export USE_CCACHE=1
-export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
+# export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
 export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true"
 
 # Alias作りましょうねー
