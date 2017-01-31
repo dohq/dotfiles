@@ -8,6 +8,9 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
 export PATH=/usr/local/bin:$HOME/.cabal/bin:/sbin:$GOPATH/bin:$PATH
+if [ -d /usr/local/go ]; then
+  export PATH=/usr/local/go/bin:$PATH
+fi
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
