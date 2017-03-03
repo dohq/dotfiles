@@ -3,4 +3,4 @@
 .mutt/g-news_passwords.gpg
 .mutt/dorastone_passwords.gpg
 tags
-config/byobu/disable-autolaunch
+.tmux/
