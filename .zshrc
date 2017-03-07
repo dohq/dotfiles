@@ -334,28 +334,3 @@ case ${OSTYPE} in
         alias ls='ls -F --color=auto'
         ;;
 esac
-
-#tmux-autoconnect
-function tmux_automatically_attach_session()
-{
-  if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
-  # detached session exists
-  tmux list-sessions
-  echo -n "Tmux: attach? (y/N/num) "
-  read
-    if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
-        tmux attach-session
-        if [ $? -eq 0 ]; then
-            echo "$(tmux -V) attached session"
-            return 0
-        fi
-    elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-        tmux attach -t "$REPLY"
-        if [ $? -eq 0 ]; then
-            echo "$(tmux -V) attached session"
-            return 0
-        fi
-    fi
-  fi
-}
-tmux_automatically_attach_session
