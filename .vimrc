@@ -14,7 +14,6 @@ call plug#begin('~/.vim/bundle')
 " Plugin list
 " InsertEnter
 Plug 'Shougo/neocomplete.vim',              {'on': []}
-Plug 'cohama/lexima.vim',                   {'on': []}
 Plug 'Shougo/neosnippet',                   {'on': []}
 Plug 'Shougo/neosnippet-snippets',          {'on': []}
 Plug 'Shougo/neoinclude.vim',               {'on': []}
@@ -208,8 +207,8 @@ augroup load_insert
 \     'neosnippet-snippets',
 \     'neco-syntax',
 \     'neoinclude.vim',
+\     'kana/vim-smartinput',
 \     'eskk.vim',
-\     'lexima.vim',
 \ )
 \ | :NeoCompleteEnable
 \ | autocmd! load_insert
@@ -603,9 +602,6 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
-" Lexima {{{
-inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
-" }}}
 " Jedi {{{
 augroup jejiomni
   autocmd!
