@@ -84,9 +84,7 @@ Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
 " Markdown
-" Plug 'beckorz/previm',                      {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'branch': 'feature/add-plantuml-plugin'}
-" Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 
