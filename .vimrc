@@ -35,6 +35,7 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
+Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
 Plug 'tyru/caw.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'thinca/vim-quickrun'
