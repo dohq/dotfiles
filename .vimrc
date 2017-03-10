@@ -190,7 +190,7 @@ augroup load_insert
 \     'neosnippet-snippets',
 \     'neco-syntax',
 \     'neoinclude.vim',
-\     'kana/vim-smartinput',
+\     'vim-smartinput',
 \     'eskk.vim',
 \ )
 \ | :NeoCompleteEnable
