@@ -162,8 +162,7 @@ imap <C-Space> <C-x><C-o>
 inoremap <C-l> <C-g>U<Right>
 
 " }}}
-
-" Load InsertMode Plugin
+" Load InsertMode Plugin {{{
 augroup load_insert
   autocmd!
   autocmd InsertEnter * call plug#load(
@@ -613,16 +612,18 @@ let g:jedi#rename_command = '<leader>R'
 nmap <Leader>c      <Plug>(caw:prefix)
 vmap <Leader>c      <Plug>(caw:prefix)
 " }}}
-
-"exclude whitespace
-let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
-
-" .mdのファイルもfiletypeがmarkdownとなるようにする
-au BufRead,BufNewFile *.md set filetype=markdown
-" PrevimOpen
+" Previm {{{
 let g:previm_enable_realtime = 1
-
+" .mdのファイルもfiletypeがmarkdownとなるようにする
+augroup PrevimSettings
+  autocmd!
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+" OpenBrowser
 let g:openbrowser_browser_commands = [
 \   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
 \    'args': ['start', '{browser}', '{uri}']}
 \]
+" }}}
+"exclude whitespace
+let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
