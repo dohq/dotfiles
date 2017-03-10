@@ -474,6 +474,15 @@ let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 let g:eskk#tab_select_completion = 1
 let g:eskk#start_completion_length = 3
+
+augroup vimrc
+  autocmd!
+  autocmd vimrc VimEnter * imap <C-j> <Plug>(eskk:toggle)
+  autocmd vimrc VimEnter * cmap <C-j> <Plug>(eskk:toggle)
+augroup END
+" imap <C-j> <Plug>(eskk:toggle)
+" cmap <C-j> <Plug>(eskk:toggle)
+
 "}}}
 " Git {{{
 nnoremap    [Git]   <Nop>
