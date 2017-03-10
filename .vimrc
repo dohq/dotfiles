@@ -35,7 +35,7 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
-Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
+Plug 'osyo-manga/vim-precious'
 Plug 'tyru/caw.vim'
 Plug 'Shougo/context_filetype.vim'
 Plug 'bronson/vim-trailing-whitespace'
@@ -89,6 +89,9 @@ Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
+" UML
+Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
+
 
 call plug#end()
 
