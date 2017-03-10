@@ -38,11 +38,6 @@ Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
 Plug 'tyru/caw.vim'
 Plug 'Shougo/context_filetype.vim'
-Plug 'thinca/vim-quickrun'
-Plug 'dannyob/quickfixstatus'
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'osyo-manga/shabadou.vim'
-Plug 'KazuakiM/vim-qfsigns'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'Lokaltog/vim-easymotion'
 Plug 'junegunn/vim-easy-align'
@@ -53,10 +48,17 @@ Plug 'basyura/twibill.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
-Plug 'jceb/vim-hier'
 Plug 'mattn/webapi-vim'
 Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
+
+" Syntax Check
+Plug 'jceb/vim-hier'
+Plug 'thinca/vim-quickrun'
+Plug 'dannyob/quickfixstatus'
+Plug 'osyo-manga/vim-watchdogs'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'KazuakiM/vim-qfsigns'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -624,6 +626,16 @@ let g:openbrowser_browser_commands = [
 \   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
 \    'args': ['start', '{browser}', '{uri}']}
 \]
+" }}}
+" Context_Filetype {{{
+let g:context_filetype#filetypes = {
+\ 'uml' : [
+\   {
+\     'start' : '@startuml',
+\     'end' : '@enduml',
+\     'filetype' : 'plantuml',
+\   }
+\ ],}
 " }}}
 "exclude whitespace
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
