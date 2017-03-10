@@ -83,8 +83,9 @@ Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
 " Markdown
-Plug 'beckorz/previm',                      {'for': 'markdown'}
-Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
+" Plug 'beckorz/previm',                      {'for': 'markdown'}
+Plug 'kazuph/previm',                       {'branch': 'feature/add-plantuml-plugin'}
+" Plug 'dohq/markdown-preview.vim',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 
@@ -611,7 +612,9 @@ let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'he
 " .mdのファイルもfiletypeがmarkdownとなるようにする
 au BufRead,BufNewFile *.md set filetype=markdown
 " PrevimOpen
-"let g:previm_enable_realtime = 1
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_open = 0
-let g:mkdp_path_to_chrome = 'C:\Program Files\Cyberfox\Cyberfox.exe'
+let g:previm_enable_realtime = 1
+
+let g:openbrowser_browser_commands = [
+\   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
+\    'args': ['start', '{browser}', '{uri}']}
+\]
