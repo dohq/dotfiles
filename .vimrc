@@ -18,6 +18,7 @@ Plug 'Shougo/neosnippet',                   {'on': []}
 Plug 'Shougo/neosnippet-snippets',          {'on': []}
 Plug 'Shougo/neoinclude.vim',               {'on': []}
 Plug 'Shougo/neco-syntax',                  {'on': []}
+Plug 'kana/vim-smartinput',                 {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
