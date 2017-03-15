@@ -463,16 +463,11 @@ nnoremap <silent> <Space>o :OverCommandLine<CR>
 nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
 nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " }}}
-"VimShell {{{
+"Terminal {{{
 " The prefix key.
-nnoremap    [VimShell]   <Nop>
-nmap    <Space>s [VimShell]
-
-nnoremap <silent> [VimShell]s :<C-u>VimShell<CR>
-nnoremap <silent> [VimShell]p :<C-u>VimShellPop<CR>
-
-let g:vimshell_interactive_update_time = 5
-let g:vimshell_prompt = $USERNAME.'% '
+nnoremap    [Terminal]   <Nop>
+nmap    <Space>c [Terminal]
+nnoremap <silent> [Terminal]c :<C-u>Terminal<CR>
 "}}}
 "pandoc {{{
 let g:pandoc#modules#disabled=['folding']
