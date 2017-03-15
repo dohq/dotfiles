@@ -272,18 +272,6 @@ let g:quickrun_config['sql'] = {
 \   '%s',
 \}
 "}}}
-" Watchdogs {{{
-let g:watchdogs_check_CursorHold_enable = 1
-let g:watchdogs_check_BufWritePost_enable = 1
-
-if !exists('g:quickrun_config')
-    let g:quickrun_config = {}
-endif
-"let g:quickrun_config['watchdogs_checker/_'] = {
-"\   "hook/close_quickfix/enable_exit" : 1,
-"\   }
-call watchdogs#setup(g:quickrun_config)
-" }}}
 "TweetVim {{{
 " The prefix key.
 nnoremap    [TweetVim]   <Nop>
