@@ -52,12 +52,9 @@ Plug 'tpope/vim-surround'
 Plug 'vim-jp/vimdoc-ja'
 
 " Syntax Check
-Plug 'jceb/vim-hier'
-Plug 'thinca/vim-quickrun'
-Plug 'dannyob/quickfixstatus'
-Plug 'osyo-manga/vim-watchdogs'
-Plug 'osyo-manga/shabadou.vim'
-Plug 'KazuakiM/vim-qfsigns'
+"Plug 'w0rp/ale'
+"Plug 'bbchung/clighter8'
+Plug 'maralla/validator.vim'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -580,15 +577,13 @@ let g:openbrowser_browser_commands = [
 \    'args': ['start', '{browser}', '{uri}']}
 \]
 " }}}
-" Context_Filetype {{{
-let g:context_filetype#filetypes = {
-\ 'uml' : [
-\   {
-\     'start' : '@startuml',
-\     'end' : '@enduml',
-\     'filetype' : 'plantuml',
-\   }
-\ ],}
+" validator {{{
+let g:validator_ignore = ['c']
+let g:validator_javascript_checkers = ['eslint']
+let g:validator_vim_checkers = ['vint']
+let g:validator_python_checkers = ['flake8']
+let g:validator_auto_open_quickfix = 0
+let g:validator_debug = 0
 " }}}
 "exclude whitespace
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
