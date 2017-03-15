@@ -16,4 +16,9 @@ T-Home	TweetVimHomeTimeline
 T-HighSchool	TweetVimListStatuses Highschool-4
 T-mahoutsukai	TweetVimListStatuses mahou-tsukai
 
+# SVN
+SVN Update	!svn update "%:p"
+SVN Lock	!svn lock "%:p"
+SVN UnLock	!svn unlock "%:p"
+
 # vim:set ts=4
