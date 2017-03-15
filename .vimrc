@@ -24,31 +24,32 @@ Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'Shougo/vimshell',                     {'on' : ['VimShell', 'VimShellPop']}
-Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-Plug 'fatih/vim-go',                        {'for': 'go'}
-Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
-Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
-Plug 'supermomonga/vimshell-kawaii.vim',    {'on' : ['VimShell', 'VimShellPop']}
-Plug 'elzr/vim-json',                       {'for': 'json'}
-Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
-Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
-Plug 'osyo-manga/vim-precious'
-Plug 'tyru/caw.vim'
-Plug 'Shougo/context_filetype.vim'
-Plug 'bronson/vim-trailing-whitespace'
 Plug 'Lokaltog/vim-easymotion'
-Plug 'junegunn/vim-easy-align'
+Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Yggdroot/indentLine'
+Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
 Plug 'basyura/TweetVim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
-Plug 'tyru/open-browser.vim'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'elzr/vim-json',                       {'for': 'json'}
+Plug 'fatih/vim-go',                        {'for': 'go'}
+Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
+Plug 'junegunn/vim-easy-align'
+Plug 'jsfaint/gen_tags.vim'
+Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
+Plug 'kana/vim-textobj-user'
+Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
 Plug 'mattn/webapi-vim'
+Plug 'mattn/vim-terminal'
+Plug 'mhinz/vim-grepper'
+Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
+Plug 'thinca/vim-quickrun'
 Plug 'tpope/vim-surround'
+Plug 'tyru/caw.vim'
+Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 
 " Syntax Check
@@ -61,33 +62,34 @@ Plug 'felixjung/vim-base16-lightline'
 Plug 'itchyny/lightline.vim'
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
 Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
+Plug 'tpope/vim-fugitive'
 " CtrlP
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'mattn/ctrlp-register'
-Plug 'mattn/ctrlp-launcher'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
-Plug 'tacahiroy/ctrlp-funky'
+Plug 'mattn/ctrlp-launcher'
+Plug 'mattn/ctrlp-register'
 Plug 'suy/vim-ctrlp-commandline'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'zeero/vim-ctrlp-help'
 " Python
 Plug 'davidhalter/jedi-vim',                {'for': 'python', 'do': 'pip install
       \ flake8 pyflakes pep8 pylint jedi'
       \ }
 Plug 'andviro/flake8-vim',                  {'for': 'python'}
+Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
-Plug 'bps/vim-textobj-python',              {'for': 'python'}
 " Markdown
-Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
+Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
+"Plug 'osyo-manga/vim-precious',             {'for': 'markdown'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
-
 
 call plug#end()
 
