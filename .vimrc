@@ -505,11 +505,7 @@ if executable('files')
   let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'files -a %s'
 endif
-if !has('python')
-    echo 'In order to use pymatcher plugin, you need +python compiled vim'
-else
-    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-endif
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
@@ -524,14 +520,14 @@ let g:ctrlp_custom_ignore = {
   \ }
 "}}}
 " Jedi {{{
-augroup jejiomni
+augroup jediomni
   autocmd!
   au FileType python setlocal omnifunc=jedi#completions
 augroup END
 
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#popup_select_first = 0
-"let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 0
 let g:jedi#goto_command = '<leader>d'
 let g:jedi#goto_assignments_command = '<leader>g'
 let g:jedi#goto_definitions_command = ''
