@@ -422,13 +422,17 @@ augroup END
 " Git {{{
 nnoremap    [Git]   <Nop>
 nmap    <Space>g [Git]
-nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
-nnoremap <silent> [Git]h :<C-u>GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
+nnoremap <silent> [Git]ht :<C-u>GitGutterLineHighlightsToggle<CR>
+nnoremap <silent> [Git]sh :<C-u>GitGutterStageHunk<CR>
+nnoremap <silent> [Git]rh :<C-u>GitGutterRevertHunk<CR>
+nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
+nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " vim-fugitive
-nnoremap <silent> [Git]a :<C-u>Gita add %<CR>
-nnoremap <silent> [Git]m :<C-u>Gita commit<CR>
-nnoremap <silent> [Git]s :<C-u>Gita status<CR>
-nnoremap <silent> [Git]d :<C-u>Gita diff<CR>
+nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
+nnoremap <silent> [Git]m :<C-u>Gcommit<CR>
+nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
+nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
 nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
 " }}}
 " vim-go {{{
