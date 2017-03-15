@@ -294,51 +294,41 @@ let g:lightline = {
 \     ['git', 'filename'],
 \   ],
 \   'right': [
-\     ['lineinfo'],
-\     ['percent'],
+\     ['lineinfo', 'validator'],
 \     ['fileformat', 'fileencoding', 'filetype'],
 \   ]
 \ },
+\ 'inactive': {
+\   'right': [[], ['percent']],
+\ },
 \ 'component_function': {
-\   'modified': 'MyModified',
-\   'readonly': 'MyReadonly',
 \   'git': 'MyGit',
+\   'mode': 'MyMode',
+\   'validator': 'LightLineValidator',
 \   'filename': 'MyFilename',
 \   'fileformat': 'MyFileformat',
 \   'filetype': 'MyFiletype',
 \   'fileencoding': 'MyFileencoding',
-\   'mode': 'MyMode',
 \ },
 \}
 
-function! MyModified()
-  return &ft =~# 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
-
-function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
-endfunction
-
 function! MyFilename()
-  return ('' !=? MyReadonly() ? MyReadonly() . ' ' : '') .
-\ (&ft ==# 'vimfiler' ? vimfiler#get_status_string() :
-\  &ft ==# 'unite' ? unite#get_status_string() :
-\  &ft ==# 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-\ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
-\ ('' !=# MyModified() ? ' ' . MyModified() : '')
+  let name = expand('%:t')
+  let name = name !=# '' ? name : '[No Name]'
+  if name =~? 'netrw'
+    return 'netrw'
+  endif
+  let readonly = &readonly ? '⭤ ' : ''
+  let modified = &modified ? ' +' : ''
+  return readonly . name . modified
 endfunction
 
 function! MyGit()
-  try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      let _ = fugitive#head()
-      let _ = gita#statusline#format('%rn/%rb')
-      return strlen(_) ? '⭠ '._ : ''
-      return strlen(_) ? _ : ''
-    endif
-  catch
-  endtry
-  return ''
+  if winwidth(0) <= 70
+    return ''
+  endif
+  let branch = exists('*fugitive#head') ? fugitive#head() : ''
+  return branch !=# '' ? '⭠ '.branch : ''
 endfunction
 
 function! MyFileformat()
@@ -356,6 +346,11 @@ endfunction
 function! MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
+
+function! LightLineValidator()
+  return winwidth('.') > 70 ? validator#get_status_string() : ''
+endfunction
+
 " }}}
 " EasyAlign{{{
 vnoremap <silent> <Enter> :EasyAlign<cr>
