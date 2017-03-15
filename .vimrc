@@ -456,8 +456,7 @@ let g:indentLine_setColors = 0
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '▸'
-let g:indent_guides_start_level = 1
+let g:indentLine_char = '¦'
 " }}}
 " over.vim {{{
 nnoremap <silent> <Space>o :OverCommandLine<CR>
