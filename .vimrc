@@ -63,7 +63,6 @@ Plug 'itchyny/lightline.vim'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
-Plug 'lambdalisue/vim-gita',                {'on' : 'Gita'}
 Plug 'tpope/vim-fugitive'
 " CtrlP
 Plug 'FelikZ/ctrlp-py-matcher'
