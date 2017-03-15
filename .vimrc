@@ -13,11 +13,10 @@ endif
 call plug#begin('~/.vim/bundle')
 " Plugin list
 " InsertEnter
-Plug 'Shougo/neocomplete.vim',              {'on': []}
+Plug 'maralla/completor.vim',               {'on': []}
+Plug 'maralla/completor-neosnippet',        {'on': []}
 Plug 'Shougo/neosnippet',                   {'on': []}
 Plug 'Shougo/neosnippet-snippets',          {'on': []}
-Plug 'Shougo/neoinclude.vim',               {'on': []}
-Plug 'Shougo/neco-syntax',                  {'on': []}
 Plug 'kana/vim-smartinput',                 {'on': []}
 Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
@@ -171,15 +170,13 @@ inoremap <C-l> <C-g>U<Right>
 augroup load_insert
   autocmd!
   autocmd InsertEnter * call plug#load(
-\     'neocomplete.vim',
 \     'neosnippet',
 \     'neosnippet-snippets',
-\     'neco-syntax',
-\     'neoinclude.vim',
+\     'completor-neosnippet',
+\     'completor.vim',
 \     'vim-smartinput',
 \     'eskk.vim',
 \ )
-\ | :NeoCompleteEnable
 \ | autocmd! load_insert
 augroup END
 " }}}
@@ -224,63 +221,16 @@ augroup END
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-"NeoComplete {{{
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplete#max_list = 20
-let g:neocomplete#enable_underbar_completion = 1
-let g:neocomplete#enable_camel_case_completion  =  1
-let g:neocomplete#enable_auto_close_preview = 1
-let g:neocomplete#sources#dictionary#dictionaries = {
-\   'default' : '',
-\}
+" completor {{{
+"Select TAB
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
-" delimiter_patterns
-if !exists('g:neocomplete#delimiter_patterns')
-  let g:neocomplete#delimiter_patterns= {}
-endif
+let g:completor_disable_filename = 0
+let g:completor_disable_buffer = 0
 
-" Enable omni completion.
-if !exists('g:neocomplete#force_omni_input_patterns')
-  let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.go = '[^. \t]\.\%(\h\w*\)\?'
-let g:neocomplete#force_omni_input_patterns.python = '[^. \t]\.\%(\h\w*\)\?'
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-let g:neocomplete#keyword_patterns['go'] = '\h\w*\.\?'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return neocomplete#close_popup() . "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-" buffer開いたらneoconでcache
-augroup neocon
-  autocmd!
- inoremap <expr><CR> pumvisible() ? neocomplete#close_popup() : "<CR>"
-  autocmd BufReadPost,BufEnter,BufWritePost :NeoCompleteBufferMakeCache <buffer>
-augroup END
-"}}}
+" }}}
 " Neo Snipet {{{
 "Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
