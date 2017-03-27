@@ -2,6 +2,7 @@
 
 #
 Browser			call feedkeys("\<Plug>(openbrowser-open)")
+Terminal	Terminal
 
 # Windows
 Explorer		!start rundll32 url.dll,FileProtocolHandler .
