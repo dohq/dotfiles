@@ -13,12 +13,12 @@ endif
 call plug#begin('~/.vim/bundle')
 " Plugin list
 " InsertEnter
-Plug 'maralla/completor.vim',               {'on': []}
-Plug 'maralla/completor-neosnippet',        {'on': []}
-Plug 'Shougo/neosnippet',                   {'on': []}
-Plug 'Shougo/neosnippet-snippets',          {'on': []}
-Plug 'kana/vim-smartinput',                 {'on': []}
-Plug 'tyru/eskk.vim', {'on': [], 'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
+Plug 'maralla/completor.vim'
+Plug 'maralla/completor-neosnippet'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'kana/vim-smartinput'
+Plug 'tyru/eskk.vim', {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ cd ~/.vim/skk &&
       \ gzip -d SKK-JISYO.L.gz
@@ -28,12 +28,14 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Yggdroot/indentLine'
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-Plug 'basyura/TweetVim'
+"Plug 'basyura/TweetVim'
+Plug 'twitvim/twitvim'
 Plug 'basyura/bitly.vim'
 Plug 'basyura/twibill.vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'fatih/vim-go',                        {'for': 'go'}
+Plug 'mattn/sonictemplate-vim'
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
@@ -51,11 +53,12 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'violetyk/cake.vim'
 
 " Syntax Check
-"Plug 'w0rp/ale'
-"Plug 'bbchung/clighter8'
-Plug 'maralla/validator.vim'
+Plug 'w0rp/ale'
+" PHP
+Plug 'thinca/vim-ref'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -152,10 +155,10 @@ nmap g# g#zz
 vmap y "*Y
 let g:mapleader = ','
 inoremap jj <ESC>
-nnoremap J 15j
-nnoremap K 15k
-nnoremap L 10l
-nnoremap H 10h
+" nnoremap J 15j
+" nnoremap K 15k
+" nnoremap L 10l
+" nnoremap H 10h
 nnoremap Y y$
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
@@ -164,36 +167,20 @@ imap <C-Space> <C-x><C-o>
 inoremap <C-l> <C-g>U<Right>
 
 " }}}
-" Load InsertMode Plugin {{{
-augroup load_insert
-  autocmd!
-  autocmd InsertEnter * call plug#load(
-\     'neosnippet',
-\     'neosnippet-snippets',
-\     'completor-neosnippet',
-\     'completor.vim',
-\     'vim-smartinput',
-\     'eskk.vim',
-\ )
-\ | autocmd! load_insert
-augroup END
-" }}}
-" Gtags {{{
-" 検索結果Windowを閉じる
-nnoremap <C-q> <C-w><C-w><C-w>q
-" Grep 準備
-nnoremap <C-g> :Gtags -g
-" このファイルの関数一覧
-nnoremap <C-l> :Gtags -f %<CR>
-" カーソル以下の定義元を探す
-nnoremap <C-j> :Gtags <C-r><C-w><CR>
-" カーソル以下の使用箇所を探す
-nnoremap <C-k> :Gtags -r <C-r><C-w><CR>
-" 次の検索結果
-nnoremap <C-n> :cn<CR>
-" 前の検索結果
-nnoremap <C-p> :cp<CR>
-" }}}
+"" Load InsertMode Plugin {{{
+"augroup load_insert
+"  autocmd!
+"  autocmd InsertEnter * call plug#load(
+"\     'neosnippet',
+"\     'neosnippet-snippets',
+"\     'completor-neosnippet',
+"\     'completor.vim',
+"\     'vim-smartinput',
+"\     'eskk.vim',
+"\ )
+"\ | autocmd! load_insert
+"augroup END
+"" }}}
 
 if executable('pt')
   " Use pt over grep
@@ -208,6 +195,9 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
+" 検索結果Windowを閉じる
+nnoremap <C-q> <C-w><C-w><C-w>q
 
 " grep window on qf
 autocmd QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
@@ -234,9 +224,6 @@ let g:completor_disable_buffer = 0
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 "}}}
 " Quickrun {{{
@@ -272,17 +259,29 @@ let g:quickrun_config['sql'] = {
 \}
 "}}}
 "TweetVim {{{
-" The prefix key.
-nnoremap    [TweetVim]   <Nop>
-nmap    <Space>t [TweetVim]
-
-nnoremap <silent> [TweetVim]l :<C-u>Unite<Space>tweetvim<CR>
-nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
-
 let g:tweetvim_tweet_per_page = 60
 let g:tweetvim_cache_size     = 10
 let g:tweetvim_display_source = 1
 "}}}
+" Gtags {{{
+" The prefix key.
+nnoremap    [Gtags]   <Nop>
+nmap    <Space>t [Gtags]
+
+" Grep 準備
+nnoremap <silent> [Gtags]g :<C-u>Gtags -g
+" このファイルの関数一覧
+nnoremap <silent> [Gtags]l :<C-u>Gtags -f %<CR>
+" カーソル以下の定義元を探す
+nnoremap <silent> [Gtags]j :<C-u>Gtags <C-r><C-w><CR>
+" カーソル以下の使用箇所を探す
+nnoremap <silent> [Gtags]k :<C-u>Gtags -r <C-r><C-w><CR>
+
+" 次の検索結果
+nnoremap <C-n> :cn<CR>
+" 前の検索結果
+nnoremap <C-p> :cp<CR>
+" }}}
 " lightline.vim{{{
 let g:lightline = {
 \ 'colorscheme': 'base16_ashes',
