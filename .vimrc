@@ -86,6 +86,9 @@ Plug 'violetyk/cake.vim'
 Plug 'w0rp/ale'
 " PHP
 Plug 'thinca/vim-ref'
+Plug 'yyotti/neosnippet-additional'
+" proc
+Plug 'vim-scripts/proc.vim'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -116,7 +119,6 @@ Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
-"Plug 'osyo-manga/vim-precious',             {'for': 'markdown'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
 
@@ -157,7 +159,7 @@ set noswapfile
 set matchtime=1
 set pumheight=10
 set scrolloff=1000
-set shellslash
+" set shellslash
 set showmatch
 set showcmd
 set smartcase
@@ -196,20 +198,6 @@ imap <C-Space> <C-x><C-o>
 inoremap <C-l> <C-g>U<Right>
 
 " }}}
-"" Load InsertMode Plugin {{{
-"augroup load_insert
-"  autocmd!
-"  autocmd InsertEnter * call plug#load(
-"\     'neosnippet',
-"\     'neosnippet-snippets',
-"\     'completor-neosnippet',
-"\     'completor.vim',
-"\     'vim-smartinput',
-"\     'eskk.vim',
-"\ )
-"\ | autocmd! load_insert
-"augroup END
-"" }}}
 
 if executable('pt')
   " Use pt over grep
@@ -298,8 +286,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
 \ '_' : {
-\   'runner':                          'vimproc',
-\   'runner/vimproc/updatetime':       60,
+\   'runner':                          'job',
 \   'outputter':                       'error',
 \   'outputter/error/success':         'buffer',
 \   'outputter/error/error':           'quickfix',
@@ -307,6 +294,12 @@ let g:quickrun_config = {
 \   'outputter/buffer/close_on_empty': 1,
 \   },
 \}
+" Windows echo has cp932
+if has('win32') || has('win64')
+  let g:quickrun_config['php'] = {
+\   'hook/output_encode/encoding':     'cp932',
+\}
+endif
 
 " SQL to csv
 let g:quickrun_config['sql'] = {
@@ -414,7 +407,7 @@ function! MyMode()
 endfunction
 
 function! LightLineValidator()
-  return winwidth('.') > 70 ? validator#get_status_string() : ''
+  return winwidth('.') > 70 ? ALEGetStatusLine() : ''
 endfunction
 
 " }}}
@@ -462,28 +455,24 @@ let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 " }}}
 " ESKK {{{
-let g:eskk#directory = expand('$HOME/.cache/eskk')
+let g:eskk#directory = expand($DOTVIM.'/.cache/eskk')
 let g:eskk#large_dictionary = {
-\ 'path': '~/.vim/skk/SKK-JISYO.L',
+\ 'path': $DOTVIM.'/skk/SKK-JISYO.L',
 \ 'sorted': 1,
 \}
 " Don't keep state.
 let g:eskk#keep_state = 0
-let g:eskk#show_annotation = 1
+let g:eskk#show_annotation = 0
 let g:eskk_revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
-let g:eskk#tab_select_completion = 1
-let g:eskk#start_completion_length = 3
 
+"allow InsertMode toggle ESKK
 augroup vimrc
   autocmd!
   autocmd vimrc VimEnter * imap <C-j> <Plug>(eskk:toggle)
   autocmd vimrc VimEnter * cmap <C-j> <Plug>(eskk:toggle)
 augroup END
-" imap <C-j> <Plug>(eskk:toggle)
-" cmap <C-j> <Plug>(eskk:toggle)
-
 "}}}
 " Git {{{
 nnoremap    [Git]   <Nop>
@@ -569,6 +558,7 @@ nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
 nnoremap <silent> [CtrlP]p :<C-u>CtrlPFiletype<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
+nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 
 if executable('files')
@@ -606,8 +596,8 @@ let g:jedi#usages_command = '<leader>n'
 let g:jedi#rename_command = '<leader>R'
 " }}}
 " caw.vim {{{
-nmap <Leader>c      <Plug>(caw:prefix)
-vmap <Leader>c      <Plug>(caw:prefix)
+nmap <Leader>c      <Plug>(caw:hatpos:toggle)
+vmap <Leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
 let g:previm_enable_realtime = 1
@@ -630,5 +620,7 @@ let g:validator_python_checkers = ['flake8']
 let g:validator_auto_open_quickfix = 0
 let g:validator_debug = 0
 " }}}
+" vim-ref
+let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
 "exclude whitespace
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
