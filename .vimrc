@@ -1,16 +1,33 @@
 " Last Change: 12-Dec-2016.
 if 0 | endif
-if has('vim_starting')
-set rtp+=~/.vim/bundle/vim-plug
-  if !isdirectory(expand('~/.vim/bundle/vim-plug'))
-    echo 'install vim-plug...'
-    call system('mkdir -p ~/.vim/bundle/vim-plug')
-    call system('curl -fLo ~/.vim/bundle/vim-plug/autoload/plug.vim --create-dirs
+" init {{{
+augroup MyVimrcCmd
+    autocmd!
+augroup END
+
+let s:MSWindows = has('win95') + has('win16') + has('win32') + has('win64')
+
+if !exists('$DOTVIM')
+  if s:MSWindows
+    let $DOTVIM = expand($VIM . '\vimfiles')
+    if !isdirectory(expand($DOTVIM))
+      call system('mkdir ' . $DOTVIM . '\plugins\vim-plug')
+      call system('curl -fLo ' . $DOTVIM . '\plugins\vim-plug\autoload\plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    endif
+  else
+    let $DOTVIM = expand('~/.vim')
+    if !isdirectory(expand($DOTVIM))
+      call system('mkdir -p ' . $DOTVIM . '/plugins/vim-plug')
+      call system('curl -fLo ' . $DOTVIM . '/plugins/vim-plug/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    endif
   endif
 endif
+set rtp+=$DOTVIM./plugins/vim-plug
+" }}}
 
-call plug#begin('~/.vim/bundle')
+call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
 Plug 'maralla/completor.vim'
