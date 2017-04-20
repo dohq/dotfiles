@@ -30,8 +30,18 @@ set rtp+=$DOTVIM./plugins/vim-plug
 call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
-Plug 'maralla/completor.vim'
-Plug 'maralla/completor-neosnippet'
+" Plug 'maralla/completor.vim'
+" Plug 'maralla/completor-neosnippet'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
+Plug 'prabirshrestha/asyncomplete-gocode.vim'
+Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-necovim.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/neco-vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
@@ -136,7 +146,9 @@ set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
 set display=lastline
 set foldmethod=marker
-set completeopt=menuone
+set noautochdir
+" set completeopt=menuone
+set completeopt+=preview
 set hidden
 set ignorecase
 set incsearch
@@ -226,14 +238,53 @@ augroup END
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" completor {{{
-"Select TAB
+"asyncomplete {{{
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-
-let g:completor_disable_filename = 0
-let g:completor_disable_buffer = 0
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+"sources {{{
+call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
+    \ 'name': 'neosnippet',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+    \ 'name': 'necovim',
+    \ 'whitelist': ['vim'],
+    \ 'completor': function('asyncomplete#sources#necovim#completor'),
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+    \ 'name': 'necosyntax',
+    \ 'whitelist': ['*'],
+    \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+    \ 'name': 'gocode',
+    \ 'whitelist': ['go'],
+    \ 'completor': function('asyncomplete#sources#gocode#completor'),
+    \ 'config': {
+    \    'gocode_path': expand('~/go/bin/gocode')
+    \  },
+    \ }))
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
+"}}}
+"}}}
+" completor {{{
+"Select TAB
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+"
+" let g:completor_disable_filename = 0
+" let g:completor_disable_buffer = 0
 
 " }}}
 " Neo Snipet {{{
