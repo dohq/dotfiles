@@ -16,7 +16,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 # build AOSP OPT
 export USE_CCACHE=1
-# export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
 export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true"
 
 # Alias作りましょうねー
@@ -44,14 +43,6 @@ base16_ashes
 # pandocでPDF
 alias ppdf='pandoc -V documentclass=ltjarticle -V monofont=Consolas --latex-engine=lualatex -N --toc'
 
-# Macでlsusb
-case ${OSTYPE} in
-  darwin*)
-    alias lsusb='system_profiler SPUSBDataType'
-    alias updatedb='sudo /usr/libexec/locate.updatedb'
-    ;;
-esac
-
 # Gitting
 alias gl="git log --pretty='medium-reverse' --graph --name-status"
 alias gm="git commit -v"
@@ -78,11 +69,6 @@ fi
 
 # hub alias
 function git(){hub "$@"}
-
-# export brew github api token
-if [ -f ~/.brew_api_token ];then
-  source ~/.brew_api_token
-fi
 
 # export heroku
 if [ -d /usr/local/heroku/bin ];then
