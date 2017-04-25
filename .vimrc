@@ -9,7 +9,7 @@ let s:MSWindows = has('win95') + has('win16') + has('win32') + has('win64')
 
 if !exists('$DOTVIM')
   if s:MSWindows
-    let $DOTVIM = expand($VIM . '\vimfiles')
+    let $DOTVIM = expand($VIM.'\vimfiles')
     if !isdirectory(expand($DOTVIM))
       call system('mkdir '.$DOTVIM.'\autoload')
       call system('curl -fLo '.$DOTVIM.'\autoload\plug.vim --create-dirs
@@ -18,7 +18,7 @@ if !exists('$DOTVIM')
   else
     let $DOTVIM = expand('~/.vim')
     if !isdirectory(expand($DOTVIM))
-      call system('mkdir -p '.$DOTVIM.'/autload/')
+      call system('mkdir -p '.$DOTVIM.'/autoload/')
       call system('curl -fLo '.$DOTVIM.'/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
     endif
@@ -26,6 +26,7 @@ if !exists('$DOTVIM')
 endif
 " }}}
 
+"set rtp+=$HOME . '/vimfiles/autoload/'
 call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
