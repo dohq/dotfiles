@@ -226,12 +226,23 @@ augroup END
 " Plugin Settings
 "----------------------------------------
 "asyncomplete {{{
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:asyncomplete_auto_popup = 0
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" imap <c-space> <Plug>(asyncomplete_force_refresh)
+" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 "sources {{{
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
@@ -623,3 +634,8 @@ let g:validator_debug = 0
 let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
 "exclude whitespace
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
+let g:openbrowser_browser_commands = [
+\   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
+\    'args': ['start', '{browser}', '{uri}']}
+\]
+set shellslash
