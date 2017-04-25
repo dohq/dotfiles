@@ -81,6 +81,7 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'violetyk/cake.vim'
+Plug 'thinca/vim-fontzoom'
 
 " Syntax Check
 Plug 'w0rp/ale'
