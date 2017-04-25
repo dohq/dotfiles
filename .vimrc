@@ -150,8 +150,7 @@ set backspace=indent,eol,start
 set display=lastline
 set foldmethod=marker
 set noautochdir
-" set completeopt=menuone
-set completeopt+=preview
+set completeopt=menuone
 set hidden
 set ignorecase
 set incsearch
@@ -229,6 +228,11 @@ augroup END
 "----------------------------------------
 "asyncomplete {{{
 let g:asyncomplete_auto_popup = 0
+
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
@@ -238,13 +242,8 @@ inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ asyncomplete#force_refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" imap <c-space> <Plug>(asyncomplete_force_refresh)
-" autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-"
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 "sources {{{
 call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
     \ 'name': 'neosnippet',
@@ -623,14 +622,6 @@ let g:openbrowser_browser_commands = [
 \   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
 \    'args': ['start', '{browser}', '{uri}']}
 \]
-" }}}
-" validator {{{
-let g:validator_ignore = ['c']
-let g:validator_javascript_checkers = ['eslint']
-let g:validator_vim_checkers = ['vint']
-let g:validator_python_checkers = ['flake8']
-let g:validator_auto_open_quickfix = 0
-let g:validator_debug = 0
 " }}}
 " vim-ref
 let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
