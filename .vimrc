@@ -11,20 +11,19 @@ if !exists('$DOTVIM')
   if s:MSWindows
     let $DOTVIM = expand($VIM . '\vimfiles')
     if !isdirectory(expand($DOTVIM))
-      call system('mkdir ' . $DOTVIM . '\plugins\vim-plug')
-      call system('curl -fLo ' . $DOTVIM . '\plugins\vim-plug\autoload\plug.vim --create-dirs
+      call system('mkdir '.$DOTVIM.'\autoload')
+      call system('curl -fLo '.$DOTVIM.'\autoload\plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
     endif
   else
     let $DOTVIM = expand('~/.vim')
     if !isdirectory(expand($DOTVIM))
-      call system('mkdir -p ' . $DOTVIM . '/plugins/vim-plug')
-      call system('curl -fLo ' . $DOTVIM . '/plugins/vim-plug/autoload/plug.vim --create-dirs
+      call system('mkdir -p '.$DOTVIM.'/autload/')
+      call system('curl -fLo '.$DOTVIM.'/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
     endif
   endif
 endif
-set rtp+=$DOTVIM./plugins/vim-plug
 " }}}
 
 call plug#begin($DOTVIM.'/plugins')
