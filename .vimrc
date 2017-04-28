@@ -34,14 +34,14 @@ call plug#begin($DOTVIM.'/plugins')
 " Plug 'maralla/completor-neosnippet'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
 Plug 'prabirshrestha/asyncomplete-gocode.vim'
 Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-necovim.vim'
+" Plug 'prabirshrestha/asyncomplete-necovim.vim'
+" Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
 Plug 'prabirshrestha/async.vim'
-Plug 'Shougo/neco-syntax'
-Plug 'Shougo/neco-vim'
+" Plug 'Shougo/neco-syntax'
+" Plug 'Shougo/neco-vim'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
@@ -192,7 +192,9 @@ inoremap jj <ESC>
 " nnoremap H 10h
 nnoremap Y y$
 " Omni complations like eclipse
-imap <C-Space> <C-x><C-o>
+" imap <C-Space> <C-x><C-o>
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+setl omnifunc=syntaxcomplete#Complete
 
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
@@ -250,16 +252,16 @@ call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_opt
     \ 'whitelist': ['*'],
     \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
     \ }))
-call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-    \ 'name': 'necovim',
-    \ 'whitelist': ['vim'],
-    \ 'completor': function('asyncomplete#sources#necovim#completor'),
-    \ }))
-call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
-    \ 'name': 'necosyntax',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
-    \ }))
+" call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+"     \ 'name': 'necovim',
+"     \ 'whitelist': ['vim'],
+"     \ 'completor': function('asyncomplete#sources#necovim#completor'),
+"     \ }))
+" call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
+"     \ 'name': 'necosyntax',
+"     \ 'whitelist': ['*'],
+"     \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
+"     \ }))
 call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
     \ 'name': 'gocode',
     \ 'whitelist': ['go'],
@@ -276,16 +278,12 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
     \ }))
 "}}}
 "}}}
-" completor {{{
-"Select TAB
+" " completor {{{
+" "Select TAB
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-"
-" let g:completor_disable_filename = 0
-" let g:completor_disable_buffer = 0
-
-" }}}
+" " }}}
 " Neo Snipet {{{
 "Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -293,6 +291,10 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 "}}}
+" ale
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Quickrun {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
