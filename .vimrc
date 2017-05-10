@@ -46,10 +46,6 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Yggdroot/indentLine'
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-"Plug 'basyura/TweetVim'
-Plug 'twitvim/twitvim'
-Plug 'basyura/bitly.vim'
-Plug 'basyura/twibill.vim'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'fatih/vim-go',                        {'for': 'go'}
@@ -59,11 +55,9 @@ Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
 Plug 'junegunn/vim-easy-align'
 Plug 'jsfaint/gen_tags.vim'
-Plug 'kchmck/vim-coffee-script',            {'for': 'coffee'}
 Plug 'kana/vim-textobj-user'
 Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
 Plug 'mattn/webapi-vim'
-Plug 'mattn/vim-terminal'
 Plug 'mhinz/vim-grepper'
 Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
 Plug 'thinca/vim-quickrun'
@@ -71,15 +65,19 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'violetyk/cake.vim'
 Plug 'thinca/vim-fontzoom'
 
+" Twitter
+Plug 'basyura/TweetVim',                    {'branch': 'dev'}
+Plug 'basyura/bitly.vim'
+Plug 'basyura/twibill.vim'
 " Syntax Check
 Plug 'w0rp/ale'
 " PHP
 Plug 'thinca/vim-ref'
 Plug 'yyotti/neosnippet-additional'
-" proc
+Plug 'violetyk/cake.vim'
+" Proc
 Plug 'vim-scripts/proc.vim'
 " Visual
 Plug 'chriskempson/base16-vim'
@@ -90,8 +88,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
 Plug 'tpope/vim-fugitive'
 " CtrlP
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'kaneshin/ctrlp-filetype'
 Plug 'mattn/ctrlp-filer'
 Plug 'mattn/ctrlp-launcher'
@@ -99,14 +97,17 @@ Plug 'mattn/ctrlp-register'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
+Plug 'ompugao/ctrlp-tweetvim'
+Plug 'iurifq/ctrlp-rails.vim'
+
 " Python
 Plug 'davidhalter/jedi-vim',                {'for': 'python', 'do': 'pip install
       \ flake8 pyflakes pep8 pylint jedi'
       \ }
-Plug 'andviro/flake8-vim',                  {'for': 'python'}
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
+Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
 " Markdown
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
@@ -141,7 +142,7 @@ set backspace=indent,eol,start
 set display=lastline
 set foldmethod=marker
 set noautochdir
-set completeopt=menuone
+set completeopt-=preview
 set hidden
 set ignorecase
 set incsearch
@@ -150,7 +151,6 @@ set noswapfile
 set matchtime=1
 set pumheight=10
 set scrolloff=1000
-" set shellslash
 set showmatch
 set showcmd
 set smartcase
@@ -162,6 +162,7 @@ set iminsert=0
 set imsearch=-1
 set cmdheight=2
 set nf=""
+autocmd BufNewFile,BufRead *.md set shellslash
 if &t_Co > 2 || has('gui_running')
   syntax on
   set hlsearch
@@ -183,20 +184,14 @@ inoremap jj <ESC>
 " nnoremap H 10h
 nnoremap Y y$
 " Omni complations like eclipse
-" imap <C-Space> <C-x><C-o>
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-setl omnifunc=syntaxcomplete#Complete
+imap <C-Space> <C-x><C-o>
+" imap <c-space> <Plug>(asyncomplete_force_refresh)
+" setl omnifunc=syntaxcomplete#Complete
 
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
 
 " }}}
-
-if executable('pt')
-  " Use pt over grep
-  set grepprg=pt\ --nogroup\ --nocolor
-endif
-
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
@@ -219,73 +214,31 @@ augroup END
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-"asyncomplete {{{
-let g:asyncomplete_auto_popup = 0
-
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-"sources {{{
-call asyncomplete#register_source(asyncomplete#sources#neosnippet#get_source_options({
-    \ 'name': 'neosnippet',
-    \ 'whitelist': ['*'],
-    \ 'completor': function('asyncomplete#sources#neosnippet#completor'),
-    \ }))
-" call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-"     \ 'name': 'necovim',
-"     \ 'whitelist': ['vim'],
-"     \ 'completor': function('asyncomplete#sources#necovim#completor'),
-"     \ }))
-" call asyncomplete#register_source(asyncomplete#sources#necosyntax#get_source_options({
-"     \ 'name': 'necosyntax',
-"     \ 'whitelist': ['*'],
-"     \ 'completor': function('asyncomplete#sources#necosyntax#completor'),
-"     \ }))
-call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-    \ 'name': 'gocode',
-    \ 'whitelist': ['go'],
-    \ 'completor': function('asyncomplete#sources#gocode#completor'),
-    \ 'config': {
-    \    'gocode_path': expand('~/go/bin/gocode')
-    \  },
-    \ }))
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
-"}}}
-"}}}
-" " completor {{{
-" "Select TAB
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-" " }}}
-" Neo Snipet {{{
+" completor {{{
+"Select TAB
+" let g:completor_auto_trigger = 0
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" }}}
+" NeoSnipet {{{
 "Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 "}}}
-" ale
+" ale {{{
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" }}}
 " Quickrun {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
@@ -304,29 +257,6 @@ if has('win32') || has('win64')
 \   'hook/output_encode/encoding':     'cp932',
 \}
 endif
-
-" SQL to csv
-let g:quickrun_config['sql'] = {
-\ 'exec': '%c %o \@%s',
-\ 'command': 'sqlplus',
-\ 'cmdopt': '-S %{get(g:, "quickrun_oracle_conn", "/nolog")}',
-\ 'hook/output_encode/encoding': 'sjis',
-\ 'hook/eval/enable': 1,
-\ 'hook/eval/template':
-\   'set echo off' . "\r" .
-\   'set linesize 1000' . "\r" .
-\   'set trimspool on' . "\r" .
-\   'set feedback off' . "\r" .
-\   'set colsep ","' . "\r" .
-\   'set heading on' . "\r" .
-\   'set underline off' . "\r" .
-\   '%s',
-\}
-"}}}
-"TweetVim {{{
-let g:tweetvim_tweet_per_page = 60
-let g:tweetvim_cache_size     = 10
-let g:tweetvim_display_source = 1
 "}}}
 " Gtags {{{
 " The prefix key.
@@ -504,15 +434,11 @@ augroup END
 
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = 'goimports'
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_fmt_command = "goimports"
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 0
@@ -523,8 +449,6 @@ let g:indentLine_char = '¦'
 " }}}
 " over.vim {{{
 nnoremap <silent> <Space>o :OverCommandLine<CR>
-nnoremap sub :OverCommandLine<CR>%s/<C-r><C-w>//g<Left><Left>
-nnoremap subp y:OverCommandLine<CR>%s!<C-r>=substitute(@0, '!', '\\!', 'g')<CR>!!gI<Left><Left><Left>
 " }}}
 "Terminal {{{
 " The prefix key.
@@ -620,8 +544,3 @@ let g:openbrowser_browser_commands = [
 let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
 "exclude whitespace
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
-let g:openbrowser_browser_commands = [
-\   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
-\    'args': ['start', '{browser}', '{uri}']}
-\]
-set shellslash
