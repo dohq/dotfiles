@@ -32,16 +32,7 @@ call plug#begin($DOTVIM.'/plugins')
 " InsertEnter
 " Plug 'maralla/completor.vim'
 " Plug 'maralla/completor-neosnippet'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-gocode.vim'
-Plug 'prabirshrestha/asyncomplete-neosnippet.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-" Plug 'prabirshrestha/asyncomplete-necovim.vim'
-" Plug 'prabirshrestha/asyncomplete-necosyntax.vim'
-Plug 'prabirshrestha/async.vim'
-" Plug 'Shougo/neco-syntax'
-" Plug 'Shougo/neco-vim'
+Plug 'Valloric/YouCompleteMe',              { 'do': './install.py' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
