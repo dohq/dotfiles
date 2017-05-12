@@ -32,7 +32,7 @@ call plug#begin($DOTVIM.'/plugins')
 " InsertEnter
 " Plug 'maralla/completor.vim'
 " Plug 'maralla/completor-neosnippet'
-Plug 'Valloric/YouCompleteMe',              { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe',              { 'do': 'python install.py' }
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
@@ -48,7 +48,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'elzr/vim-json',                       {'for': 'json'}
-Plug 'fatih/vim-go',                        {'for': 'go'}
+Plug 'fatih/vim-go',                        {'for': 'go',  'do': ':GoInstallBinaries'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-cursorword'
@@ -66,13 +66,14 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'thinca/vim-fontzoom'
+Plug 'Shougo/echodoc.vim'
 
 " Twitter
-Plug 'basyura/TweetVim',                    {'branch': 'dev'}
-Plug 'basyura/bitly.vim'
-Plug 'basyura/twibill.vim'
+Plug 'twitvim/twitvim'
 " Syntax Check
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale', {'commit': '28c6ec9cad3064966ff70c9da95c96364118eb57'}
+Plug 'dohq/ale'
+" Plug 'maralla/validator.vim'
 " PHP
 Plug 'thinca/vim-ref'
 Plug 'yyotti/neosnippet-additional'
@@ -108,6 +109,7 @@ Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
+Plug 'vim-python/python-syntax'
 " Markdown
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
@@ -218,9 +220,9 @@ augroup END
 "Select TAB
 " let g:completor_auto_trigger = 0
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 " }}}
 " NeoSnipet {{{
 "Plugin key-mappings.
@@ -233,6 +235,8 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 let g:ale_linters = {
 \   'python': ['flake8'],
 \}
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_echo_msg_error_str = 'E'
@@ -297,7 +301,7 @@ let g:lightline = {
 \ 'component_function': {
 \   'git': 'MyGit',
 \   'mode': 'MyMode',
-\   'validator': 'LightLineValidator',
+\   'validator': 'ALEGetStatusLine',
 \   'filename': 'MyFilename',
 \   'fileformat': 'MyFileformat',
 \   'filetype': 'MyFiletype',
@@ -338,10 +342,6 @@ endfunction
 
 function! MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
-endfunction
-
-function! LightLineValidator()
-  return winwidth('.') > 70 ? ALEGetStatusLine() : ''
 endfunction
 
 " }}}
@@ -450,12 +450,10 @@ let g:indentLine_char = '¦'
 " over.vim {{{
 nnoremap <silent> <Space>o :OverCommandLine<CR>
 " }}}
-"Terminal {{{
-" The prefix key.
-nnoremap    [Terminal]   <Nop>
-nmap    <Space>c [Terminal]
-nnoremap <silent> [Terminal]c :<C-u>Terminal<CR>
-"}}}
+" Twitvim {{{
+let twitvim_filter_enable = 1
+let twitvim_filter_regex = '!\v^【(自動|定期).*|(.*https?://ask\.fm.*)|#(countkun|1topi|bookmeter)|(.*(#|＃)[^\s]+){5,}|#RTした人全員|.*分以内に.*RTされたら|^!(RT)|^[^RT].*RT|RT\s.*RT\s'
+" }}}
 "pandoc {{{
 let g:pandoc#modules#disabled=['folding']
 "}}}
@@ -496,6 +494,8 @@ endif
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 1
 let g:ctrlp_map = '<Nop>'
+" let g:ctrlp_root_markers = ['Gemfile', 'pom.xml', 'build.xml', 'composer.json']
+" let g:ctrlp_max_height = 20
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'
 " Open new file in current window
@@ -515,7 +515,7 @@ augroup END
 
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 1
 let g:jedi#goto_command = '<leader>d'
 let g:jedi#goto_assignments_command = '<leader>g'
 let g:jedi#goto_definitions_command = ''
