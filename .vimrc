@@ -30,9 +30,9 @@ endif
 call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
-" Plug 'maralla/completor.vim'
-" Plug 'maralla/completor-neosnippet'
-Plug 'Valloric/YouCompleteMe',              { 'do': 'python install.py' }
+Plug 'maralla/completor.vim'
+Plug 'maralla/completor-neosnippet'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
@@ -66,13 +66,13 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'thinca/vim-fontzoom'
-Plug 'Shougo/echodoc.vim'
+Plug 'ervandew/supertab'
+Plug 'majutsushi/tagbar'
 
 " Twitter
 Plug 'twitvim/twitvim'
 " Syntax Check
-" Plug 'w0rp/ale', {'commit': '28c6ec9cad3064966ff70c9da95c96364118eb57'}
-Plug 'dohq/ale'
+Plug 'w0rp/ale'
 " Plug 'maralla/validator.vim'
 " PHP
 Plug 'thinca/vim-ref'
@@ -85,7 +85,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
 Plug 'itchyny/lightline.vim'
 " Git
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
 Plug 'tpope/vim-fugitive'
 " CtrlP
@@ -217,9 +217,6 @@ augroup END
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-"Select TAB
-" let g:completor_auto_trigger = 0
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
 " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
@@ -232,17 +229,20 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 "}}}
 " ale {{{
-let g:ale_linters = {
-\   'python': ['flake8'],
-\}
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
+" let g:ale_linters = {
+" \   'python': ['flake8'],
+" \}
+let g:ale_sign_error = '▶'
+let g:ale_sign_warning = '▷'
+" let g:ale_sign_column_always = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" }}}
+let g:ale_statusline_format = ['▲ %d', '△ %d', '✓ ok']
+" let g:validator_error_msg_format = "[ ● %d/%d issues ]"
+" let g:validator_permament_sign = 1
+" let g:validator_python_flake8_args = '--max-line-length=150'
+" " }}}
 " Quickrun {{{
 let g:quickrun_config = get(g:, 'quickrun_config', {})
 let g:quickrun_config = {
@@ -315,7 +315,7 @@ function! MyFilename()
   if name =~? 'netrw'
     return 'netrw'
   endif
-  let readonly = &readonly ? '⭤ ' : ''
+  let readonly = &readonly ? '⏏ ' : ''
   let modified = &modified ? ' +' : ''
   return readonly . name . modified
 endfunction
@@ -325,7 +325,7 @@ function! MyGit()
     return ''
   endif
   let branch = exists('*fugitive#head') ? fugitive#head() : ''
-  return branch !=# '' ? '⭠ '.branch : ''
+  return branch !=# '' ? '√'.branch : ''
 endfunction
 
 function! MyFileformat()
@@ -409,6 +409,7 @@ augroup vimrc
 augroup END
 "}}}
 " Git {{{
+let g:gitgutter_enabled = 0
 nnoremap    [Git]   <Nop>
 nmap    <Space>g [Git]
 nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
@@ -445,7 +446,8 @@ let g:indentLine_setColors = 0
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '¦'
+let g:indentLine_char = '︙'
+let g:indentLine_char = '⋮'
 " }}}
 " over.vim {{{
 nnoremap <silent> <Space>o :OverCommandLine<CR>
@@ -508,14 +510,16 @@ let g:ctrlp_custom_ignore = {
   \ }
 "}}}
 " Jedi {{{
-augroup jediomni
-  autocmd!
-  au FileType python setlocal omnifunc=jedi#completions
-augroup END
+" shortcut for goto definition
+map <leader>g:YcmCompleter GoToDefinitionElseDeclaration<CR>
+autocmd FileType python setlocal omnifunc=jedi#completions
 
-let g:jedi#use_tabs_not_buffers = 1
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 1
+let python_highlight_all=1
+let g:jedi#show_call_signatures = "2"
+let g:jedi#auto_vim_configuration = 0
+" let g:jedi#use_tabs_not_buffers = 1
+" let g:jedi#popup_select_first = 0
+" let g:jedi#popup_on_dot = 1
 let g:jedi#goto_command = '<leader>d'
 let g:jedi#goto_assignments_command = '<leader>g'
 let g:jedi#goto_definitions_command = ''
@@ -544,3 +548,7 @@ let g:openbrowser_browser_commands = [
 let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
 "exclude whitespace
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
+
+let g:conda_startup_msg_suppress = 1
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "<c-n>"
