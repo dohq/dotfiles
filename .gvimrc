@@ -16,5 +16,6 @@ colorscheme base16-ashes
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-set guifont=Ricty\ Diminished\ Discord:h14
-
+set guifont=Ricty\ Diminished\ Discord:h12
+" set guifontwide=Ricty\ Diminished\ Discord:h12
+" set guifont=Fira\ Code\ Light:h12
