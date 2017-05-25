@@ -85,7 +85,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
 Plug 'itchyny/lightline.vim'
 " Git
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
 Plug 'tpope/vim-fugitive'
 " CtrlP
@@ -102,14 +102,14 @@ Plug 'ompugao/ctrlp-tweetvim'
 Plug 'iurifq/ctrlp-rails.vim'
 
 " Python
-Plug 'davidhalter/jedi-vim',                {'for': 'python', 'do': 'pip install
-      \ flake8 pyflakes pep8 pylint jedi'
-      \ }
+Plug 'davidhalter/jedi-vim'
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
-Plug 'vim-python/python-syntax'
+Plug 'vim-python/python-syntax',            {'for': 'python'}
+Plug 'cjrh/vim-conda'
+" Plug 'lambdalisue/vim-pyenv',               {'for': 'python'}
 " Markdown
 Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
@@ -137,6 +137,7 @@ set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,
 " }}}
 " set opt {{{
 set ambiwidth=double
+set guicursor=a:blinkon0
 set autoindent
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
@@ -258,6 +259,9 @@ let g:quickrun_config = {
 " Windows echo has cp932
 if has('win32') || has('win64')
   let g:quickrun_config['php'] = {
+\   'hook/output_encode/encoding':     'cp932',
+\}
+let g:quickrun_config['python'] = {
 \   'hook/output_encode/encoding':     'cp932',
 \}
 endif
