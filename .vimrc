@@ -424,7 +424,7 @@ nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " vim-fugitive
 nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
-nnoremap <silent> [Git]m :<C-u>Gcommit<CR>
+nnoremap <silent> [Git]m :<C-u>Gcommit -v<CR>
 nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
 nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
 nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
