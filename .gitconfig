@@ -1,6 +1,5 @@
 [user]
-  name = dohq
-  email = dorastone@gmail.com
+	useConfigOnly = true
 [core]
   editor = vim
   quotepath = off
