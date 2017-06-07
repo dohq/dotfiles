@@ -12,16 +12,15 @@ if [ -d /usr/local/go ]; then
   export PATH=/usr/local/go/bin:$PATH
 fi
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+if [ -d /usr/lib/jvm/java-8-openjdk ]; then
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+fi
 
 # build AOSP OPT
 export USE_CCACHE=1
 export MAVEN_OPTS="-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dmaven.wagon.http.ssl.ignore.validity.dates=true"
 
 # Alias作りましょうねー
-alias vi='nvim'
-alias nvi='nvim'
-alias emerge='emerge --quiet-build'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -40,11 +39,8 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 base16_ashes
 
-# pandocでPDF
-alias ppdf='pandoc -V documentclass=ltjarticle -V monofont=Consolas --latex-engine=lualatex -N --toc'
-
 # Gitting
-alias gl="git log --pretty='medium-reverse' --graph --name-status"
+alias gl="git lg"
 alias gm="git commit -v"
 alias ga="git add"
 alias gc="git clone"
@@ -73,4 +69,18 @@ function git(){hub "$@"}
 # export heroku
 if [ -d /usr/local/heroku/bin ];then
   PATH=/usr/local/heroku/bin:$PATH
+fi
+
+# anaconda
+if [ -d /opt/anaconda/ ];then
+  #qtconsole Option
+  export FONT_CMD='--ConsoleWidget.font_family=\"RictyDiminished\"'
+  export FONT_SIZE_CMD='--ConsoleWidget.font_size=11'
+  # Anaconda3
+  export anaconda_DIR='/opt/anaconda/bin'
+  alias conda3='$anaconda_DIR/conda'
+  alias py3='$anaconda_DIR/python'
+  alias ipy3='$anaconda_DIR/ipython'
+  alias jupy3n='$anaconda_DIR/jupyter-notebook'
+  alias jupy3c='$anaconda_DIR/jupyter-qtconsole $FONT_CMD $FONT_SIZE_CMD'
 fi
