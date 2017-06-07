@@ -11,10 +11,11 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:1
 zplug "zsh-users/zsh-completions"
 zplug "felixr/docker-zsh-completion"
 zplug "sdurrheimer/docker-compose-zsh-completion"
+zplug "leonhartX/docker-machine-zsh-completion"
 
 # color
 # 色付ける。便利
-zplug "seebi/dircolors-solarized"
+#zplug "seebi/dircolors-solarized"
 zplug "chrissicool/zsh-256color"
 
 # tmuxを便利に
