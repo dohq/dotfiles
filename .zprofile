@@ -79,6 +79,7 @@ if [ -d /opt/anaconda/ ];then
   # Anaconda3
   export anaconda_DIR='/opt/anaconda/bin'
   alias conda3='$anaconda_DIR/conda'
+  alias pip3='$anaconda_DIR/pip'
   alias py3='$anaconda_DIR/python'
   alias ipy3='$anaconda_DIR/ipython'
   alias jupy3n='$anaconda_DIR/jupyter-notebook'
