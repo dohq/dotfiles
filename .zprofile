@@ -70,18 +70,3 @@ function git(){hub "$@"}
 if [ -d /usr/local/heroku/bin ];then
   PATH=/usr/local/heroku/bin:$PATH
 fi
-
-# anaconda
-if [ -d /opt/anaconda/ ];then
-  #qtconsole Option
-  export FONT_CMD='--ConsoleWidget.font_family=\"RictyDiminished\"'
-  export FONT_SIZE_CMD='--ConsoleWidget.font_size=11'
-  # Anaconda3
-  export anaconda_DIR='/opt/anaconda/bin'
-  alias conda3='$anaconda_DIR/conda'
-  alias pip3='$anaconda_DIR/pip'
-  alias py3='$anaconda_DIR/python'
-  alias ipy3='$anaconda_DIR/ipython'
-  alias jupy3n='$anaconda_DIR/jupyter-notebook'
-  alias jupy3c='$anaconda_DIR/jupyter-qtconsole $FONT_CMD $FONT_SIZE_CMD'
-fi
