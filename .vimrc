@@ -76,7 +76,6 @@ Plug 'w0rp/ale'
 " Plug 'maralla/validator.vim'
 " PHP
 Plug 'thinca/vim-ref'
-Plug 'yyotti/neosnippet-additional'
 Plug 'violetyk/cake.vim'
 " Proc
 Plug 'vim-scripts/proc.vim'
@@ -556,3 +555,4 @@ let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'he
 let g:conda_startup_msg_suppress = 1
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:vim_json_syntax_conceal = 0
