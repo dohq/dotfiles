@@ -30,9 +30,9 @@ endif
 call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
-Plug 'maralla/completor.vim'
-Plug 'maralla/completor-neosnippet'
-" Plug 'Valloric/YouCompleteMe'
+" Plug 'maralla/completor.vim'
+" Plug 'maralla/completor-neosnippet'
+Plug 'Valloric/YouCompleteMe'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
@@ -71,6 +71,8 @@ Plug 'majutsushi/tagbar'
 
 " Twitter
 Plug 'twitvim/twitvim'
+Plug 'basyura/TweetVim'
+Plug 'basyura/twibill.vim'
 " Syntax Check
 Plug 'w0rp/ale'
 " Plug 'maralla/validator.vim'
@@ -114,7 +116,7 @@ Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
 Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
-Plug 'aklt/plantuml-syntax',                {'for' : 'uml'}
+Plug 'aklt/plantuml-syntax',                {'for' : 'plantuml'}
 
 call plug#end()
 
@@ -392,6 +394,7 @@ let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 " }}}
 " ESKK {{{
+let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($DOTVIM.'/.cache/eskk')
 let g:eskk#large_dictionary = {
 \ 'path': $DOTVIM.'/skk/SKK-JISYO.L',
@@ -507,7 +510,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/]\.(vscode|git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
