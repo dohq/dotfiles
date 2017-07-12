@@ -27,6 +27,7 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias cls='clear'
 alias tree='tree -N'
+alias pbcopy='xsel --clipboard --input'
 alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
 if [ -x "`which peco`" ]; then
   alias ll='ls -lha | peco'
