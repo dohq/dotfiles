@@ -30,9 +30,9 @@ endif
 call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
-" Plug 'maralla/completor.vim'
-" Plug 'maralla/completor-neosnippet'
-Plug 'Valloric/YouCompleteMe'
+Plug 'maralla/completor.vim'
+Plug 'maralla/completor-neosnippet'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
