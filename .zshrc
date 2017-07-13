@@ -4,7 +4,6 @@
   # Check if zplug is installed
   if [[ ! -d ~/.zplug ]]; then
     git clone https://github.com/zplug/zplug ~/.zplug
-    source ~/.zplug/init.zsh && zplug update --self
   fi
 }
 source ~/.zplug/init.zsh
@@ -274,47 +273,55 @@ setopt extended_glob
 # キーバインド
 #bindkey '^R' history-incremental-pattern-search-backward
 setopt hist_ignore_all_dups
-function peco_select_history() {
+function fzf-history() {
   local tac
   if which tac > /dev/null; then
     tac="tac"
   else
     tac="tail -r"
   fi
-  BUFFER=$(\history -n 1 | eval $tac | LANG=ja_JP.UTF-8 peco --query "$LBUFFER")
+  BUFFER=$(\history -n 1 | eval $tac | LANG=ja_JP.UTF-8 fzf --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
-zle -N peco_select_history
-bindkey '^r' peco_select_history
+zle -N fzf-history
+bindkey '^r' fzf-history
 
-#bindkey '^B' select branch for Peco
-function peco-branch () {
-    local branch=$(git branch -a | peco | tr -d ' ' | tr -d '*')
-    if [ -n "$branch" ]; then
-      if [ -n "$LBUFFER" ]; then
-        local new_left="${LBUFFER%\ } $branch"
-      else
-        local new_left="$branch"
-      fi
-      BUFFER=${new_left}${RBUFFER}
-      CURSOR=${#new_left}
-    fi
-}
-zle -N peco-branch
-bindkey '^g ^b' peco-branch
-
-#bindkey '^g' list ghq src
-function peco-src () {
-  local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-  if [ -n "$selected_dir" ]; then
-    BUFFER="cd ${selected_dir}"
+#bindkey '^s' select ssh for fzf
+function fzf-ssh () {
+  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
+  if [ -n "$selected_host" ]; then
+    BUFFER="ssh ${selected_host}"
     zle accept-line
   fi
-  zle clear-screen
+  zle reset-prompt
 }
-zle -N peco-src
-bindkey '^g' peco-src
+zle -N fzf-ssh
+bindkey '^s' fzf-ssh
+
+#bindkey '^B' select branch for fzf
+function fzf-branch() {
+  local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | perl -pne 's{^refs/heads/}{}' | fzf --query "$LBUFFER")
+  if [ -n "$selected_branch" ]; then
+    BUFFER="git checkout ${selected_branch}"
+    zle accept-line
+  fi
+  zle reset-prompt
+}
+zle -N fzf-branch
+bindkey "^b" fzf-branch
+
+#bindkey '^g' list ghq src
+function fzf-ghq() {
+  local selected_dir=$(ghq list | fzf --query="$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd $(ghq root)/${selected_dir}"
+    zle accept-line
+  fi
+  zle reset-prompt
+}
+zle -N fzf-ghq
+bindkey "^g" fzf-ghq
 #######################################
 # Home Endキーを有効に
 bindkey  "^[[1~"   beginning-of-line
