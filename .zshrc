@@ -280,7 +280,9 @@ function fzf-history() {
   else
     tac="tail -r"
   fi
-  BUFFER=$(\history -n 1 | eval $tac | LANG=ja_JP.UTF-8 fzf --query "$LBUFFER")
+#BUFFER=$(\history -n 1 | eval $tac | LANG=ja_JP.UTF-8 fzf --query "$LBUFFER")
+# BUFFER=$(\history -n 1 | $tac | LANG=ja_JP.UTF-8 fzf --reverse --height 60% --query "$LBUFFER")
+  BUFFER=$(\history -n 1 | $tac | LANG=ja_JP.UTF-8 fzf --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }

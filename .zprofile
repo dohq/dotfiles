@@ -42,6 +42,8 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 base16_ashes
 
+# fzf
+export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
 # Gitting
 alias gl="git lg"
 alias gm="git commit -v"
