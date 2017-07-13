@@ -25,9 +25,11 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
-alias cls='clear'
+alias c='clear'
 alias tree='tree -N'
 alias pbcopy='xsel --clipboard --input'
+alias tokyo="curl wttr.in/Tokyo"
+alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
 if [ -x "`which peco`" ]; then
   alias ll='ls -lha | peco'
