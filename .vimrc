@@ -112,8 +112,8 @@ Plug 'vim-python/python-syntax',            {'for': 'python'}
 Plug 'cjrh/vim-conda'
 " Plug 'lambdalisue/vim-pyenv',               {'for': 'python'}
 " Markdown
-Plug 'gabrielelana/vim-markdown',           {'for': 'markdown'}
-Plug 'joker1007/vim-markdown-quote-syntax', {'for': 'markdown'}
+Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
+Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for' : 'plantuml'}
@@ -559,3 +559,4 @@ let g:conda_startup_msg_suppress = 1
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_folding_disabled = 1
