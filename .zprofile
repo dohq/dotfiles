@@ -43,7 +43,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 base16_ashes
 
 # fzf
-export FZF_DEFAULT_OPTS='--height 60% --reverse --border'
+export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse --border'
 # Gitting
 alias gl="git lg"
 alias gm="git commit -v"
