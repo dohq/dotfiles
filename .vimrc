@@ -26,56 +26,58 @@ if !exists('$DOTVIM')
 endif
 " }}}
 
-"set rtp+=$HOME . '/vimfiles/autoload/'
 call plug#begin($DOTVIM.'/plugins')
 " Plugin list
 " InsertEnter
 Plug 'maralla/completor.vim'
 Plug 'maralla/completor-neosnippet'
-" Plug 'Valloric/YouCompleteMe'
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'kana/vim-smartinput'
 Plug 'tyru/eskk.vim', {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
-      \ cd ~/.vim/skk &&
+      \ mkdir $DOTVIM/skk &&
+      \ cd $DOTVIM/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 
-Plug 'Lokaltog/vim-easymotion'
+Plug 'AndrewRadev/switch.vim'
 Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
 Plug 'Yggdroot/indentLine'
 Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'elzr/vim-json',                       {'for': 'json'}
-Plug 'fatih/vim-go',                        {'for': 'go',  'do': ':GoInstallBinaries'}
-Plug 'mattn/sonictemplate-vim'
+Plug 'ervandew/supertab'
+Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'itchyny/vim-cursorword'
+" Plug 'itchyny/vim-cursorword'
 Plug 'itchyny/vim-parenmatch'
-Plug 'junegunn/vim-easy-align'
 Plug 'jsfaint/gen_tags.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'justinmk/vim-dirvish'
 Plug 'kana/vim-textobj-user'
 Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
+Plug 'majutsushi/tagbar'
+Plug 'mattn/sonictemplate-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper'
 Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
-Plug 'thinca/vim-quickrun'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'simeji/winresizer'
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'thinca/vim-fontzoom'
-Plug 'ervandew/supertab'
-Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
 
 " Twitter
-Plug 'twitvim/twitvim'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
 " Syntax Check
 Plug 'w0rp/ale'
-" Plug 'maralla/validator.vim'
 " PHP
 Plug 'thinca/vim-ref'
 Plug 'violetyk/cake.vim'
@@ -99,7 +101,6 @@ Plug 'mattn/ctrlp-register'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
-Plug 'ompugao/ctrlp-tweetvim'
 Plug 'iurifq/ctrlp-rails.vim'
 
 " Python
@@ -110,7 +111,6 @@ Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
 Plug 'cjrh/vim-conda'
-" Plug 'lambdalisue/vim-pyenv',               {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
@@ -126,11 +126,28 @@ filetype plugin indent on
 "----------------------------------------
 " color {{{
 set t_Co=256
-if filereadable(expand('~/.vimrc_background'))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
+" if filereadable(expand('~/.vimrc_background'))
+"     let base16colorspace=256
+"     source ~/.vimrc_background
+" endif
 "}}}
+" set plugin stop {{{
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+" }}}
 " Encoding {{{
 set enc=UTF-8
 scriptencoding utf-8
@@ -182,15 +199,9 @@ nmap g# g#zz
 vmap y "*Y
 let g:mapleader = ','
 inoremap jj <ESC>
-" nnoremap J 15j
-" nnoremap K 15k
-" nnoremap L 10l
-" nnoremap H 10h
 nnoremap Y y$
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
-" imap <c-space> <Plug>(asyncomplete_force_refresh)
-" setl omnifunc=syntaxcomplete#Complete
 
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
@@ -245,28 +256,33 @@ let g:ale_statusline_format = ['▲ %d', '△ %d', '✓ ok']
 " let g:validator_permament_sign = 1
 " let g:validator_python_flake8_args = '--max-line-length=150'
 " " }}}
-" Quickrun {{{
-let g:quickrun_config = get(g:, 'quickrun_config', {})
-let g:quickrun_config = {
-\ '_' : {
-\   'runner':                          'job',
-\   'outputter':                       'error',
-\   'outputter/error/success':         'buffer',
-\   'outputter/error/error':           'quickfix',
-\   'outputter/buffer/split':          ':botright 8sp',
-\   'outputter/buffer/close_on_empty': 1,
-\   },
-\}
-" Windows echo has cp932
-if has('win32') || has('win64')
-  let g:quickrun_config['php'] = {
-\   'hook/output_encode/encoding':     'cp932',
-\}
-let g:quickrun_config['python'] = {
-\   'hook/output_encode/encoding':     'cp932',
-\}
-endif
-"}}}
+" AsyncRun {{{
+" Quick run via <F5>
+nnoremap <Space>r :call <SID>compile_and_run()<CR>
+
+augroup SPACEVIM_ASYNCRUN
+    autocmd!
+    " Automatically open the quickfix window
+    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
+augroup END
+
+function! s:compile_and_run()
+    exec 'w'
+    if &filetype == 'c'
+        exec "AsyncRun! gcc % -o %<; ./%<"
+    elseif &filetype == 'cpp'
+       exec "AsyncRun! g++ -std=c++11 % -o %<; ./%<"
+    elseif &filetype == 'java'
+       exec "AsyncRun! javac %; java %<"
+    elseif &filetype == 'sh'
+       exec "AsyncRun! bash %"
+    elseif &filetype == 'python'
+       exec "AsyncRun! python %"
+    elseif &filetype == 'go'
+       exec "AsyncRun! go run %"
+    endif
+endfunction
+" }}}
 " Gtags {{{
 " The prefix key.
 nnoremap    [Gtags]   <Nop>
@@ -380,18 +396,27 @@ let g:easy_align_delimiters = {
 " }}}
 " vim-easymotion{{{
 let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s2)
-xmap s <Plug>(easymotion-s2)
+nmap s <Plug>(easymotion-overwin-f2)
+" nmap s <Plug>(easymotion-s2)
+" xmap s <Plug>(easymotion-s2)
 " surround.vimと被らないように
-omap z <Plug>(easymotion-s2)
-map f <Plug>(easymotion-fl)
-map t <Plug>(easymotion-tl)
-map F <Plug>(easymotion-Fl)
-map T <Plug>(easymotion-Tl)
+" omap z <Plug>(easymotion-s2)
+" map f <Plug>(easymotion-fl)
+" map t <Plug>(easymotion-tl)
+" map F <Plug>(easymotion-Fl)
+" map T <Plug>(easymotion-Tl)
 let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
+" }}}
+" incsearch {{{
+let g:incsearch#auto_nohlsearch = 1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+
+map z/ <Plug>(incsearch-fuzzy-/)
+map z? <Plug>(incsearch-fuzzy-?)
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
@@ -458,9 +483,20 @@ let g:indentLine_char = '⋮'
 " over.vim {{{
 nnoremap <silent> <Space>o :OverCommandLine<CR>
 " }}}
-" Twitvim {{{
-let twitvim_filter_enable = 1
-let twitvim_filter_regex = '!\v^【(自動|定期).*|(.*https?://ask\.fm.*)|#(countkun|1topi|bookmeter)|(.*(#|＃)[^\s]+){5,}|#RTした人全員|.*分以内に.*RTされたら|^!(RT)|^[^RT].*RT|RT\s.*RT\s'
+" Twit {{{
+" open-browser.vim
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+autocmd FileType twitvim call s:twitvim_my_settings()
+function! s:twitvim_my_settings()
+  set nowrap
+endfunction
+
+let g:tweetvim_display_source = 1
+let g:tweetvim_open_buffer_cmd = 'split'
+let g:tweetvim_display_separator = 0
+
 " }}}
 "pandoc {{{
 let g:pandoc#modules#disabled=['folding']
@@ -515,11 +551,9 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
-" Jedi {{{
+" Python {{{
 " shortcut for goto definition
-map <leader>g:YcmCompleter GoToDefinitionElseDeclaration<CR>
 autocmd FileType python setlocal omnifunc=jedi#completions
-
 let python_highlight_all=1
 let g:jedi#show_call_signatures = "2"
 let g:jedi#auto_vim_configuration = 0
@@ -532,6 +566,9 @@ let g:jedi#goto_definitions_command = ''
 let g:jedi#documentation_command = 'K'
 let g:jedi#usages_command = '<leader>n'
 let g:jedi#rename_command = '<leader>R'
+nnoremap <silent> <Space>s :Switch<CR>
+autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
+autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 " }}}
 " caw.vim {{{
 nmap <Leader>c      <Plug>(caw:hatpos:toggle)
@@ -550,13 +587,17 @@ let g:openbrowser_browser_commands = [
 \    'args': ['start', '{browser}', '{uri}']}
 \]
 " }}}
-" vim-ref
-let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
-"exclude whitespace
+" FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
-
-let g:conda_startup_msg_suppress = 1
+" }}}
+" SuperTab {{{
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabDefaultCompletionType = "<c-n>"
+" }}}
+" vim-ref {{{
+let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
+" }}}
+
+let g:conda_startup_msg_suppress = 1
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
