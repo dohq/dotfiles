@@ -13,11 +13,11 @@ Service Manager		!c:/windows/system32/services.msc
 Internet Explorer	!start iexplore
 
 # Twitter
-T-Home	FriendsTwitter
-T-HighSchool	ListTwitter Highschool-4
-T-mahoutsukai	ListTwitter mahou-tsukai
-T-Rep	RepliesTwitter
-T-Post	PosttoTwitter
+T-Home	TweetVimHomeTimeline
+T-HighSchool	TweetVimListStatuses highschool-4
+T-mahoutsukai	TweetVimListStatuses mahou-tsukai
+T-Rep	TweetVimMentions
+T-Post	TweetVimSay
 
 # SVN
 SVN Update	!svn update "%:p"
