@@ -104,13 +104,14 @@ Plug 'zeero/vim-ctrlp-help'
 Plug 'iurifq/ctrlp-rails.vim'
 
 " Python
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim',                {'for': ['python', 'python3', 'djangohtml']}
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
 Plug 'cjrh/vim-conda'
+Plug 'lambdalisue/vim-django-support',      {'for': ['python', 'python3', 'djangohtml']}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
@@ -546,8 +547,8 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(vscode|git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'dir':  '\v[\/]\.(vscode|git|hg|svn|.cache|__pycache__)$',
+  \ 'file': '\v\.(exe|so|dll|xlsx|xls|docx|doc)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 "}}}
