@@ -183,7 +183,11 @@ set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
 set iminsert=0
 set imsearch=-1
 set cmdheight=2
+set list
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set nf=""
+set t_vb=
+set novisualbell
 autocmd BufNewFile,BufRead *.md set shellslash
 if &t_Co > 2 || has('gui_running')
   syntax on
@@ -201,6 +205,13 @@ vmap y "*Y
 let g:mapleader = ','
 inoremap jj <ESC>
 nnoremap Y y$
+" double esc to escape highlight
+nmap <silent> <Esc><Esc> :nohlsearch<CR>
+" search * under cousor word
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
+" jump pair cousor to tab
+nnoremap <Tab> %
+vnoremap <Tab> %
 " Omni complations like eclipse
 imap <C-Space> <C-x><C-o>
 
@@ -494,10 +505,18 @@ function! s:twitvim_my_settings()
   set nowrap
 endfunction
 
-let g:tweetvim_display_source = 1
+" let g:tweetvim_display_source = 1
 let g:tweetvim_open_buffer_cmd = 'split'
-let g:tweetvim_display_separator = 0
+" let g:tweetvim_display_separator = 1
 
+"KeyMapping
+nnoremap    [TweetVim]   <Nop>
+nmap    <Space>w [TweetVim]
+nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
+nnoremap <silent> [TweetVim]h :<C-u>TweetVimHomeTimeline<CR>
+nnoremap <silent> [TweetVim]m :<C-u>TweetVimMentions<CR>
+nnoremap <silent> [TweetVim]u :<C-u>TweetVimUserTimeline dohq<CR>
+nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch
 " }}}
 "pandoc {{{
 let g:pandoc#modules#disabled=['folding']
