@@ -1,8 +1,8 @@
 [user]
-	useConfigOnly = true
+  useConfigOnly = true
 [core]
   editor = vim
-  quotepath = off
+  quotepath = false
   symlinks = true
   autocrlf = false
   excludesfile = ~/.gitignore_global
@@ -18,11 +18,6 @@
   packSizeLimit = 2g
 [help]
   format = html
-[diff "xlsx"]
-  binary = true
-  textconv = $GOPATH/bin/git-xlsx-textconv
-[diff "astextplain"]
-  textconv = astextplain
 [rebase]
   autosquash = true
 [alias]
@@ -31,19 +26,6 @@
   lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 [pretty]
   medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h% Creset %C(green reverse) %an %Creset %C(cyan)%ar%Creset%n%C(white bold)%w(80)%s%Creset%n%n%w(80,2,2)%b
-
-[difftool]
-  Tool = vimdiff
-  prompt = false
-[difftool "vimdiff"]
-  cmd = gvim -d \"$LOCAL\" \"$REMOTE\"
-[merge]
-  Tool = vimdiff
-	ff = false
-[mergetool "vimdiff"]
-  cmd = gvim -d \"$LOCAL\" \"$REMOTE\"
-  trustExitCode = true
-  keepBackup = false
 [push]
 	default = current
 [ghq]
