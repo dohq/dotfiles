@@ -1,138 +1,132 @@
-" Last Change: 12-Dec-2016.
-if 0 | endif
 " init {{{
+" Check vi or vim
+if 0 | endif
+
 augroup MyVimrcCmd
     autocmd!
 augroup END
 
 let s:MSWindows = has('win95') + has('win16') + has('win32') + has('win64')
-
 if !exists('$DOTVIM')
   if s:MSWindows
     let $DOTVIM = expand($VIM.'\vimfiles')
-    if !isdirectory(expand($DOTVIM))
-      call system('mkdir '.$DOTVIM.'\autoload')
-      call system('curl -fLo '.$DOTVIM.'\autoload\plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-    endif
   else
     let $DOTVIM = expand('~/.vim')
-    if !isdirectory(expand($DOTVIM))
-      call system('mkdir -p '.$DOTVIM.'/autoload/')
-      call system('curl -fLo '.$DOTVIM.'/autoload/plug.vim --create-dirs
+  endif
+  if !isdirectory(expand($DOTVIM))
+    call system('mkdir -p '.$DOTVIM.'/autoload/')
+    call system('curl -fLo '.$DOTVIM.'/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-    endif
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
   endif
 endif
 " }}}
 
 call plug#begin($DOTVIM.'/plugins')
-" Plugin list
-" InsertEnter
-Plug 'maralla/completor.vim'
-Plug 'maralla/completor-neosnippet'
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'kana/vim-smartinput'
+"
+" exTools
+Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
+Plug 'ervandew/supertab'
+Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'haya14busa/incsearch-fuzzy.vim'
+  Plug 'haya14busa/incsearch.vim'
+Plug 'itchyny/vim-parenmatch'
+Plug 'justinmk/vim-dirvish'
+Plug 'simeji/winresizer'
+Plug 'vim-jp/vimdoc-ja'
 Plug 'tyru/eskk.vim', {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ mkdir $DOTVIM/skk &&
       \ cd $DOTVIM/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
-
-Plug 'AndrewRadev/switch.vim'
-Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
-Plug 'Yggdroot/indentLine'
-Plug 'basyura/J6uil.vim',                   {'on' : 'J6uil'}
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'elzr/vim-json',                       {'for': 'json'}
-Plug 'ervandew/supertab'
-Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
-Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
-" Plug 'itchyny/vim-cursorword'
-Plug 'itchyny/vim-parenmatch'
-Plug 'jsfaint/gen_tags.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'justinmk/vim-dirvish'
-Plug 'kana/vim-textobj-user'
-Plug 'lambdalisue/vim-unified-diff',        {'for': 'diff'}
-Plug 'majutsushi/tagbar'
+" Input Assist
+Plug 'maralla/completor.vim'
+  Plug 'maralla/completor-neosnippet'
+Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+Plug 'cohama/lexima.vim'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'mattn/sonictemplate-vim'
-Plug 'mattn/webapi-vim'
-Plug 'mhinz/vim-grepper'
-Plug 'osyo-manga/vim-over',                 {'on' : 'OverCommandLine'}
-Plug 'skywind3000/asyncrun.vim'
-Plug 'simeji/winresizer'
+Plug 'easymotion/vim-easymotion'
+Plug 'AndrewRadev/switch.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
-Plug 'tyru/open-browser.vim'
-Plug 'vim-jp/vimdoc-ja'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-
-" Twitter
-Plug 'basyura/TweetVim'
-Plug 'basyura/twibill.vim'
-" Syntax Check
-Plug 'w0rp/ale'
-" PHP
-Plug 'thinca/vim-ref'
-Plug 'violetyk/cake.vim'
-" Proc
-Plug 'vim-scripts/proc.vim'
+Plug 'wakatime/vim-wakatime'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
 Plug 'itchyny/lightline.vim'
+Plug 'Yggdroot/indentLine'
+" QuickRun
+" Plug 'skywind3000/asyncrun.vim'
+Plug 'thinca/vim-quickrun'
+
+" Twitter
+Plug 'basyura/TweetVim'
+  Plug 'basyura/twibill.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'mattn/webapi-vim'
+" Syntax Check
+Plug 'w0rp/ale'
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
 Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'kaneshin/ctrlp-filetype'
-Plug 'mattn/ctrlp-filer'
-Plug 'mattn/ctrlp-launcher'
-Plug 'mattn/ctrlp-register'
-Plug 'suy/vim-ctrlp-commandline'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'zeero/vim-ctrlp-help'
-Plug 'iurifq/ctrlp-rails.vim'
-
+  Plug 'FelikZ/ctrlp-py-matcher'
+  Plug 'mattn/ctrlp-launcher'
+  Plug 'mattn/ctrlp-register'
+  Plug 'suy/vim-ctrlp-commandline'
+  Plug 'tacahiroy/ctrlp-funky'
+  Plug 'zeero/vim-ctrlp-help'
+" PHP
+Plug 'thinca/vim-ref',                      {'for': 'php'}
+Plug 'violetyk/cake.vim',                   {'for': 'php'}
 " Python
-Plug 'davidhalter/jedi-vim',                {'for': ['python', 'python3', 'djangohtml']}
-Plug 'bps/vim-textobj-python',              {'for': 'python'}
+Plug 'kana/vim-textobj-user'
+  Plug 'bps/vim-textobj-python',            {'for': 'python'}
+Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
+Plug 'cjrh/vim-conda',                      {'for': 'python'}
+Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
+Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
 Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
-Plug 'cjrh/vim-conda'
-Plug 'lambdalisue/vim-django-support',      {'for': ['python', 'python3', 'djangohtml']}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
-Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
+  Plug 'rcmdnk/vim-markdown-quote-syntax',  {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for' : 'plantuml'}
+" json
+Plug 'elzr/vim-json',                       {'for': 'json'}
+" go
+Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
+
+" Java
+Plug 'artur-shaik/vim-javacomplete2',       {'for': 'java'}
 
 call plug#end()
-
 filetype plugin indent on
+
 "----------------------------------------
 " Option Settings
 "----------------------------------------
 " color {{{
 set t_Co=256
-" if filereadable(expand('~/.vimrc_background'))
-"     let base16colorspace=256
-"     source ~/.vimrc_background
-" endif
+if filereadable(expand('~/.vimrc_background'))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 "}}}
 " set plugin stop {{{
+let g:loaded_matchparen        = 1
 let g:loaded_gzip              = 1
 let g:loaded_tar               = 1
 let g:loaded_tarPlugin         = 1
@@ -155,65 +149,35 @@ scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
+syntax on
+set imdisable
+set clipboard=unnamed
 set ambiwidth=double
-set guicursor=a:blinkon0
-set autoindent
-set expandtab
-set tabstop=2 shiftwidth=2 softtabstop=2
 set backspace=indent,eol,start
 set display=lastline
-set foldmethod=marker
-set noautochdir
-set completeopt-=preview
-set hidden
-set ignorecase
-set incsearch
+set expandtab
 set laststatus=2
-set noswapfile
-set matchtime=1
-set pumheight=10
-set scrolloff=1000
-set showmatch
-set showcmd
-set smartcase
-set title
-set whichwrap=b,s,[,],<,>
-set wildmenu
-set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
-set iminsert=0
-set imsearch=-1
-set cmdheight=2
-set list
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
-set nf=""
-set t_vb=
-set novisualbell
-autocmd BufNewFile,BufRead *.md set shellslash
-if &t_Co > 2 || has('gui_running')
-  syntax on
-  set hlsearch
-endif
+set noswapfile
+set scrolloff=1000
+set tabstop=2 shiftwidth=2 softtabstop=2
+set whichwrap=b,s,[,],<,>
+set foldmethod=marker
+set cmdheight=2
+set ignorecase
+set iminsert=0
+set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
+set wildmenu
 " }}}
 " Keybind {{{
-nmap n nzz
-nmap N Nzz
-nmap * *zz
-nmap # #zz
-nmap g* g*zz
-nmap g# g#zz
-vmap y "*Y
 let g:mapleader = ','
 inoremap jj <ESC>
-nnoremap Y y$
-" double esc to escape highlight
-nmap <silent> <Esc><Esc> :nohlsearch<CR>
+" nnoremap Y y$
+
 " search * under cousor word
-vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
-" jump pair cousor to tab
-nnoremap <Tab> %
-vnoremap <Tab> %
+" vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 " Omni complations like eclipse
-imap <C-Space> <C-x><C-o>
+" imap <C-Space> <C-x><C-o>
 
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
@@ -228,24 +192,9 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" 検索結果Windowを閉じる
-nnoremap <C-q> <C-w><C-w><C-w>q
-
-" grep window on qf
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep cwindow
-augroup ctrlq
-  autocmd!
-  autocmd FileType help,qf nnoremap <buffer> q <C-w>c
-augroup END
-
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" completor {{{
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
-" }}}
 " NeoSnipet {{{
 "Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -253,48 +202,30 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 "}}}
+" Quick-Run {{{
+let g:quickrun_config = {
+\   "_" : {
+\       "runner" : "job",
+\       "outputter/buffer/split" : ":botright",
+\       "outputter/buffer/close_on_empty" : 1
+\   },
+\}
+" }}}
 " ale {{{
 " let g:ale_linters = {
 " \   'python': ['flake8'],
 " \}
 let g:ale_sign_error = '▶'
 let g:ale_sign_warning = '▷'
-" let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = ['▲ %d', '△ %d', '✓ ok']
-" let g:validator_error_msg_format = "[ ● %d/%d issues ]"
-" let g:validator_permament_sign = 1
-" let g:validator_python_flake8_args = '--max-line-length=150'
 " " }}}
-" AsyncRun {{{
-" Quick run via <F5>
-nnoremap <Space>r :call <SID>compile_and_run()<CR>
-
-augroup SPACEVIM_ASYNCRUN
-    autocmd!
-    " Automatically open the quickfix window
-    autocmd User AsyncRunStart call asyncrun#quickfix_toggle(15, 1)
-augroup END
-
-function! s:compile_and_run()
-    exec 'w'
-    if &filetype == 'c'
-        exec "AsyncRun! gcc % -o %<; ./%<"
-    elseif &filetype == 'cpp'
-       exec "AsyncRun! g++ -std=c++11 % -o %<; ./%<"
-    elseif &filetype == 'java'
-       exec "AsyncRun! javac %; java %<"
-    elseif &filetype == 'sh'
-       exec "AsyncRun! bash %"
-    elseif &filetype == 'python'
-       exec "AsyncRun! python %"
-    elseif &filetype == 'go'
-       exec "AsyncRun! go run %"
-    endif
-endfunction
-" }}}
 " Gtags {{{
 " The prefix key.
 nnoremap    [Gtags]   <Nop>
@@ -375,6 +306,10 @@ endfunction
 
 function! MyMode()
   return winwidth('.') > 60 ? lightline#mode() : ''
+endfunction
+
+function! ALEGetStatusLine() abort
+    return ale#statusline#Status()
 endfunction
 
 " }}}
@@ -485,7 +420,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 " }}}
 " vim-indent-line {{{
-let g:indentLine_setColors = 0
+" let g:indentLine_setColors = 0
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
@@ -505,9 +440,10 @@ function! s:twitvim_my_settings()
   set nowrap
 endfunction
 
-" let g:tweetvim_display_source = 1
+let g:tweetvim_display_source = 1
 let g:tweetvim_open_buffer_cmd = 'split'
-" let g:tweetvim_display_separator = 1
+let g:tweetvim_display_separator = 1
+let g:tweetvim_empty_separator = 1
 
 "KeyMapping
 nnoremap    [TweetVim]   <Nop>
@@ -518,9 +454,6 @@ nnoremap <silent> [TweetVim]m :<C-u>TweetVimMentions<CR>
 nnoremap <silent> [TweetVim]u :<C-u>TweetVimUserTimeline dohq<CR>
 nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch
 " }}}
-"pandoc {{{
-let g:pandoc#modules#disabled=['folding']
-"}}}
 " Memolist{{{
 " The prefix key.
 nnoremap    [memo]   <Nop>
@@ -540,13 +473,11 @@ let g:memolist_unite_option = '-start-insert'
 nnoremap    [CtrlP]   <Nop>
 nmap    <Space>u [CtrlP]
 nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
-nnoremap <silent> [CtrlP]f :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
+nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
 nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
-nnoremap <silent> [CtrlP]s :<C-u>CtrlPLine<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
-nnoremap <silent> [CtrlP]d :<C-u>CtrlPDir<CR>
-nnoremap <silent> [CtrlP]p :<C-u>CtrlPFiletype<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
@@ -575,11 +506,12 @@ let g:ctrlp_custom_ignore = {
 " shortcut for goto definition
 autocmd FileType python setlocal omnifunc=jedi#completions
 let python_highlight_all=1
-let g:jedi#show_call_signatures = "2"
 let g:jedi#auto_vim_configuration = 0
-" let g:jedi#use_tabs_not_buffers = 1
-" let g:jedi#popup_select_first = 0
-" let g:jedi#popup_on_dot = 1
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#show_call_signatures = "2"
+let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
 let g:jedi#goto_command = '<leader>d'
 let g:jedi#goto_assignments_command = '<leader>g'
 let g:jedi#goto_definitions_command = ''
@@ -617,7 +549,11 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " vim-ref {{{
 let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
 " }}}
+" lexima {{{
+inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+" }}}
 
 let g:conda_startup_msg_suppress = 1
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+autocmd BufNewFile,BufRead *.md set shellslash
