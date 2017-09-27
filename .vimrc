@@ -34,7 +34,8 @@ Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'simeji/winresizer'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'tyru/eskk.vim', {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
+Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
+Plug 'tyru/eskk.vim',                       {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
       \ mkdir $DOTVIM/skk &&
       \ cd $DOTVIM/skk &&
@@ -55,7 +56,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -109,9 +110,6 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
 
-" Java
-Plug 'artur-shaik/vim-javacomplete2',       {'for': 'java'}
-
 call plug#end()
 filetype plugin indent on
 
@@ -154,7 +152,7 @@ set imdisable
 set clipboard=unnamed
 set ambiwidth=double
 set backspace=indent,eol,start
-set display=lastline
+" set display=lastline
 set expandtab
 set laststatus=2
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
@@ -172,12 +170,6 @@ set wildmenu
 " Keybind {{{
 let g:mapleader = ','
 inoremap jj <ESC>
-" nnoremap Y y$
-
-" search * under cousor word
-" vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
-" Omni complations like eclipse
-" imap <C-Space> <C-x><C-o>
 
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
@@ -205,26 +197,35 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " Quick-Run {{{
 let g:quickrun_config = {
 \   "_" : {
-\       "runner" : "job",
-\       "outputter/buffer/split" : ":botright",
-\       "outputter/buffer/close_on_empty" : 1
+\       'runner' : 'job',
+\       'outputter' : 'error',
+\       'outputter/error/success' : 'buffer',
+\       'outputter/error/error'   : 'quickfix',
+\       'outputter/buffer/split' : ':botright 8sp',
+\       'outputter/buffer/close_on_empty' : 1
 \   },
 \}
+let g:quickrun_no_default_key_mappings = 1
+nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
 " }}}
 " ale {{{
-" let g:ale_linters = {
-" \   'python': ['flake8'],
-" \}
 let g:ale_sign_error = '▶'
 let g:ale_sign_warning = '▷'
 let g:ale_sign_column_always = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 0
+let g:ale_open_list = 0
+let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = ['▲ %d', '△ %d', '✓ ok']
+
+" Linter
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
 " " }}}
 " Gtags {{{
 " The prefix key.
@@ -551,6 +552,16 @@ let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
 " }}}
 " lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+" }}}
+" Grepper {{{
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
+
+let g:grepper               = {}
+let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
+let g:grepper.jump          = 0
+let g:grepper.simple_prompt = 1
+let g:grepper.quickfix      = 1
 " }}}
 
 let g:conda_startup_msg_suppress = 1
