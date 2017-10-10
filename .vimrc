@@ -56,7 +56,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
-" Plug 'wakatime/vim-wakatime'
+Plug 'tpope/vim-speeddating'
+Plug 'wakatime/vim-wakatime'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'felixjung/vim-base16-lightline'
@@ -85,6 +86,7 @@ Plug 'ctrlpvim/ctrlp.vim'
   Plug 'suy/vim-ctrlp-commandline'
   Plug 'tacahiroy/ctrlp-funky'
   Plug 'zeero/vim-ctrlp-help'
+  Plug 'ryanoasis/vim-devicons'
 " PHP
 Plug 'thinca/vim-ref',                      {'for': 'php'}
 Plug 'violetyk/cake.vim',                   {'for': 'php'}
@@ -105,6 +107,7 @@ Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for' : 'plantuml'}
+Plug 'scrooloose/vim-slumlord',             {'for' : 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
@@ -174,15 +177,26 @@ inoremap jj <ESC>
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
 
-" }}}
-" sudo write
-cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
-
 " replace ;:
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
+" disable allow key
+nnoremap <Up>    <nop>
+nnoremap <Down>  <nop>
+nnoremap <Left>  <nop>
+nnoremap <Right> <nop>
+inoremap <Up>    <nop>
+inoremap <Down>  <nop>
+inoremap <Left>  <nop>
+inoremap <Right> <nop>
+
+
+" }}}
+" sudo write
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 "----------------------------------------
 " Plugin Settings
@@ -293,12 +307,20 @@ function! MyGit()
   return branch !=# '' ? '√'.branch : ''
 endfunction
 
-function! MyFileformat()
-  return winwidth('.') > 70 ? &fileformat : ''
-endfunction
+" function! MyFileformat()
+"   return winwidth('.') > 70 ? &fileformat : ''
+" endfunction
+"
+" function! MyFiletype()
+"   return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+" endfunction
 
 function! MyFiletype()
-  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! MyFileencoding()
@@ -345,14 +367,6 @@ let g:easy_align_delimiters = {
 " vim-easymotion{{{
 let g:EasyMotion_do_mapping = 0
 nmap s <Plug>(easymotion-overwin-f2)
-" nmap s <Plug>(easymotion-s2)
-" xmap s <Plug>(easymotion-s2)
-" surround.vimと被らないように
-" omap z <Plug>(easymotion-s2)
-" map f <Plug>(easymotion-fl)
-" map t <Plug>(easymotion-tl)
-" map F <Plug>(easymotion-Fl)
-" map T <Plug>(easymotion-Tl)
 let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
@@ -388,7 +402,7 @@ augroup vimrc
 augroup END
 "}}}
 " Git {{{
-let g:gitgutter_enabled = 0
+let g:gitgutter_enabled = 1
 nnoremap    [Git]   <Nop>
 nmap    <Space>g [Git]
 nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
@@ -485,23 +499,25 @@ nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 
 if executable('files')
   let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'files -a %s'
+  let g:ctrlp_user_command = 'files -i 
+        \ "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.cache|\__pycache__|\.bundle|\node_modulues)$"
+        \ -a %s'
+elseif
+  let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/]\.(git|hg|svn|cache|tox)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'some_bad_symbolic_links',
+    \ }
 endif
+
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_lazy_update = 1
+let g:ctrlp_lazy_update = 0
 let g:ctrlp_map = '<Nop>'
-" let g:ctrlp_root_markers = ['Gemfile', 'pom.xml', 'build.xml', 'composer.json']
-" let g:ctrlp_max_height = 20
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'
 " Open new file in current window
 let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(vscode|git|hg|svn|.cache|__pycache__)$',
-  \ 'file': '\v\.(exe|so|dll|xlsx|xls|docx|doc)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+let g:ctrlp_match_window = 'order:ttb,max:10'
 "}}}
 " Python {{{
 " shortcut for goto definition
@@ -516,9 +532,11 @@ let g:jedi#popup_on_dot = 1
 let g:jedi#goto_command = '<leader>d'
 let g:jedi#goto_assignments_command = '<leader>g'
 let g:jedi#goto_definitions_command = ''
-let g:jedi#documentation_command = 'K'
+let g:jedi#documentation_command = '<leader>k'
 let g:jedi#usages_command = '<leader>n'
 let g:jedi#rename_command = '<leader>R'
+" vim-conda
+let g:conda_startup_msg_suppress = 1
 nnoremap <silent> <Space>s :Switch<CR>
 autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
 autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
@@ -563,8 +581,6 @@ let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
 " }}}
-
-let g:conda_startup_msg_suppress = 1
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 autocmd BufNewFile,BufRead *.md set shellslash
