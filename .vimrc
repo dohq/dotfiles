@@ -237,9 +237,9 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = ['▲ %d', '△ %d', '✓ ok']
 
 " Linter
-let g:ale_linters = {
-\   'python': ['flake8'],
-\}
+" let g:ale_linters = {
+" \   'python': ['flake8'],
+" \}
 " " }}}
 " Gtags {{{
 " The prefix key.
