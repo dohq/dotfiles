@@ -155,11 +155,12 @@ set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,
 " }}}
 " set opt {{{
 syntax on
+set ttyfast
+set nowritebackup
 set imdisable
-set clipboard=unnamed
+set clipboard=unnamed,autoselect
 set ambiwidth=double
 set backspace=indent,eol,start
-" set display=lastline
 set expandtab
 set laststatus=2
 set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
@@ -170,12 +171,22 @@ set whichwrap=b,s,[,],<,>
 set foldmethod=marker
 set cmdheight=2
 set ignorecase
+set smartcase
 set iminsert=0
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
 set wildmenu
+set vb t_vb=
+set novisualbell
+set completeopt-=longest
+set completeopt+=menuone
+set completeopt-=menu
+if &completeopt !~# 'noinsert\|noselect'
+  set completeopt+=noselect
+endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
+" let g:mapleader = '<space>'
 inoremap jj <ESC>
 
 " InsertMode move cursor liught
