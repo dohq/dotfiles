@@ -25,7 +25,7 @@ endif
 call plug#begin($DOTVIM.'/plugins')
 "
 " exTools
-Plug 'Shougo/vimproc.vim',                  {'do' : 'make'}
+" Plug 'Shougo/vimproc.vim',                  {'do': 'make'}
 Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'haya14busa/incsearch-fuzzy.vim'
