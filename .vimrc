@@ -27,9 +27,9 @@ call plug#begin($DOTVIM.'/plugins')
 " exTools
 " Plug 'Shougo/vimproc.vim',                  {'do': 'make'}
 Plug 'ervandew/supertab'
-Plug 'glidenote/memolist.vim',              {'on' : ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'haya14busa/incsearch-fuzzy.vim'
-  Plug 'haya14busa/incsearch.vim'
+Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'haya14busa/incsearch.vim'
+  Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'simeji/winresizer'
@@ -77,7 +77,7 @@ Plug 'w0rp/ale'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'lambdalisue/vim-gista',               {'on' : 'Gista'}
+Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
   Plug 'FelikZ/ctrlp-py-matcher'
@@ -101,13 +101,16 @@ Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
 Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-dispatch'
+  Plug 'tlvince/vim-compiler-python',       {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
   Plug 'rcmdnk/vim-markdown-quote-syntax',  {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
-Plug 'aklt/plantuml-syntax',                {'for' : 'plantuml'}
-Plug 'scrooloose/vim-slumlord',             {'for' : 'plantuml'}
+Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
+Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
