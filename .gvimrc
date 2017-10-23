@@ -13,6 +13,10 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 
+if has("gui_running")
+   au GUIEnter * simalt ~x
+endif
+
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
