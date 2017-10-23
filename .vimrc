@@ -216,30 +216,51 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
+" completor {{{
+" let g:completor_auto_trigger = 0
+" }}}
 " NeoSnipet {{{
 "Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
-\   "_" : {
+\   '_' : {
 \       'runner' : 'job',
 \       'outputter' : 'error',
 \       'outputter/error/success' : 'buffer',
 \       'outputter/error/error'   : 'quickfix',
 \       'outputter/buffer/split' : ':botright 8sp',
-\       'outputter/buffer/close_on_empty' : 1
+\       'outputter/buffer/close_on_empty' : 1,
+\       'outputter/buffer/into' : 1,
+\       'outputter/quickfix/into' : 1,
+\   },
+\   'python' : {
+\       'hook/output_encode/enable' : 1,
+\       'hook/output_encode/encoding' : 'cp932',
 \   },
 \}
 let g:quickrun_no_default_key_mappings = 1
-nmap <Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+" Running with close quickfix and save file
+nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+xnoremap <silent><Leader>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : ""
+au FileType qf nnoremap <silent><buffer>q :cclose<CR>
 " }}}
 " ale {{{
-let g:ale_sign_error = '▶'
-let g:ale_sign_warning = '▷'
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
@@ -249,12 +270,19 @@ let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_statusline_format = ['▲ %d', '△ %d', '✓ ok']
+let g:ale_statusline_format = [' %d', ' %d', ' ok']
 
 " Linter
-" let g:ale_linters = {
-" \   'python': ['flake8'],
-" \}
+let g:ale_linters = {
+\   'python': ['pylint'],
+\}
+
+nmap [ale] <Nop>
+map <C-k> [ale]
+" エラー行にジャンプ
+nmap <silent> [ale]<C-P> <Plug>(ale_previous)
+nmap <silent> [ale]<C-N> <Plug>(ale_next)
+
 " " }}}
 " Gtags {{{
 " The prefix key.
@@ -293,7 +321,7 @@ let g:lightline = {
 \   'right': [[], ['percent']],
 \ },
 \ 'component_function': {
-\   'git': 'MyGit',
+\   'git': 'MyFugitive',
 \   'mode': 'MyMode',
 \   'validator': 'ALEGetStatusLine',
 \   'filename': 'MyFilename',
@@ -309,18 +337,27 @@ function! MyFilename()
   if name =~? 'netrw'
     return 'netrw'
   endif
-  let readonly = &readonly ? '⏏ ' : ''
-  let modified = &modified ? ' +' : ''
+  let readonly = &readonly ? '' : ''
+  let modified = &modified ? '' : ''
   return readonly . name . modified
 endfunction
 
-function! MyGit()
-  if winwidth(0) <= 70
-    return ''
-  endif
-  let branch = exists('*fugitive#head') ? fugitive#head() : ''
-  return branch !=# '' ? '√'.branch : ''
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+      return '' . fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
 endfunction
+" function! MyGit()
+"   if winwidth(0) <= 70
+"     return ''
+"   endif
+"   let branch = exists('*fugitive#head') ? fugitive#head() : ''
+"   return branch !=# '' ? ''.branch : ''
+" endfunction
 
 " function! MyFileformat()
 "   return winwidth('.') > 70 ? &fileformat : ''
@@ -418,6 +455,9 @@ augroup END
 "}}}
 " Git {{{
 let g:gitgutter_enabled = 1
+let g:gitgutter_sign_added = ''
+let g:gitgutter_sign_modified = ''
+let g:gitgutter_sign_removed = ''
 nnoremap    [Git]   <Nop>
 nmap    <Space>g [Git]
 nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
@@ -454,7 +494,7 @@ let g:go_fmt_command = "goimports"
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '︙'
+" let g:indentLine_char = '︙'
 let g:indentLine_char = '⋮'
 " }}}
 " over.vim {{{
@@ -514,8 +554,8 @@ nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 
 if executable('files')
   let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'files -i 
-        \ "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.cache|\__pycache__|\.bundle|\node_modulues)$"
+  let g:ctrlp_user_command = 'files -i
+        \ "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.cache|\.ipynb_checkpoints|\__pycache__|\.bundle|\node_modulues)$"
         \ -a %s'
 elseif
   let g:ctrlp_custom_ignore = {
@@ -535,26 +575,26 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 "}}}
 " Python {{{
-" shortcut for goto definition
 autocmd FileType python setlocal omnifunc=jedi#completions
-let python_highlight_all=1
+autocmd FileType python setlocal completeopt-=preview
+
+let python_highlight_all = 1
+
+let g:jedi#auto_initialization = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
-let g:jedi#show_call_signatures = "2"
-let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#show_call_signatures = 1
 let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 1
-let g:jedi#goto_command = '<leader>d'
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = '<c-space>'
+let g:jedi#goto_command = '<leader>g'
 let g:jedi#goto_assignments_command = '<leader>g'
-let g:jedi#goto_definitions_command = ''
 let g:jedi#documentation_command = '<leader>k'
 let g:jedi#usages_command = '<leader>n'
 let g:jedi#rename_command = '<leader>R'
 " vim-conda
 let g:conda_startup_msg_suppress = 1
 nnoremap <silent> <Space>s :Switch<CR>
-autocmd FileType python nnoremap <LocalLeader>i :!isort %<CR><CR>
-autocmd FileType python nnoremap <LocalLeader>= :0,$!yapf<CR>
 " }}}
 " caw.vim {{{
 nmap <Leader>c      <Plug>(caw:hatpos:toggle)
@@ -569,7 +609,7 @@ augroup PrevimSettings
 augroup END
 " OpenBrowser
 let g:openbrowser_browser_commands = [
-\   {'name': 'C:\app\CentBrowser\Application\chrome.exe',
+\   {'name': 'C:\app\CentBrowser\chrome.exe',
 \    'args': ['start', '{browser}', '{uri}']}
 \]
 " }}}
@@ -596,6 +636,7 @@ let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
 " }}}
+let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 autocmd BufNewFile,BufRead *.md set shellslash
