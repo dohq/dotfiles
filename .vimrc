@@ -87,6 +87,7 @@ Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tacahiroy/ctrlp-funky'
   Plug 'zeero/vim-ctrlp-help'
   Plug 'ryanoasis/vim-devicons'
+  Plug 'mattn/ctrlp-filer'
 " PHP
 Plug 'thinca/vim-ref',                      {'for': 'php'}
 Plug 'violetyk/cake.vim',                   {'for': 'php'}
