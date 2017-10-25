@@ -9,7 +9,7 @@ augroup END
 let s:MSWindows = has('win95') + has('win16') + has('win32') + has('win64')
 if !exists('$DOTVIM')
   if s:MSWindows
-    let $DOTVIM = expand($VIM.'\vimfiles')
+    let $DOTVIM = expand($VIM.'/vimfiles')
   else
     let $DOTVIM = expand('~/.vim')
   endif
@@ -25,14 +25,13 @@ endif
 call plug#begin($DOTVIM.'/plugins')
 "
 " exTools
-" Plug 'Shougo/vimproc.vim',                  {'do': 'make'}
+Plug 'tpope/vim-sensible'
 Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'haya14busa/incsearch.vim'
   Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
-Plug 'simeji/winresizer'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'tyru/eskk.vim',                       {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
@@ -56,17 +55,20 @@ Plug 'junegunn/vim-easy-align'
 Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
+Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'wakatime/vim-wakatime'
 " Visual
 Plug 'chriskempson/base16-vim'
-Plug 'felixjung/vim-base16-lightline'
 Plug 'itchyny/lightline.vim'
+  Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
+Plug 'ryanoasis/vim-devicons'
 " QuickRun
-" Plug 'skywind3000/asyncrun.vim'
 Plug 'thinca/vim-quickrun'
-
+" Test
+Plug 'janko-m/vim-test'
+Plug 'tpope/vim-dispatch'
 " Twitter
 Plug 'basyura/TweetVim'
   Plug 'basyura/twibill.vim'
@@ -86,25 +88,18 @@ Plug 'ctrlpvim/ctrlp.vim'
   Plug 'suy/vim-ctrlp-commandline'
   Plug 'tacahiroy/ctrlp-funky'
   Plug 'zeero/vim-ctrlp-help'
-  Plug 'ryanoasis/vim-devicons'
   Plug 'mattn/ctrlp-filer'
 " PHP
-Plug 'thinca/vim-ref',                      {'for': 'php'}
 Plug 'violetyk/cake.vim',                   {'for': 'php'}
 " Python
 Plug 'kana/vim-textobj-user'
   Plug 'bps/vim-textobj-python',            {'for': 'python'}
-Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 Plug 'cjrh/vim-conda',                      {'for': 'python'}
-Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
-Plug 'tell-k/vim-autopep8',                 {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
-Plug 'janko-m/vim-test'
-Plug 'tpope/vim-dispatch'
-  Plug 'tlvince/vim-compiler-python',       {'for': 'python'}
+Plug 'tlvince/vim-compiler-python',       {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
   Plug 'rcmdnk/vim-markdown-quote-syntax',  {'for': 'markdown'}
@@ -160,29 +155,17 @@ set nowritebackup
 set imdisable
 set clipboard=unnamed,autoselect
 set ambiwidth=double
-set backspace=indent,eol,start
 set expandtab
-set laststatus=2
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
 set noswapfile
-set scrolloff=1000
 set tabstop=2 shiftwidth=2 softtabstop=2
 set whichwrap=b,s,[,],<,>
 set foldmethod=marker
 set cmdheight=2
 set ignorecase
 set smartcase
-set iminsert=0
-set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe
-set wildmenu
+set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set vb t_vb=
 set novisualbell
-set completeopt-=longest
-set completeopt+=menuone
-set completeopt-=menu
-if &completeopt !~# 'noinsert\|noselect'
-  set completeopt+=noselect
-endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -208,6 +191,14 @@ inoremap <Down>  <nop>
 inoremap <Left>  <nop>
 inoremap <Right> <nop>
 
+" buffer
+nnoremap <S-H> :bprev<CR>
+nnoremap <S-L> :bnext<CR>
+
+" fuckin jis keyboard
+nnoremap q: q:i
+nnoremap q/ q/i
+nnoremap q? q?i
 
 " }}}
 " sudo write
@@ -217,7 +208,10 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-" let g:completor_auto_trigger = 0
+let g:completor_auto_trigger = 1
+let g:completor_refresh_always = 0
+noremap <leader>k :call completor#do('doc')<CR>
+noremap <leader>d :call completor#do('definition')<CR>
 " }}}
 " NeoSnipet {{{
 "Plugin key-mappings.
@@ -306,23 +300,14 @@ nnoremap <C-p> :cp<CR>
 " lightline.vim{{{
 let g:lightline = {
 \ 'colorscheme': 'base16_ashes',
-\ 'mode_map': {'c': 'NORMAL'},
 \ 'active': {
-\   'left': [
-\     ['mode', 'paste'],
-\     ['git', 'filename'],
-\   ],
-\   'right': [
-\     ['lineinfo', 'validator'],
-\     ['fileformat', 'fileencoding', 'filetype'],
-\   ]
-\ },
-\ 'inactive': {
-\   'right': [[], ['percent']],
+\   'left': [['mode', 'paste'],
+\            ['fugitive', 'filename']],
+\   'right': [['lineinfo', 'validator'],
+\             ['fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component_function': {
-\   'git': 'MyFugitive',
-\   'mode': 'MyMode',
+\   'fugitive': 'MyFugitive',
 \   'validator': 'ALEGetStatusLine',
 \   'filename': 'MyFilename',
 \   'fileformat': 'MyFileformat',
@@ -337,8 +322,8 @@ function! MyFilename()
   if name =~? 'netrw'
     return 'netrw'
   endif
-  let readonly = &readonly ? '' : ''
-  let modified = &modified ? '' : ''
+  let readonly = &readonly ? ' ' : ''
+  let modified = &modified ? ' ' : ''
   return readonly . name . modified
 endfunction
 
@@ -351,21 +336,6 @@ function! MyFugitive()
   endtry
   return ''
 endfunction
-" function! MyGit()
-"   if winwidth(0) <= 70
-"     return ''
-"   endif
-"   let branch = exists('*fugitive#head') ? fugitive#head() : ''
-"   return branch !=# '' ? ''.branch : ''
-" endfunction
-
-" function! MyFileformat()
-"   return winwidth('.') > 70 ? &fileformat : ''
-" endfunction
-"
-" function! MyFiletype()
-"   return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-" endfunction
 
 function! MyFiletype()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
@@ -377,10 +347,6 @@ endfunction
 
 function! MyFileencoding()
   return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
-
-function! MyMode()
-  return winwidth('.') > 60 ? lightline#mode() : ''
 endfunction
 
 function! ALEGetStatusLine() abort
@@ -498,7 +464,7 @@ let g:indentLine_color_gui = '#708090'
 let g:indentLine_char = '⋮'
 " }}}
 " over.vim {{{
-nnoremap <silent> <Space>o :OverCommandLine<CR>
+nnoremap <silent> <leader>o :OverCommandLine<CR>
 " }}}
 " Twit {{{
 " open-browser.vim
@@ -555,7 +521,7 @@ nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 if executable('files')
   let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'files -i
-        \ "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.cache|\.ipynb_checkpoints|\__pycache__|\.bundle|\node_modulues)$"
+        \ "^(\.exe|\.dll|\.git|\.hg|\.svn|_darcs|\.bzr|\.cache|\.ipynb_checkpoints|\__pycache__|\.bundle|\node_modulues)$"
         \ -a %s'
 elseif
   let g:ctrlp_custom_ignore = {
@@ -575,30 +541,15 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 "}}}
 " Python {{{
-autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType python setlocal completeopt-=preview
-
 let python_highlight_all = 1
-
-let g:jedi#auto_initialization = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#show_call_signatures = 1
-let g:jedi#popup_select_first = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = '<c-space>'
-let g:jedi#goto_command = '<leader>g'
-let g:jedi#goto_assignments_command = '<leader>g'
-let g:jedi#documentation_command = '<leader>k'
-let g:jedi#usages_command = '<leader>n'
-let g:jedi#rename_command = '<leader>R'
-" vim-conda
+" " vim-conda
 let g:conda_startup_msg_suppress = 1
-nnoremap <silent> <Space>s :Switch<CR>
+nnoremap <silent> <leader>s :Switch<CR>
 " }}}
 " caw.vim {{{
-nmap <Leader>c      <Plug>(caw:hatpos:toggle)
-vmap <Leader>c      <Plug>(caw:hatpos:toggle)
+nmap <leader>c      <Plug>(caw:hatpos:toggle)
+vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
 let g:previm_enable_realtime = 1
@@ -636,7 +587,12 @@ let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
 " }}}
+" devicons {{{
+" フォルダアイコンの表示をON
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" }}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 autocmd BufNewFile,BufRead *.md set shellslash
+let g:echodoc_enable_at_startup = 1
