@@ -1,10 +1,11 @@
-set columns=100
-set lines=40
-
-set hlsearch
 "----------------------------------------
 " GUI Setting
 "----------------------------------------
+" set columns=100
+" set lines=40
+
+set iminsert=0
+
 set guioptions-=T
 set guioptions-=m
 set guioptions-=r
@@ -14,7 +15,7 @@ set guioptions-=L
 set guioptions-=b
 
 if has("gui_running")
-   au GUIEnter * simalt ~x
+  au GUIEnter * simalt ~x
 endif
 
 "----------------------------------------
