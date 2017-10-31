@@ -28,8 +28,6 @@ call plug#begin($DOTVIM.'/plugins')
 Plug 'tpope/vim-sensible'
 Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'haya14busa/incsearch.vim'
-  Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'vim-jp/vimdoc-ja'
@@ -57,7 +55,8 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-speeddating'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
+Plug 'lambdalisue/vim-unified-diff'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
@@ -66,6 +65,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 " QuickRun
 Plug 'thinca/vim-quickrun'
+  Plug 'osyo-manga/shabadou.vim'
 " Test
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
@@ -76,6 +76,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'mattn/webapi-vim'
 " Syntax Check
 Plug 'w0rp/ale'
+Plug 'keith/investigate.vim'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -99,7 +100,7 @@ Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
-Plug 'tlvince/vim-compiler-python',       {'for': 'python'}
+Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
   Plug 'rcmdnk/vim-markdown-quote-syntax',  {'for': 'markdown'}
@@ -200,9 +201,14 @@ nnoremap q: q:i
 nnoremap q/ q/i
 nnoremap q? q?i
 
-" }}}
+" resize func
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+"
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+
+" }}}
 
 "----------------------------------------
 " Plugin Settings
@@ -233,6 +239,8 @@ let g:quickrun_config = {
 \   '_' : {
 \       'runner' : 'job',
 \       'outputter' : 'error',
+\       "hook/neco/enable" : 1,
+\       "hook/neco/wait" : 10,
 \       'outputter/error/success' : 'buffer',
 \       'outputter/error/error'   : 'quickfix',
 \       'outputter/buffer/split' : ':botright 8sp',
@@ -552,17 +560,14 @@ nmap <leader>c      <Plug>(caw:hatpos:toggle)
 vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
+autocmd BufRead,BufNewFile *.{text,txt,md} set filetype=markdown
 let g:previm_enable_realtime = 1
-" .mdのファイルもfiletypeがmarkdownとなるようにする
-augroup PrevimSettings
-  autocmd!
-  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-augroup END
-" OpenBrowser
-let g:openbrowser_browser_commands = [
-\   {'name': 'C:\app\CentBrowser\chrome.exe',
-\    'args': ['start', '{browser}', '{uri}']}
-\]
+let g:netrw_nogx = 1 " netrwのキーマッピングを無効化
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+if s:MSWindows
+  autocmd BufNewFile,BufRead *.md set shellslash
+endif
 " }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
@@ -594,5 +599,4 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-autocmd BufNewFile,BufRead *.md set shellslash
 let g:echodoc_enable_at_startup = 1
