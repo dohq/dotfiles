@@ -26,7 +26,7 @@ call plug#begin($DOTVIM.'/plugins')
 "
 " exTools
 Plug 'tpope/vim-sensible'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
@@ -40,11 +40,9 @@ Plug 'tyru/eskk.vim',                       {'do': 'curl -fLo ~/.vim/skk/SKK-JIS
       \ '}
 " Input Assist
 Plug 'maralla/completor.vim'
-  Plug 'maralla/completor-neosnippet'
-Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
+Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 Plug 'cohama/lexima.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'mattn/sonictemplate-vim'
 Plug 'easymotion/vim-easymotion'
@@ -69,6 +67,7 @@ Plug 'thinca/vim-quickrun'
 " Test
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
+Plug 'tlvince/vim-compiler-python'
 " Twitter
 Plug 'basyura/TweetVim'
   Plug 'basyura/twibill.vim'
@@ -100,7 +99,7 @@ Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
-Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
+Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
   Plug 'rcmdnk/vim-markdown-quote-syntax',  {'for': 'markdown'}
@@ -167,6 +166,8 @@ set smartcase
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set vb t_vb=
 set novisualbell
+set incsearch
+set hlsearch
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -216,22 +217,26 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " completor {{{
 let g:completor_auto_trigger = 1
 let g:completor_refresh_always = 0
-noremap <leader>k :call completor#do('doc')<CR>
+let g:completor_set_options = 1
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+noremap <leader>K :call completor#do('doc')<CR>
 noremap <leader>d :call completor#do('definition')<CR>
 " }}}
-" NeoSnipet {{{
-"Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" ultisnips {{{
+" Trigger configuration.
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " For snippet_complete marker.
 if has('conceal')
     set conceallevel=2 concealcursor=i
 endif
-
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
 
 "}}}
 " Quick-Run {{{
@@ -259,6 +264,7 @@ nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
 xnoremap <silent><Leader>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : ""
 au FileType qf nnoremap <silent><buffer>q :cclose<CR>
+command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
 let g:ale_sign_error = ''
@@ -398,14 +404,6 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_space_jump_first = 1
 " }}}
-" incsearch {{{
-let g:incsearch#auto_nohlsearch = 1
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-
-map z/ <Plug>(incsearch-fuzzy-/)
-map z? <Plug>(incsearch-fuzzy-?)
-" }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($DOTVIM.'/.cache/eskk')
@@ -421,10 +419,10 @@ let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 
 "allow InsertMode toggle ESKK
-augroup vimrc
+augroup eskk
   autocmd!
-  autocmd vimrc VimEnter * imap <C-j> <Plug>(eskk:toggle)
-  autocmd vimrc VimEnter * cmap <C-j> <Plug>(eskk:toggle)
+  autocmd eskk VimEnter * imap <C-j> <Plug>(eskk:toggle)
+  autocmd eskk VimEnter * cmap <C-j> <Plug>(eskk:toggle)
 augroup END
 "}}}
 " Git {{{
@@ -435,9 +433,6 @@ let g:gitgutter_sign_removed = ''
 nnoremap    [Git]   <Nop>
 nmap    <Space>g [Git]
 nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
-nnoremap <silent> [Git]ht :<C-u>GitGutterLineHighlightsToggle<CR>
-nnoremap <silent> [Git]sh :<C-u>GitGutterStageHunk<CR>
-nnoremap <silent> [Git]rh :<C-u>GitGutterRevertHunk<CR>
 nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " vim-fugitive
@@ -464,12 +459,13 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 " }}}
 " vim-indent-line {{{
-" let g:indentLine_setColors = 0
+let g:indentLine_setColors = 1
+let g:indentLine_setConceal = 1
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 " let g:indentLine_char = '︙'
-let g:indentLine_char = '⋮'
+let g:indentLine_char = '¦'
 " }}}
 " over.vim {{{
 nnoremap <silent> <leader>o :OverCommandLine<CR>
@@ -550,8 +546,18 @@ let g:ctrlp_match_window = 'order:ttb,max:10'
 "}}}
 " Python {{{
 autocmd FileType python setlocal completeopt-=preview
+autocmd FileType python setlocal omnifunc=jedi#completions
 let python_highlight_all = 1
-" " vim-conda
+let g:jedi#completions_enabled = 1
+let g:jedi#goto_command = "<leader>g"
+let g:jedi#documentation_command = "<leader>k"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>R"
+let g:jedi#show_call_signatures = "2"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+" vim-conda
 let g:conda_startup_msg_suppress = 1
 nnoremap <silent> <leader>s :Switch<CR>
 " }}}
