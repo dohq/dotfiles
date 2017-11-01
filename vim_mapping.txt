@@ -1,0 +1,976 @@
+x  <C-A>         <Plug>SpeedDatingUp
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <C-A>         <Plug>SpeedDatingUp
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <C-C>       * quickrun#is_running() ? quickrun#sweep_sessions() : ""
+	Last set from ~\.vimrc
+s  <C-H>       * <C-G>c
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+x  <C-K>       * :call UltiSnips#SaveLastVisualSelection()<CR>gvs
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+s  <C-K>       * <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+no <C-K>         [ale]
+	Last set from ~\.vimrc
+n  <C-L>       * :nohlsearch<C-R>=has('diff')?'|diffupdate':''<CR><CR><C-L>
+	Last set from vim-sensible\plugin\sensible.vim
+v  <CR>        * :EasyAlign<CR>
+	Last set from ~\.vimrc
+n  <C-N>       * :cn<CR>
+	Last set from ~\.vimrc
+n  <C-P>       * :cp<CR>
+	Last set from ~\.vimrc
+s  <C-R>       * <C-G>"_c<C-R>
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+x  <C-X>         <Plug>SpeedDatingDown
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <C-X>         <Plug>SpeedDatingDown
+	Last set from vim-speeddating\plugin\speeddating.vim
+s  <C-X>         "*d
+n  <C-Y>T        <Plug>(sonictemplate-intelligent)
+	Last set from sonictemplate-vim\plugin\sonictemplate.vim
+n  <C-Y><C-T>    <Plug>(sonictemplate)
+	Last set from sonictemplate-vim\plugin\sonictemplate.vim
+n  <C-Y>t        <Plug>(sonictemplate)
+	Last set from sonictemplate-vim\plugin\sonictemplate.vim
+n  <Space>u      [CtrlP]
+	Last set from ~\.vimrc
+n  <Space>m      [memo]
+	Last set from ~\.vimrc
+n  <Space>w      [TweetVim]
+	Last set from ~\.vimrc
+n  <Space>g      [Git]
+	Last set from ~\.vimrc
+n  <Space>t      [Gtags]
+	Last set from ~\.vimrc
+o  %           * v:<C-U>call <SNR>22_Match_wrapper('',1,'o') <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+v  %           * :<C-U>call <SNR>22_Match_wrapper('',1,'v') <CR>m'gv``
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  %           * :<C-U>call <SNR>22_Match_wrapper('',1,'n') <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  ,hp           <Plug>GitGutterPreviewHunk
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  ,hr           <Plug>GitGutterUndoHunk:echomsg ',hr is deprecated. Use ,hu'<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  ,hu           <Plug>GitGutterUndoHunk
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  ,hs           <Plug>GitGutterStageHunk
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+v  ,c            <Plug>(caw:hatpos:toggle)
+	Last set from ~\.vimrc
+n  ,c            <Plug>(caw:hatpos:toggle)
+	Last set from ~\.vimrc
+n  ,s          * :Switch<CR>
+	Last set from ~\.vimrc
+n  ,o          * :OverCommandLine<CR>
+	Last set from ~\.vimrc
+x  ,r          * :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+	Last set from ~\.vimrc
+n  ,r          * :cclose<CR>:write<CR>:QuickRun -mode n<CR>
+	Last set from ~\.vimrc
+   ,d          * :call completor#do('definition')<CR>
+	Last set from ~\.vimrc
+n  ,-          * :exe "resize " . (winheight(0) * 2/3)<CR>
+	Last set from ~\.vimrc
+n  ,+          * :exe "resize " . (winheight(0) * 3/2)<CR>
+	Last set from ~\.vimrc
+n  -             <Plug>(dirvish_up)
+	Last set from vim-dirvish\plugin\dirvish.vim
+v  :           * ;
+	Last set from ~\.vimrc
+n  :           * ;
+	Last set from ~\.vimrc
+v  ;           * :
+	Last set from ~\.vimrc
+n  ;           * :
+	Last set from ~\.vimrc
+   <Nop>         <Plug>(ctrlp)
+	Last set from ctrlp.vim\plugin\ctrlp.vim
+n  H           * :bprev<CR>
+	Last set from ~\.vimrc
+n  L           * :bnext<CR>
+	Last set from ~\.vimrc
+x  S             <Plug>VSurround
+	Last set from vim-surround\plugin\surround.vim
+n  [c            <Plug>GitGutterPrevHunk
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+o  [%          * v:<C-U>call <SNR>22_MultiMatch("bW", "o") <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+v  [%            <Esc>[%m'gv``
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  [%          * :<C-U>call <SNR>22_MultiMatch("bW", "n") <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  [CtrlP]c    * :<C-U>call ctrlp#init(ctrlp#commandline#id())<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]h    * :<C-U>CtrlPHelp<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]l    * :<C-U>CtrlPLauncher<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]t    * :<C-U>CtrlPTag<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]r    * :<C-U>CtrlPRegister<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]m    * :<C-U>CtrlPMRU<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]f    * :<C-U>CtrlPFunky<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]b    * :<C-U>CtrlPBuffer<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]u    * :<C-U>CtrlP<CR>
+	Last set from ~\.vimrc
+n  [CtrlP]     * <Nop>
+	Last set from ~\.vimrc
+n  [memo]g     * :<C-U>MemoGrep<CR>
+	Last set from ~\.vimrc
+n  [memo]l     * :<C-U>exe "CtrlP" g:memolist_path<CR><F5>
+	Last set from ~\.vimrc
+n  [memo]n     * :<C-U>MemoNew<CR>
+	Last set from ~\.vimrc
+n  [memo]      * <Nop>
+	Last set from ~\.vimrc
+n  [TweetVim]f * :<C-U>TweetVimSearch
+	Last set from ~\.vimrc
+n  [TweetVim]u * :<C-U>TweetVimUserTimeline dohq<CR>
+	Last set from ~\.vimrc
+n  [TweetVim]m * :<C-U>TweetVimMentions<CR>
+	Last set from ~\.vimrc
+n  [TweetVim]h * :<C-U>TweetVimHomeTimeline<CR>
+	Last set from ~\.vimrc
+n  [TweetVim]s * :<C-U>TweetVimSay<CR>
+	Last set from ~\.vimrc
+n  [TweetVim]  * <Nop>
+	Last set from ~\.vimrc
+n  [Git]b      * :<C-U>Gita branch<CR>
+	Last set from ~\.vimrc
+n  [Git]d      * :<C-U>Gdiff<CR>
+	Last set from ~\.vimrc
+n  [Git]s      * :<C-U>Gstatus<CR>
+	Last set from ~\.vimrc
+n  [Git]m      * :<C-U>Gcommit -v<CR>
+	Last set from ~\.vimrc
+n  [Git]a      * :<C-U>Gwrite<CR>
+	Last set from ~\.vimrc
+n  [Git]p      * :<C-U>GitGutterPrevHunk<CR>
+	Last set from ~\.vimrc
+n  [Git]n      * :<C-U>GitGutterNextHunk<CR>
+	Last set from ~\.vimrc
+n  [Git]rh     * :<C-U>GitGutterRevertHunk<CR>
+	Last set from ~\.vimrc
+n  [Git]sh     * :<C-U>GitGutterStageHunk<CR>
+	Last set from ~\.vimrc
+n  [Git]ht     * :<C-U>GitGutterLineHighlightsToggle<CR>
+	Last set from ~\.vimrc
+n  [Git]gt     * :<C-U>GitGutterToggle<CR>
+	Last set from ~\.vimrc
+n  [Git]       * <Nop>
+	Last set from ~\.vimrc
+n  [Gtags]k    * :<C-U>Gtags -r <C-R><C-W><CR>
+	Last set from ~\.vimrc
+n  [Gtags]j    * :<C-U>Gtags <C-R><C-W><CR>
+	Last set from ~\.vimrc
+n  [Gtags]l    * :<C-U>Gtags -f %<CR>
+	Last set from ~\.vimrc
+n  [Gtags]g    * :<C-U>Gtags -g
+	Last set from ~\.vimrc
+n  [Gtags]     * <Nop>
+	Last set from ~\.vimrc
+n  [ale]<C-N>    <Plug>(ale_next)
+	Last set from ~\.vimrc
+n  [ale]<C-P>    <Plug>(ale_previous)
+	Last set from ~\.vimrc
+n  [ale]         <Nop>
+	Last set from ~\.vimrc
+n  ]c            <Plug>GitGutterNextHunk
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+o  ]%          * v:<C-U>call <SNR>22_MultiMatch("W",  "o") <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+v  ]%            <Esc>]%m'gv``
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  ]%          * :<C-U>call <SNR>22_MultiMatch("W",  "n") <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+x  ac            <Plug>GitGutterTextObjectOuterVisual
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+o  ac            <Plug>GitGutterTextObjectOuterPending
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+v  a%            <Esc>[%v]%
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  cS            <Plug>CSurround
+	Last set from vim-surround\plugin\surround.vim
+n  cs            <Plug>Csurround
+	Last set from vim-surround\plugin\surround.vim
+n  d<C-X>        <Plug>SpeedDatingNowLocal
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  d<C-A>        <Plug>SpeedDatingNowUTC
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  ds            <Plug>Dsurround
+	Last set from vim-surround\plugin\surround.vim
+v  gK          * :call investigate#Investigate('v')<CR>
+	Last set from investigate.vim\plugin\investigate.vim
+n  gK          * :call investigate#Investigate('n')<CR>
+	Last set from investigate.vim\plugin\investigate.vim
+x  gc            <Plug>(caw:prefix)
+	Last set from caw.vim\plugin\caw.vim
+n  gc            <Plug>(caw:prefix)
+	Last set from caw.vim\plugin\caw.vim
+x  gS            <Plug>VgSurround
+	Last set from vim-surround\plugin\surround.vim
+n  gs          * :Switch<CR>
+	Last set from switch.vim\plugin\switch.vim
+o  g%          * v:<C-U>call <SNR>22_Match_wrapper('',0,'o') <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+v  g%          * :<C-U>call <SNR>22_Match_wrapper('',0,'v') <CR>m'gv``
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+n  g%          * :<C-U>call <SNR>22_Match_wrapper('',0,'n') <CR>
+	Last set from C:\app\vim\vim80\pack\dist\opt\matchit\plugin\matchit.vim
+v  gx            <Plug>(openbrowser-smart-search)
+	Last set from ~\.vimrc
+n  gx            <Plug>(openbrowser-smart-search)
+	Last set from ~\.vimrc
+x  ic            <Plug>GitGutterTextObjectInnerVisual
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+o  ic            <Plug>GitGutterTextObjectInnerPending
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  q?          * q?i
+	Last set from ~\.vimrc
+n  q/          * q/i
+	Last set from ~\.vimrc
+n  q:          * q:i
+	Last set from ~\.vimrc
+n  s             <Plug>(easymotion-overwin-f2)
+	Last set from ~\.vimrc
+n  ySS           <Plug>YSsurround
+	Last set from vim-surround\plugin\surround.vim
+n  ySs           <Plug>YSsurround
+	Last set from vim-surround\plugin\surround.vim
+n  yss           <Plug>Yssurround
+	Last set from vim-surround\plugin\surround.vim
+n  yS            <Plug>YSurround
+	Last set from vim-surround\plugin\surround.vim
+n  ys            <Plug>Ysurround
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>(ctrlp-launcher) * :<C-U>CtrlPLauncher<CR>
+	Last set from ctrlp-launcher\plugin\ctrlp-launcher.vim
+n  <Plug>(ctrlp) * :<C-U>CtrlP<CR>
+	Last set from ctrlp.vim\plugin\ctrlp.vim
+n  <SNR>56_:   * :<C-U><C-R>=v:count ? v:count : ''<CR>
+	Last set from vim-fugitive\plugin\fugitive.vim
+n  <Plug>GitGutterPreviewHunk * :GitGutterPreviewHunk<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  <Plug>GitGutterUndoHunk * :GitGutterUndoHunk<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  <Plug>GitGutterStageHunk * :GitGutterStageHunk<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  <Plug>GitGutterPrevHunk * &diff ? '[c' : ":\<C-U>execute v:count1 . 'GitGutterPrevHunk'\<CR>"
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  <Plug>GitGutterNextHunk * &diff ? ']c' : ":\<C-U>execute v:count1 . 'GitGutterNextHunk'\<CR>"
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+x  <Plug>GitGutterTextObjectOuterVisual * :<C-U>call gitgutter#hunk#text_object(0)<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+x  <Plug>GitGutterTextObjectInnerVisual * :<C-U>call gitgutter#hunk#text_object(1)<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+o  <Plug>GitGutterTextObjectOuterPending * :<C-U>call gitgutter#hunk#text_object(0)<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+o  <Plug>GitGutterTextObjectInnerPending * :<C-U>call gitgutter#hunk#text_object(1)<CR>
+	Last set from vim-gitgutter\plugin\gitgutter.vim
+n  <Plug>(ale_fix) * :ALEFix<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_detail) * :ALEDetail<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_lint) * :ALELint<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_reset_buffer) * :ALEResetBuffer<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_disable_buffer) * :ALEDisableBuffer<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_enable_buffer) * :ALEEnableBuffer<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_toggle_buffer) * :ALEToggleBuffer<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_reset) * :ALEReset<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_disable) * :ALEDisable<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_enable) * :ALEEnable<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_toggle) * :ALEToggle<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_last) * :ALELast<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_first) * :ALEFirst<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_next_wrap) * :ALENextWrap<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_next) * :ALENext<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_previous_wrap) * :ALEPreviousWrap<CR>
+	Last set from ale\plugin\ale.vim
+n  <Plug>(ale_previous) * :ALEPrevious<CR>
+	Last set from ale\plugin\ale.vim
+x  <Plug>(openbrowser-smart-search) * :<C-U>call openbrowser#_keymapping_smart_search('v')<CR>
+	Last set from open-browser.vim\plugin\openbrowser.vim
+n  <Plug>(openbrowser-smart-search) * :<C-U>call openbrowser#_keymapping_smart_search('n')<CR>
+	Last set from open-browser.vim\plugin\openbrowser.vim
+x  <Plug>(openbrowser-search) * :<C-U>call openbrowser#_keymapping_search('v')<CR>
+	Last set from open-browser.vim\plugin\openbrowser.vim
+n  <Plug>(openbrowser-search) * :<C-U>call openbrowser#_keymapping_search('n')<CR>
+	Last set from open-browser.vim\plugin\openbrowser.vim
+x  <Plug>(openbrowser-open) * :<C-U>call openbrowser#_keymapping_open('v')<CR>
+	Last set from open-browser.vim\plugin\openbrowser.vim
+n  <Plug>(openbrowser-open) * :<C-U>call openbrowser#_keymapping_open('n')<CR>
+	Last set from open-browser.vim\plugin\openbrowser.vim
+n  <Plug>(tweetvim_say_show_history) * :<C-U>call tweetvim#say#show_history()<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_say_post_buffer) * :<C-U>call tweetvim#say#post_buffer_tweet()<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_buffer_previous_stream) * :<C-U>call tweetvim#action('buffer_previous_stream')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_favstar_browser) * :<C-U>call tweetvim#action('favstar_browser')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_favstar) * :<C-U>call tweetvim#action('favstar')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_cursor_down) * :<C-U>call tweetvim#action('cursor_down')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_cursor_up) * :<C-U>call tweetvim#action('cursor_up')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_expand_url) * :<C-U>call tweetvim#action('expand_url')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_remove_status) * :<C-U>call tweetvim#action('remove_status')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_search) * :<C-U>call tweetvim#action('search')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_open_prev_links) * :<C-U>call tweetvim#action('open_prev_links')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_open_links) * :<C-U>call tweetvim#action('open_links')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_buffer_next) * :<C-U>call tweetvim#action('buffer_next')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_buffer_previous) * :<C-U>call tweetvim#action('buffer_previous')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_page_previous) * :<C-U>call tweetvim#action('page_previous')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_page_next) * :<C-U>call tweetvim#action('page_next')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_reload) * :<C-U>call tweetvim#action('reload')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_qt) * :<C-U>call tweetvim#action('qt')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_retweet) * :<C-U>call tweetvim#action('retweet')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_remove_favorite) * :<C-U>call tweetvim#action('remove_favorite')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_favorite) * :<C-U>call tweetvim#action('favorite')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_user_timeline) * :<C-U>call tweetvim#action('user_timeline')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_in_reply_to) * :<C-U>call tweetvim#action('in_reply_to')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_reply_to_all) * :<C-U>call tweetvim#action('reply_to_all')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_reply) * :<C-U>call tweetvim#action('reply')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+n  <Plug>(tweetvim_action_enter) * :<C-U>call tweetvim#action('enter')<CR>
+	Last set from TweetVim\plugin\tweetvim.vim
+v  <Plug>(quickrun) * :<C-U>QuickRun -mode v<CR>
+	Last set from vim-quickrun\plugin\quickrun.vim
+n  <Plug>(quickrun) * :<C-U>QuickRun -mode n<CR>
+	Last set from vim-quickrun\plugin\quickrun.vim
+n  <Plug>(quickrun-op) * :<C-U>set operatorfunc=quickrun#operator<CR>g@
+	Last set from vim-quickrun\plugin\quickrun.vim
+n  <Plug>SpeedDatingFallbackDown * <C-X>
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <Plug>SpeedDatingFallbackUp * <C-A>
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <Plug>SpeedDatingNowUTC * :<C-U>call speeddating#timestamp(1,v:count)<CR>
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <Plug>SpeedDatingNowLocal * :<C-U>call speeddating#timestamp(0,v:count)<CR>
+	Last set from vim-speeddating\plugin\speeddating.vim
+v  <Plug>SpeedDatingDown * :<C-U>call speeddating#incrementvisual(-v:count1)<CR>
+	Last set from vim-speeddating\plugin\speeddating.vim
+v  <Plug>SpeedDatingUp * :<C-U>call speeddating#incrementvisual(v:count1)<CR>
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <Plug>SpeedDatingDown * :<C-U>call speeddating#increment(-v:count1)<CR>
+	Last set from vim-speeddating\plugin\speeddating.vim
+n  <Plug>SpeedDatingUp * :<C-U>call speeddating#increment(v:count1)<CR>
+	Last set from vim-speeddating\plugin\speeddating.vim
+x  <Plug>(caw:prefix)O   <Plug>(caw:jump:comment-prev)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)O   <Plug>(caw:jump:comment-prev)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)o   <Plug>(caw:jump:comment-next)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)o   <Plug>(caw:jump:comment-next)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:jump:comment-prev) * :<C-U>call caw#keymapping_stub('n', 'jump', 'comment-prev')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:jump:comment-next) * :<C-U>call caw#keymapping_stub('n', 'jump', 'comment-next')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)b   <Plug>(caw:box:comment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)b   <Plug>(caw:box:comment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:box:comment) * :<C-U>call caw#keymapping_stub('x', 'box', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:box:comment) * :<C-U>call caw#keymapping_stub('n', 'box', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)uw   <Plug>(caw:wrap:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)uw   <Plug>(caw:wrap:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)w   <Plug>(caw:wrap:comment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)w   <Plug>(caw:wrap:comment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:wrap:toggle) * :<C-U>call caw#keymapping_stub('x', 'wrap', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:wrap:toggle) * :<C-U>call caw#keymapping_stub('n', 'wrap', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:wrap:uncomment) * :<C-U>call caw#keymapping_stub('x', 'wrap', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:wrap:uncomment) * :<C-U>call caw#keymapping_stub('n', 'wrap', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:wrap:comment) * :<C-U>call caw#keymapping_stub('x', 'wrap', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:wrap:comment) * :<C-U>call caw#keymapping_stub('n', 'wrap', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)ua   <Plug>(caw:dollarpos:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)ua   <Plug>(caw:dollarpos:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)a   <Plug>(caw:dollarpos:comment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)a   <Plug>(caw:dollarpos:comment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:a:toggle) * :<C-U>call caw#keymapping_stub_deprecated('x', 'dollarpos', 'toggle', 'a')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:dollarpos:toggle) * :<C-U>call caw#keymapping_stub('x', 'dollarpos', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:a:toggle) * :<C-U>call caw#keymapping_stub_deprecated('n', 'dollarpos', 'toggle', 'a')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:dollarpos:toggle) * :<C-U>call caw#keymapping_stub('n', 'dollarpos', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:a:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'dollarpos', 'uncomment', 'a')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:dollarpos:uncomment) * :<C-U>call caw#keymapping_stub('x', 'dollarpos', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:a:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'dollarpos', 'uncomment', 'a')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:dollarpos:uncomment) * :<C-U>call caw#keymapping_stub('n', 'dollarpos', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:a:comment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'dollarpos', 'comment', 'a')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:dollarpos:comment) * :<C-U>call caw#keymapping_stub('x', 'dollarpos', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:a:comment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'dollarpos', 'comment', 'a')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:dollarpos:comment) * :<C-U>call caw#keymapping_stub('n', 'dollarpos', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)uI   <Plug>(caw:zeropos:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)uI   <Plug>(caw:zeropos:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)I   <Plug>(caw:zeropos:comment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)I   <Plug>(caw:zeropos:comment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:I:toggle) * :<C-U>call caw#keymapping_stub_deprecated('x', 'zeropos', 'toggle', 'I')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:zeropos:toggle) * :<C-U>call caw#keymapping_stub('x', 'zeropos', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:I:toggle) * :<C-U>call caw#keymapping_stub_deprecated('n', 'zeropos', 'toggle', 'I')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:zeropos:toggle) * :<C-U>call caw#keymapping_stub('n', 'zeropos', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:I:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'zeropos', 'uncomment', 'I')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:zeropos:uncomment) * :<C-U>call caw#keymapping_stub('x', 'zeropos', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:I:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'zeropos', 'uncomment', 'I')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:zeropos:uncomment) * :<C-U>call caw#keymapping_stub('n', 'zeropos', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:I:comment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'zeropos', 'comment', 'I')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:zeropos:comment) * :<C-U>call caw#keymapping_stub('x', 'zeropos', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:I:comment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'zeropos', 'comment', 'I')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:zeropos:comment) * :<C-U>call caw#keymapping_stub('n', 'zeropos', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)ui   <Plug>(caw:hatpos:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)ui   <Plug>(caw:hatpos:uncomment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:prefix)i   <Plug>(caw:hatpos:comment)
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:prefix)i   <Plug>(caw:hatpos:comment)
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:tildepos:toggle) * :<C-U>call caw#keymapping_stub_deprecated('x', 'hatpos', 'toggle', 'tildepos')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:i:toggle) * :<C-U>call caw#keymapping_stub_deprecated('x', 'hatpos', 'toggle', 'i')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:hatpos:toggle) * :<C-U>call caw#keymapping_stub('x', 'hatpos', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:tildepos:toggle) * :<C-U>call caw#keymapping_stub_deprecated('n', 'hatpos', 'toggle', 'tildepos')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:i:toggle) * :<C-U>call caw#keymapping_stub_deprecated('n', 'hatpos', 'toggle', 'i')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:hatpos:toggle) * :<C-U>call caw#keymapping_stub('n', 'hatpos', 'toggle')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:tildepos:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'hatpos', 'uncomment', 'tildepos')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:i:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'hatpos', 'uncomment', 'i')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:hatpos:uncomment) * :<C-U>call caw#keymapping_stub('x', 'hatpos', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:tildepos:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'hatpos', 'uncomment', 'tildepos')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:i:uncomment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'hatpos', 'uncomment', 'i')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:hatpos:uncomment) * :<C-U>call caw#keymapping_stub('n', 'hatpos', 'uncomment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:tildepos:comment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'hatpos', 'comment', 'tildepos')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:i:comment) * :<C-U>call caw#keymapping_stub_deprecated('x', 'hatpos', 'comment', 'i')<CR>
+	Last set from caw.vim\plugin\caw.vim
+x  <Plug>(caw:hatpos:comment) * :<C-U>call caw#keymapping_stub('x', 'hatpos', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:tildepos:comment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'hatpos', 'comment', 'tildepos')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:i:comment) * :<C-U>call caw#keymapping_stub_deprecated('n', 'hatpos', 'comment', 'i')<CR>
+	Last set from caw.vim\plugin\caw.vim
+n  <Plug>(caw:hatpos:comment) * :<C-U>call caw#keymapping_stub('n', 'hatpos', 'comment')<CR>
+	Last set from caw.vim\plugin\caw.vim
+v  <Plug>VgSurround * :<C-U>call <SNR>37_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+	Last set from vim-surround\plugin\surround.vim
+v  <Plug>VSurround * :<C-U>call <SNR>37_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>YSurround * :<C-U>set opfunc=<SNR>37_opfunc2<CR>g@
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>Ysurround * :<C-U>set opfunc=<SNR>37_opfunc<CR>g@
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>YSsurround * :<C-U>call <SNR>37_opfunc2(v:count1)<CR>
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>Yssurround * :<C-U>call <SNR>37_opfunc(v:count1)<CR>
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>CSurround * :<C-U>call <SNR>37_changesurround(1)<CR>
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>Csurround * :<C-U>call <SNR>37_changesurround()<CR>
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>Dsurround * :<C-U>call <SNR>37_dosurround(<SNR>37_inputtarget())<CR>
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>SurroundRepeat * .
+	Last set from vim-surround\plugin\surround.vim
+n  <Plug>(EasyAlignOperator) * :set opfunc=<SNR>36_easy_align_op<CR>g@
+	Last set from vim-easy-align\plugin\easy_align.vim
+v  <Plug>(EasyAlignRepeat) * :<C-U>call <SNR>36_repeat_in_visual()<CR>
+	Last set from vim-easy-align\plugin\easy_align.vim
+n  <Plug>(EasyAlignRepeat) * :call <SNR>36_easy_align_repeat()<CR>
+	Last set from vim-easy-align\plugin\easy_align.vim
+v  <Plug>(LiveEasyAlign) * :<C-U>call <SNR>36_live_easy_align_op(visualmode(), 1)<CR>
+	Last set from vim-easy-align\plugin\easy_align.vim
+n  <Plug>(LiveEasyAlign) * :set opfunc=<SNR>36_live_easy_align_op<CR>g@
+	Last set from vim-easy-align\plugin\easy_align.vim
+v  <Plug>(EasyAlign) * :<C-U>call <SNR>36_easy_align_op(visualmode(), 1)<CR>
+	Last set from vim-easy-align\plugin\easy_align.vim
+n  <Plug>(EasyAlign) * :set opfunc=<SNR>36_easy_align_op<CR>g@
+	Last set from vim-easy-align\plugin\easy_align.vim
+x  <Plug>(easymotion-activate) * :<C-U>call EasyMotion#activate(1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-activate) * :<C-U>call EasyMotion#activate(0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+   <Plug>(easymotion-dotrepeat) * :<C-U>call EasyMotion#DotRepeat()<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-repeat) * <Esc>:<C-U>call EasyMotion#Repeat(1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-repeat) * :<C-U>call EasyMotion#Repeat(0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-prev) * :<C-U>call EasyMotion#NextPrevious(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-prev) * :<C-U>call EasyMotion#NextPrevious(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-next) * :<C-U>call EasyMotion#NextPrevious(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-next) * :<C-U>call EasyMotion#NextPrevious(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-wl) * <Esc>:<C-U>call EasyMotion#WBL(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-wl) * :<C-U>call EasyMotion#WBL(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-lineforward) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-lineforward) * :<C-U>call EasyMotion#LineAnywhere(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-lineanywhere) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-lineanywhere) * :<C-U>call EasyMotion#LineAnywhere(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-wl) * <Esc>:<C-U>call EasyMotion#WBL(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-wl) * :<C-U>call EasyMotion#WBL(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-linebackward) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-linebackward) * :<C-U>call EasyMotion#LineAnywhere(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bl) * <Esc>:<C-U>call EasyMotion#WBL(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bl) * :<C-U>call EasyMotion#WBL(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-el) * <Esc>:<C-U>call EasyMotion#EL(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-el) * :<C-U>call EasyMotion#EL(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-gel) * <Esc>:<C-U>call EasyMotion#EL(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-gel) * :<C-U>call EasyMotion#EL(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-el) * <Esc>:<C-U>call EasyMotion#EL(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-el) * :<C-U>call EasyMotion#EL(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-jumptoanywhere) * <Esc>:<C-U>call EasyMotion#JumpToAnywhere(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-jumptoanywhere) * :<C-U>call EasyMotion#JumpToAnywhere(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-vim-n) * <Esc>:<C-U>call EasyMotion#Search(1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-vim-n) * :<C-U>call EasyMotion#Search(0,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-n) * <Esc>:<C-U>call EasyMotion#Search(1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-n) * :<C-U>call EasyMotion#Search(0,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-n) * <Esc>:<C-U>call EasyMotion#Search(1,2,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-n) * :<C-U>call EasyMotion#Search(0,2,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-vim-N) * <Esc>:<C-U>call EasyMotion#Search(1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-vim-N) * :<C-U>call EasyMotion#Search(0,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-N) * <Esc>:<C-U>call EasyMotion#Search(1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-N) * :<C-U>call EasyMotion#Search(0,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-eol-j) * <Esc>:<C-U>call EasyMotion#Eol(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-eol-j) * :<C-U>call EasyMotion#Eol(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sol-k) * <Esc>:<C-U>call EasyMotion#Sol(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sol-k) * :<C-U>call EasyMotion#Sol(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sol-j) * <Esc>:<C-U>call EasyMotion#Sol(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sol-j) * :<C-U>call EasyMotion#Sol(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-k) * <Esc>:<C-U>call EasyMotion#JK(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-k) * :<C-U>call EasyMotion#JK(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-j) * <Esc>:<C-U>call EasyMotion#JK(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-j) * :<C-U>call EasyMotion#JK(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-jk) * <Esc>:<C-U>call EasyMotion#JK(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-jk) * :<C-U>call EasyMotion#JK(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-eol-bd-jk) * <Esc>:<C-U>call EasyMotion#Eol(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-eol-bd-jk) * :<C-U>call EasyMotion#Eol(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sol-bd-jk) * <Esc>:<C-U>call EasyMotion#Sol(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sol-bd-jk) * :<C-U>call EasyMotion#Sol(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-eol-k) * <Esc>:<C-U>call EasyMotion#Eol(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-eol-k) * :<C-U>call EasyMotion#Eol(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-ge) * <Esc>:<C-U>call EasyMotion#EK(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-ge) * :<C-U>call EasyMotion#EK(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-w) * <Esc>:<C-U>call EasyMotion#WB(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-w) * :<C-U>call EasyMotion#WB(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-W) * <Esc>:<C-U>call EasyMotion#WBW(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-W) * :<C-U>call EasyMotion#WBW(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-w) * <Esc>:<C-U>call EasyMotion#WBK(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-w) * :<C-U>call EasyMotion#WBK(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-gE) * <Esc>:<C-U>call EasyMotion#EW(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-gE) * :<C-U>call EasyMotion#EW(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-e) * <Esc>:<C-U>call EasyMotion#E(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-e) * :<C-U>call EasyMotion#E(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-E) * <Esc>:<C-U>call EasyMotion#EW(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-E) * :<C-U>call EasyMotion#EW(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-e) * <Esc>:<C-U>call EasyMotion#EK(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-e) * :<C-U>call EasyMotion#EK(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-b) * <Esc>:<C-U>call EasyMotion#WB(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-b) * :<C-U>call EasyMotion#WB(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-b) * <Esc>:<C-U>call EasyMotion#WBK(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-b) * :<C-U>call EasyMotion#WBK(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-bd-w) * <Esc>:<C-U>call EasyMotion#WBK(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-bd-w) * :<C-U>call EasyMotion#WBK(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-W) * <Esc>:<C-U>call EasyMotion#WBW(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-W) * :<C-U>call EasyMotion#WBW(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-w) * <Esc>:<C-U>call EasyMotion#WB(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-w) * :<C-U>call EasyMotion#WB(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-bd-e) * <Esc>:<C-U>call EasyMotion#EK(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-bd-e) * :<C-U>call EasyMotion#EK(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-ge) * <Esc>:<C-U>call EasyMotion#E(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-ge) * :<C-U>call EasyMotion#E(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-E) * <Esc>:<C-U>call EasyMotion#EW(1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-E) * :<C-U>call EasyMotion#EW(0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-e) * <Esc>:<C-U>call EasyMotion#E(1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-e) * :<C-U>call EasyMotion#E(0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-B) * <Esc>:<C-U>call EasyMotion#WBW(1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-B) * :<C-U>call EasyMotion#WBW(0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+n  <Plug>(easymotion-overwin-w) * :<C-U>call EasyMotion#overwin#w()<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+n  <Plug>(easymotion-overwin-line) * :<C-U>call EasyMotion#overwin#line()<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+n  <Plug>(easymotion-overwin-f2) * :<C-U>call EasyMotion#OverwinF(2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+n  <Plug>(easymotion-overwin-f) * :<C-U>call EasyMotion#OverwinF(1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Tln) * :<C-U>call EasyMotion#TL(-1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-t2) * <Esc>:<C-U>call EasyMotion#T(2,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-t2) * :<C-U>call EasyMotion#T(2,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-t) * <Esc>:<C-U>call EasyMotion#T(1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-t) * :<C-U>call EasyMotion#T(1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-s) * <Esc>:<C-U>call EasyMotion#S(1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-s) * :<C-U>call EasyMotion#S(1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-tn) * :<C-U>call EasyMotion#T(-1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-t2) * <Esc>:<C-U>call EasyMotion#T(2,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-t2) * :<C-U>call EasyMotion#T(2,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-tl) * :<C-U>call EasyMotion#TL(1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-tn) * :<C-U>call EasyMotion#T(-1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-fn) * :<C-U>call EasyMotion#S(-1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-tl) * :<C-U>call EasyMotion#TL(1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-fl) * :<C-U>call EasyMotion#SL(1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-tl2) * :<C-U>call EasyMotion#TL(2,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-fn) * :<C-U>call EasyMotion#S(-1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-f) * <Esc>:<C-U>call EasyMotion#S(1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-f) * :<C-U>call EasyMotion#S(1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-fl) * :<C-U>call EasyMotion#SL(1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Fl2) * :<C-U>call EasyMotion#SL(2,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-tl2) * :<C-U>call EasyMotion#TL(2,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-f2) * <Esc>:<C-U>call EasyMotion#S(2,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-f2) * :<C-U>call EasyMotion#S(2,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Fln) * :<C-U>call EasyMotion#SL(-1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sln) * :<C-U>call EasyMotion#SL(-1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-tln) * :<C-U>call EasyMotion#TL(-1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-fl2) * :<C-U>call EasyMotion#SL(2,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-fl2) * :<C-U>call EasyMotion#SL(2,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-T2) * <Esc>:<C-U>call EasyMotion#T(2,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-T2) * :<C-U>call EasyMotion#T(2,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-tln) * :<C-U>call EasyMotion#TL(-1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-T) * <Esc>:<C-U>call EasyMotion#T(1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-T) * :<C-U>call EasyMotion#T(1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-t) * <Esc>:<C-U>call EasyMotion#T(1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-t) * :<C-U>call EasyMotion#T(1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Tn) * :<C-U>call EasyMotion#T(-1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-s2) * <Esc>:<C-U>call EasyMotion#S(2,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-s2) * :<C-U>call EasyMotion#S(2,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Tl) * :<C-U>call EasyMotion#TL(1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sn) * <Esc>:<C-U>call EasyMotion#S(-1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sn) * :<C-U>call EasyMotion#S(-1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Fn) * :<C-U>call EasyMotion#S(-1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sl) * <Esc>:<C-U>call EasyMotion#SL(1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sl) * :<C-U>call EasyMotion#SL(1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Fl) * :<C-U>call EasyMotion#SL(1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-sl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-sl2) * :<C-U>call EasyMotion#SL(2,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-fln) * :<C-U>call EasyMotion#SL(-1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-F) * <Esc>:<C-U>call EasyMotion#S(1,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-F) * :<C-U>call EasyMotion#S(1,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-f) * <Esc>:<C-U>call EasyMotion#S(1,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-f) * :<C-U>call EasyMotion#S(1,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-F2) * <Esc>:<C-U>call EasyMotion#S(2,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-F2) * :<C-U>call EasyMotion#S(2,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-bd-f2) * <Esc>:<C-U>call EasyMotion#S(2,1,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-bd-f2) * :<C-U>call EasyMotion#S(2,0,2)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-Tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-Tl2) * :<C-U>call EasyMotion#TL(2,0,1)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+x  <Plug>(easymotion-fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+nos<Plug>(easymotion-fln) * :<C-U>call EasyMotion#SL(-1,0,0)<CR>
+	Last set from vim-easymotion\plugin\EasyMotion.vim
+n  <Plug>(sonictemplate-intelligent) * :call sonictemplate#select_intelligent('n')<CR>
+	Last set from sonictemplate-vim\plugin\sonictemplate.vim
+n  <Plug>(sonictemplate) * :call sonictemplate#select('n')<CR>
+	Last set from sonictemplate-vim\plugin\sonictemplate.vim
+s  <Del>       * <C-G>c
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+s  <BS>        * <C-G>c
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+s  <C-Tab>     * <Esc>:call UltiSnips#ListSnippets()<CR>
+	Last set from ultisnips\autoload\UltiSnips\map_keys.vim
+n  <Plug>(eskk:save-dictionary) * :<C-U>EskkUpdateDictionary<CR>
+	Last set from eskk.vim\plugin\eskk.vim
+n  <Plug>(dirvish_vsplit_up) * :<C-U>exe 'vsplit +Dirvish\ %:p'.repeat(':h',v:count1)<CR>
+	Last set from vim-dirvish\plugin\dirvish.vim
+n  <Plug>(dirvish_split_up) * :<C-U>exe 'split +Dirvish\ %:p'.repeat(':h',v:count1)<CR>
+	Last set from vim-dirvish\plugin\dirvish.vim
+n  <Plug>(dirvish_up) * :<C-U>exe 'Dirvish %:p'.repeat(':h',v:count1)<CR>
+	Last set from vim-dirvish\plugin\dirvish.vim
+n  <Right>     * <Nop>
+	Last set from ~\.vimrc
+n  <Left>      * <Nop>
+	Last set from ~\.vimrc
+n  <Down>      * <Nop>
+	Last set from ~\.vimrc
+n  <Up>        * <Nop>
+	Last set from ~\.vimrc
+o  <Plug>(GrepperOperator) * :<C-U>call <SNR>2_lod_map('<Plug>(GrepperOperator)', ['vim-grepper'], 1, "")<CR>
+	Last set from C:\app\vim\vimfiles\autoload\plug.vim
+v  <Plug>(GrepperOperator) * :<C-U>call <SNR>2_lod_map('<Plug>(GrepperOperator)', ['vim-grepper'], 1, "gv")<CR>
+	Last set from C:\app\vim\vimfiles\autoload\plug.vim
+n  <Plug>(GrepperOperator) * :<C-U>call <SNR>2_lod_map('<Plug>(GrepperOperator)', ['vim-grepper'], 1, "")<CR>
+	Last set from C:\app\vim\vimfiles\autoload\plug.vim
+v  <C-Del>       "*d
+v  <S-Del>       "*d
+v  <C-Insert>    "*y
+v  <S-Insert>    "-d"*P
+n  <S-Insert>    "*P
