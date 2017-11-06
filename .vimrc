@@ -120,9 +120,8 @@ filetype plugin indent on
 "----------------------------------------
 " color {{{
 set t_Co=256
-if filereadable(expand('~/.vimrc_background'))
-    let base16colorspace=256
-    source ~/.vimrc_background
+if has('gui_running')
+  colorscheme=base16-ashes
 endif
 "}}}
 " set plugin stop {{{
