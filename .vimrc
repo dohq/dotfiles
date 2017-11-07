@@ -120,9 +120,7 @@ filetype plugin indent on
 "----------------------------------------
 " color {{{
 set t_Co=256
-if has('gui_running')
-  colorscheme=base16-ashes
-endif
+colorscheme base16-ashes
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
