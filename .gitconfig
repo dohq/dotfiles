@@ -36,3 +36,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[winUpdater]
+	recentlySeenVersion = 2.15.0.windows.1
+[pull]
+	ff = only
+[merge]
+	ff = false
