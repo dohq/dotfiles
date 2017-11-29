@@ -28,4 +28,7 @@ colorscheme base16-ashes
 "----------------------------------------
 " set guifont=Ricty\ Diminished\ Discord:h14
 " set guifontwide=Ricty\ Diminished\ Discord:h12
-set guifont=Cica-Regular:h14
+" set guifont=Cica-Regular:h12
+set guifont=Cica:h12
+set printfont=Cica:h8
+" set ambiwidth=double
