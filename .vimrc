@@ -26,7 +26,7 @@ call plug#begin($DOTVIM.'/plugins')
 "
 " exTools
 Plug 'tpope/vim-sensible'
-" Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
@@ -55,6 +55,8 @@ Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-speeddating'
 " Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
+Plug 'kana/vim-operator-user'
+  Plug 'haya14busa/vim-open-googletranslate'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
@@ -80,6 +82,7 @@ Plug 'keith/investigate.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
+Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
   Plug 'FelikZ/ctrlp-py-matcher'
@@ -89,8 +92,6 @@ Plug 'ctrlpvim/ctrlp.vim'
   Plug 'tacahiroy/ctrlp-funky'
   Plug 'zeero/vim-ctrlp-help'
   Plug 'mattn/ctrlp-filer'
-" PHP
-Plug 'violetyk/cake.vim',                   {'for': 'php'}
 " Python
 Plug 'kana/vim-textobj-user'
   Plug 'bps/vim-textobj-python',            {'for': 'python'}
@@ -98,7 +99,7 @@ Plug 'cjrh/vim-conda',                      {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
-Plug 'vim-python/python-syntax',            {'for': 'python'}
+" Plug 'vim-python/python-syntax',            {'for': 'python'}
 Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
@@ -106,20 +107,19 @@ Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
-Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
 
 call plug#end()
-filetype plugin indent on
 
 "----------------------------------------
 " Option Settings
 "----------------------------------------
 " color {{{
 set t_Co=256
+let base16colorspace=256
 colorscheme base16-ashes
 "}}}
 " set plugin stop {{{
@@ -141,12 +141,11 @@ let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
 " }}}
 " Encoding {{{
-set enc=UTF-8
+set encoding=utf8
 scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
-syntax on
 set ttyfast
 set nowritebackup
 set imdisable
@@ -165,6 +164,7 @@ set vb t_vb=
 set novisualbell
 set incsearch
 set hlsearch
+set completeopt-=preview
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -215,11 +215,10 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 let g:completor_auto_trigger = 1
 let g:completor_refresh_always = 0
 let g:completor_set_options = 1
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 noremap <leader>K :call completor#do('doc')<CR>
 noremap <leader>d :call completor#do('definition')<CR>
+let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -519,18 +518,16 @@ nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 
-if executable('files')
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'files -i
-        \ "^(\.exe|\.dll|\.git|\.hg|\.svn|_darcs|\.bzr|\.cache|\.ipynb_checkpoints|\__pycache__|\.bundle|\node_modulues)$"
-        \ -a %s'
-elseif
-  let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn|cache|tox)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ 'link': 'some_bad_symbolic_links',
-    \ }
-endif
+let g:ctrlp_use_caching = 0
+let g:ctrlp_user_command = 'files -a %s'
+
+" elseif
+"   let g:ctrlp_custom_ignore = {
+"     \ 'dir':  '\v[\/]\.(git|hg|svn|cache|tox)$',
+"     \ 'file': '\v\.(exe|so|dll)$',
+"     \ 'link': 'some_bad_symbolic_links',
+"     \ }
+" endif
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
@@ -542,7 +539,6 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 "}}}
 " Python {{{
-autocmd FileType python setlocal completeopt-=preview
 autocmd FileType python setlocal omnifunc=jedi#completions
 let python_highlight_all = 1
 let g:jedi#completions_enabled = 1
@@ -563,7 +559,10 @@ nmap <leader>c      <Plug>(caw:hatpos:toggle)
 vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
-autocmd BufRead,BufNewFile *.{text,txt,md} set filetype=markdown
+augroup markdown
+    au!
+    au BufNewFile,BufRead *.md,*.markdown,*.mmd setlocal filetype=markdown
+augroup END
 let g:previm_enable_realtime = 1
 let g:netrw_nogx = 1 " netrwのキーマッピングを無効化
 nmap gx <Plug>(openbrowser-smart-search)
@@ -573,7 +572,7 @@ if s:MSWindows
 endif
 " }}}
 " FixWhitespace {{{
-let g:extra_whitespace_ignored_filetypes = ['J6uil', 'vim-plug', 'tweetvim', 'help']
+let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
 " }}}
 " SuperTab {{{
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
@@ -598,8 +597,11 @@ let g:grepper.quickfix      = 1
 " devicons {{{
 " フォルダアイコンの表示をON
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:webdevicons_enable_ctrlp = 1
 " }}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 let g:echodoc_enable_at_startup = 1
+let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
