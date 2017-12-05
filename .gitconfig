@@ -5,7 +5,6 @@
   quotepath = false
   symlinks = true
   autocrlf = false
-  excludesfile = ~/.gitignore_global
   preloadindex = true
   fscache = true
 	pager = LESSCHARSET=utf-8 less
@@ -37,7 +36,7 @@
 	process = git-lfs filter-process
 	required = true
 [winUpdater]
-	recentlySeenVersion = 2.15.0.windows.1
+	recentlySeenVersion = 2.15.1.windows.2
 [pull]
 	ff = only
 [merge]
