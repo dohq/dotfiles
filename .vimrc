@@ -1,25 +1,19 @@
 " init {{{
-" Check vi or vim
-if 0 | endif
+let s:MSWindows = has('win16') || has('win32') || has('win64') || has('win95')
+if s:MSWindows
+  let $MYVIMDIR = expand($VIM.'/vimfiles')
+else
+  let $MYVIMDIR = expand('~/.vim')
+endif
 
 augroup MyVimrcCmd
     autocmd!
 augroup END
 
-let s:MSWindows = has('win95') + has('win16') + has('win32') + has('win64')
-if !exists('$DOTVIM')
-  if s:MSWindows
-    let $DOTVIM = expand($VIM.'/vimfiles')
-  else
-    let $DOTVIM = expand('~/.vim')
-  endif
-  if !isdirectory(expand($DOTVIM))
-    call system('mkdir -p '.$DOTVIM.'/autoload/')
-    call system('curl -fLo '.$DOTVIM.'/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  endif
-endif
+" All autocmd reset
+augroup vimrc
+  autocmd!
+augroup END
 " }}}
 
 call plug#begin($DOTVIM.'/plugins')
