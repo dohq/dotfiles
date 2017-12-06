@@ -6,9 +6,10 @@ else
   let $MYVIMDIR = expand('~/.vim')
 endif
 
-augroup MyVimrcCmd
-    autocmd!
-augroup END
+" Reset all options
+let save_rtp = &rtp
+set all&
+let &rtp = save_rtp
 
 " All autocmd reset
 augroup vimrc
