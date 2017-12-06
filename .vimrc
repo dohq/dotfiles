@@ -154,11 +154,21 @@ set cmdheight=2
 set ignorecase
 set smartcase
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
+set wildmenu
+set wildmode=full
 set vb t_vb=
 set novisualbell
 set incsearch
 set hlsearch
+set display=lastline
+set list
+set listchars=tab:>.,extends:>,precedes:<,trail:-
 set completeopt-=preview
+if exists('+breakindent')
+  set breakindent
+  set breakindentopt=sbr
+  set showbreak=<
+endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
