@@ -16,8 +16,7 @@ augroup vimrc
 augroup END
 " }}}
 
-call plug#begin($DOTVIM.'/plugins')
-"
+call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'tpope/vim-sensible'
 Plug 'ervandew/supertab'
@@ -28,8 +27,8 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'tyru/eskk.vim',                       {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
       \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
-      \ mkdir $DOTVIM/skk &&
-      \ cd $DOTVIM/skk &&
+      \ mkdir $MYVIMDIR/skk &&
+      \ cd $MYVIMDIR/skk &&
       \ gzip -d SKK-JISYO.L.gz
       \ '}
 " Input Assist
@@ -396,9 +395,9 @@ let g:EasyMotion_space_jump_first = 1
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
-let g:eskk#directory = expand($DOTVIM.'/.cache/eskk')
+let g:eskk#directory = expand($MYVIMDIR.'/.cache/eskk')
 let g:eskk#large_dictionary = {
-\ 'path': $DOTVIM.'/skk/SKK-JISYO.L',
+\ 'path': $MYVIMDIR.'/skk/SKK-JISYO.L',
 \ 'sorted': 1,
 \}
 " Don't keep state.
@@ -573,7 +572,7 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 let g:SuperTabDefaultCompletionType = "<c-n>"
 " }}}
 " vim-ref {{{
-let g:ref_phpmanual_path = $DOTVIM.'/doc/php-chunked-xhtml'
+let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
 " }}}
 " lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
