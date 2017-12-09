@@ -1,5 +1,5 @@
 " init {{{
-let s:MSWindows = has('win16') || has('win32') || has('win64') || has('win95')
+let s:MSWindows = has('win32')
 if s:MSWindows
   let $MYVIMDIR = expand($VIM.'/vimfiles')
 else
