@@ -101,6 +101,8 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
 
+Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
+
 call plug#end()
 
 "----------------------------------------
