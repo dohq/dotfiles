@@ -6,11 +6,6 @@ else
   let $MYVIMDIR = expand('~/.vim')
 endif
 
-" Reset all options
-let save_rtp = &rtp
-set all&
-let &rtp = save_rtp
-
 " All autocmd reset
 augroup vimrc
   autocmd!
@@ -141,12 +136,12 @@ set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,
 " }}}
 " set opt {{{
 set ttyfast
-set nowritebackup
+set nrformats-=octal
+set nobackup noswapfile
 set imdisable
 set clipboard=unnamed,autoselect
 set ambiwidth=double
 set expandtab
-set noswapfile
 set tabstop=2 shiftwidth=2 softtabstop=2
 set whichwrap=b,s,[,],<,>
 set foldmethod=marker
@@ -178,7 +173,7 @@ inoremap jj <ESC>
 " InsertMode move cursor liught
 inoremap <C-l> <C-g>U<Right>
 
-" replace ;:
+" replace ; to :
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
