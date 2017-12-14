@@ -21,16 +21,11 @@ Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'tyru/eskk.vim',                       {'do': 'curl -fLo ~/.vim/skk/SKK-JISYO.L.gz
-      \ --create-dirs http://openlab.jp/skk/dic/SKK-JISYO.L.gz &&
-      \ mkdir $MYVIMDIR/skk &&
-      \ cd $MYVIMDIR/skk &&
-      \ gzip -d SKK-JISYO.L.gz
-      \ '}
+Plug 'tyru/eskk.vim'
 " Input Assist
 Plug 'maralla/completor.vim'
 Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'cohama/lexima.vim'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'mattn/sonictemplate-vim'
@@ -45,23 +40,23 @@ Plug 'tpope/vim-speeddating'
 " Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'kana/vim-operator-user'
-  Plug 'haya14busa/vim-open-googletranslate'
+Plug 'haya14busa/vim-open-googletranslate'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
-  Plug 'felixjung/vim-base16-lightline'
+Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 " QuickRun
 Plug 'thinca/vim-quickrun'
-  Plug 'osyo-manga/shabadou.vim'
+Plug 'osyo-manga/shabadou.vim'
 " Test
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'tlvince/vim-compiler-python'
 " Twitter
 Plug 'basyura/TweetVim'
-  Plug 'basyura/twibill.vim'
+Plug 'basyura/twibill.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'mattn/webapi-vim'
 " Syntax Check
@@ -74,25 +69,25 @@ Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'FelikZ/ctrlp-py-matcher'
-  Plug 'mattn/ctrlp-launcher'
-  Plug 'mattn/ctrlp-register'
-  Plug 'suy/vim-ctrlp-commandline'
-  Plug 'tacahiroy/ctrlp-funky'
-  Plug 'zeero/vim-ctrlp-help'
-  Plug 'mattn/ctrlp-filer'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'mattn/ctrlp-launcher'
+Plug 'mattn/ctrlp-register'
+Plug 'suy/vim-ctrlp-commandline'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'zeero/vim-ctrlp-help'
+Plug 'mattn/ctrlp-filer'
 " Python
 Plug 'kana/vim-textobj-user'
-  Plug 'bps/vim-textobj-python',            {'for': 'python'}
+Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'cjrh/vim-conda',                      {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
-" Plug 'vim-python/python-syntax',            {'for': 'python'}
+Plug 'vim-python/python-syntax',            {'for': 'python'}
 Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 " Markdown
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
-  Plug 'rcmdnk/vim-markdown-quote-syntax',  {'for': 'markdown'}
+Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
