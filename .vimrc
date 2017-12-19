@@ -35,7 +35,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
-Plug 'Shougo/echodoc.vim'
 Plug 'tpope/vim-speeddating'
 " Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
@@ -154,7 +153,7 @@ set incsearch
 set hlsearch
 set display=lastline
 set list
-set listchars=tab:>.,extends:>,precedes:<,trail:-
+set listchars=tab:>.,extends:>,precedes:<,trail:-,eol:↲
 set completeopt-=preview
 if exists('+breakindent')
   set breakindent
@@ -517,14 +516,6 @@ nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 let g:ctrlp_use_caching = 0
 let g:ctrlp_user_command = 'files -a %s'
 
-" elseif
-"   let g:ctrlp_custom_ignore = {
-"     \ 'dir':  '\v[\/]\.(git|hg|svn|cache|tox)$',
-"     \ 'file': '\v\.(exe|so|dll)$',
-"     \ 'link': 'some_bad_symbolic_links',
-"     \ }
-" endif
-
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_map = '<Nop>'
@@ -599,5 +590,4 @@ let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-let g:echodoc_enable_at_startup = 1
 let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
