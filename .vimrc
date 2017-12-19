@@ -39,7 +39,6 @@ Plug 'tpope/vim-speeddating'
 " Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'kana/vim-operator-user'
-Plug 'haya14busa/vim-open-googletranslate'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
@@ -590,4 +589,3 @@ let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
