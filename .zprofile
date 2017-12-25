@@ -4,9 +4,6 @@ export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
 export PATH=/usr/lib/ccache/bin:/usr/local/bin:/sbin:$GOPATH/bin:$PATH
 
-# build AOSP OPT
-export USE_CCACHE=1
-
 # Alias作りましょうねー
 alias rm='rm -i'
 alias cp='cp -i'
@@ -30,6 +27,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse --border'
+
 # Gitting
 alias gl="git lg"
 alias gm="git commit -v"
@@ -45,3 +43,21 @@ alias sudo='sudo '
 
 # hub alias
 function git(){hub "$@"}
+
+# anyenv
+if [[ -d ~/.anyenv ]]; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
+
+# linuxbrew
+if [[ -d /home/linuxbrew ]]; then
+  export PATH
+  export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
+  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+  export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
+  export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
+  export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
+fi
+
