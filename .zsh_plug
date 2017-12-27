@@ -7,13 +7,7 @@ zplug "leonhartX/docker-machine-zsh-completion"
 
 # theme
 # 色付ける。便利
-zplug "chrissicool/zsh-256color"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "halfo/lambda-mod-zsh-theme", as:theme
-# zplug "dannynimmo/punctual-zsh-theme", as:theme
-
-# tmuxを便利に
-zplug "arks22/tmuximum", as:command
 
 # fzf
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
