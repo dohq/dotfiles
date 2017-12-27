@@ -32,8 +32,9 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 # プロンプト指定
+# [%n"@"%m %T] %{${fg[yellow]}%}%~%{${reset_color}%}
 PROMPT="
-[%n"@"%m %T] %{${fg[yellow]}%}%~%{${reset_color}%}
+[%n"@"%m %T] %{${fg[yellow]}%}%(5~|%-1~/…/%3~|%4~)%{${reset_color}%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
 # プロンプト指定(コマンドの続き)
 PROMPT2='[%n]> '
