@@ -95,6 +95,7 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
 
 Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
+Plug 'y0za/vim-reading-vimrc'
 
 call plug#end()
 
@@ -132,9 +133,10 @@ set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,
 " set opt {{{
 set ttyfast
 set nrformats-=octal
+set helplang=ja,en
 set nobackup noswapfile
 set imdisable
-set clipboard=unnamed,autoselect
+set clipboard=unnamed
 set ambiwidth=double
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
@@ -589,3 +591,6 @@ let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+let g:echodoc_enable_at_startup = 1
+let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
+vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
