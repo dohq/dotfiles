@@ -154,7 +154,7 @@ set incsearch
 set hlsearch
 set display=lastline
 set list
-set listchars=tab:>.,extends:>,precedes:<,trail:-,eol:↲
+set listchars=tab:>.,extends:>,precedes:<,trail:-
 set completeopt-=preview
 if exists('+breakindent')
   set breakindent
@@ -591,6 +591,5 @@ let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-let g:echodoc_enable_at_startup = 1
 let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
