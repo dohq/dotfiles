@@ -4,12 +4,15 @@ export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
 export PATH=/usr/lib/ccache/bin:/usr/local/bin:/sbin:$GOPATH/bin:$PATH
 
+# EDITOR
+export EDITOR=vim
 # Alias作りましょうねー
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias c='clear'
+alias l='ls -l'
 alias tree='tree -N'
 alias pbcopy='xsel --clipboard --input'
 alias tokyo="curl wttr.in/Tokyo"
@@ -50,6 +53,11 @@ if [[ -d ~/.anyenv ]]; then
   eval "$(anyenv init -)"
 fi
 
+# direnv
+if type "zsh" > /dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 # linuxbrew
 if [[ -d /home/linuxbrew ]]; then
   export PATH
@@ -60,4 +68,3 @@ if [[ -d /home/linuxbrew ]]; then
   export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
   export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
 fi
-
