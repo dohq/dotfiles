@@ -277,7 +277,7 @@ function fzf-history() {
   else
     tac="tail -r"
   fi
-  BUFFER=$(\history -n 1 | $tac | fzf --reverse --height 60% --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  BUFFER=$(\history -n 1 | $tac | peco)
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -286,7 +286,7 @@ bindkey '^r' fzf-history
 
 #bindkey '^s' select ssh for fzf
 function fzf-ssh () {
-  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
+  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | peco)
   if [ -n "$selected_host" ]; then
     BUFFER="ssh ${selected_host}"
     zle accept-line
@@ -298,7 +298,7 @@ bindkey '^s' fzf-ssh
 
 #bindkey '^B' select branch for fzf
 function fzf-branch() {
-  local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | perl -pne 's{^refs/heads/}{}' | fzf --query "$LBUFFER")
+  local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | perl -pne 's{^refs/heads/}{}' | peco)
   if [ -n "$selected_branch" ]; then
     BUFFER="git checkout ${selected_branch}"
     zle accept-line
@@ -310,7 +310,7 @@ bindkey "^b" fzf-branch
 
 #bindkey '^g' list ghq src
 function fzf-ghq() {
-  local selected_dir=$(ghq list | fzf --query="$LBUFFER")
+  local selected_dir=$(ghq list | peco)
   if [ -n "$selected_dir" ]; then
     BUFFER="cd $(ghq root)/${selected_dir}"
     zle accept-line
