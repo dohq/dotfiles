@@ -1,3 +1,8 @@
+" File              : .vimrc
+" Author            : dohq <dorastone@gmail.com>
+" Date              : 04.01.2018
+" Last Modified Date: 04.01.2018
+" Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
 if s:MSWindows
@@ -10,6 +15,19 @@ endif
 augroup vimrc
   autocmd!
 augroup END
+" }}}
+" vimrc_local {{{
+augroup vimrc-local
+  autocmd!
+  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
+augroup END
+
+function! s:vimrc_local(loc)
+  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for i in reverse(filter(files, 'filereadable(v:val)'))
+    source `=i`
+  endfor
+endfunction
 " }}}
 
 call plug#begin($MYVIMDIR.'/plugins')
@@ -74,6 +92,7 @@ Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 Plug 'mattn/ctrlp-filer'
+Plug 'mattn/ctrlp-ghq'
 " Python
 Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
@@ -96,6 +115,7 @@ Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinar
 
 Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
 Plug 'y0za/vim-reading-vimrc'
+Plug 'alpertuna/vim-header'
 
 call plug#end()
 
@@ -156,6 +176,7 @@ set display=lastline
 set list
 set listchars=tab:>.,extends:>,precedes:<,trail:-
 set completeopt-=preview
+set noequalalways
 if exists('+breakindent')
   set breakindent
   set breakindentopt=sbr
@@ -505,6 +526,7 @@ let g:memolist_unite_option = '-start-insert'
 nnoremap    [CtrlP]   <Nop>
 nmap    <Space>u [CtrlP]
 nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
+nnoremap <silent> [CtrlP]g :<C-u>CtrlPGhq<CR>
 nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
 nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
@@ -593,3 +615,5 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
+let g:header_field_author = 'dohq'
+let g:header_field_author_email = 'dorastone@gmail.com'
