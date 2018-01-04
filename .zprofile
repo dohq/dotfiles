@@ -54,8 +54,10 @@ if [[ -d ~/.anyenv ]]; then
 fi
 
 # direnv
-if type "zsh" > /dev/null 2>&1; then
-  eval "$(direnv hook zsh)"
+if [[ -x direnv ]]; then
+  if type "zsh" > /dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+  fi
 fi
 
 # linuxbrew
