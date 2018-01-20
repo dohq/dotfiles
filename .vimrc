@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
-" Date              : 04.01.2018
-" Last Modified Date: 04.01.2018
+" Date              : 21.01.2018
+" Last Modified Date: 21.01.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
@@ -63,6 +63,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
+Plug 'rhysd/try-colorscheme.vim'
+Plug 'cocopon/iceberg.vim'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -124,8 +126,9 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-let base16colorspace=256
-colorscheme base16-ashes
+" let base16colorspace=256
+" colorscheme base16-ashes
+colorscheme iceberg
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
@@ -151,32 +154,33 @@ scriptencoding utf-8
 set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
-set ttyfast
-set nrformats-=octal
-set helplang=ja,en
-set nobackup noswapfile
-set imdisable
-set clipboard=unnamed
 set ambiwidth=double
-set expandtab
-set tabstop=2 shiftwidth=2 softtabstop=2
-set whichwrap=b,s,[,],<,>
-set foldmethod=marker
+set clipboard=unnamed
 set cmdheight=2
+set completeopt-=preview
+set cursorline
+set display=lastline
+set expandtab
+set foldmethod=marker
+set helplang=ja,en
+set hlsearch
 set ignorecase
+set imdisable
+set incsearch
+set list
+set listchars=tab:>.,extends:>,precedes:<,trail:-
+set nobackup noswapfile
+set noequalalways
+set novisualbell
+set nrformats-=octal
 set smartcase
+set tabstop=2 shiftwidth=2 softtabstop=2
+set ttyfast
+set vb t_vb=
+set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
-set vb t_vb=
-set novisualbell
-set incsearch
-set hlsearch
-set display=lastline
-set list
-set listchars=tab:>.,extends:>,precedes:<,trail:-
-set completeopt-=preview
-set noequalalways
 if exists('+breakindent')
   set breakindent
   set breakindentopt=sbr
@@ -326,7 +330,7 @@ nnoremap <C-p> :cp<CR>
 " }}}
 " lightline.vim{{{
 let g:lightline = {
-\ 'colorscheme': 'base16_ashes',
+\ 'colorscheme': 'iceberg',
 \ 'active': {
 \   'left': [['mode', 'paste'],
 \            ['fugitive', 'filename']],
@@ -569,10 +573,10 @@ nmap <leader>c      <Plug>(caw:hatpos:toggle)
 vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
-augroup markdown
-    au!
-    au BufNewFile,BufRead *.md,*.markdown,*.mmd setlocal filetype=markdown
-augroup END
+" augroup markdown
+"     au!
+"     au BufNewFile,BufRead *.md,*.markdown,*.mmd setlocal filetype=markdown
+" augroup END
 let g:previm_enable_realtime = 1
 let g:netrw_nogx = 1 " netrwのキーマッピングを無効化
 nmap gx <Plug>(openbrowser-smart-search)
@@ -617,3 +621,4 @@ let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
 let g:header_field_author = 'dohq'
 let g:header_field_author_email = 'dorastone@gmail.com'
+let g:header_auto_add_header = 0
