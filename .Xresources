@@ -1,0 +1,29 @@
+!! ~/.Xresources
+
+!!
+!! rxvt-unicode (urxvt)
+!!
+URxvt.scrollBar_right:      false
+URxvt.cursorBlink:          true
+URxvt.cursorUnderline:      false
+URxvt.pointerBlank:         true
+URxvt.visualBell:           false
+URxvt.saveLines:            30000
+URxvt.fading:               40
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+URxvt*iso14755:             false
+
+URxvt.allow_bold:           false
+URxvt*font: xft:Cica:size=12:antialias=true
+
+! Plugin
+URxvt.perl-ext-common: fullscreen, resize-font, xim-onthespot
+URxvt.keysym.F11: perl:fullscreen:switch
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
+URxvt.inputMethod: fcitx
+URxvt.preeditType: OnTheSpot
+
+! color
+#include "dotfiles/base16-xresources/xresources/base16-ashes-256.Xresources"
