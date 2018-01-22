@@ -75,6 +75,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'morhetz/gruvbox'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -165,6 +166,7 @@ set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,
 " }}}
 " set opt {{{
 set ambiwidth=double
+set cindent
 set clipboard=unnamed
 set cmdheight=2
 set completeopt-=preview
@@ -182,6 +184,7 @@ set listchars=tab:>.,extends:>,precedes:<,trail:-
 set nobackup noswapfile
 set noequalalways
 set novisualbell
+set nosmartindent
 set nrformats-=octal
 set smartcase
 set tabstop=2 shiftwidth=2 softtabstop=2
@@ -623,12 +626,44 @@ let g:grepper.quickfix      = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 let g:webdevicons_enable_ctrlp = 1
 " }}}
+" vim-header {{{
+let g:header_field_author = 'dohq'
+let g:header_field_author_email = 'dorastone@gmail.com'
+let g:header_auto_add_header = 0
+" }}}
+" auto-cursorline {{{
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  autocmd WinEnter * call s:auto_cursorline('WinEnter')
+  autocmd WinLeave * call s:auto_cursorline('WinLeave')
+
+  let s:cursorline_lock = 0
+  function! s:auto_cursorline(event)
+    if a:event ==# 'WinEnter'
+      setlocal cursorline
+      let s:cursorline_lock = 2
+    elseif a:event ==# 'WinLeave'
+      setlocal nocursorline
+    elseif a:event ==# 'CursorMoved'
+      if s:cursorline_lock
+        if 1 < s:cursorline_lock
+          let s:cursorline_lock = 1
+        else
+          setlocal nocursorline
+          let s:cursorline_lock = 0
+        endif
+      endif
+    elseif a:event ==# 'CursorHold'
+      setlocal cursorline
+      let s:cursorline_lock = 1
+    endif
+  endfunction
+augroup END
+" }}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-let g:opengoogletranslate#openbrowsercmd = 'electron-open --without-focus'
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
-let g:header_field_author = 'dohq'
-let g:header_field_author_email = 'dorastone@gmail.com'
-let g:header_auto_add_header = 0
