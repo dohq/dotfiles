@@ -7,7 +7,7 @@
   autocrlf = false
   preloadindex = true
   fscache = true
-	pager = LESSCHARSET=utf-8 less
+	pager = LESSCHARSET=utf-8 less -R
 [color]
   ui = auto
   diff = always
