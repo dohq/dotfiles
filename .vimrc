@@ -11,6 +11,16 @@ else
   let $MYVIMDIR = expand('~/.vim')
 endif
 
+" Startup time.
+if !v:vim_did_enter && has('reltime')
+  let g:startuptime = reltime()
+  augroup vimrc-startuptime
+    autocmd! VimEnter * let g:startuptime = reltime(g:startuptime)
+    \                 | redraw
+    \                 | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+  augroup END
+endif
+
 " All autocmd reset
 augroup vimrc
   autocmd!
