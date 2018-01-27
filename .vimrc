@@ -283,11 +283,15 @@ let g:quickrun_config = {
 \       'outputter/buffer/into' : 1,
 \       'outputter/quickfix/into' : 1,
 \   },
-\   'python' : {
-\       'hook/output_encode/enable' : 1,
-\       'hook/output_encode/encoding' : 'cp932',
-\   },
 \}
+if s:MSWindows
+  let g:quickrun_config = {
+  \   'python' : {
+  \       'hook/output_encode/enable' : 1,
+  \       'hook/output_encode/encoding' : 'cp932',
+  \   },
+}
+endif
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
 nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
