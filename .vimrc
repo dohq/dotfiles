@@ -33,8 +33,8 @@ augroup vimrc-local
 augroup END
 
 function! s:vimrc_local(loc)
-  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
+  let s:files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
+  for s:i in reverse(filter(s:files, 'filereadable(v:val)'))
     source `=i`
   endfor
 endfunction
@@ -70,7 +70,7 @@ Plug 'kana/vim-operator-user'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
-Plug 'felixjung/vim-base16-lightline'
+" Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rhysd/try-colorscheme.vim'
@@ -90,7 +90,6 @@ Plug 'tyru/open-browser.vim'
 Plug 'mattn/webapi-vim'
 " Syntax Check
 Plug 'w0rp/ale'
-Plug 'keith/investigate.vim'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -162,7 +161,7 @@ let g:loaded_netrwFileHandlers = 1
 " Encoding {{{
 set encoding=utf8
 scriptencoding utf-8
-set fencs=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
 set ambiwidth=double
@@ -189,7 +188,6 @@ set nrformats-=octal
 set smartcase
 set tabstop=2 shiftwidth=2 softtabstop=2
 set ttyfast
-set vb t_vb=
 set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
@@ -249,19 +247,15 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 let g:completor_auto_trigger = 1
 let g:completor_refresh_always = 0
 let g:completor_set_options = 1
-noremap <leader>K :call completor#do('doc')<CR>
-noremap <leader>d :call completor#do('definition')<CR>
-let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
 " }}}
 " ultisnips {{{
 " Trigger configuration.
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+let g:UltiSnipsExpandTrigger='<c-k>'
+let g:UltiSnipsJumpForwardTrigger='<c-k>'
+let g:UltiSnipsJumpBackwardTrigger='<c-h>'
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit='vertical'
 
 " For snippet_complete marker.
 if has('conceal')
@@ -274,8 +268,8 @@ let g:quickrun_config = {
 \   '_' : {
 \       'runner' : 'job',
 \       'outputter' : 'error',
-\       "hook/neco/enable" : 1,
-\       "hook/neco/wait" : 10,
+\       'hook/neco/enable' : 1,
+\       'hook/neco/wait' : 10,
 \       'outputter/error/success' : 'buffer',
 \       'outputter/error/error'   : 'quickfix',
 \       'outputter/buffer/split' : ':botright 8sp',
@@ -286,18 +280,18 @@ let g:quickrun_config = {
 \}
 if s:MSWindows
   let g:quickrun_config = {
-  \   'python' : {
-  \       'hook/output_encode/enable' : 1,
-  \       'hook/output_encode/encoding' : 'cp932',
-  \   },
-}
+\ 'python' : {
+\     'hook/output_encode/enable' : 1,
+\     'hook/output_encode/encoding' : 'cp932',
+\ },
+\}
 endif
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
 nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
 xnoremap <silent><Leader>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : ""
-au FileType qf nnoremap <silent><buffer>q :cclose<CR>
+autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
@@ -365,19 +359,19 @@ let g:lightline = {
 \}
 
 function! MyFilename()
-  let name = expand('%:t')
-  let name = name !=# '' ? name : '[No Name]'
-  if name =~? 'netrw'
+  let s:name = expand('%:t')
+  let s:name = s:name !=# '' ? s:name : '[No Name]'
+  if s:name =~? 'netrw'
     return 'netrw'
   endif
-  let readonly = &readonly ? ' ' : ''
-  let modified = &modified ? ' ' : ''
-  return readonly . name . modified
+  let s:readonly = &readonly ? ' ' : ''
+  let s:modified = &modified ? ' ' : ''
+  return s:readonly . s:name . s:modified
 endfunction
 
 function! MyFugitive()
   try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
+    if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
       return '' . fugitive#head()
     endif
   catch
@@ -394,7 +388,7 @@ function! MyFileformat()
 endfunction
 
 function! MyFileencoding()
-  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return winwidth('.') > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 function! ALEGetStatusLine() abort
@@ -490,7 +484,7 @@ let g:go_highlight_structs = 1
 let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
@@ -506,10 +500,10 @@ nnoremap <silent> <leader>o :OverCommandLine<CR>
 " }}}
 " Twit {{{
 " open-browser.vim
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
+let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-autocmd FileType twitvim call s:twitvim_my_settings()
+autocmd vimrc FileType twitvim call s:twitvim_my_settings()
 function! s:twitvim_my_settings()
   set nowrap
 endfunction
@@ -570,15 +564,15 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 "}}}
 " Python {{{
-autocmd FileType python setlocal omnifunc=jedi#completions
-let python_highlight_all = 1
+autocmd vimrc FileType python setlocal omnifunc=jedi#completions
+let g:python_highlight_all = 1
 let g:jedi#completions_enabled = 1
-let g:jedi#goto_command = "<leader>g"
-let g:jedi#documentation_command = "<leader>k"
-let g:jedi#usages_command = "<leader>n"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>R"
-let g:jedi#show_call_signatures = "2"
+let g:jedi#goto_command = '<leader>g'
+let g:jedi#documentation_command = '<leader>k'
+let g:jedi#usages_command = '<leader>n'
+let g:jedi#completions_command = '<C-Space>'
+let g:jedi#rename_command = '<leader>R'
+let g:jedi#show_call_signatures = '2'
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 " vim-conda
@@ -606,8 +600,8 @@ endif
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
 " }}}
 " SuperTab {{{
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabContextDefaultCompletionType = '<c-n>'
+let g:SuperTabDefaultCompletionType = '<c-n>'
 " }}}
 " vim-ref {{{
 let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
