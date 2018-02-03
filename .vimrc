@@ -186,7 +186,10 @@ set novisualbell
 set nosmartindent
 set nrformats-=octal
 set smartcase
+set splitbelow
+set splitright
 set tabstop=2 shiftwidth=2 softtabstop=2
+set termsize=15x0
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
