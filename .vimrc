@@ -191,6 +191,7 @@ set noequalalways
 set novisualbell
 set nosmartindent
 set nrformats-=octal
+set shortmess+=atI
 set smartcase
 set splitbelow
 set splitright
@@ -249,6 +250,12 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
+" Move over wrapped lines
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+
+" toggle fold
+nnoremap <space> za
 " }}}
 
 "----------------------------------------
@@ -258,6 +265,9 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 let g:completor_auto_trigger = 1
 let g:completor_refresh_always = 0
 let g:completor_set_options = 1
+" }}}
+" deoplete {{{
+let g:deoplete#enable_at_startup = 1
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -319,11 +329,9 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = [' %d', ' %d', ' ok']
 
-" Linter
-let g:ale_linters = {
-\   'python': ['pylint'],
+let g:ale_pattern_options = {
+\   '.*\.vim$': {'ale_enabled': 0},
 \}
-
 nmap [ale] <Nop>
 map <C-k> [ale]
 " エラー行にジャンプ
@@ -505,6 +513,7 @@ let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 " let g:indentLine_char = '︙'
 let g:indentLine_char = '¦'
+let g:indentLine_fileTypeExclude = ['tweetvim']
 " }}}
 " over.vim {{{
 nnoremap <silent> <leader>o :OverCommandLine<CR>
@@ -640,6 +649,7 @@ let g:header_field_author = 'dohq'
 let g:header_field_author_email = 'dorastone@gmail.com'
 let g:header_auto_add_header = 0
 " }}}
+" user command {{{
 " auto-cursorline {{{
 augroup vimrc-auto-cursorline
   autocmd!
@@ -670,6 +680,16 @@ augroup vimrc-auto-cursorline
     endif
   endfunction
 augroup END
+" }}}
+" past to ix.io {{{
+command! -range=% SP  execute <line1> . "," . <line2> .
+            \ "w !curl -F 'f:1=<-' ix.io | tr -d '\\n'"
+" http://snippetrepo.com/snippets/filter-quickfix-list-in-vim
+" }}}
+" qf filet {{{
+command! -bang -nargs=1 -complete=file QFilter call
+            \ s:FilterQuickfixList(<bang>0, <q-args>)
+" }}}
 " }}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
