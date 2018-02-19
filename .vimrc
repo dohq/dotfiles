@@ -51,7 +51,13 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'tyru/eskk.vim'
 " Input Assist
-Plug 'maralla/completor.vim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim',              { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/neco-vim'
+  Plug 'zchee/deoplete-jedi'
+else
+  Plug 'maralla/completor.vim'
+endif
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'cohama/lexima.vim'
@@ -166,7 +172,7 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " set opt {{{
 set ambiwidth=double
 set cindent
-set clipboard=unnamed
+set clipboard=unnamedplus
 set cmdheight=2
 set completeopt-=preview
 set cursorline
@@ -189,7 +195,9 @@ set smartcase
 set splitbelow
 set splitright
 set tabstop=2 shiftwidth=2 softtabstop=2
-set termsize=15x0
+if !has('nvim')
+  set termsize=15x0
+endif
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
