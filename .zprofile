@@ -2,7 +2,7 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-export PATH=/usr/lib/ccache/bin:/usr/local/bin:/sbin:$GOPATH/bin:$PATH
+export PATH=/usr/lib/ccache/bin:$HOME/bin:/usr/local/bin:/sbin:$GOPATH/bin:$PATH
 
 # EDITOR
 export EDITOR=vim
@@ -30,6 +30,7 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
+# export FZF_DEFAULT_OPTS='--no-sort +m --reverse'
 
 # Gitting
 alias gl="git lg"
