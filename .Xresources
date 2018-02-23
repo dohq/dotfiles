@@ -18,12 +18,23 @@ URxvt.allow_bold:           false
 URxvt*font: xft:Cica:size=12:antialias=true
 
 ! Plugin
-URxvt.perl-ext-common: fullscreen, resize-font, xim-onthespot
+URxvt.perl-ext-common: fullscreen, resize-font, xim-onthespot, default, clipboard, url-select, keyboard-select
 URxvt.keysym.F11: perl:fullscreen:switch
 URxvt.resize-font.smaller: C-Down
 URxvt.resize-font.bigger: C-Up
 URxvt.inputMethod: fcitx
 URxvt.preeditType: OnTheSpot
+
+URxvt.url-select.launcher:  vivaldi
+URxvt.url-select.underline: true
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-s:           perl:keyboard-select:search
+
+URxvt*inheritPixmap: true
+URxvt*.transparent: true
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+URxvt*.shading: 30
 
 ! color
 #include "dotfiles/base16-xresources/xresources/base16-ashes-256.Xresources"
