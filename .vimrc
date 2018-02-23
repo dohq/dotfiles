@@ -130,8 +130,11 @@ Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
+" yaml
+Plug 'chase/vim-ansible-yaml',              {'for': 'yml'}
+Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
 
-Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
+" Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
 Plug 'y0za/vim-reading-vimrc'
 Plug 'alpertuna/vim-header'
 
