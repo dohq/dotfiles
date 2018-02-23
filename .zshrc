@@ -270,55 +270,55 @@ setopt extended_glob
 # キーバインド
 #bindkey '^R' history-incremental-pattern-search-backward
 setopt hist_ignore_all_dups
-function peco-history() {
+function fzf-history() {
   local tac
   if which tac > /dev/null; then
     tac="tac"
   else
     tac="tail -r"
   fi
-  BUFFER=$(\history -n 1 | $tac | peco)
+  BUFFER=$(\history -n 1 | $tac | fzf)
   CURSOR=$#BUFFER
   zle clear-screen
 }
-zle -N peco-history
-bindkey '^r' peco-history
+zle -N fzf-history
+bindkey '^r' fzf-history
 
-#bindkey '^s' select ssh for peco
-function peco-ssh () {
-  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | peco)
+#bindkey '^s' select ssh for fzf
+function fzf-ssh () {
+  local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf)
   if [ -n "$selected_host" ]; then
     BUFFER="ssh ${selected_host}"
     zle accept-line
   fi
   zle reset-prompt
 }
-zle -N peco-ssh
-bindkey '^s' peco-ssh
+zle -N fzf-ssh
+bindkey '^s' fzf-ssh
 
-#bindkey '^B' select branch for peco
-function peco-branch() {
-  local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | perl -pne 's{^refs/heads/}{}' | peco)
+#bindkey '^B' select branch for fzf
+function fzf-branch() {
+  local selected_branch=$(git for-each-ref --format='%(refname)' --sort=-committerdate refs/heads | perl -pne 's{^refs/heads/}{}' | fzf)
   if [ -n "$selected_branch" ]; then
     BUFFER="git checkout ${selected_branch}"
     zle accept-line
   fi
   zle reset-prompt
 }
-zle -N peco-branch
-bindkey "^b" peco-branch
+zle -N fzf-branch
+bindkey "^b" fzf-branch
 
 #bindkey '^g' list ghq src
-function peco-ghq() {
-  local selected_dir=$(ghq list | peco)
+function fzf-ghq() {
+  local selected_dir=$(ghq list | fzf)
   if [ -n "$selected_dir" ]; then
     BUFFER="cd $(ghq root)/${selected_dir}"
     zle accept-line
   fi
   zle reset-prompt
 }
-zle -N peco-ghq
-bindkey "^g" peco-ghq
+zle -N fzf-ghq
+bindkey "^g" fzf-ghq
 #######################################
 # Home Endキーを有効に
 bindkey  "^[[1~"   beginning-of-line
@@ -338,3 +338,6 @@ case ${OSTYPE} in
         alias ls='ls -F --color=auto'
         ;;
 esac
+
+# source seacret 
+source ~/.token
