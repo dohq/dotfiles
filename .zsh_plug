@@ -1,21 +1,21 @@
 # comp
 # コマンドを色々補完する。超便利
 zplug "zsh-users/zsh-completions"
-zplug "felixr/docker-zsh-completion"
-zplug "sdurrheimer/docker-compose-zsh-completion"
-zplug "leonhartX/docker-machine-zsh-completion"
+zplug "docker/cli",                        use:contrib/completion/zsh
+zplug "docker/compose",                    use:contrib/completion/zsh
+zplug "docker/machine",                    use:contrib/completion/zsh
 
 # theme
 # 色付ける。便利
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # fzf
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
-zplug "b4b4r07/enhancd", use:init.sh
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+zplug "junegunn/fzf-bin",                  as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
+zplug "b4b4r07/enhancd",                   use:init.sh
+zplug "junegunn/fzf",                      as:command, use:bin/fzf-tmux
 
 # gist
-zplug "b4b4r07/gist", from:gh-r, as:command, use:"*linux*amd64*"
+zplug "b4b4r07/gist",                      from:gh-r, as:command, use:"*linux*amd64*"
 
 # source
 # zplug "dohq/9b97e07c865bb608108dd254b5e32fea", from:gist, defer:2
