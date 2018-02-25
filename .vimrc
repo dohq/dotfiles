@@ -73,6 +73,7 @@ Plug 'tpope/vim-speeddating'
 " Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'kana/vim-operator-user'
+Plug 'mbbill/undotree'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
@@ -199,14 +200,18 @@ set smartcase
 set splitbelow
 set splitright
 set tabstop=2 shiftwidth=2 softtabstop=2
-if !has('nvim')
-  set termsize=15x0
-endif
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
+if has('persistent_undo')
+    set undodir=$MYVIMDIR/.undodir/
+    set undofile
+endif
+if !has('nvim')
+  set termsize=15x0
+endif
 if exists('+breakindent')
   set breakindent
   set breakindentopt=sbr
