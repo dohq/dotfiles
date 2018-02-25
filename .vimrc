@@ -77,7 +77,7 @@ Plug 'mbbill/undotree'
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
-" Plug 'felixjung/vim-base16-lightline'
+Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'rhysd/try-colorscheme.vim'
@@ -183,6 +183,7 @@ set cursorline
 set display=lastline
 set expandtab
 set foldmethod=marker
+set formatoptions-=ro
 set helplang=ja,en
 set hlsearch
 set ignorecase
