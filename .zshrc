@@ -340,4 +340,6 @@ case ${OSTYPE} in
 esac
 
 # source seacret 
-source ~/.token
+if [[ -f ~/.token ]]; then
+  source ~/.token
+fi
