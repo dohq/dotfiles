@@ -146,8 +146,6 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-" let base16colorspace=256
-" colorscheme base16-ashes
 colorscheme iceberg
 "}}}
 " set plugin stop {{{
@@ -377,16 +375,16 @@ let g:lightline = {
 \             ['fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component_function': {
-\   'fugitive': 'MyFugitive',
+\   'fugitive': 'Fugitive',
 \   'validator': 'ALEGetStatusLine',
-\   'filename': 'MyFilename',
-\   'fileformat': 'MyFileformat',
-\   'filetype': 'MyFiletype',
-\   'fileencoding': 'MyFileencoding',
+\   'filename': 'FileName',
+\   'fileformat': 'Fileformat',
+\   'filetype': 'FileType',
+\   'fileencoding': 'FileEncoding',
 \ },
 \}
 
-function! MyFilename()
+function! FileName()
   let s:name = expand('%:t')
   let s:name = s:name !=# '' ? s:name : '[No Name]'
   if s:name =~? 'netrw'
@@ -397,7 +395,7 @@ function! MyFilename()
   return s:readonly . s:name . s:modified
 endfunction
 
-function! MyFugitive()
+function! Fugitive()
   try
     if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
       return '' . fugitive#head()
@@ -407,15 +405,15 @@ function! MyFugitive()
   return ''
 endfunction
 
-function! MyFiletype()
+function! FileType()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-function! MyFileformat()
+function! Fileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-function! MyFileencoding()
+function! FileEncoding()
   return winwidth('.') > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
