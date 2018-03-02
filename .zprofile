@@ -62,12 +62,8 @@ if [[ -x direnv ]]; then
 fi
 
 # linuxbrew
-if [[ -d /home/linuxbrew ]]; then
-  export PATH
-  export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
-  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-  export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
-  export XDG_DATA_DIRS="/home/linuxbrew/.linuxbrew/share:$XDG_DATA_DIRS"
-  export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
+if [[ -d ~/.linuxbrew ]]; then
+  PATH="$HOME/.linuxbrew/bin:$PATH"
+  export MANPATH="$(brew --prefix)/share/man:$MANPATH"
+  export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
 fi
