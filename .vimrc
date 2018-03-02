@@ -227,7 +227,6 @@ endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
-" let g:mapleader = '<space>'
 inoremap jj <ESC>
 
 " InsertMode move cursor liught
@@ -252,15 +251,6 @@ inoremap <Right> <nop>
 " buffer
 nnoremap <S-H> :bprev<CR>
 nnoremap <S-L> :bnext<CR>
-
-" fuckin jis keyboard
-nnoremap q: q:i
-nnoremap q/ q/i
-nnoremap q? q?i
-
-" resize func
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 "
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
@@ -292,12 +282,6 @@ let g:UltiSnipsJumpBackwardTrigger='<c-h>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
-
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
-
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
@@ -354,25 +338,6 @@ nmap <silent> [ale]<C-P> <Plug>(ale_previous)
 nmap <silent> [ale]<C-N> <Plug>(ale_next)
 
 " " }}}
-" Gtags {{{
-" The prefix key.
-nnoremap    [Gtags]   <Nop>
-nmap    <Space>t [Gtags]
-
-" Grep 準備
-nnoremap <silent> [Gtags]g :<C-u>Gtags -g
-" このファイルの関数一覧
-nnoremap <silent> [Gtags]l :<C-u>Gtags -f %<CR>
-" カーソル以下の定義元を探す
-nnoremap <silent> [Gtags]j :<C-u>Gtags <C-r><C-w><CR>
-" カーソル以下の使用箇所を探す
-nnoremap <silent> [Gtags]k :<C-u>Gtags -r <C-r><C-w><CR>
-
-" 次の検索結果
-nnoremap <C-n> :cn<CR>
-" 前の検索結果
-nnoremap <C-p> :cp<CR>
-" }}}
 " lightline.vim{{{
 let g:lightline = {
 \ 'colorscheme': 'iceberg',
@@ -564,7 +529,6 @@ nmap    <Space>m [memo]
 
 " unite.vim keymap
 nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
-"nnoremap <silent> [memo]l :<C-u>MemoList<CR>
 nnoremap <silent> [memo]l :<C-u>exe "CtrlP" g:memolist_path<cr><f5>
 nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
 let g:memolist_memo_suffix = 'md'
@@ -605,7 +569,7 @@ let g:jedi#completions_enabled = 1
 let g:jedi#goto_command = '<leader>g'
 let g:jedi#documentation_command = '<leader>k'
 let g:jedi#usages_command = '<leader>n'
-let g:jedi#completions_command = '<C-Space>'
+let g:jedi#completions_command = ''
 let g:jedi#rename_command = '<leader>R'
 let g:jedi#show_call_signatures = '2'
 let g:jedi#popup_on_dot = 0
@@ -619,12 +583,8 @@ nmap <leader>c      <Plug>(caw:hatpos:toggle)
 vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
-" augroup markdown
-"     au!
-"     au BufNewFile,BufRead *.md,*.markdown,*.mmd setlocal filetype=markdown
-" augroup END
 let g:previm_enable_realtime = 1
-let g:netrw_nogx = 1 " netrwのキーマッピングを無効化
+let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 if s:MSWindows
@@ -653,11 +613,6 @@ let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
 let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
-" }}}
-" devicons {{{
-" フォルダアイコンの表示をON
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:webdevicons_enable_ctrlp = 1
 " }}}
 " vim-header {{{
 let g:header_field_author = 'dohq'
