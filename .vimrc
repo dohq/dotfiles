@@ -173,15 +173,12 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " }}}
 " set opt {{{
 set ambiwidth=double
-set cindent
-set clipboard=unnamedplus
 set cmdheight=2
 set completeopt-=preview
 set cursorline
 set display=lastline
 set expandtab
 set foldmethod=marker
-set formatoptions-=ro
 set helplang=ja,en
 set hlsearch
 set ignorecase
@@ -192,6 +189,7 @@ set listchars=tab:>.,extends:>,precedes:<,trail:-
 set nobackup noswapfile
 set noequalalways
 set novisualbell
+set noautoindent
 set nosmartindent
 set nrformats-=octal
 set shortmess+=atI
@@ -204,6 +202,16 @@ set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
+" use clipboard
+if has('win32')
+  set clipboard=unnamed, autoselect
+else
+  set clipboard=unnamedplus
+endif
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
 if has('persistent_undo')
     set undodir=$MYVIMDIR/.undodir/
     set undofile
