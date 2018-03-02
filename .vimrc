@@ -549,6 +549,7 @@ nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
+nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
 let g:ctrlp_use_caching = 0
 let g:ctrlp_user_command = 'files -a %s'
