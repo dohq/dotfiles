@@ -18,15 +18,16 @@ alias pbcopy='xsel --clipboard --input'
 alias tokyo="curl wttr.in/Tokyo"
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
-if [ -x "`which peco`" ]; then
-  alias ll='ls -lha | peco'
-  alias tp='top | peco'
-  alias pp='ps aux | peco'
+
+# interactive select for fzf
+if [ -x "`which fzf`" ]; then
+  alias ll='ls -lha | fzf'
+  alias tp='top | fzf'
+  alias pp='ps aux | fzf'
 fi
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
-# export FZF_DEFAULT_OPTS='--no-sort +m --reverse'
 
 # Gitting
 alias gl="git lg"
