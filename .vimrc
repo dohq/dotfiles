@@ -16,8 +16,8 @@ if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
     autocmd! VimEnter * let g:startuptime = reltime(g:startuptime)
-    \                 | redraw
-    \                 | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+\ | redraw
+\ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
   augroup END
 endif
 
@@ -457,9 +457,9 @@ let g:gitgutter_enabled = 1
 let g:gitgutter_sign_added = ''
 let g:gitgutter_sign_modified = ''
 let g:gitgutter_sign_removed = ''
-nnoremap    [Git]   <Nop>
-nmap    <Space>g [Git]
-nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
+nnoremap          [Git]   <Nop>
+nmap     <Space>g [Git]
+nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " vim-fugitive
@@ -537,8 +537,8 @@ let g:memolist_unite = 1
 let g:memolist_unite_option = '-start-insert'
 "}}}
 "CtrlP {{{
-nnoremap    [CtrlP]   <Nop>
-nmap    <Space>u [CtrlP]
+nnoremap          [CtrlP]   <Nop>
+nmap     <Space>u [CtrlP]
 nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
 nnoremap <silent> [CtrlP]g :<C-u>CtrlPGhq<CR>
 nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
