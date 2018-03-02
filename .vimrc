@@ -491,9 +491,8 @@ let g:indentLine_setConceal = 1
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-" let g:indentLine_char = '︙'
 let g:indentLine_char = '¦'
-let g:indentLine_fileTypeExclude = ['tweetvim']
+let g:indentLine_fileTypeExclude = ['tweetvim', 'help']
 " }}}
 " over.vim {{{
 nnoremap <silent> <leader>o :OverCommandLine<CR>
