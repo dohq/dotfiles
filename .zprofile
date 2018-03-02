@@ -19,6 +19,16 @@ alias tokyo="curl wttr.in/Tokyo"
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
 
+# Gitting
+alias gl='git lg'
+alias gm='git commit -v'
+alias ga='git add'
+alias gc='git clone'
+alias gp='git push'
+alias g='git'
+alias gs='git status'
+alias gd='git diff'
+
 # interactive select for fzf
 if [ -x "`which fzf`" ]; then
   alias ll='ls -lha | fzf'
@@ -28,16 +38,6 @@ fi
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
-
-# Gitting
-alias gl="git lg"
-alias gm="git commit -v"
-alias ga="git add"
-alias gc="git clone"
-alias gp="git push"
-alias g="git"
-alias gs="git status"
-alias gd="git diff"
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
