@@ -36,6 +36,11 @@ if [ -x "`which fzf`" ]; then
   alias pp='ps aux | fzf'
 fi
 
+# interactive repl for python
+if [[ -x ptpython ]]; then
+  alias p='ptpython'
+fi
+
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 
