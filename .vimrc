@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
 " Date              : 21.01.2018
-" Last Modified Date: 21.01.2018
+" Last Modified Date: 02.03.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
@@ -655,6 +655,12 @@ augroup END
 command! -range=% SP  execute <line1> . "," . <line2> .
             \ "w !curl -F 'f:1=<-' ix.io | tr -d '\\n'"
 " http://snippetrepo.com/snippets/filter-quickfix-list-in-vim
+" }}}
+" disable uncomment newline {{{
+augroup auto_comment_off
+  autocmd!
+  autocmd BufEnter * setlocal formatoptions-=ro
+augroup END
 " }}}
 " qf filet {{{
 command! -bang -nargs=1 -complete=file QFilter call
