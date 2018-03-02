@@ -24,10 +24,6 @@ if [ -x "`which peco`" ]; then
   alias pp='ps aux | peco'
 fi
 
-# terminal color
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 # export FZF_DEFAULT_OPTS='--no-sort +m --reverse'
