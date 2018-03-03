@@ -260,7 +260,7 @@ nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
 " toggle fold
-nnoremap <Space> za
+" nnoremap <Space> za
 " }}}
 
 "----------------------------------------
@@ -519,7 +519,7 @@ nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
 nnoremap <silent> [TweetVim]h :<C-u>TweetVimHomeTimeline<CR>
 nnoremap <silent> [TweetVim]m :<C-u>TweetVimMentions<CR>
 nnoremap <silent> [TweetVim]u :<C-u>TweetVimUserTimeline dohq<CR>
-nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch
+nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch<Space>
 " }}}
 " Memolist{{{
 " The prefix key.
