@@ -6,7 +6,7 @@
 " init {{{
 let s:MSWindows = has('win32')
 if s:MSWindows
-  let $MYVIMDIR = expand($VIM.'/vimfiles')
+  let $MYVIMDIR = expand($HOME.'/vimfiles')
 else
   let $MYVIMDIR = expand('~/.vim')
 endif
