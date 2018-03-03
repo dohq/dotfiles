@@ -276,9 +276,9 @@ let g:deoplete#enable_at_startup = 1
 " }}}
 " ultisnips {{{
 " Trigger configuration.
-let g:UltiSnipsExpandTrigger='<c-k>'
-let g:UltiSnipsJumpForwardTrigger='<c-k>'
-let g:UltiSnipsJumpBackwardTrigger='<c-h>'
+let g:UltiSnipsExpandTrigger = '<c-k>'
+let g:UltiSnipsJumpForwardTrigger = '<c-k>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
