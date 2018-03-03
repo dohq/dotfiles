@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
 " Date              : 21.01.2018
-" Last Modified Date: 02.03.2018
+" Last Modified Date: 03.03.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
@@ -239,14 +239,14 @@ vnoremap ; :
 vnoremap : ;
 
 " disable allow key
-nnoremap <Up>    <nop>
-nnoremap <Down>  <nop>
-nnoremap <Left>  <nop>
-nnoremap <Right> <nop>
-inoremap <Up>    <nop>
-inoremap <Down>  <nop>
-inoremap <Left>  <nop>
-inoremap <Right> <nop>
+nnoremap <Up>    <Nop>
+nnoremap <Down>  <Nop>
+nnoremap <Left>  <Nop>
+nnoremap <Right> <Nop>
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
+inoremap <Left>  <Nop>
+inoremap <Right> <Nop>
 
 " buffer
 nnoremap <S-H> :bprev<CR>
@@ -260,7 +260,7 @@ nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
 " toggle fold
-nnoremap <space> za
+nnoremap <Space> za
 " }}}
 
 "----------------------------------------
