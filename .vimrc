@@ -204,7 +204,7 @@ set wildmenu
 set wildmode=full
 " use clipboard
 if has('win32')
-  set clipboard=unnamed, autoselect
+  set clipboard=unnamed,autoselect
 else
   set clipboard=unnamedplus
 endif
