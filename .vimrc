@@ -104,6 +104,7 @@ Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-launcher'
 Plug 'mattn/ctrlp-register'
@@ -193,6 +194,7 @@ set noautoindent
 set nosmartindent
 set nrformats-=octal
 set shortmess+=atI
+set showtabline=0
 set smartcase
 set splitbelow
 set splitright
@@ -248,11 +250,9 @@ inoremap <Down>  <nop>
 inoremap <Left>  <nop>
 inoremap <Right> <nop>
 
-" buffer
-nnoremap <S-H> :bprev<CR>
-nnoremap <S-L> :bnext<CR>
-"
-" sudo write
+nnoremap <S-H> :tabprevious<CR>
+nnoremap <S-L> :tabNext<CR>
+
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " Move over wrapped lines
@@ -547,6 +547,8 @@ nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
+nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
+nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
@@ -561,6 +563,8 @@ let g:ctrlp_working_path_mode = 'ra'
 " Open new file in current window
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
+let g:ctrlp_smarttabs_modify_tabline = 0
+let g:ctrlp_smarttabs_exclude_quickfix = 1
 "}}}
 " Python {{{
 autocmd vimrc FileType python setlocal omnifunc=jedi#completions
