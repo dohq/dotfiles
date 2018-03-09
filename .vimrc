@@ -193,12 +193,14 @@ set novisualbell
 set noautoindent
 set nosmartindent
 set nrformats-=octal
+set matchpairs+=<:>
 set shortmess+=atI
 set showtabline=0
 set smartcase
 set splitbelow
 set splitright
 set tabstop=2 shiftwidth=2 softtabstop=2
+set tags=./tags;
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
@@ -206,7 +208,7 @@ set wildmenu
 set wildmode=full
 " use clipboard
 if has('win32')
-  set clipboard=unnamed, autoselect
+  set clipboard=unnamed,autoselect
 else
   set clipboard=unnamedplus
 endif
@@ -226,21 +228,26 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
+if has('tabsidebar')
+    function! TabSideBar() abort
+        return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
+    endfunction
+    set showtabsidebar=0
+    set tabsidebarcolumns=16
+    set tabsidebar=%!TabSideBar()
+endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
 inoremap jj <ESC>
 
-" InsertMode move cursor liught
-inoremap <C-l> <C-g>U<Right>
+" inoremap <C-l> <C-g>U<Right>
 
-" replace ; to :
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" disable allow key
 nnoremap <Up>    <nop>
 nnoremap <Down>  <nop>
 nnoremap <Left>  <nop>
@@ -255,12 +262,13 @@ nnoremap <S-L> :tabNext<CR>
 
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
-" Move over wrapped lines
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
-" toggle fold
-nnoremap <space> za
+nnoremap <C-l> :nohl<CR><C-l>
+
+nnoremap <silent><C-u> 5k
+nnoremap <silent><C-d> 5j
 " }}}
 
 "----------------------------------------
@@ -393,6 +401,12 @@ endfunction
 function! ALEGetStatusLine() abort
     return ale#statusline#Status()
 endfunction
+
+" command prompt use iceberg instead base16
+if has('win32') || !has('gui_running')
+  let g:lightline = {'colorscheme': 'base16_ashes'}
+  colorscheme base16-ashes
+endif
 
 " }}}
 " EasyAlign{{{
@@ -664,9 +678,24 @@ command! -range=% SP  execute <line1> . "," . <line2> .
 augroup auto_comment_off
   autocmd!
   autocmd BufEnter * setlocal formatoptions-=ro
+  autocmd InsertEnter * :setlocal noimdisable
+  autocmd InsertLeave * :setlocal imdisable
 augroup END
 " }}}
 " qf filet {{{
+function! s:FilterList(list, bang, pattern)
+  let list = deepcopy(a:list)
+  let [cmp, and_or] = a:bang ? ['!~#', '&&'] : ['=~#', '||']
+  return filter(a:list, "bufname(v:val.bufnr) " . cmp . " a:pattern " . and_or . " v:val.text " . cmp . " a:pattern")
+endfunction
+
+function! s:FilterQuickfixList(bang, pattern)
+  call setqflist(s:FilterList(getqflist(), a:bang, a:pattern))
+endfunction
+
+function! s:FilterLocationList(bang, pattern)
+  call setloclist('%', s:FilterList(getloclist('%'), a:bang, a:pattern))
+endfunction
 command! -bang -nargs=1 -complete=file QFilter call
             \ s:FilterQuickfixList(<bang>0, <q-args>)
 " }}}
@@ -676,3 +705,5 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
+" ctrlp glyphs
+let g:webdevicons_enable_ctrlp = 1
