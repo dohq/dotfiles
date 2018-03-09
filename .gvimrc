@@ -1,10 +1,7 @@
 "----------------------------------------
 " GUI Setting
 "----------------------------------------
-" set columns=100
-" set lines=40
-
-set iminsert=0
+" set iminsert=0
 
 set guioptions-=T
 set guioptions-=m
