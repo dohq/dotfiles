@@ -1,12 +1,12 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
 " Date              : 21.01.2018
-" Last Modified Date: 21.01.2018
+" Last Modified Date: 02.03.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
 if s:MSWindows
-  let $MYVIMDIR = expand($VIM.'/vimfiles')
+  let $MYVIMDIR = expand($HOME.'/vimfiles')
 else
   let $MYVIMDIR = expand('~/.vim')
 endif
@@ -16,8 +16,8 @@ if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
     autocmd! VimEnter * let g:startuptime = reltime(g:startuptime)
-    \                 | redraw
-    \                 | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+\ | redraw
+\ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
   augroup END
 endif
 
@@ -104,6 +104,7 @@ Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-launcher'
 Plug 'mattn/ctrlp-register'
@@ -146,8 +147,6 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-" let base16colorspace=256
-" colorscheme base16-ashes
 colorscheme iceberg
 "}}}
 " set plugin stop {{{
@@ -175,15 +174,12 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " }}}
 " set opt {{{
 set ambiwidth=double
-set cindent
-set clipboard=unnamedplus
 set cmdheight=2
 set completeopt-=preview
 set cursorline
 set display=lastline
 set expandtab
 set foldmethod=marker
-set formatoptions-=ro
 set helplang=ja,en
 set hlsearch
 set ignorecase
@@ -194,18 +190,32 @@ set listchars=tab:>.,extends:>,precedes:<,trail:-
 set nobackup noswapfile
 set noequalalways
 set novisualbell
+set noautoindent
 set nosmartindent
 set nrformats-=octal
+set matchpairs+=<:>
 set shortmess+=atI
+set showtabline=0
 set smartcase
 set splitbelow
 set splitright
 set tabstop=2 shiftwidth=2 softtabstop=2
+set tags=./tags;
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
+" use clipboard
+if has('win32')
+  set clipboard=unnamed,autoselect
+else
+  set clipboard=unnamedplus
+endif
+" For snippet_complete marker.
+if has('conceal')
+    set conceallevel=2 concealcursor=i
+endif
 if has('persistent_undo')
     set undodir=$MYVIMDIR/.undodir/
     set undofile
@@ -218,22 +228,26 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
+if has('tabsidebar')
+    function! TabSideBar() abort
+        return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
+    endfunction
+    set showtabsidebar=0
+    set tabsidebarcolumns=16
+    set tabsidebar=%!TabSideBar()
+endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
-" let g:mapleader = '<space>'
 inoremap jj <ESC>
 
-" InsertMode move cursor liught
-inoremap <C-l> <C-g>U<Right>
+" inoremap <C-l> <C-g>U<Right>
 
-" replace ; to :
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" disable allow key
 nnoremap <Up>    <nop>
 nnoremap <Down>  <nop>
 nnoremap <Left>  <nop>
@@ -243,28 +257,18 @@ inoremap <Down>  <nop>
 inoremap <Left>  <nop>
 inoremap <Right> <nop>
 
-" buffer
-nnoremap <S-H> :bprev<CR>
-nnoremap <S-L> :bnext<CR>
+nnoremap <S-H> :tabprevious<CR>
+nnoremap <S-L> :tabNext<CR>
 
-" fuckin jis keyboard
-nnoremap q: q:i
-nnoremap q/ q/i
-nnoremap q? q?i
-
-" resize func
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-"
-" sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
-" Move over wrapped lines
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
-" toggle fold
-nnoremap <space> za
+nnoremap <C-l> :nohl<CR><C-l>
+
+nnoremap <silent><C-u> 5k
+nnoremap <silent><C-d> 5j
 " }}}
 
 "----------------------------------------
@@ -286,12 +290,6 @@ let g:UltiSnipsJumpBackwardTrigger='<c-h>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
-
-" For snippet_complete marker.
-if has('conceal')
-    set conceallevel=2 concealcursor=i
-endif
-
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
@@ -348,25 +346,6 @@ nmap <silent> [ale]<C-P> <Plug>(ale_previous)
 nmap <silent> [ale]<C-N> <Plug>(ale_next)
 
 " " }}}
-" Gtags {{{
-" The prefix key.
-nnoremap    [Gtags]   <Nop>
-nmap    <Space>t [Gtags]
-
-" Grep 準備
-nnoremap <silent> [Gtags]g :<C-u>Gtags -g
-" このファイルの関数一覧
-nnoremap <silent> [Gtags]l :<C-u>Gtags -f %<CR>
-" カーソル以下の定義元を探す
-nnoremap <silent> [Gtags]j :<C-u>Gtags <C-r><C-w><CR>
-" カーソル以下の使用箇所を探す
-nnoremap <silent> [Gtags]k :<C-u>Gtags -r <C-r><C-w><CR>
-
-" 次の検索結果
-nnoremap <C-n> :cn<CR>
-" 前の検索結果
-nnoremap <C-p> :cp<CR>
-" }}}
 " lightline.vim{{{
 let g:lightline = {
 \ 'colorscheme': 'iceberg',
@@ -377,16 +356,16 @@ let g:lightline = {
 \             ['fileformat', 'fileencoding', 'filetype']]
 \ },
 \ 'component_function': {
-\   'fugitive': 'MyFugitive',
+\   'fugitive': 'Fugitive',
 \   'validator': 'ALEGetStatusLine',
-\   'filename': 'MyFilename',
-\   'fileformat': 'MyFileformat',
-\   'filetype': 'MyFiletype',
-\   'fileencoding': 'MyFileencoding',
+\   'filename': 'FileName',
+\   'fileformat': 'Fileformat',
+\   'filetype': 'FileType',
+\   'fileencoding': 'FileEncoding',
 \ },
 \}
 
-function! MyFilename()
+function! FileName()
   let s:name = expand('%:t')
   let s:name = s:name !=# '' ? s:name : '[No Name]'
   if s:name =~? 'netrw'
@@ -397,7 +376,7 @@ function! MyFilename()
   return s:readonly . s:name . s:modified
 endfunction
 
-function! MyFugitive()
+function! Fugitive()
   try
     if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
       return '' . fugitive#head()
@@ -407,21 +386,27 @@ function! MyFugitive()
   return ''
 endfunction
 
-function! MyFiletype()
+function! FileType()
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-function! MyFileformat()
+function! Fileformat()
   return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
-function! MyFileencoding()
+function! FileEncoding()
   return winwidth('.') > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 function! ALEGetStatusLine() abort
     return ale#statusline#Status()
 endfunction
+
+" command prompt use iceberg instead base16
+if has('win32') || !has('gui_running')
+  let g:lightline = {'colorscheme': 'base16_ashes'}
+  colorscheme base16-ashes
+endif
 
 " }}}
 " EasyAlign{{{
@@ -486,9 +471,9 @@ let g:gitgutter_enabled = 1
 let g:gitgutter_sign_added = ''
 let g:gitgutter_sign_modified = ''
 let g:gitgutter_sign_removed = ''
-nnoremap    [Git]   <Nop>
-nmap    <Space>g [Git]
-nnoremap <silent> [Git]gt :<C-u>GitGutterToggle<CR>
+nnoremap          [Git]   <Nop>
+nmap     <Space>g [Git]
+nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " vim-fugitive
@@ -520,9 +505,8 @@ let g:indentLine_setConceal = 1
 let g:indentLine_faster = 1
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
-" let g:indentLine_char = '︙'
 let g:indentLine_char = '¦'
-let g:indentLine_fileTypeExclude = ['tweetvim']
+let g:indentLine_fileTypeExclude = ['tweetvim', 'help']
 " }}}
 " over.vim {{{
 nnoremap <silent> <leader>o :OverCommandLine<CR>
@@ -558,7 +542,6 @@ nmap    <Space>m [memo]
 
 " unite.vim keymap
 nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
-"nnoremap <silent> [memo]l :<C-u>MemoList<CR>
 nnoremap <silent> [memo]l :<C-u>exe "CtrlP" g:memolist_path<cr><f5>
 nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
 let g:memolist_memo_suffix = 'md'
@@ -567,8 +550,8 @@ let g:memolist_unite = 1
 let g:memolist_unite_option = '-start-insert'
 "}}}
 "CtrlP {{{
-nnoremap    [CtrlP]   <Nop>
-nmap    <Space>u [CtrlP]
+nnoremap          [CtrlP]   <Nop>
+nmap     <Space>u [CtrlP]
 nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
 nnoremap <silent> [CtrlP]g :<C-u>CtrlPGhq<CR>
 nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
@@ -578,7 +561,10 @@ nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
+nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
+nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
+nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
 let g:ctrlp_use_caching = 0
 let g:ctrlp_user_command = 'files -a %s'
@@ -591,6 +577,8 @@ let g:ctrlp_working_path_mode = 'ra'
 " Open new file in current window
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
+let g:ctrlp_smarttabs_modify_tabline = 0
+let g:ctrlp_smarttabs_exclude_quickfix = 1
 "}}}
 " Python {{{
 autocmd vimrc FileType python setlocal omnifunc=jedi#completions
@@ -599,7 +587,7 @@ let g:jedi#completions_enabled = 1
 let g:jedi#goto_command = '<leader>g'
 let g:jedi#documentation_command = '<leader>k'
 let g:jedi#usages_command = '<leader>n'
-let g:jedi#completions_command = '<C-Space>'
+let g:jedi#completions_command = ''
 let g:jedi#rename_command = '<leader>R'
 let g:jedi#show_call_signatures = '2'
 let g:jedi#popup_on_dot = 0
@@ -613,12 +601,8 @@ nmap <leader>c      <Plug>(caw:hatpos:toggle)
 vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
-" augroup markdown
-"     au!
-"     au BufNewFile,BufRead *.md,*.markdown,*.mmd setlocal filetype=markdown
-" augroup END
 let g:previm_enable_realtime = 1
-let g:netrw_nogx = 1 " netrwのキーマッピングを無効化
+let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 if s:MSWindows
@@ -647,11 +631,6 @@ let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
 let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
-" }}}
-" devicons {{{
-" フォルダアイコンの表示をON
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:webdevicons_enable_ctrlp = 1
 " }}}
 " vim-header {{{
 let g:header_field_author = 'dohq'
@@ -695,7 +674,28 @@ command! -range=% SP  execute <line1> . "," . <line2> .
             \ "w !curl -F 'f:1=<-' ix.io | tr -d '\\n'"
 " http://snippetrepo.com/snippets/filter-quickfix-list-in-vim
 " }}}
+" disable uncomment newline {{{
+augroup auto_comment_off
+  autocmd!
+  autocmd BufEnter * setlocal formatoptions-=ro
+  autocmd InsertEnter * :setlocal noimdisable
+  autocmd InsertLeave * :setlocal imdisable
+augroup END
+" }}}
 " qf filet {{{
+function! s:FilterList(list, bang, pattern)
+  let list = deepcopy(a:list)
+  let [cmp, and_or] = a:bang ? ['!~#', '&&'] : ['=~#', '||']
+  return filter(a:list, "bufname(v:val.bufnr) " . cmp . " a:pattern " . and_or . " v:val.text " . cmp . " a:pattern")
+endfunction
+
+function! s:FilterQuickfixList(bang, pattern)
+  call setqflist(s:FilterList(getqflist(), a:bang, a:pattern))
+endfunction
+
+function! s:FilterLocationList(bang, pattern)
+  call setloclist('%', s:FilterList(getloclist('%'), a:bang, a:pattern))
+endfunction
 command! -bang -nargs=1 -complete=file QFilter call
             \ s:FilterQuickfixList(<bang>0, <q-args>)
 " }}}
@@ -705,3 +705,5 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
+" ctrlp glyphs
+let g:webdevicons_enable_ctrlp = 1
