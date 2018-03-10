@@ -104,6 +104,7 @@ Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'mattn/ctrlp-launcher'
 Plug 'mattn/ctrlp-register'
@@ -209,13 +210,16 @@ set nrformats-=octal
 set scrolloff=7
 set shiftround
 set shiftwidth=2
+set matchpairs+=<:>
 set shortmess+=atI
+set showtabline=0
 set smartcase
 set softtabstop=2
 set splitbelow splitright
 set synmaxcol=512
 set tabstop=2
 set title
+set tags=./tags;
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
@@ -245,6 +249,14 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
+if has('tabsidebar')
+    function! TabSideBar() abort
+        return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
+    endfunction
+    set showtabsidebar=0
+    set tabsidebarcolumns=16
+    set tabsidebar=%!TabSideBar()
+endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -270,7 +282,6 @@ inoremap <Right> <Nop>
 nnoremap <S-H> :bprev<CR>
 nnoremap <S-L> :bnext<CR>
 
-" Move over wrapped lines
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
@@ -423,6 +434,12 @@ endfunction
 function! ALEGetStatusLine() abort
     return ale#statusline#Status()
 endfunction
+
+" command prompt use iceberg instead base16
+if has('win32') && !has('gui_running')
+  let g:lightline = {'colorscheme': 'base16_ashes'}
+  colorscheme base16-ashes
+endif
 
 " }}}
 " EasyAlign{{{
@@ -577,6 +594,8 @@ nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
+nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
+nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
@@ -591,6 +610,8 @@ let g:ctrlp_working_path_mode = 'ra'
 " Open new file in current window
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
+let g:ctrlp_smarttabs_modify_tabline = 0
+let g:ctrlp_smarttabs_exclude_quickfix = 1
 "}}}
 " Python {{{
 autocmd vimrc FileType python setlocal omnifunc=jedi#completions
@@ -687,6 +708,8 @@ command! -range=% SP  execute <line1> . "," . <line2> .
 augroup auto_comment_off
   autocmd!
   autocmd BufEnter * setlocal formatoptions-=ro
+  autocmd InsertEnter * :setlocal noimdisable
+  autocmd InsertLeave * :setlocal imdisable
 augroup END
 " }}}
 " Toggle semicolon, comma or neither at {{{
@@ -703,7 +726,6 @@ function! ToggleSemiColonComma() abort
       execute 'normal! mzA;`z'
   endif
 endfunction
-" }}}
 " highlight off in insert mode {{{
 augroup search_highlight
   autocmd!
@@ -719,3 +741,5 @@ let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
+" ctrlp glyphs
+let g:webdevicons_enable_ctrlp = 1
