@@ -127,6 +127,7 @@ Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
+Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
