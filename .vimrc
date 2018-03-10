@@ -178,6 +178,9 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " }}}
 " set opt {{{
 set ambiwidth=double
+set autoread
+set belloff=all
+set colorcolumn=80
 set cmdheight=2
 set completeopt-=preview
 set cursorline
@@ -190,20 +193,32 @@ set ignorecase
 set imdisable
 set incsearch
 set list
-set listchars=tab:>.,extends:>,precedes:<,trail:-
-set nobackup noswapfile
-set noequalalways
-set novisualbell
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=tab:▸\
+set listchars+=trail:-
 set noautoindent
+set nobackup
+set noequalalways
 set nosmartindent
+set nostartofline
+set noswapfile
+set novisualbell
 set nrformats-=octal
+set scrolloff=7
+set shiftround
+set shiftwidth=2
 set shortmess+=atI
 set smartcase
-set splitbelow
-set splitright
-set tabstop=2 shiftwidth=2 softtabstop=2
+set softtabstop=2
+set splitbelow splitright
+set synmaxcol=512
+set tabstop=2
+set title
 set ttyfast
 set whichwrap=b,s,[,],<,>
+set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
