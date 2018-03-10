@@ -688,13 +688,33 @@ augroup auto_comment_off
   autocmd BufEnter * setlocal formatoptions-=ro
 augroup END
 " }}}
-" qf filet {{{
-command! -bang -nargs=1 -complete=file QFilter call
-            \ s:FilterQuickfixList(<bang>0, <q-args>)
+" Toggle semicolon, comma or neither at {{{
+" end of line without moving cursor
+nnoremap <leader>; :call ToggleSemiColonComma()<cr>
+
+function! ToggleSemiColonComma() abort
+  let l:last = getline(line('.'))[-1:]
+  if l:last =~# ','
+      execute 'normal! mz$x`z'
+  elseif l:last =~# ';'
+      execute 'normal! mz$r,`z'
+  elseif l:last !~# '(,|;)'
+      execute 'normal! mzA;`z'
+  endif
+endfunction
 " }}}
+" highlight off in insert mode {{{
+augroup search_highlight
+  autocmd!
+  autocmd InsertEnter * :setlocal nohlsearch
+  autocmd InsertLeave * :setlocal hlsearch
+augroup END
+"}}}
 " }}}
+" reading_vimrc {{{
+vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
+"}}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
