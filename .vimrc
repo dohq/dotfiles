@@ -249,9 +249,6 @@ endif
 let g:mapleader = ','
 inoremap jj <ESC>
 
-" InsertMode move cursor liught
-inoremap <C-l> <C-g>U<Right>
-
 " replace ; to :
 nnoremap ; :
 nnoremap : ;
