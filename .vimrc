@@ -470,7 +470,7 @@ let g:eskk#large_dictionary = {
 " Don't keep state.
 let g:eskk#keep_state = 0
 let g:eskk#show_annotation = 0
-let g:eskk_revert_henkan_style = 'okuri'
+let g:eskk#revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 
