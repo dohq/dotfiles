@@ -182,8 +182,8 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 set ambiwidth=double
 set autoread
 set belloff=all
-set colorcolumn=80
 set cmdheight=2
+set colorcolumn=80
 set completeopt-=preview
 set cursorline
 set display=lastline
@@ -199,6 +199,7 @@ set listchars+=extends:»
 set listchars+=precedes:«
 set listchars+=tab:▸\
 set listchars+=trail:-
+set matchpairs+=<:>
 set noautoindent
 set nobackup
 set noequalalways
@@ -210,7 +211,6 @@ set nrformats-=octal
 set scrolloff=7
 set shiftround
 set shiftwidth=2
-set matchpairs+=<:>
 set shortmess+=atI
 set showtabline=0
 set smartcase
@@ -218,8 +218,8 @@ set softtabstop=2
 set splitbelow splitright
 set synmaxcol=512
 set tabstop=2
-set title
 set tags=./tags;
+set title
 set ttyfast
 set whichwrap=b,s,[,],<,>
 set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
@@ -612,7 +612,7 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
-"}}}
+" }}}
 " Python {{{
 autocmd vimrc FileType python setlocal omnifunc=jedi#completions
 let g:python_highlight_all = 1
@@ -732,7 +732,7 @@ augroup search_highlight
   autocmd InsertEnter * :setlocal nohlsearch
   autocmd InsertLeave * :setlocal hlsearch
 augroup END
-"}}}
+" }}}
 " }}}
 " reading_vimrc {{{
 vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
