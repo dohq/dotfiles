@@ -268,16 +268,28 @@ inoremap <Right> <Nop>
 " buffer
 nnoremap <S-H> :bprev<CR>
 nnoremap <S-L> :bnext<CR>
-"
-" sudo write
-cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " Move over wrapped lines
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
-" toggle fold
-" nnoremap <Space> za
+" C-n and C-p now complete commands in command mode like up and down arrow
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
+
+" redraw and nohl
+nnoremap <silent> <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:redraw!<cr>
+
+" I don't want help right now!
+vnoremap <F1> <Esc>
+nnoremap <F1> <Esc>
+inoremap <F1> <Esc>
+
+" insert days
+iabbrev xdate <c-r>=strftime("%Y-%m-%d")<cr>
+
+" sudo write
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " }}}
 
 "----------------------------------------
@@ -622,9 +634,6 @@ let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 " Grepper {{{
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
-
 let g:grepper               = {}
 let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
 let g:grepper.jump          = 0
