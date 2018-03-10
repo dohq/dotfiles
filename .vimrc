@@ -147,6 +147,11 @@ call plug#end()
 " color {{{
 set t_Co=256
 colorscheme iceberg
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight LineNr ctermbg=none
+highlight Folded ctermbg=none
+highlight EndOfBuffer ctermbg=none
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
