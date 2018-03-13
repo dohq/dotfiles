@@ -7,7 +7,7 @@
   autocrlf = false
   preloadindex = true
   fscache = true
-	pager = LESSCHARSET=utf-8 less -R
+  pager = LESSCHARSET=utf-8 less -R
 [color]
   ui = auto
   diff = always
@@ -27,17 +27,17 @@
 [pretty]
   medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h% Creset %C(green reverse) %an %Creset %C(cyan)%ar%Creset%n%C(white bold)%w(80)%s%Creset%n%n%w(80,2,2)%b
 [push]
-	default = current
+  default = current
 [ghq]
   root = ~/go/src
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [winUpdater]
-	recentlySeenVersion = 2.15.1.windows.2
+  recentlySeenVersion = 2.15.1.windows.2
 [pull]
-	ff = only
+  ff = only
 [merge]
-	ff = false
+  ff = false
