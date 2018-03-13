@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
 " Date              : 21.01.2018
-" Last Modified Date: 02.03.2018
+" Last Modified Date: 03.03.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
@@ -128,6 +128,7 @@ Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
 Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
+Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
@@ -148,6 +149,11 @@ call plug#end()
 " color {{{
 set t_Co=256
 colorscheme iceberg
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight LineNr ctermbg=none
+highlight Folded ctermbg=none
+highlight EndOfBuffer ctermbg=none
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
@@ -174,7 +180,10 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " }}}
 " set opt {{{
 set ambiwidth=double
+set autoread
+set belloff=all
 set cmdheight=2
+set colorcolumn=80
 set completeopt-=preview
 set cursorline
 set display=lastline
@@ -186,23 +195,36 @@ set ignorecase
 set imdisable
 set incsearch
 set list
-set listchars=tab:>.,extends:>,precedes:<,trail:-
-set nobackup noswapfile
-set noequalalways
-set novisualbell
-set noautoindent
-set nosmartindent
-set nrformats-=octal
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=tab:▸\
+set listchars+=trail:-
+set listchars+=eol:\ 
 set matchpairs+=<:>
-set shortmess+=atI
+set noautoindent
+set nobackup
+set noequalalways
+set nosmartindent
+set nostartofline
+set noswapfile
+set novisualbell
+set nrformats-=octal
+set scrolloff=7
+set shiftround
+set shiftwidth=2
+set shortmess+=atIc
 set showtabline=0
 set smartcase
-set splitbelow
-set splitright
-set tabstop=2 shiftwidth=2 softtabstop=2
+set softtabstop=2
+set splitbelow splitright
+set synmaxcol=512
+set tabstop=2
 set tags=./tags;
+set title
 set ttyfast
 set whichwrap=b,s,[,],<,>
+set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
@@ -241,34 +263,46 @@ endif
 let g:mapleader = ','
 inoremap jj <ESC>
 
-" inoremap <C-l> <C-g>U<Right>
-
+" replace ; to :
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-nnoremap <Up>    <nop>
-nnoremap <Down>  <nop>
-nnoremap <Left>  <nop>
-nnoremap <Right> <nop>
-inoremap <Up>    <nop>
-inoremap <Down>  <nop>
-inoremap <Left>  <nop>
-inoremap <Right> <nop>
+" disable allow key
+nnoremap <Up>    <Nop>
+nnoremap <Down>  <Nop>
+nnoremap <Left>  <Nop>
+nnoremap <Right> <Nop>
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
+inoremap <Left>  <Nop>
+inoremap <Right> <Nop>
 
-nnoremap <S-H> :tabprevious<CR>
-nnoremap <S-L> :tabNext<CR>
-
-cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+" buffer
+nnoremap <S-H> :bprev<CR>
+nnoremap <S-L> :bnext<CR>
 
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
-nnoremap <C-l> :nohl<CR><C-l>
+" C-n and C-p now complete commands in command mode like up and down arrow
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
 
-nnoremap <silent><C-u> 5k
-nnoremap <silent><C-d> 5j
+" redraw and nohl
+nnoremap <silent> <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:redraw!<cr>
+
+" I don't want help right now!
+vnoremap <F1> <Esc>
+nnoremap <F1> <Esc>
+inoremap <F1> <Esc>
+
+" insert days
+iabbrev xdate <c-r>=strftime("%Y-%m-%d")<cr>
+
+" sudo write
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 " }}}
 
 "----------------------------------------
@@ -284,9 +318,9 @@ let g:deoplete#enable_at_startup = 1
 " }}}
 " ultisnips {{{
 " Trigger configuration.
-let g:UltiSnipsExpandTrigger='<c-k>'
-let g:UltiSnipsJumpForwardTrigger='<c-k>'
-let g:UltiSnipsJumpBackwardTrigger='<c-h>'
+let g:UltiSnipsExpandTrigger = '<c-k>'
+let g:UltiSnipsJumpForwardTrigger = '<c-k>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
@@ -403,7 +437,7 @@ function! ALEGetStatusLine() abort
 endfunction
 
 " command prompt use iceberg instead base16
-if has('win32') || !has('gui_running')
+if has('win32') && !has('gui_running')
   let g:lightline = {'colorscheme': 'base16_ashes'}
   colorscheme base16-ashes
 endif
@@ -455,7 +489,7 @@ let g:eskk#large_dictionary = {
 " Don't keep state.
 let g:eskk#keep_state = 0
 let g:eskk#show_annotation = 0
-let g:eskk_revert_henkan_style = 'okuri'
+let g:eskk#revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 
@@ -533,7 +567,7 @@ nnoremap <silent> [TweetVim]s :<C-u>TweetVimSay<CR>
 nnoremap <silent> [TweetVim]h :<C-u>TweetVimHomeTimeline<CR>
 nnoremap <silent> [TweetVim]m :<C-u>TweetVimMentions<CR>
 nnoremap <silent> [TweetVim]u :<C-u>TweetVimUserTimeline dohq<CR>
-nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch
+nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch<Space>
 " }}}
 " Memolist{{{
 " The prefix key.
@@ -579,7 +613,7 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
-"}}}
+" }}}
 " Python {{{
 autocmd vimrc FileType python setlocal omnifunc=jedi#completions
 let g:python_highlight_all = 1
@@ -623,9 +657,6 @@ let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 " Grepper {{{
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
-
 let g:grepper               = {}
 let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
 let g:grepper.jump          = 0
@@ -682,28 +713,34 @@ augroup auto_comment_off
   autocmd InsertLeave * :setlocal imdisable
 augroup END
 " }}}
-" qf filet {{{
-function! s:FilterList(list, bang, pattern)
-  let list = deepcopy(a:list)
-  let [cmp, and_or] = a:bang ? ['!~#', '&&'] : ['=~#', '||']
-  return filter(a:list, "bufname(v:val.bufnr) " . cmp . " a:pattern " . and_or . " v:val.text " . cmp . " a:pattern")
-endfunction
+" Toggle semicolon, comma or neither at {{{
+" end of line without moving cursor
+nnoremap <leader>; :call ToggleSemiColonComma()<cr>
 
-function! s:FilterQuickfixList(bang, pattern)
-  call setqflist(s:FilterList(getqflist(), a:bang, a:pattern))
+function! ToggleSemiColonComma() abort
+  let l:last = getline(line('.'))[-1:]
+  if l:last =~# ','
+      execute 'normal! mz$x`z'
+  elseif l:last =~# ';'
+      execute 'normal! mz$r,`z'
+  elseif l:last !~# '(,|;)'
+      execute 'normal! mzA;`z'
+  endif
 endfunction
-
-function! s:FilterLocationList(bang, pattern)
-  call setloclist('%', s:FilterList(getloclist('%'), a:bang, a:pattern))
-endfunction
-command! -bang -nargs=1 -complete=file QFilter call
-            \ s:FilterQuickfixList(<bang>0, <q-args>)
+" highlight off in insert mode {{{
+augroup search_highlight
+  autocmd!
+  autocmd InsertEnter * :setlocal nohlsearch
+  autocmd InsertLeave * :setlocal hlsearch
+augroup END
 " }}}
 " }}}
+" reading_vimrc {{{
+vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
+"}}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
-vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
 " ctrlp glyphs
 let g:webdevicons_enable_ctrlp = 1
