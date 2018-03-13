@@ -199,6 +199,7 @@ set listchars+=extends:»
 set listchars+=precedes:«
 set listchars+=tab:▸\
 set listchars+=trail:-
+set listchars+=eol:\ 
 set matchpairs+=<:>
 set noautoindent
 set nobackup
@@ -211,7 +212,7 @@ set nrformats-=octal
 set scrolloff=7
 set shiftround
 set shiftwidth=2
-set shortmess+=atI
+set shortmess+=atIc
 set showtabline=0
 set smartcase
 set softtabstop=2
