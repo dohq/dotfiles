@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
 " Date              : 21.01.2018
-" Last Modified Date: 03.03.2018
+" Last Modified Date: 15.03.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 let s:MSWindows = has('win32')
@@ -181,6 +181,7 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " set opt {{{
 set ambiwidth=double
 set autoread
+set autowrite
 set belloff=all
 set cmdheight=2
 set colorcolumn=80
@@ -195,11 +196,7 @@ set ignorecase
 set imdisable
 set incsearch
 set list
-set listchars+=extends:»
-set listchars+=precedes:«
-set listchars+=tab:▸\
-set listchars+=trail:-
-set listchars+=eol:\ 
+set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
 set matchpairs+=<:>
 set noautoindent
 set nobackup
@@ -229,7 +226,7 @@ set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
 " use clipboard
-if has('win32')
+if has('win32') && !has('nvim')
   set clipboard=unnamed,autoselect
 else
   set clipboard=unnamedplus
@@ -334,7 +331,7 @@ let g:quickrun_config = {
 \       'hook/neco/wait' : 10,
 \       'outputter/error/success' : 'buffer',
 \       'outputter/error/error'   : 'quickfix',
-\       'outputter/buffer/split' : ':botright 8sp',
+\       'outputter/buffer/split' : ':belowright 8sp',
 \       'outputter/buffer/close_on_empty' : 1,
 \       'outputter/buffer/into' : 1,
 \       'outputter/quickfix/into' : 1,
@@ -736,8 +733,9 @@ augroup END
 " }}}
 " }}}
 " reading_vimrc {{{
-vmap <Leader><CR> <Plug>(reading_vimrc-update_clipboard)
+autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 "}}}
+" }}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
