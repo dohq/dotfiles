@@ -50,6 +50,8 @@ Plug 'justinmk/vim-dirvish'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'tyru/eskk.vim'
+Plug 'haya14busa/vim-asterisk'
+Plug 'osyo-manga/vim-anzu'
 " Input Assist
 if has('nvim')
   Plug 'Shougo/deoplete.nvim',              { 'do': ':UpdateRemotePlugins' }
@@ -300,6 +302,22 @@ iabbrev xdate <c-r>=strftime("%Y-%m-%d")<cr>
 
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+
+" Make sure pasting in visual mode doesn't replace paste buffer
+vmap <silent> <expr> p <sid>Repl()
+
+" open fold
+nnoremap <silent> <space>f @=(foldlevel('.')?'za':"\<space>")<CR>
+
+" yanky
+nnoremap Y y$
+
+" anzu.vim and asterisk.vim
+nmap * <Plug>(asterisk-z*)<Plug>(anzu-mode)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
+
 " }}}
 
 "----------------------------------------
@@ -664,6 +682,9 @@ let g:grepper.quickfix      = 1
 let g:header_field_author = 'dohq'
 let g:header_field_author_email = 'dorastone@gmail.com'
 let g:header_auto_add_header = 0
+" }}}
+" vim-asterisk {{{
+let g:asterisk#keeppos = 1
 " }}}
 " user command {{{
 " auto-cursorline {{{
