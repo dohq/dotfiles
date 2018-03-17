@@ -216,6 +216,7 @@ set showtabline=0
 set smartcase
 set softtabstop=2
 set splitbelow splitright
+set switchbuf=useopen
 set synmaxcol=512
 set tabstop=2
 set tags=./tags;
@@ -235,11 +236,15 @@ else
 endif
 " For snippet_complete marker.
 if has('conceal')
-    set conceallevel=2 concealcursor=i
+  set conceallevel=2 concealcursor=i
 endif
 if has('persistent_undo')
-    set undodir=$MYVIMDIR/.undodir/
-    set undofile
+  let s:undo_dir = $MYVIMDIR . '/.undo'
+  if !isdirectory(s:undo_dir)
+    call mkdir(s:undo_dir)
+  endif
+  set undodir=s:undo_dir
+  set undofile
 endif
 if !has('nvim')
   set termsize=15x0
@@ -250,16 +255,18 @@ if exists('+breakindent')
   set showbreak=<
 endif
 if has('tabsidebar')
-    function! TabSideBar() abort
-        return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
-    endfunction
-    set showtabsidebar=0
-    set tabsidebarcolumns=16
-    set tabsidebar=%!TabSideBar()
+  function! TabSideBar() abort
+    return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
+  endfunction
+  set showtabsidebar=0
+  set tabsidebarcolumns=16
+  set tabsidebar=%!TabSideBar()
 endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
+
+" escape
 inoremap jj <ESC>
 
 " replace ; to :
@@ -282,6 +289,7 @@ inoremap <Right> <Nop>
 nnoremap <S-H> :bprev<CR>
 nnoremap <S-L> :bnext<CR>
 
+" moving nextline
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
@@ -448,7 +456,7 @@ function! FileEncoding()
 endfunction
 
 function! ALEGetStatusLine() abort
-    return ale#statusline#Status()
+  return ale#statusline#Status()
 endfunction
 
 " command prompt use iceberg instead base16
@@ -756,6 +764,17 @@ augroup END
 " reading_vimrc {{{
 autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 "}}}
+" RedtoreRegister {{{
+" https://github.com/sheerun/vimrc/blob/master/plugin/vimrc.vim#L295
+function! RestoreRegister()
+    let @" = s:restore_reg
+    return ''
+endfunction
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+" }}}
 " }}}
 let g:test#strategy = 'dispatch'
 let g:vim_json_syntax_conceal = 0
