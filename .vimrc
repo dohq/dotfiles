@@ -72,7 +72,7 @@ Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'tpope/vim-speeddating'
-" Plug 'wakatime/vim-wakatime'
+Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'kana/vim-operator-user'
 Plug 'mbbill/undotree'
