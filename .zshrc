@@ -1,3 +1,4 @@
+unsetopt BG_NICE
 #######################################
 # zplug
 [[ -d ~/.zplug ]] || {
@@ -286,7 +287,11 @@ case ${OSTYPE} in
         ;;
 esac
 
-# source seacret 
+# source seacret
 if [[ -f ~/.token ]]; then
   source ~/.token
+fi
+# source zsh_local
+if [[ -f ~/.zsh_local ]]; then
+  source ~/.zsh_local
 fi
