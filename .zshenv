@@ -28,6 +28,7 @@ alias gp='git push'
 alias g='git'
 alias gs='git status'
 alias gd='git diff'
+alias gnd='git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
 
 # interactive select for fzf
 if [ -x "`which fzf`" ]; then
