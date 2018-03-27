@@ -9,8 +9,6 @@ zplug "docker/machine",                    use:contrib/completion/zsh
 # 色付ける。便利
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
-zplug "RobSis/zsh-completion-generator",   if:"GENCOMPL_FPATH=$HOME/.zsh/complete"
-zplug "GeneralD/zsh-aliases-colorls"
 zplug "arks22/tmuximum",                   as:command
 
 # fzf
