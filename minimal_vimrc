@@ -1,0 +1,13 @@
+set encoding=utf8
+scriptencoding utf-8
+" platform {{{
+let s:MSWindows = has('win32')
+if s:MSWindows
+  let $MYVIMDIR = expand($HOME.'/vimfiles')
+else
+  let $MYVIMDIR = expand('~/.vim')
+endif
+" }}}
+call plug#begin($MYVIMDIR.'/plugins')
+
+call plug#end()
