@@ -76,6 +76,8 @@ Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/vim-unified-diff'
 Plug 'kana/vim-operator-user'
 Plug 'mbbill/undotree'
+Plug 'tpope/vim-scriptease'
+
 " Visual
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
@@ -193,6 +195,7 @@ set display=lastline
 set expandtab
 set foldmethod=marker
 set helplang=ja,en
+set hidden
 set hlsearch
 set ignorecase
 set imdisable
@@ -246,7 +249,7 @@ if has('persistent_undo')
   set undodir=s:undo_dir
   set undofile
 endif
-if !has('nvim')
+if !has('nvim') && has('terminal')
   set termsize=15x0
 endif
 if exists('+breakindent')
