@@ -1,0 +1,28 @@
+set encoding=utf8
+scriptencoding utf-8
+" init {{{
+let s:cache_dir = $MYVIMDIR . '/.cache' 
+if !isdirectory(s:cache_dir)
+  call mkdir(s:cache_dir)
+endif
+" platform {{{
+let s:MSWindows = has('win32')
+if s:MSWindows
+  let $MYVIMDIR = expand($HOME.'/vimfiles')
+else
+  let $MYVIMDIR = expand('~/.vim')
+endif
+" }}}
+" }}}
+
+call plug#begin($MYVIMDIR.'/plugins')
+
+call plug#end()
+
+" check execution_time
+" let s:starttime = reltime()
+" call MyFunction()
+" echo 'exec: ' . reltimestr(reltime(s:starttime))
+
+" profile start s:cache_dir.'/profile.txt'
+" profile! file <plugin_path>/*
