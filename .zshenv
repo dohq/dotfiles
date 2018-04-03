@@ -51,20 +51,7 @@ alias sudo='sudo '
 # hub alias
 function git(){hub "$@"}
 
-# anyenv
-if [[ -d ~/.anyenv ]]; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
-fi
-
-# direnv
-if [[ -x direnv ]]; then
-  if type "zsh" > /dev/null 2>&1; then
-    eval "$(direnv hook zsh)"
-  fi
-fi
-
-# linuxbrew
+# linuxbre
 if [[ -d ~/.linuxbrew ]]; then
   PATH="$HOME/.linuxbrew/bin:$PATH"
   export MANPATH="$(brew --prefix)/share/man:$MANPATH"

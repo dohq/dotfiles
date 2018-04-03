@@ -291,7 +291,22 @@ esac
 if [[ -f ~/.token ]]; then
   source ~/.token
 fi
+
 # source zsh_local
 if [[ -f ~/.zsh_local ]]; then
   source ~/.zsh_local
 fi
+
+# anyenv
+if [[ -d ~/.anyenv ]]; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
+
+# direnv
+if [[ -x direnv ]]; then
+  if type "zsh" > /dev/null 2>&1; then
+    eval "$(direnv hook zsh)"
+  fi
+fi
+
