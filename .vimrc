@@ -152,7 +152,7 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-colorscheme gruvbox
+colorscheme iceberg
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 highlight LineNr ctermbg=none
