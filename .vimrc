@@ -33,8 +33,8 @@ if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
   augroup vimrc-startuptime
     autocmd! VimEnter * let g:startuptime = reltime(g:startuptime)
-\ | redraw
-\ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+          \ | redraw
+          \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
   augroup END
 endif
 
@@ -369,26 +369,26 @@ let g:UltiSnipsEditSplit='vertical'
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
-\   '_' : {
-\       'runner' : 'job',
-\       'outputter' : 'error',
-\       'hook/neco/enable' : 1,
-\       'hook/neco/wait' : 10,
-\       'outputter/error/success' : 'buffer',
-\       'outputter/error/error'   : 'quickfix',
-\       'outputter/buffer/split' : ':belowright 8sp',
-\       'outputter/buffer/close_on_empty' : 1,
-\       'outputter/buffer/into' : 1,
-\       'outputter/quickfix/into' : 1,
-\   },
-\}
+      \   '_' : {
+      \       'runner' : 'job',
+      \       'outputter' : 'error',
+      \       'hook/neco/enable' : 1,
+      \       'hook/neco/wait' : 10,
+      \       'outputter/error/success' : 'buffer',
+      \       'outputter/error/error'   : 'quickfix',
+      \       'outputter/buffer/split' : ':belowright 8sp',
+      \       'outputter/buffer/close_on_empty' : 1,
+      \       'outputter/buffer/into' : 1,
+      \       'outputter/quickfix/into' : 1,
+      \   },
+      \}
 if s:MSWindows
   let g:quickrun_config = {
-\ 'python' : {
-\     'hook/output_encode/enable' : 1,
-\     'hook/output_encode/encoding' : 'cp932',
-\ },
-\}
+        \ 'python' : {
+        \     'hook/output_encode/enable' : 1,
+        \     'hook/output_encode/encoding' : 'cp932',
+        \ },
+        \}
 endif
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
@@ -413,8 +413,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = [' %d', ' %d', ' ok']
 
 let g:ale_pattern_options = {
-\   '.*\.vim$': {'ale_enabled': 0},
-\}
+      \   '.*\.vim$': {'ale_enabled': 0},
+      \}
 nmap [ale] <Nop>
 map <C-k> [ale]
 " エラー行にジャンプ
@@ -424,22 +424,22 @@ nmap <silent> [ale]<C-N> <Plug>(ale_next)
 " " }}}
 " lightline.vim{{{
 let g:lightline = {
-\ 'colorscheme': 'iceberg',
-\ 'active': {
-\   'left': [['mode', 'paste'],
-\            ['fugitive', 'filename']],
-\   'right': [['lineinfo', 'validator'],
-\             ['fileformat', 'fileencoding', 'filetype']]
-\ },
-\ 'component_function': {
-\   'fugitive': 'Fugitive',
-\   'validator': 'ALEGetStatusLine',
-\   'filename': 'FileName',
-\   'fileformat': 'Fileformat',
-\   'filetype': 'FileType',
-\   'fileencoding': 'FileEncoding',
-\ },
-\}
+      \ 'colorscheme': 'iceberg',
+      \ 'active': {
+      \   'left': [['mode', 'paste'],
+      \            ['fugitive', 'filename']],
+      \   'right': [['lineinfo', 'validator'],
+      \             ['fileformat', 'fileencoding', 'filetype']]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'Fugitive',
+      \   'validator': 'ALEGetStatusLine',
+      \   'filename': 'FileName',
+      \   'fileformat': 'Fileformat',
+      \   'filetype': 'FileType',
+      \   'fileencoding': 'FileEncoding',
+      \ },
+      \}
 
 function! FileName()
   let s:name = expand('%:t')
@@ -489,29 +489,29 @@ endif
 vnoremap <silent> <Enter> :EasyAlign<cr>
 let g:easy_align_bypass_fold = 1
 let g:easy_align_delimiters = {
-\ '>': { 'pattern': '>>\|=>\|>' },
-\ '/': {
-\     'pattern':         '//\+\|/\*\|\*/',
-\     'delimiter_align': 'l',
-\     'ignore_groups':   ['!Comment'] },
-\ ']': {
-\     'pattern':       '[[\]]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
-\ ')': {
-\     'pattern':       '[()]',
-\     'left_margin':   0,
-\     'right_margin':  0,
-\     'stick_to_left': 0
-\   },
-\ 'd': {
-\     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-\     'left_margin':  0,
-\     'right_margin': 0
-\   }
-\}
+      \ '>': { 'pattern': '>>\|=>\|>' },
+      \ '/': {
+      \     'pattern':         '//\+\|/\*\|\*/',
+      \     'delimiter_align': 'l',
+      \     'ignore_groups':   ['!Comment'] },
+      \ ']': {
+      \     'pattern':       '[[\]]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ ')': {
+      \     'pattern':       '[()]',
+      \     'left_margin':   0,
+      \     'right_margin':  0,
+      \     'stick_to_left': 0
+      \   },
+      \ 'd': {
+      \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
+      \     'left_margin':  0,
+      \     'right_margin': 0
+      \   }
+      \}
 " }}}
 " vim-easymotion{{{
 let g:EasyMotion_do_mapping = 0
@@ -525,9 +525,9 @@ let g:EasyMotion_space_jump_first = 1
 let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($MYVIMDIR.'/.cache/eskk')
 let g:eskk#large_dictionary = {
-\ 'path': $MYVIMDIR.'/skk/SKK-JISYO.L',
-\ 'sorted': 1,
-\}
+      \ 'path': $MYVIMDIR.'/skk/SKK-JISYO.L',
+      \ 'sorted': 1,
+      \}
 " Don't keep state.
 let g:eskk#keep_state = 0
 let g:eskk#show_annotation = 0
@@ -747,7 +747,7 @@ augroup END
 " }}}
 " past to ix.io {{{
 command! -range=% SP  execute <line1> . "," . <line2> .
-            \ "w !curl -F 'f:1=<-' ix.io | tr -d '\\n'"
+      \ "w !curl -F 'f:1=<-' ix.io | tr -d '\\n'"
 " http://snippetrepo.com/snippets/filter-quickfix-list-in-vim
 " }}}
 " disable uncomment newline {{{
@@ -765,11 +765,11 @@ nnoremap <leader>; :call ToggleSemiColonComma()<cr>
 function! ToggleSemiColonComma() abort
   let l:last = getline(line('.'))[-1:]
   if l:last =~# ','
-      execute 'normal! mz$x`z'
+    execute 'normal! mz$x`z'
   elseif l:last =~# ';'
-      execute 'normal! mz$r,`z'
+    execute 'normal! mz$r,`z'
   elseif l:last !~# '(,|;)'
-      execute 'normal! mzA;`z'
+    execute 'normal! mzA;`z'
   endif
 endfunction
 " highlight off in insert mode {{{
@@ -786,12 +786,12 @@ autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 " RedtoreRegister {{{
 " https://github.com/sheerun/vimrc/blob/master/plugin/vimrc.vim#L295
 function! RestoreRegister()
-    let @" = s:restore_reg
-    return ''
+  let @" = s:restore_reg
+  return ''
 endfunction
 function! s:Repl()
-    let s:restore_reg = @"
-    return "p@=RestoreRegister()\<cr>"
+  let s:restore_reg = @"
+  return "p@=RestoreRegister()\<cr>"
 endfunction
 " }}}
 " }}}
