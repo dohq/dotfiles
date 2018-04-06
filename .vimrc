@@ -4,6 +4,23 @@
 " Last Modified Date: 15.03.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
+" encoding
+set encoding=utf8
+scriptencoding utf-8
+
+" Use as many color as possibleo
+if !has('gui_running')
+      \ && exists('&termguicolors')
+      \ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
+  " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
+  if !has('nvim')
+    let &t_8f = "\e[38;2;%lu;%lu;%lum"
+    let &t_8b = "\e[48;2;%lu;%lu;%lum"
+  endif
+  set termguicolors       " use truecolor in term
+endif
+
+" set MYVIMDIR
 let s:MSWindows = has('win32')
 if s:MSWindows
   let $MYVIMDIR = expand($HOME.'/vimfiles')
@@ -179,8 +196,6 @@ let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
 " }}}
 " Encoding {{{
-set encoding=utf8
-scriptencoding utf-8
 set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
