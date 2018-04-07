@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : dohq <dorastone@gmail.com>
 " Date              : 21.01.2018
-" Last Modified Date: 15.03.2018
+" Last Modified Date: 08.04.2018
 " Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 " encoding
@@ -305,8 +305,8 @@ inoremap <Left>  <Nop>
 inoremap <Right> <Nop>
 
 " buffer
-nnoremap <S-H> :bprev<CR>
-nnoremap <S-L> :bnext<CR>
+nnoremap <C-p> :bprev<CR>
+nnoremap <C-n> :bnext<CR>
 
 " moving nextline
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
@@ -339,12 +339,13 @@ nnoremap <silent> <space>f @=(foldlevel('.')?'za':"\<space>")<CR>
 " yanky
 nnoremap Y y$
 
-" anzu.vim and asterisk.vim
-nmap * <Plug>(asterisk-z*)<Plug>(anzu-mode)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
+" open urxvt
+nnoremap got :call system('urxvt -cd '.getcwd().' &')<cr>
+nnoremap goT :call system('urxvt -cd '.expand("%:p:h").' &')<cr>
 
+" Centering search word
+nnoremap n nzz
+nnoremap N Nzz
 " }}}
 
 "----------------------------------------
@@ -641,6 +642,7 @@ nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
 nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
+nnoremap <silent> [CtrlP]w :<C-u>source $MYVIMRC<CR>
 
 let g:ctrlp_use_caching = 0
 let g:ctrlp_user_command = 'files -a %s'
@@ -712,6 +714,12 @@ let g:header_auto_add_header = 0
 " }}}
 " vim-asterisk {{{
 let g:asterisk#keeppos = 1
+" }}}
+" anzu.vim and asterisk.vim {{{
+nmap * <Plug>(asterisk-z*)<Plug>(anzu-mode)
+map #  <Plug>(asterisk-z#)
+map g* <Plug>(asterisk-gz*)
+map g# <Plug>(asterisk-gz#)
 " }}}
 " user command {{{
 " auto-cursorline {{{
