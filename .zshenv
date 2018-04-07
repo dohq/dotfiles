@@ -2,7 +2,8 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-export PATH=/usr/lib/ccache/bin:$HOME/bin:/usr/local/bin:/sbin:$GOPATH/bin:$PATH
+# export PATH=/usr/lib/ccache/bin:$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH
+path=(/usr/lib/ccache/bin(N-/) $HOME/bin(N-/) /usr/local/bin(N-/) $GOPATH/bin(N-/) $path)
 
 # EDITOR
 export EDITOR=vim
