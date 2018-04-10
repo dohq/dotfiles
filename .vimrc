@@ -95,6 +95,7 @@ Plug 'kana/vim-operator-user'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-scriptease'
 Plug 'Chiel92/vim-autoformat'
+Plug 'simeji/winresizer'
 
 " Visual
 Plug 'chriskempson/base16-vim'
