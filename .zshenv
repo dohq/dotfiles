@@ -53,11 +53,9 @@ alias sudo='sudo '
 # hub alias
 function git(){hub "$@"}
 
-# linuxbre
-if [[ -d ~/.linuxbrew ]]; then
-  PATH="$HOME/.linuxbrew/bin:$PATH"
-  export MANPATH="$(brew --prefix)/share/man:$MANPATH"
-  export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
+# user program
+if [[ -d ~/.local/bin ]]; then
+  path=($HOME/.local/bin $path)
 fi
 
 # RUST_SRC_PATH
