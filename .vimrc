@@ -554,12 +554,12 @@ nmap     <Space>g [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
-" vim-fugitive
+" git command
 nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
-nnoremap <silent> [Git]m :<C-u>Gcommit -v<CR>
-nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
-nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
-nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
+nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
+nnoremap <silent> [Git]s :<C-u>Gina status<CR>
+nnoremap <silent> [Git]d :<C-u>Gina diff<CR>
+nnoremap <silent> [Git]b :<C-u>Gina branch<CR>
 " }}}
 " vim-go {{{
 " highlight error
