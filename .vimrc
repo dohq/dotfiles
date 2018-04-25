@@ -122,7 +122,7 @@ Plug 'mattn/webapi-vim'
 Plug 'w0rp/ale'
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'lambdalisue/gina.vim'
 " CtrlP
@@ -429,12 +429,12 @@ let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ 'active': {
       \   'left': [['mode', 'paste'],
-      \            ['fugitive', 'filename']],
+      \            ['gitbranch', 'filename']],
       \   'right': [['lineinfo', 'validator'],
       \             ['fileformat', 'fileencoding', 'filetype']]
       \ },
       \ 'component_function': {
-      \   'fugitive': 'Fugitive',
+      \   'gitbranch': 'Branch',
       \   'validator': 'ALEGetStatusLine',
       \   'filename': 'FileName',
       \   'fileformat': 'Fileformat',
@@ -454,10 +454,10 @@ function! FileName()
   return s:readonly . s:name . s:modified
 endfunction
 
-function! Fugitive()
+function! Branch()
   try
-    if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
-      return '' . fugitive#head()
+    if &filetype !~? 'vimfiler\|gundo' && exists('*gitbranch#name') && strlen(gitbranch#name())
+      return '' . gitbranch#name()
     endif
   catch
   endtry
