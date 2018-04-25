@@ -555,7 +555,7 @@ nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " git command
-nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
+nnoremap <silent> [Git]a :<C-u>Gina add %<CR>
 nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
 nnoremap <silent> [Git]s :<C-u>Gina status<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff<CR>
