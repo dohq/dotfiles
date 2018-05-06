@@ -102,7 +102,6 @@ Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
-Plug 'ryanoasis/vim-devicons'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'cocopon/iceberg.vim'
 Plug 'morhetz/gruvbox'
@@ -163,6 +162,9 @@ Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
 " Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
 Plug 'y0za/vim-reading-vimrc'
 Plug 'alpertuna/vim-header'
+
+" Always load the vim-devicons as the very last one.
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -810,3 +812,4 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 " ctrlp glyphs
 let g:webdevicons_enable_ctrlp = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
