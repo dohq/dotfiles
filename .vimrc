@@ -60,7 +60,6 @@ endfunction
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'tpope/vim-sensible'
-Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
@@ -356,8 +355,11 @@ nnoremap N Nzz
 "----------------------------------------
 " completor {{{
 let g:completor_auto_trigger = 1
-let g:completor_refresh_always = 0
+let g:completor_refresh_always = 1
 let g:completor_set_options = 1
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 " }}}
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
