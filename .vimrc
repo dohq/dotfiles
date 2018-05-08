@@ -381,13 +381,14 @@ let g:quickrun_config = {
       \       'hook/neco/enable' : 1,
       \       'hook/neco/wait' : 10,
       \       'outputter/error/success' : 'buffer',
-      \       'outputter/error/error'   : 'quickfix',
-      \       'outputter/buffer/split' : ':belowright 8sp',
+      \       'outputter/error/error' : 'quickfix',
+      \       'outputter/buffer/split' : ':botright 8',
       \       'outputter/buffer/close_on_empty' : 1,
       \       'outputter/buffer/into' : 1,
       \       'outputter/quickfix/into' : 1,
       \   },
       \}
+
 if s:MSWindows
   let g:quickrun_config = {
         \ 'python' : {
