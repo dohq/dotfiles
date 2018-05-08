@@ -268,7 +268,7 @@ if has('persistent_undo')
   set undofile
 endif
 if !has('nvim') && has('terminal')
-  set termsize=15x0
+  set termwinsize=15x0
 endif
 if exists('+breakindent')
   set breakindent
