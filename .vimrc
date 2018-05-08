@@ -390,13 +390,12 @@ let g:quickrun_config = {
       \}
 
 if s:MSWindows
-  let g:quickrun_config = {
-        \ 'python' : {
-        \     'hook/output_encode/enable' : 1,
-        \     'hook/output_encode/encoding' : 'cp932',
-        \ },
-        \}
+  let g:quickrun_config['python'] = {
+      \     'hook/output_encode/enable' : 1,
+      \     'hook/output_encode/encoding' : 'cp932',
+      \}
 endif
+
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
 nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
