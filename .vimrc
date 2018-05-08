@@ -398,8 +398,7 @@ endif
 
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
-nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
-xnoremap <silent><Leader>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun<CR>
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : ""
 autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
