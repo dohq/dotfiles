@@ -1,10 +1,5 @@
 set encoding=utf8
 scriptencoding utf-8
-" init {{{
-let s:cache_dir = $MYVIMDIR . '/.cache' 
-if !isdirectory(s:cache_dir)
-  call mkdir(s:cache_dir)
-endif
 " platform {{{
 let s:MSWindows = has('win32')
 if s:MSWindows
@@ -12,7 +7,6 @@ if s:MSWindows
 else
   let $MYVIMDIR = expand('~/.vim')
 endif
-" }}}
 " }}}
 
 call plug#begin($MYVIMDIR.'/plugins')
