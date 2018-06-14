@@ -59,96 +59,87 @@ endfunction
 
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
-Plug 'tpope/vim-sensible'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
-Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'tyru/eskk.vim'
-Plug 'haya14busa/vim-asterisk'
-Plug 'osyo-manga/vim-anzu'
+Plug 'tpope/vim-sensible'
+Plug 'vim-jp/vimdoc-ja'
+Plug 'sheerun/vim-polyglot'
 " Input Assist
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim',              { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/neco-vim'
-  Plug 'zchee/deoplete-jedi'
-else
-  Plug 'maralla/completor.vim'
-endif
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'cohama/lexima.vim'
-Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'mattn/sonictemplate-vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'AndrewRadev/switch.vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'SirVer/ultisnips'
+Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
+Plug 'cohama/lexima.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-textobj-user'
+" Plug 'lambdalisue/vim-unified-diff'
+Plug 'maralla/completor.vim'
+Plug 'mattn/sonictemplate-vim'
+Plug 'mbbill/undotree'
 Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
+Plug 'simeji/winresizer'
+Plug 'tyru/eskk.vim'
+Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
-Plug 'tpope/vim-speeddating'
 Plug 'wakatime/vim-wakatime'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'kana/vim-operator-user'
-Plug 'mbbill/undotree'
-Plug 'tpope/vim-scriptease'
-Plug 'Chiel92/vim-autoformat'
-Plug 'simeji/winresizer'
-
 " Visual
-Plug 'chriskempson/base16-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
-Plug 'rhysd/try-colorscheme.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'felixjung/vim-base16-lightline'
+Plug 'itchyny/lightline.vim'
+Plug 'mhinz/vim-janah'
 Plug 'morhetz/gruvbox'
+Plug 'rhysd/try-colorscheme.vim'
 " QuickRun
-Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
+Plug 'thinca/vim-quickrun'
 " Test
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
-Plug 'tlvince/vim-compiler-python'
 " Twitter
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
-Plug 'tyru/open-browser.vim'
 Plug 'mattn/webapi-vim'
+Plug 'tyru/open-browser.vim'
 " Syntax Check
 Plug 'w0rp/ale'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/vim-gitbranch'
-Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 " CtrlP
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/ctrlp-filer'
+Plug 'mattn/ctrlp-ghq'
 Plug 'mattn/ctrlp-launcher'
 Plug 'mattn/ctrlp-register'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
-Plug 'mattn/ctrlp-filer'
-Plug 'mattn/ctrlp-ghq'
 " Python
-Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
-Plug 'cjrh/vim-conda',                      {'for': 'python'}
+Plug 'davidhalter/jedi-vim',                {'for': 'python'}
+Plug 'fisadev/vim-isort',                   {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
-Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
+Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
-Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 " Markdown
+Plug 'kannokanno/previm',                   {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
-Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
-Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
@@ -157,10 +148,15 @@ Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinar
 " yaml
 Plug 'chase/vim-ansible-yaml',              {'for': 'yml'}
 Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
+" html
+Plug 'mattn/emmet-vim',                     {'for': 'html'}
+Plug 'othree/html5.vim',                    {'for': 'html'}
+" javascript
+Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
+Plug 'othree/yajs.vim',                     {'for': ['javascript', 'javascript.jsx']}
 
-" Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
 Plug 'y0za/vim-reading-vimrc'
-Plug 'alpertuna/vim-header'
+
 
 " Always load the vim-devicons as the very last one.
 Plug 'ryanoasis/vim-devicons'
@@ -178,6 +174,7 @@ highlight NonText ctermbg=none
 highlight LineNr ctermbg=none
 highlight Folded ctermbg=none
 highlight EndOfBuffer ctermbg=none
+let g:gruvbox_italic = 0
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
@@ -249,13 +246,6 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
-" use clipboard
-if has('win32') && !has('nvim')
-  set clipboard=unnamed,autoselect
-else
-  set clipboard=unnamedplus
-endif
-" For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
@@ -275,14 +265,9 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
-if has('tabsidebar')
-  function! TabSideBar() abort
-    return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
-  endfunction
-  set showtabsidebar=0
-  set tabsidebarcolumns=16
-  set tabsidebar=%!TabSideBar()
-endif
+let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -391,9 +376,9 @@ let g:quickrun_config = {
 
 if s:MSWindows
   let g:quickrun_config['python'] = {
-      \     'hook/output_encode/enable' : 1,
-      \     'hook/output_encode/encoding' : 'cp932',
-      \}
+        \     'hook/output_encode/enable' : 1,
+        \     'hook/output_encode/encoding' : 'cp932',
+        \}
 endif
 
 let g:quickrun_no_default_key_mappings = 1
@@ -417,9 +402,14 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_statusline_format = [' %d', ' %d', ' ok']
 
+let g:ale_linters = {
+      \   'javascript': ['eslint'],
+      \}
+
 let g:ale_pattern_options = {
       \   '.*\.vim$': {'ale_enabled': 0},
       \}
+" keymap
 nmap [ale] <Nop>
 map <C-k> [ale]
 " エラー行にジャンプ
@@ -559,8 +549,8 @@ nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
 " git command
 nnoremap <silent> [Git]a :<C-u>Gina add %<CR>
-nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
-nnoremap <silent> [Git]s :<C-u>Gina status<CR>
+nnoremap <silent> [Git]m :<C-u>Gina commit -v --opener=split<CR>
+nnoremap <silent> [Git]s :<C-u>Gina status --opener=split<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff<CR>
 nnoremap <silent> [Git]b :<C-u>Gina branch<CR>
 " }}}
@@ -595,8 +585,6 @@ nnoremap <silent> <leader>o :OverCommandLine<CR>
 " Twit {{{
 " open-browser.vim
 let g:netrw_nogx = 1
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
 autocmd vimrc FileType twitvim call s:twitvim_my_settings()
 function! s:twitvim_my_settings()
   set nowrap
@@ -648,8 +636,12 @@ nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 nnoremap <silent> [CtrlP]w :<C-u>source $MYVIMRC<CR>
 
-let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'files -a %s'
+" let g:ctrlp_use_caching = 0
+" let g:ctrlp_user_command = 'files -a %s'
+if executable('ag')
+  let g:ctrlp_use_caching=0
+  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+endif
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
@@ -663,11 +655,10 @@ let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
 " }}}
 " Python {{{
-autocmd vimrc FileType python setlocal omnifunc=jedi#completions
 let g:python_highlight_all = 1
-let g:jedi#completions_enabled = 1
+" let g:jedi#completions_enabled = 1
 let g:jedi#goto_command = '<leader>g'
-let g:jedi#documentation_command = '<leader>k'
+let g:jedi#documentation_command = '<s-k>'
 let g:jedi#usages_command = '<leader>n'
 let g:jedi#completions_command = ''
 let g:jedi#rename_command = '<leader>R'
@@ -675,8 +666,6 @@ let g:jedi#show_call_signatures = '2'
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 " vim-conda
-let g:conda_startup_msg_suppress = 1
-nnoremap <silent> <leader>s :Switch<CR>
 " }}}
 " caw.vim {{{
 nmap <leader>c      <Plug>(caw:hatpos:toggle)
@@ -684,19 +673,16 @@ vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
 let g:previm_enable_realtime = 1
+let g:previm_disable_vimproc = 1
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-if s:MSWindows
-  autocmd BufNewFile,BufRead *.md set shellslash
-endif
+" if s:MSWindows
+" autocmd BufNewFile,BufRead *.md set shellslash
+" endif
 " }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
-" }}}
-" SuperTab {{{
-let g:SuperTabContextDefaultCompletionType = '<c-n>'
-let g:SuperTabDefaultCompletionType = '<c-n>'
 " }}}
 " vim-ref {{{
 let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
@@ -710,20 +696,6 @@ let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
 let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
-" }}}
-" vim-header {{{
-let g:header_field_author = 'dohq'
-let g:header_field_author_email = 'dorastone@gmail.com'
-let g:header_auto_add_header = 0
-" }}}
-" vim-asterisk {{{
-let g:asterisk#keeppos = 1
-" }}}
-" anzu.vim and asterisk.vim {{{
-nmap * <Plug>(asterisk-z*)<Plug>(anzu-mode)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
 " }}}
 " user command {{{
 " auto-cursorline {{{
@@ -808,9 +780,5 @@ endfunction
 " }}}
 " }}}
 let g:test#strategy = 'dispatch'
-let g:vim_json_syntax_conceal = 0
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_folding_disabled = 1
-" ctrlp glyphs
-let g:webdevicons_enable_ctrlp = 1
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:user_emmet_mode='a'
+nnoremap <silent> <leader>s :Switch<CR>
