@@ -19,7 +19,6 @@ augroup end
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-let g:lightline = {'colorscheme': 'base16_ashes'}
 colorscheme base16-ashes
 
 "----------------------------------------
