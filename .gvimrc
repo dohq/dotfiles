@@ -19,7 +19,8 @@ augroup end
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-colorscheme base16-ashes
+colorscheme iceberg
+let g:gruvbox_italic = 0
 
 "----------------------------------------
 " FontSetting
