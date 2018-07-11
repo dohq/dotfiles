@@ -634,8 +634,8 @@ nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 nnoremap <silent> [CtrlP]w :<C-u>source $MYVIMRC<CR>
 
-" let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules)$" -A -a %s'
+let g:ctrlp_use_caching = 0
+let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
 " if executable('ag')
 "   let g:ctrlp_use_caching=0
 "   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
