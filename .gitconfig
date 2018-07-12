@@ -41,3 +41,5 @@
   ff = only
 [merge]
   ff = false
+[credential]
+	helper = manager

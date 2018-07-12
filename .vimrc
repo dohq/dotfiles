@@ -43,114 +43,90 @@ augroup vimrc
   autocmd!
 augroup END
 " }}}
-" vimrc_local {{{
-augroup vimrc-local
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-
-function! s:vimrc_local(loc)
-  let s:files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for s:i in reverse(filter(s:files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
-endfunction
-" }}}
 
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
-Plug 'tpope/vim-sensible'
-Plug 'ervandew/supertab'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
-Plug 'vim-jp/vimdoc-ja'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'tyru/eskk.vim'
-Plug 'haya14busa/vim-asterisk'
-Plug 'osyo-manga/vim-anzu'
-" Input Assist
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim',              { 'do': ':UpdateRemotePlugins' }
-  Plug 'Shougo/neco-vim'
-  Plug 'zchee/deoplete-jedi'
-else
-  Plug 'maralla/completor.vim'
-endif
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-sensible'
+Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'mattn/sonictemplate-vim'
+Plug 'wakatime/vim-wakatime'
+Plug 'kana/vim-slacky'
+Plug 'tpope/vim-dadbod'
+Plug 'mbbill/undotree'
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-textobj-user'
 Plug 'easymotion/vim-easymotion'
+" Input Assist
 Plug 'AndrewRadev/switch.vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'SirVer/ultisnips'
+Plug 'cohama/lexima.vim'
+Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
-Plug 'osyo-manga/vim-over',                 {'on': 'OverCommandLine'}
+Plug 'maralla/completor.vim'
+Plug 'mattn/sonictemplate-vim'
+Plug 'tyru/eskk.vim'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
-Plug 'tpope/vim-speeddating'
-Plug 'wakatime/vim-wakatime'
-Plug 'lambdalisue/vim-unified-diff'
-Plug 'kana/vim-operator-user'
-Plug 'mbbill/undotree'
-Plug 'tpope/vim-scriptease'
-Plug 'Chiel92/vim-autoformat'
-Plug 'simeji/winresizer'
-
+Plug 'LeafCage/yankround.vim'
 " Visual
-Plug 'chriskempson/base16-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'felixjung/vim-base16-lightline'
 Plug 'Yggdroot/indentLine'
-Plug 'ryanoasis/vim-devicons'
-Plug 'rhysd/try-colorscheme.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
+Plug 'felixjung/vim-base16-lightline'
+Plug 'itchyny/lightline.vim'
 Plug 'morhetz/gruvbox'
+Plug 'rhysd/try-colorscheme.vim'
 " QuickRun
-Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
+Plug 'thinca/vim-quickrun'
 " Test
 Plug 'janko-m/vim-test'
 Plug 'tpope/vim-dispatch'
-Plug 'tlvince/vim-compiler-python'
 " Twitter
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
-Plug 'tyru/open-browser.vim'
 Plug 'mattn/webapi-vim'
+Plug 'tyru/open-browser.vim'
 " Syntax Check
 Plug 'w0rp/ale'
+Plug 'maximbaz/lightline-ale'
 " Git
 Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
-Plug 'lambdalisue/gina.vim'
+Plug 'junegunn/gv.vim'
 " CtrlP
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mattn/ctrlp-filer'
+Plug 'mattn/ctrlp-ghq'
 Plug 'mattn/ctrlp-launcher'
 Plug 'mattn/ctrlp-register'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
-Plug 'mattn/ctrlp-filer'
-Plug 'mattn/ctrlp-ghq'
 " Python
-Plug 'kana/vim-textobj-user'
 Plug 'bps/vim-textobj-python',              {'for': 'python'}
-Plug 'cjrh/vim-conda',                      {'for': 'python'}
+Plug 'davidhalter/jedi-vim',                {'for': 'python'}
+Plug 'fisadev/vim-isort',                   {'for': 'python'}
 Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
-Plug 'lambdalisue/vim-django-support',      {'for': 'python'}
+Plug 'jmcantrell/vim-virtualenv'
+Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
-Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 " Markdown
+Plug 'kannokanno/previm',                   {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
-Plug 'kazuph/previm',                       {'for': 'markdown', 'branch': 'feature/add-plantuml-plugin'}
 " UML
-Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
@@ -159,10 +135,19 @@ Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinar
 " yaml
 Plug 'chase/vim-ansible-yaml',              {'for': 'yml'}
 Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
+" html
+Plug 'mattn/emmet-vim',                     {'for': 'html'}
+Plug 'othree/html5.vim',                    {'for': 'html'}
+" javascript
+Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
+Plug 'othree/yajs.vim',                     {'for': ['javascript', 'javascript.jsx']}
+" php
+Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
 
-" Plug 'thinca/vim-showtime',                 {'on': 'ShowtimeStart'}
 Plug 'y0za/vim-reading-vimrc'
-Plug 'alpertuna/vim-header'
+
+" Always load the vim-devicons as the very last one.
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -172,11 +157,14 @@ call plug#end()
 " color {{{
 set t_Co=256
 colorscheme iceberg
-highlight Normal ctermbg=none
-highlight NonText ctermbg=none
-highlight LineNr ctermbg=none
-highlight Folded ctermbg=none
-highlight EndOfBuffer ctermbg=none
+if !has('win32')
+  highlight Normal ctermbg=none
+  highlight NonText ctermbg=none
+  highlight LineNr ctermbg=none
+  highlight Folded ctermbg=none
+  highlight EndOfBuffer ctermbg=none
+endif
+let g:gruvbox_italic = 0
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
@@ -248,13 +236,6 @@ set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
-" use clipboard
-if has('win32') && !has('nvim')
-  set clipboard=unnamed,autoselect
-else
-  set clipboard=unnamedplus
-endif
-" For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
@@ -267,21 +248,16 @@ if has('persistent_undo')
   set undofile
 endif
 if !has('nvim') && has('terminal')
-  set termsize=15x0
+  set termwinsize=15x0
 endif
 if exists('+breakindent')
   set breakindent
   set breakindentopt=sbr
   set showbreak=<
 endif
-if has('tabsidebar')
-  function! TabSideBar() abort
-    return printf('%2d. %%f%%m%%r', g:actual_curtabpage)
-  endfunction
-  set showtabsidebar=0
-  set tabsidebarcolumns=16
-  set tabsidebar=%!TabSideBar()
-endif
+let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled = 1
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -354,17 +330,19 @@ nnoremap N Nzz
 "----------------------------------------
 " completor {{{
 let g:completor_auto_trigger = 1
-let g:completor_refresh_always = 0
+let g:completor_refresh_always = 1
 let g:completor_set_options = 1
-" }}}
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 " }}}
 " ultisnips {{{
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger = '<c-k>'
 let g:UltiSnipsJumpForwardTrigger = '<c-k>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
+
+let g:ultisnips_python_style = 'sphinx'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
@@ -377,32 +355,31 @@ let g:quickrun_config = {
       \       'hook/neco/enable' : 1,
       \       'hook/neco/wait' : 10,
       \       'outputter/error/success' : 'buffer',
-      \       'outputter/error/error'   : 'quickfix',
-      \       'outputter/buffer/split' : ':belowright 8sp',
+      \       'outputter/error/error' : 'quickfix',
+      \       'outputter/buffer/split' : ':botright 8',
       \       'outputter/buffer/close_on_empty' : 1,
       \       'outputter/buffer/into' : 1,
       \       'outputter/quickfix/into' : 1,
       \   },
       \}
+
 if s:MSWindows
-  let g:quickrun_config = {
-        \ 'python' : {
+  let g:quickrun_config['python'] = {
         \     'hook/output_encode/enable' : 1,
         \     'hook/output_encode/encoding' : 'cp932',
-        \ },
         \}
 endif
+
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
-nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun -mode n<CR>
-xnoremap <silent><Leader>r :<C-U>cclose<CR>:write<CR>gv:QuickRun -mode v<CR>
+nnoremap <silent><Leader>r :cclose<CR>:write<CR>:QuickRun<CR>
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : ""
 autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_save = 1
@@ -410,13 +387,18 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
-let g:ale_lint_on_text_changed = 'never'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_statusline_format = [' %d', ' %d', ' ok']
+
+let g:ale_linters = {
+      \   'javascript': ['eslint'],
+      \   'go': ['gometalinter'],
+      \}
 
 let g:ale_pattern_options = {
       \   '.*\.vim$': {'ale_enabled': 0},
       \}
+
+" keymap
 nmap [ale] <Nop>
 map <C-k> [ale]
 " エラー行にジャンプ
@@ -429,19 +411,31 @@ let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ 'active': {
       \   'left': [['mode', 'paste'],
-      \            ['fugitive', 'filename']],
-      \   'right': [['lineinfo', 'validator'],
+      \            ['gitbranch', 'filename']],
+      \   'right': [['lineinfo', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
       \             ['fileformat', 'fileencoding', 'filetype']]
       \ },
       \ 'component_function': {
-      \   'fugitive': 'Fugitive',
-      \   'validator': 'ALEGetStatusLine',
+      \   'gitbranch': 'Branch',
       \   'filename': 'FileName',
       \   'fileformat': 'Fileformat',
       \   'filetype': 'FileType',
       \   'fileencoding': 'FileEncoding',
       \ },
       \}
+
+let g:lightline.component_expand = {
+      \  'linter_checking': 'lightline#ale#checking',
+      \  'linter_warnings': 'lightline#ale#warnings',
+      \  'linter_errors': 'lightline#ale#errors',
+      \  'linter_ok': 'lightline#ale#ok',
+      \ }
+let g:lightline.component_type = {
+      \     'linter_checking': 'left',
+      \     'linter_warnings': 'warning',
+      \     'linter_errors': 'error',
+      \     'linter_ok': 'left',
+      \ }
 
 function! FileName()
   let s:name = expand('%:t')
@@ -454,10 +448,10 @@ function! FileName()
   return s:readonly . s:name . s:modified
 endfunction
 
-function! Fugitive()
+function! Branch()
   try
-    if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head') && strlen(fugitive#head())
-      return '' . fugitive#head()
+    if &filetype !~? 'vimfiler\|gundo' && exists('*gitbranch#name') && strlen(gitbranch#name())
+      return '' . gitbranch#name()
     endif
   catch
   endtry
@@ -475,16 +469,6 @@ endfunction
 function! FileEncoding()
   return winwidth('.') > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
-
-function! ALEGetStatusLine() abort
-  return ale#statusline#Status()
-endfunction
-
-" command prompt use iceberg instead base16
-if has('win32') && !has('gui_running')
-  let g:lightline = {'colorscheme': 'base16_ashes'}
-  colorscheme base16-ashes
-endif
 
 " }}}
 " EasyAlign{{{
@@ -550,16 +534,16 @@ let g:gitgutter_sign_added = ''
 let g:gitgutter_sign_modified = ''
 let g:gitgutter_sign_removed = ''
 nnoremap          [Git]   <Nop>
-nmap     <Space>g [Git]
+nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
 nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
 nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
-" vim-fugitive
+" git command
 nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
 nnoremap <silent> [Git]m :<C-u>Gcommit -v<CR>
 nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
 nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
-nnoremap <silent> [Git]b :<C-u>Gita branch<CR>
+nnoremap <silent> [Git]l :<C-u>GV<CR>
 " }}}
 " vim-go {{{
 " highlight error
@@ -569,12 +553,18 @@ augroup hierr
   autocmd FileType go :match goErr /\<err\>/
 augroup END
 
+let g:go_auto_type_info = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_interfaces = 1
 let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_extra_types = 1
+let g:go_term_enabled = 1
+
+" let g:go_metalinter_autosave = 1
 let g:go_fmt_command = 'goimports'
 " }}}
 " vim-indent-line {{{
@@ -592,8 +582,6 @@ nnoremap <silent> <leader>o :OverCommandLine<CR>
 " Twit {{{
 " open-browser.vim
 let g:netrw_nogx = 1
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
 autocmd vimrc FileType twitvim call s:twitvim_my_settings()
 function! s:twitvim_my_settings()
   set nowrap
@@ -620,12 +608,12 @@ nmap    <Space>m [memo]
 
 " unite.vim keymap
 nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
-nnoremap <silent> [memo]l :<C-u>exe "CtrlP" g:memolist_path<cr><f5>
+nnoremap <silent> [memo]l :<C-u>MemoList<CR>
 nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
+
+let g:memolist_ex_cmd = 'CtrlP'
 let g:memolist_memo_suffix = 'md'
 let g:memolist_path = '~/Dev/memo'
-let g:memolist_unite = 1
-let g:memolist_unite_option = '-start-insert'
 "}}}
 "CtrlP {{{
 nnoremap          [CtrlP]   <Nop>
@@ -640,13 +628,18 @@ nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
+nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
 nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 nnoremap <silent> [CtrlP]w :<C-u>source $MYVIMRC<CR>
 
 let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'files -a %s'
+let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
+" if executable('ag')
+"   let g:ctrlp_use_caching=0
+"   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+" endif
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
@@ -660,20 +653,15 @@ let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
 " }}}
 " Python {{{
-autocmd vimrc FileType python setlocal omnifunc=jedi#completions
 let g:python_highlight_all = 1
-let g:jedi#completions_enabled = 1
+let g:jedi#completions_enabled = 0
 let g:jedi#goto_command = '<leader>g'
-let g:jedi#documentation_command = '<leader>k'
+let g:jedi#documentation_command = '<s-k>'
 let g:jedi#usages_command = '<leader>n'
 let g:jedi#completions_command = ''
 let g:jedi#rename_command = '<leader>R'
-let g:jedi#show_call_signatures = '2'
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-" vim-conda
-let g:conda_startup_msg_suppress = 1
-nnoremap <silent> <leader>s :Switch<CR>
+let g:jedi#show_call_signatures = 2
+let g:formatter_yapf_style = 'google'
 " }}}
 " caw.vim {{{
 nmap <leader>c      <Plug>(caw:hatpos:toggle)
@@ -681,19 +669,16 @@ vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
 " Previm {{{
 let g:previm_enable_realtime = 1
+let g:previm_disable_vimproc = 1
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-if s:MSWindows
-  autocmd BufNewFile,BufRead *.md set shellslash
-endif
+" if s:MSWindows
+" autocmd BufNewFile,BufRead *.md set shellslash
+" endif
 " }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
-" }}}
-" SuperTab {{{
-let g:SuperTabContextDefaultCompletionType = '<c-n>'
-let g:SuperTabDefaultCompletionType = '<c-n>'
 " }}}
 " vim-ref {{{
 let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
@@ -708,19 +693,12 @@ let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
 " }}}
-" vim-header {{{
-let g:header_field_author = 'dohq'
-let g:header_field_author_email = 'dorastone@gmail.com'
-let g:header_auto_add_header = 0
-" }}}
-" vim-asterisk {{{
-let g:asterisk#keeppos = 1
-" }}}
-" anzu.vim and asterisk.vim {{{
-nmap * <Plug>(asterisk-z*)<Plug>(anzu-mode)
-map #  <Plug>(asterisk-z#)
-map g* <Plug>(asterisk-gz*)
-map g# <Plug>(asterisk-gz#)
+" yankround {{{
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+let g:yankround_max_history = 50
 " }}}
 " user command {{{
 " auto-cursorline {{{
@@ -804,9 +782,11 @@ function! s:Repl()
 endfunction
 " }}}
 " }}}
+let g:user_emmet_mode='a'
+nnoremap <silent> <leader>s :Switch<CR>
+
 let g:test#strategy = 'dispatch'
-let g:vim_json_syntax_conceal = 0
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_folding_disabled = 1
-" ctrlp glyphs
-let g:webdevicons_enable_ctrlp = 1
+let g:test#preserve_screen = 1
+
+let g:slacky_build_status_text = 'my#slacky_build_status_text'
+let g:slacky_build_status_emoji = 'my#slacky_build_status_emoji'

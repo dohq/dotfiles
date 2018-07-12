@@ -4,6 +4,7 @@ export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
 # export PATH=/usr/lib/ccache/bin:$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH
 path=(/usr/lib/ccache/bin(N-/) $HOME/bin(N-/) /usr/local/bin(N-/) $GOPATH/bin(N-/) $path)
+path=($HOME/.cargo/bin(N-/) $path)
 
 # EDITOR
 export EDITOR=vim
@@ -52,9 +53,10 @@ alias sudo='sudo '
 # hub alias
 function git(){hub "$@"}
 
-# linuxbre
-if [[ -d ~/.linuxbrew ]]; then
-  PATH="$HOME/.linuxbrew/bin:$PATH"
-  export MANPATH="$(brew --prefix)/share/man:$MANPATH"
-  export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
+# user program
+if [[ -d ~/.local/bin ]]; then
+  path=($HOME/.local/bin $path)
 fi
+
+# RUST_SRC_PATH
+export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src

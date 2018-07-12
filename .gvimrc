@@ -19,8 +19,8 @@ augroup end
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-let g:lightline = {'colorscheme': 'base16_ashes'}
-colorscheme base16-ashes
+colorscheme iceberg
+let g:gruvbox_italic = 0
 
 "----------------------------------------
 " FontSetting
