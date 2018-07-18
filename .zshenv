@@ -2,7 +2,6 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-# export PATH=/usr/lib/ccache/bin:$HOME/bin:/usr/local/bin:$GOPATH/bin:$PATH
 path=(/usr/lib/ccache/bin(N-/) $HOME/bin(N-/) /usr/local/bin(N-/) $GOPATH/bin(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
 
@@ -39,11 +38,6 @@ if [ -x "`which fzf`" ]; then
   alias pp='ps aux | fzf'
 fi
 
-# interactive repl for python
-if [[ -x ptpython ]]; then
-  alias p='ptpython'
-fi
-
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 
@@ -59,4 +53,6 @@ if [[ -d ~/.local/bin ]]; then
 fi
 
 # RUST_SRC_PATH
-export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+if [ -x "`which rustc`" ]; then
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+fi
