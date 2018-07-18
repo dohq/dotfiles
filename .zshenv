@@ -46,3 +46,6 @@ export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
+
+# pipenv
+export PIPENV_VENV_IN_PROJECT=true
