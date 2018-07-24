@@ -148,6 +148,9 @@ Plug 'luan/vim-concourse'
 
 Plug 'y0za/vim-reading-vimrc'
 
+" PCF
+Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
+
 call plug#end()
 
 "----------------------------------------
