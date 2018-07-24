@@ -328,7 +328,7 @@ nnoremap N Nzz
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-let g:completor_auto_trigger = 1
+let g:completor_auto_trigger = 0
 let g:completor_refresh_always = 1
 let g:completor_set_options = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -362,7 +362,7 @@ let g:quickrun_config = {
       \   },
       \}
 
-if s:MSWindows
+if has('win32')
   let g:quickrun_config['python'] = {
         \     'hook/output_encode/enable' : 1,
         \     'hook/output_encode/encoding' : 'cp932',
@@ -403,7 +403,7 @@ nmap <silent> [ale]<C-N> <Plug>(ale_next)
 " " }}}
 " lightline.vim{{{
 let g:lightline = {
-      \ 'colorscheme': 'iceberg',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'filename']],
@@ -488,9 +488,9 @@ let g:EasyMotion_space_jump_first = 1
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
-let g:eskk#directory = expand($MYVIMDIR.'/.cache/eskk')
+let g:eskk#directory = expand($MYVIMDIR.'/eskk')
 let g:eskk#large_dictionary = {
-      \ 'path': $MYVIMDIR.'/skk/SKK-JISYO.L',
+      \ 'path': $MYVIMDIR.'/eskk/SKK-JISYO.L',
       \ 'sorted': 1,
       \}
 " Don't keep state.
