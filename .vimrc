@@ -123,7 +123,7 @@ Plug 'jmcantrell/vim-virtualenv'
 Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
 " Markdown
-Plug 'kannokanno/previm',                   {'for': 'markdown'}
+Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " UML
@@ -143,11 +143,10 @@ Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.j
 Plug 'othree/yajs.vim',                     {'for': ['javascript', 'javascript.jsx']}
 " php
 Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
+" concourse
+Plug 'luan/vim-concourse'
 
 Plug 'y0za/vim-reading-vimrc'
-
-" Always load the vim-devicons as the very last one.
-Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -156,7 +155,7 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-colorscheme iceberg
+colorscheme gruvbox
 if !has('win32')
   highlight Normal ctermbg=none
   highlight NonText ctermbg=none
@@ -378,25 +377,21 @@ autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'W'
 let g:ale_sign_column_always = 1
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-let g:ale_linters = {
-      \   'javascript': ['eslint'],
-      \   'go': ['gometalinter'],
-      \}
-
-let g:ale_pattern_options = {
-      \   '.*\.vim$': {'ale_enabled': 0},
-      \}
+" lightline-ale
+let g:lightline#ale#indicator_warnings = 'W'
+let g:lightline#ale#indicator_errors = 'E'
+let g:lightline#ale#indicator_checking = '..'
+let g:lightline#ale#indicator_ok = 'OK'
 
 " keymap
 nmap [ale] <Nop>
@@ -417,10 +412,6 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'gitbranch': 'Branch',
-      \   'filename': 'FileName',
-      \   'fileformat': 'Fileformat',
-      \   'filetype': 'FileType',
-      \   'fileencoding': 'FileEncoding',
       \ },
       \}
 
@@ -443,31 +434,19 @@ function! FileName()
   if s:name =~? 'netrw'
     return 'netrw'
   endif
-  let s:readonly = &readonly ? ' ' : ''
-  let s:modified = &modified ? ' ' : ''
+  let s:readonly = &readonly ? ' R' : ''
+  let s:modified = &modified ? ' M' : ''
   return s:readonly . s:name . s:modified
 endfunction
 
 function! Branch()
   try
     if &filetype !~? 'vimfiler\|gundo' && exists('*gitbranch#name') && strlen(gitbranch#name())
-      return '' . gitbranch#name()
+      return gitbranch#name()
     endif
   catch
   endtry
   return ''
-endfunction
-
-function! FileType()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! Fileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function! FileEncoding()
-  return winwidth('.') > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 " }}}
@@ -530,9 +509,9 @@ augroup END
 "}}}
 " Git {{{
 let g:gitgutter_enabled = 1
-let g:gitgutter_sign_added = ''
-let g:gitgutter_sign_modified = ''
-let g:gitgutter_sign_removed = ''
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
 nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
