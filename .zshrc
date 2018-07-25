@@ -51,6 +51,7 @@ select-word-style default
   # 補完
   # 補完機能を有効にする
   autoload -Uz compinit; compinit
+  autoload -U +X bashcompinit && bashcompinit
 
   # もしかして機能
   setopt correct
@@ -294,16 +295,21 @@ if [[ -f ~/.zsh_local ]]; then
   source ~/.zsh_local
 fi
 
-# anyenv
-if [[ -d ~/.anyenv ]]; then
-  export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
-fi
-
 # direnv
-if [[ -x direnv ]]; then
+if [[ -x "`which direnv`" ]]; then
   if type "zsh" > /dev/null 2>&1; then
     eval "$(direnv hook zsh)"
   fi
 fi
 
+# hub alias
+function git(){hub "$@"}
+
+if [[ -x "`which terraform`" ]]; then
+  complete -o nospace -C /usr/bin/terraform terraform
+fi
+
+# RUST_SRC_PATH
+if [[ -x "`which rustc`" ]]; then
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+fi

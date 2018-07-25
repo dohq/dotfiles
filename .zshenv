@@ -2,7 +2,7 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-path=(/usr/lib/ccache/bin(N-/) $HOME/bin(N-/) /usr/local/bin(N-/) $GOPATH/bin(N-/) $path)
+path=(/usr/lib/ccache/bin(N-/) $HOME/.local/bin(N-/) $HOME/bin(N-/) /usr/local/bin(N-/) $GOPATH/bin(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
 
 # EDITOR
@@ -19,14 +19,17 @@ alias pbcopy='xsel --clipboard --input'
 alias tokyo="curl wttr.in/Tokyo"
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
+alias vi='vim'
+alias v='vim'
 
 # Gitting
+alias g='git'
 alias gl='git lg'
 alias gm='git commit -v'
 alias ga='git add'
 alias gc='git clone'
+alias gg='ghq gwt'
 alias gp='git push'
-alias g='git'
 alias gs='git status'
 alias gd='git diff'
 alias gnd='git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
@@ -43,16 +46,3 @@ export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
-
-# hub alias
-function git(){hub "$@"}
-
-# user program
-if [[ -d ~/.local/bin ]]; then
-  path=($HOME/.local/bin $path)
-fi
-
-# RUST_SRC_PATH
-if [ -x "`which rustc`" ]; then
-  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
-fi
