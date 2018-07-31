@@ -158,7 +158,7 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-colorscheme gruvbox
+colorscheme iceberg
 if !has('win32')
   highlight Normal ctermbg=none
   highlight NonText ctermbg=none
@@ -331,7 +331,7 @@ nnoremap N Nzz
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-let g:completor_auto_trigger = 0
+let g:completor_auto_trigger = 1
 let g:completor_refresh_always = 1
 let g:completor_set_options = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -406,7 +406,7 @@ nmap <silent> [ale]<C-N> <Plug>(ale_next)
 " " }}}
 " lightline.vim{{{
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'iceberg',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'filename']],
@@ -769,6 +769,3 @@ nnoremap <silent> <leader>s :Switch<CR>
 
 let g:test#strategy = 'dispatch'
 let g:test#preserve_screen = 1
-
-let g:slacky_build_status_text = 'my#slacky_build_status_text'
-let g:slacky_build_status_emoji = 'my#slacky_build_status_emoji'
