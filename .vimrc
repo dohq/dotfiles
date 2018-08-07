@@ -1,14 +1,11 @@
-" File              : .vimrc
-" Author            : dohq <dorastone@gmail.com>
-" Date              : 21.01.2018
-" Last Modified Date: 08.04.2018
-" Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 " encoding
 set encoding=utf8
 scriptencoding utf-8
-unlet! g:skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+if !has('nvim')
+  unlet! g:skip_defaults_vim
+  source $VIMRUNTIME/defaults.vim
+endif
 
 " Use as many color as possibleo
 if !has('gui_running')
@@ -65,10 +62,7 @@ Plug 'kana/vim-operator-user'
 Plug 'kana/vim-textobj-user'
 Plug 'easymotion/vim-easymotion'
 Plug 'y0za/vim-reading-vimrc'
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
+Plug 'jsfaint/gen_tags.vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -76,7 +70,20 @@ Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-vim'
+Plug 'Shougo/neco-vim'
+Plug 'ncm2/ncm2-go'
+Plug 'ncm2/ncm2-markdown-subscope'
+Plug 'ncm2/ncm2-rst-subscope'
+
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/eskk.vim'
 Plug 'tpope/vim-speeddating'
@@ -87,7 +94,6 @@ Plug 'LeafCage/yankround.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
 Plug 'rhysd/try-colorscheme.vim'
 " QuickRun
 Plug 'osyo-manga/shabadou.vim'
@@ -109,7 +115,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 " CtrlP
-Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
@@ -136,12 +141,25 @@ Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
 Plug 'othree/html5.vim',                    {'for': 'html'}
 " php
 Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
-" concourse
-Plug 'luan/vim-concourse'
-" PCF
+" terraform
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 
+if has('win32')
+  let lcn_command = 'powershell -NoProfile -ExecutionPolicy Unrestricted .\install.ps1'
+else
+  let lcn_command = 'bash install.sh'
+endif
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': lcn_command,
+      \ }
+
 call plug#end()
+
+autocmd VimEnter *
+      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+      \|   PlugInstall --sync | q
+      \| endif
 
 "----------------------------------------
 " Option Settings
@@ -186,7 +204,8 @@ set autowrite
 set belloff=all
 set cmdheight=2
 set colorcolumn=80
-set completeopt-=preview
+" set completeopt-=preview
+set completeopt=noinsert,menuone,noselect
 set cursorline
 set display=lastline
 set expandtab
@@ -294,16 +313,18 @@ nnoremap n nzz
 nnoremap N Nzz
 " }}}
 
+
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-let g:completor_auto_trigger = 1
-let g:completor_refresh_always = 1
-let g:completor_set_options = 1
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" let g:completor_auto_trigger = 1
+" let g:completor_refresh_always = 1
+" let g:completor_set_options = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " }}}
 " LanguageClient {{{
 let g:LanguageClient_serverCommands = {
@@ -584,12 +605,12 @@ nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
-let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
-" if executable('ag')
-"   let g:ctrlp_use_caching=0
-"   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-" endif
+" let g:ctrlp_use_caching = 0
+" let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
+if executable('ag')
+  let g:ctrlp_use_caching=0
+  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+endif
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
@@ -623,9 +644,6 @@ let g:previm_disable_vimproc = 1
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-" if s:MSWindows
-" autocmd BufNewFile,BufRead *.md set shellslash
-" endif
 " }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
@@ -648,8 +666,8 @@ nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 50
 " }}}
 " vim-anzu {{{
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
+nmap n <Plug>(anzu-mode-n)
+nmap N <Plug>(anzu-mode-N)
 nmap * <Plug>(anzu-star)
 nmap # <Plug>(anzu-sharp)
 " }}}
