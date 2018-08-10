@@ -8,6 +8,7 @@
   preloadindex = true
   fscache = true
   pager = LESSCHARSET=utf-8 less -R
+	commentchar = auto
 [color]
   ui = auto
   diff = always
