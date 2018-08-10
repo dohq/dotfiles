@@ -156,10 +156,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 call plug#end()
 
-autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
 
 "----------------------------------------
 " Option Settings
@@ -679,6 +675,12 @@ let g:test#strategy = 'dispatch'
 let g:test#preserve_screen = 1
 " }}}
 " user command {{{
+" Auto plugin install {{{
+autocmd VimEnter *
+      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+      \|   PlugInstall --sync | q
+      \| endif
+" }}}
 " auto-cursorline {{{
 augroup vimrc-auto-cursorline
   autocmd!
