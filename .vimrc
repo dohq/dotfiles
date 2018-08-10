@@ -63,6 +63,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'easymotion/vim-easymotion'
 Plug 'y0za/vim-reading-vimrc'
 Plug 'jsfaint/gen_tags.vim'
+Plug 'tpope/vim-repeat'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -649,7 +650,7 @@ inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 " Grepper {{{
 let g:grepper               = {}
-let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
+let g:grepper.tools         = ['rg', 'ag', 'pt', 'git']
 let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
