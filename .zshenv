@@ -49,3 +49,6 @@ alias sudo='sudo '
 
 # pipenv
 export PIPENV_VENV_IN_PROJECT=true
+
+# hub alias
+function git(){hub "$@"}
