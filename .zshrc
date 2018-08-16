@@ -297,6 +297,11 @@ if [[ -f ~/.zsh_local ]]; then
   source ~/.zsh_local
 fi
 
+# ruby
+if [[ -d $HOME/.gem/ruby/2.5.0/bin ]]; then
+  export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
+fi
+
 # direnv
 if [[ -x "`which direnv`" ]]; then
   if type "zsh" > /dev/null 2>&1; then
@@ -325,4 +330,7 @@ fi
 # pyenv
 if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
-fi
+  #
+# user program
+if [[ -d ~/.local/bin ]]; then
+  path=($HOME/.local/bin $path)
