@@ -49,3 +49,6 @@ alias sudo='sudo '
 
 # pipenv
 export PIPENV_VENV_IN_PROJECT=true
+
+# gitignore
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}

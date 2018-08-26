@@ -42,37 +42,37 @@ SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}�
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
-  # ここで指定した文字は単語区切りとみなされる
-  # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
-  zstyle ':zle:*' word-chars " /=;@:{},|"
-  zstyle ':zle:*' word-style unspecified
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
 
-  ########################################
-  # 補完
-  # 補完機能を有効にする
-  autoload -Uz compinit; compinit
-  autoload -U +X bashcompinit && bashcompinit
+########################################
+# 補完
+# 補完機能を有効にする
+autoload -Uz compinit; compinit
+autoload -U +X bashcompinit && bashcompinit
 
-  # もしかして機能
-  setopt correct
+# もしかして機能
+setopt correct
 
-  # <Tab> でパス名の補完候補を表示したあと、
-  zstyle ':completion:*:default' menu select=1
+# <Tab> でパス名の補完候補を表示したあと、
+zstyle ':completion:*:default' menu select=1
 
-  # 補完で小文字でも大文字にマッチさせる
-  zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-  # ../ の後は今いるディレクトリを補完しない
-  zstyle ':completion:*' ignore-parents parent pwd ..
+# ../ の後は今いるディレクトリを補完しない
+zstyle ':completion:*' ignore-parents parent pwd ..
 
-  # sudo の後ろでコマンド名を補完する
-  zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-    /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+# sudo の後ろでコマンド名を補完する
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+  /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
-  # ps コマンドのプロセス名補完
-  zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+# ps コマンドのプロセス名補完
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
-  ########################################
+########################################
   # vcs_info
   # vcs_info 設定{{{
   RPROMPT=""
@@ -271,20 +271,10 @@ bindkey "^[[1~"   beginning-of-line
 bindkey "^[[4~"   end-of-line
 bindkey "^[[3~"   delete-char
 bindkey "^[3;5~"  delete-char
-########################################
-# OS 別の設定
-case ${OSTYPE} in
-  darwin*)
-    #Mac用の設定
-    export CLICOLOR=1
-    alias ls='ls -G -F'
-    ;;
-  linux*)
-    #Linux用の設定
-    alias ls='ls -F --color=auto'
-    ;;
-esac
 
+########################################
+# opt
+########################################
 # source seacret
 if [[ -f ~/.token ]]; then
   source ~/.token
@@ -313,3 +303,18 @@ fi
 if [[ -x "`which rustc`" ]]; then
   export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
 fi
+
+# direnv
+if [[ -x "`which direnv`" ]]; then
+  eval "$(direnv hook zsh)"
+fi
+_fly_bash_autocomplete() {
+    args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
+    # Only split on newlines
+    local IFS=$'\n'
+    # Call completion (note that the first element of COMP_WORDS is
+    # the executable itself)
+    COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
+    return 0
+}
+complete -F _fly_bash_autocomplete fly

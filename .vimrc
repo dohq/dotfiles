@@ -80,6 +80,7 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim'
+Plug 'ncm2/ncm2-tmux'
 Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-markdown-subscope'
@@ -115,6 +116,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+Plug 'lambdalisue/vim-gista'
 " CtrlP
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -140,6 +142,7 @@ Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinar
 Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
 " html
 Plug 'othree/html5.vim',                    {'for': 'html'}
+Plug 'KabbAmine/gulp-vim'
 " php
 Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
 " terraform
