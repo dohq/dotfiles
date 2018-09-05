@@ -275,6 +275,18 @@ bindkey "^[3;5~"  delete-char
 ########################################
 # opt
 ########################################
+# fly command autocomplete
+_fly_bash_autocomplete() {
+    args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
+    # Only split on newlines
+    local IFS=$'\n'
+    # Call completion (note that the first element of COMP_WORDS is
+    # the executable itself)
+    COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
+    return 0
+}
+complete -F _fly_bash_autocomplete fly
+
 # source seacret
 if [[ -f ~/.token ]]; then
   source ~/.token
@@ -295,6 +307,7 @@ fi
 # hub alias
 function git(){hub "$@"}
 
+# terraform complete
 if [[ -x "`which terraform`" ]]; then
   complete -o nospace -C /usr/bin/terraform terraform
 fi
@@ -302,26 +315,4 @@ fi
 # RUST_SRC_PATH
 if [[ -x "`which rustc`" ]]; then
   export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
-fi
-
-# direnv
-if [[ -x "`which direnv`" ]]; then
-  eval "$(direnv hook zsh)"
-fi
-#
-# fly command autocomplete
-_fly_bash_autocomplete() {
-    args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
-    # Only split on newlines
-    local IFS=$'\n'
-    # Call completion (note that the first element of COMP_WORDS is
-    # the executable itself)
-    COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
-    return 0
-}
-complete -F _fly_bash_autocomplete fly
-
-# gem
-if [[ -d "/home/dohq/.gem/ruby/2.5.0/bin" ]]; then
-  export PATH=$PATH:/home/dohq/.gem/ruby/2.5.0/bin
 fi

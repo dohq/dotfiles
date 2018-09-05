@@ -2,8 +2,10 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
-path=(/usr/lib/ccache/bin(N-/) $HOME/.local/bin(N-/) $HOME/bin(N-/) /usr/local/bin(N-/) $GOPATH/bin(N-/) $path)
+path=(/usr/lib/ccache/bin(N-/) /usr/local/bin(N-/) $path)
+path=($HOME/.local/bin(N-/) $HOME/bin(N-/) $GOPATH/bin(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
+path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
 
 # EDITOR
 export EDITOR=vim

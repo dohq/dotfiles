@@ -204,7 +204,6 @@ set autowrite
 set belloff=all
 set cmdheight=2
 set colorcolumn=80
-" set completeopt-=preview
 set completeopt=noinsert,menuone,noselect
 set cursorline
 set display=lastline
