@@ -1,12 +1,11 @@
-" File              : .vimrc
-" Author            : dohq <dorastone@gmail.com>
-" Date              : 21.01.2018
-" Last Modified Date: 08.04.2018
-" Last Modified By  : dohq <dorastone@gmail.com>
 " init {{{
 " encoding
 set encoding=utf8
 scriptencoding utf-8
+if !has('nvim')
+  unlet! g:skip_defaults_vim
+  source $VIMRUNTIME/defaults.vim
+endif
 
 " Use as many color as possibleo
 if !has('gui_running')
@@ -51,6 +50,8 @@ Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-endwise'
+Plug 'osyo-manga/vim-anzu'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'wakatime/vim-wakatime'
@@ -60,6 +61,9 @@ Plug 'mbbill/undotree'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-textobj-user'
 Plug 'easymotion/vim-easymotion'
+Plug 'y0za/vim-reading-vimrc'
+Plug 'jsfaint/gen_tags.vim'
+Plug 'tpope/vim-repeat'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -67,7 +71,21 @@ Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'ncm2/ncm2-ultisnips'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-vim'
+Plug 'ncm2/ncm2-tmux'
+Plug 'Shougo/neco-vim'
+Plug 'ncm2/ncm2-go'
+Plug 'ncm2/ncm2-markdown-subscope'
+Plug 'ncm2/ncm2-rst-subscope'
+
 Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/eskk.vim'
 Plug 'tpope/vim-speeddating'
@@ -76,11 +94,8 @@ Plug 'tyru/caw.vim'
 Plug 'LeafCage/yankround.vim'
 " Visual
 Plug 'Yggdroot/indentLine'
-Plug 'chriskempson/base16-vim'
 Plug 'cocopon/iceberg.vim'
-Plug 'felixjung/vim-base16-lightline'
 Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
 Plug 'rhysd/try-colorscheme.vim'
 " QuickRun
 Plug 'osyo-manga/shabadou.vim'
@@ -100,56 +115,51 @@ Plug 'maximbaz/lightline-ale'
 Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
-Plug 'lambdalisue/vim-gista',               {'on': 'Gista'}
 Plug 'junegunn/gv.vim'
+Plug 'lambdalisue/vim-gista'
 " CtrlP
-Plug 'DavidEGx/ctrlp-smarttabs'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
 Plug 'mattn/ctrlp-ghq'
-Plug 'mattn/ctrlp-launcher'
 Plug 'mattn/ctrlp-register'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 " Python
-Plug 'bps/vim-textobj-python',              {'for': 'python'}
 Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 Plug 'fisadev/vim-isort',                   {'for': 'python'}
-Plug 'hynek/vim-python-pep8-indent',        {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
-Plug 'jmcantrell/vim-virtualenv'
 Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
 Plug 'vim-python/python-syntax',            {'for': 'python'}
 " Markdown
-Plug 'kannokanno/previm',                   {'for': 'markdown'}
+Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
-" UML
-Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
-" json
-Plug 'elzr/vim-json',                       {'for': 'json'}
 " go
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
 " yaml
-Plug 'chase/vim-ansible-yaml',              {'for': 'yml'}
 Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
 " html
-Plug 'mattn/emmet-vim',                     {'for': 'html'}
 Plug 'othree/html5.vim',                    {'for': 'html'}
-" javascript
-Plug 'pangloss/vim-javascript',             {'for': ['javascript', 'javascript.jsx']}
-Plug 'othree/yajs.vim',                     {'for': ['javascript', 'javascript.jsx']}
+Plug 'KabbAmine/gulp-vim'
 " php
 Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
+" terraform
+Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 
-Plug 'y0za/vim-reading-vimrc'
-
-" Always load the vim-devicons as the very last one.
-Plug 'ryanoasis/vim-devicons'
+if has('win32')
+  let lcn_command = 'powershell -NoProfile -ExecutionPolicy Unrestricted .\install.ps1'
+else
+  let lcn_command = 'bash install.sh'
+endif
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': lcn_command,
+      \ }
 
 call plug#end()
+
 
 "----------------------------------------
 " Option Settings
@@ -194,7 +204,7 @@ set autowrite
 set belloff=all
 set cmdheight=2
 set colorcolumn=80
-set completeopt-=preview
+set completeopt=noinsert,menuone,noselect
 set cursorline
 set display=lastline
 set expandtab
@@ -207,7 +217,6 @@ set imdisable
 set incsearch
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
-set matchpairs+=<:>
 set noautoindent
 set nobackup
 set noequalalways
@@ -231,21 +240,13 @@ set tags=./tags;
 set title
 set ttyfast
 set whichwrap=b,s,[,],<,>
+set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
 if has('conceal')
   set conceallevel=2 concealcursor=i
-endif
-if has('persistent_undo')
-  let s:undo_dir = $MYVIMDIR . '/.undo'
-  if !isdirectory(s:undo_dir)
-    call mkdir(s:undo_dir)
-  endif
-  set undodir=s:undo_dir
-  set undofile
 endif
 if !has('nvim') && has('terminal')
   set termwinsize=15x0
@@ -281,9 +282,8 @@ inoremap <Down>  <Nop>
 inoremap <Left>  <Nop>
 inoremap <Right> <Nop>
 
-" buffer
-nnoremap <C-p> :bprev<CR>
-nnoremap <C-n> :bnext<CR>
+" Switch
+nnoremap <silent> <leader>s :Switch<CR>
 
 " moving nextline
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
@@ -301,40 +301,34 @@ vnoremap <F1> <Esc>
 nnoremap <F1> <Esc>
 inoremap <F1> <Esc>
 
-" insert days
-iabbrev xdate <c-r>=strftime("%Y-%m-%d")<cr>
-
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
-" Make sure pasting in visual mode doesn't replace paste buffer
-vmap <silent> <expr> p <sid>Repl()
-
-" open fold
-nnoremap <silent> <space>f @=(foldlevel('.')?'za':"\<space>")<CR>
-
 " yanky
 nnoremap Y y$
-
-" open urxvt
-nnoremap got :call system('urxvt -cd '.getcwd().' &')<cr>
-nnoremap goT :call system('urxvt -cd '.expand("%:p:h").' &')<cr>
 
 " Centering search word
 nnoremap n nzz
 nnoremap N Nzz
 " }}}
 
+
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-let g:completor_auto_trigger = 1
-let g:completor_refresh_always = 1
-let g:completor_set_options = 1
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" let g:completor_auto_trigger = 1
+" let g:completor_refresh_always = 1
+" let g:completor_set_options = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" }}}
+" LanguageClient {{{
+let g:LanguageClient_serverCommands = {
+      \ 'python': ['pyls'],
+      \ }
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -363,7 +357,7 @@ let g:quickrun_config = {
       \   },
       \}
 
-if s:MSWindows
+if has('win32')
   let g:quickrun_config['python'] = {
         \     'hook/output_encode/enable' : 1,
         \     'hook/output_encode/encoding' : 'cp932',
@@ -378,25 +372,21 @@ autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'W'
 let g:ale_sign_column_always = 1
-let g:ale_lint_on_enter = 1
+let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-let g:ale_linters = {
-      \   'javascript': ['eslint'],
-      \   'go': ['gometalinter'],
-      \}
-
-let g:ale_pattern_options = {
-      \   '.*\.vim$': {'ale_enabled': 0},
-      \}
+" lightline-ale
+let g:lightline#ale#indicator_warnings = 'W'
+let g:lightline#ale#indicator_errors = 'E'
+let g:lightline#ale#indicator_checking = '..'
+let g:lightline#ale#indicator_ok = 'OK'
 
 " keymap
 nmap [ale] <Nop>
@@ -417,10 +407,6 @@ let g:lightline = {
       \ },
       \ 'component_function': {
       \   'gitbranch': 'Branch',
-      \   'filename': 'FileName',
-      \   'fileformat': 'Fileformat',
-      \   'filetype': 'FileType',
-      \   'fileencoding': 'FileEncoding',
       \ },
       \}
 
@@ -443,31 +429,19 @@ function! FileName()
   if s:name =~? 'netrw'
     return 'netrw'
   endif
-  let s:readonly = &readonly ? ' ' : ''
-  let s:modified = &modified ? ' ' : ''
+  let s:readonly = &readonly ? ' Ro' : ''
+  let s:modified = &modified ? ' Nm' : ''
   return s:readonly . s:name . s:modified
 endfunction
 
 function! Branch()
   try
     if &filetype !~? 'vimfiler\|gundo' && exists('*gitbranch#name') && strlen(gitbranch#name())
-      return '' . gitbranch#name()
+      return gitbranch#name()
     endif
   catch
   endtry
   return ''
-endfunction
-
-function! FileType()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! Fileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function! FileEncoding()
-  return winwidth('.') > 70 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 " }}}
@@ -509,9 +483,9 @@ let g:EasyMotion_space_jump_first = 1
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
-let g:eskk#directory = expand($MYVIMDIR.'/.cache/eskk')
+let g:eskk#directory = expand($MYVIMDIR.'/eskk')
 let g:eskk#large_dictionary = {
-      \ 'path': $MYVIMDIR.'/skk/SKK-JISYO.L',
+      \ 'path': $MYVIMDIR.'/eskk/SKK-JISYO.L',
       \ 'sorted': 1,
       \}
 " Don't keep state.
@@ -530,9 +504,9 @@ augroup END
 "}}}
 " Git {{{
 let g:gitgutter_enabled = 1
-let g:gitgutter_sign_added = ''
-let g:gitgutter_sign_modified = ''
-let g:gitgutter_sign_removed = ''
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
 nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
@@ -575,9 +549,6 @@ let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 let g:indentLine_char = '¦'
 let g:indentLine_fileTypeExclude = ['tweetvim', 'help']
-" }}}
-" over.vim {{{
-nnoremap <silent> <leader>o :OverCommandLine<CR>
 " }}}
 " Twit {{{
 " open-browser.vim
@@ -632,14 +603,13 @@ nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
 nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
-nnoremap <silent> [CtrlP]w :<C-u>source $MYVIMRC<CR>
 
-let g:ctrlp_use_caching = 0
-let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
-" if executable('ag')
-"   let g:ctrlp_use_caching=0
-"   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-" endif
+" let g:ctrlp_use_caching = 0
+" let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
+if executable('ag')
+  let g:ctrlp_use_caching=0
+  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+endif
 
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
@@ -673,22 +643,16 @@ let g:previm_disable_vimproc = 1
 let g:netrw_nogx = 1
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
-" if s:MSWindows
-" autocmd BufNewFile,BufRead *.md set shellslash
-" endif
 " }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
-" }}}
-" vim-ref {{{
-let g:ref_phpmanual_path = $MYVIMDIR.'/doc/php-chunked-xhtml'
 " }}}
 " lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 " Grepper {{{
 let g:grepper               = {}
-let g:grepper.tools         = ['rg', 'git', 'pt', 'ag']
+let g:grepper.tools         = ['rg', 'ag', 'pt', 'git']
 let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 1
@@ -700,7 +664,26 @@ nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 let g:yankround_max_history = 50
 " }}}
+" vim-anzu {{{
+nmap n <Plug>(anzu-mode-n)
+nmap N <Plug>(anzu-mode-N)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+" }}}
+" emmet {{{
+let g:user_emmet_mode='a'
+" }}}
+" vim-test {{{
+let g:test#strategy = 'dispatch'
+let g:test#preserve_screen = 1
+" }}}
 " user command {{{
+" Auto plugin install {{{
+autocmd VimEnter *
+      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+      \|   PlugInstall --sync | q
+      \| endif
+" }}}
 " auto-cursorline {{{
 augroup vimrc-auto-cursorline
   autocmd!
@@ -732,61 +715,7 @@ augroup vimrc-auto-cursorline
   endfunction
 augroup END
 " }}}
-" past to ix.io {{{
-command! -range=% SP  execute <line1> . "," . <line2> .
-      \ "w !curl -F 'f:1=<-' ix.io | tr -d '\\n'"
-" http://snippetrepo.com/snippets/filter-quickfix-list-in-vim
-" }}}
-" disable uncomment newline {{{
-augroup auto_comment_off
-  autocmd!
-  autocmd BufEnter * setlocal formatoptions-=ro
-  autocmd InsertEnter * :setlocal noimdisable
-  autocmd InsertLeave * :setlocal imdisable
-augroup END
-" }}}
-" Toggle semicolon, comma or neither at {{{
-" end of line without moving cursor
-nnoremap <leader>; :call ToggleSemiColonComma()<cr>
-
-function! ToggleSemiColonComma() abort
-  let l:last = getline(line('.'))[-1:]
-  if l:last =~# ','
-    execute 'normal! mz$x`z'
-  elseif l:last =~# ';'
-    execute 'normal! mz$r,`z'
-  elseif l:last !~# '(,|;)'
-    execute 'normal! mzA;`z'
-  endif
-endfunction
-" highlight off in insert mode {{{
-augroup search_highlight
-  autocmd!
-  autocmd InsertEnter * :setlocal nohlsearch
-  autocmd InsertLeave * :setlocal hlsearch
-augroup END
-" }}}
-" }}}
 " reading_vimrc {{{
 autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 "}}}
-" RedtoreRegister {{{
-" https://github.com/sheerun/vimrc/blob/master/plugin/vimrc.vim#L295
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ''
-endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
 " }}}
-" }}}
-let g:user_emmet_mode='a'
-nnoremap <silent> <leader>s :Switch<CR>
-
-let g:test#strategy = 'dispatch'
-let g:test#preserve_screen = 1
-
-let g:slacky_build_status_text = 'my#slacky_build_status_text'
-let g:slacky_build_status_emoji = 'my#slacky_build_status_emoji'
