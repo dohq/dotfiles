@@ -55,7 +55,7 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'wakatime/vim-wakatime'
-Plug 'kana/vim-slacky'
+" Plug 'kana/vim-slacky'
 Plug 'tpope/vim-dadbod'
 Plug 'mbbill/undotree'
 Plug 'kana/vim-operator-user'

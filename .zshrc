@@ -317,3 +317,14 @@ fi
 if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
 fi
+
+# sonar-scanner
+if [[ -d /opt/sonar-scanner/ ]]; then
+  export SONAR_SCANNER_HOME="/opt/sonar-scanner"
+  path=(${SONAR_SCANNER_HOME}/bin $path)
+fi
+
+# pipenv
+if [[ -x "`which pipenv`" ]]; then
+  eval "$(pipenv --completion)"
+fi
