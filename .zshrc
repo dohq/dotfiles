@@ -297,6 +297,11 @@ if [[ -f ~/.zsh_local ]]; then
   source ~/.zsh_local
 fi
 
+# ruby
+if [[ -d $HOME/.gem/ruby/2.5.0/bin ]]; then
+  export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
+fi
+
 # direnv
 if [[ -x "`which direnv`" ]]; then
   if type "zsh" > /dev/null 2>&1; then
@@ -315,4 +320,20 @@ fi
 # RUST_SRC_PATH
 if [[ -x "`which rustc`" ]]; then
   export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+fi
+
+# user program
+if [[ -d ~/.local/bin ]]; then
+  path=($HOME/.local/bin $path)
+fi
+
+# sonar-scanner
+if [[ -d /opt/sonar-scanner/ ]]; then
+  export SONAR_SCANNER_HOME="/opt/sonar-scanner"
+  path=(${SONAR_SCANNER_HOME}/bin $path)
+fi
+
+# pipenv
+if [[ -x "`which pipenv`" ]]; then
+  eval "$(pipenv --completion)"
 fi
