@@ -334,3 +334,4 @@ if [[ -x "`which pyenv`" ]]; then
 # user program
 if [[ -d ~/.local/bin ]]; then
   path=($HOME/.local/bin $path)
+fi
