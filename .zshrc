@@ -316,3 +316,13 @@ fi
 if [[ -x "`which rustc`" ]]; then
   export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
 fi
+
+# vault complete
+if [[ -x "`which vault`" ]]; then
+  complete -o nospace -C /usr/bin/vault vault
+fi
+
+# pyenv
+if [[ -x "`which pyenv`" ]]; then
+  eval "$(pyenv init -)"
+fi

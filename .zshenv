@@ -20,7 +20,7 @@ alias tree='tree -N'
 alias pbcopy='xsel --clipboard --input'
 alias tokyo="curl wttr.in/Tokyo"
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
-alias nm="echo '@dohq 頼まれてた処理が終わったかしら' | sh ~/bin/notify-me.sh"
+alias nm="$HOME/bin/notify-me.sh"
 alias vi='vim'
 alias v='vim'
 

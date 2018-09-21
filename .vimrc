@@ -74,7 +74,9 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'maralla/completor.vim'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
+if !has('nvim')
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
@@ -117,6 +119,7 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
+Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -131,7 +134,7 @@ Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 Plug 'fisadev/vim-isort',                   {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
 Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
-Plug 'vim-python/python-syntax',            {'for': 'python'}
+Plug 'kh3phr3n/python-syntax',              {'for': 'python'}
 " Markdown
 Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
@@ -148,14 +151,9 @@ Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
 " terraform
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 
-if has('win32')
-  let lcn_command = 'powershell -NoProfile -ExecutionPolicy Unrestricted .\install.ps1'
-else
-  let lcn_command = 'bash install.sh'
-endif
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
-      \ 'do': lcn_command,
+      \ 'do': 'install.sh',
       \ }
 
 call plug#end()
@@ -205,7 +203,6 @@ set belloff=all
 set cmdheight=2
 set colorcolumn=80
 set completeopt=noinsert,menuone,noselect
-set cursorline
 set display=lastline
 set expandtab
 set foldmethod=marker
@@ -390,10 +387,10 @@ let g:lightline#ale#indicator_ok = 'OK'
 
 " keymap
 nmap [ale] <Nop>
-map <C-k> [ale]
+map <C-a> [ale]
 " エラー行にジャンプ
-nmap <silent> [ale]<C-P> <Plug>(ale_previous)
-nmap <silent> [ale]<C-N> <Plug>(ale_next)
+nmap <silent> [ale]p <Plug>(ale_previous)
+nmap <silent> [ale]n <Plug>(ale_next)
 
 " " }}}
 " lightline.vim{{{
@@ -685,36 +682,37 @@ autocmd VimEnter *
       \| endif
 " }}}
 " auto-cursorline {{{
-augroup vimrc-auto-cursorline
-  autocmd!
-  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-  autocmd WinEnter * call s:auto_cursorline('WinEnter')
-  autocmd WinLeave * call s:auto_cursorline('WinLeave')
-
-  let s:cursorline_lock = 0
-  function! s:auto_cursorline(event)
-    if a:event ==# 'WinEnter'
-      setlocal cursorline
-      let s:cursorline_lock = 2
-    elseif a:event ==# 'WinLeave'
-      setlocal nocursorline
-    elseif a:event ==# 'CursorMoved'
-      if s:cursorline_lock
-        if 1 < s:cursorline_lock
-          let s:cursorline_lock = 1
-        else
-          setlocal nocursorline
-          let s:cursorline_lock = 0
-        endif
-      endif
-    elseif a:event ==# 'CursorHold'
-      setlocal cursorline
-      let s:cursorline_lock = 1
-    endif
-  endfunction
-augroup END
-" }}}
+" augroup vimrc-auto-cursorline
+"   autocmd!
+"   set cursorline
+"   autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+"   autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+"   autocmd WinEnter * call s:auto_cursorline('WinEnter')
+"   autocmd WinLeave * call s:auto_cursorline('WinLeave')
+"
+"   let s:cursorline_lock = 0
+"   function! s:auto_cursorline(event)
+"     if a:event ==# 'WinEnter'
+"       setlocal cursorline
+"       let s:cursorline_lock = 2
+"     elseif a:event ==# 'WinLeave'
+"       setlocal nocursorline
+"     elseif a:event ==# 'CursorMoved'
+"       if s:cursorline_lock
+"         if 1 < s:cursorline_lock
+"           let s:cursorline_lock = 1
+"         else
+"           setlocal nocursorline
+"           let s:cursorline_lock = 0
+"         endif
+"       endif
+"     elseif a:event ==# 'CursorHold'
+"       setlocal cursorline
+"       let s:cursorline_lock = 1
+"     endif
+"   endfunction
+" augroup END
+" " }}}
 " reading_vimrc {{{
 autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 "}}}
