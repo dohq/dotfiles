@@ -10,6 +10,9 @@ zplug "docker/machine",                    use:contrib/completion/zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions"
 zplug "arks22/tmuximum",                   as:command
+zplug "chrissicool/zsh-256color"
+zplug "ael-code/zsh-colored-man-pages"
+zplug "zpm-zsh/ls"
 
 # fzf
 zplug "junegunn/fzf-bin",                  as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
@@ -17,14 +20,21 @@ zplug "b4b4r07/enhancd",                   use:init.sh
 zplug "junegunn/fzf",                      as:command, use:bin/fzf-tmux
 zplug "knu/zsh-git-escape-magic"
 
-# source
-## fzf-
+### Function
+## fzf
+# history
 # zplug "dohq/9b97e07c865bb608108dd254b5e32fea", from:gist, defer:2
-# zplug "dohq/1dc702cc0b46eb62884515ea52330d60", from:gist, defer:2
+# ssh
+zplug "dohq/1dc702cc0b46eb62884515ea52330d60", from:gist, defer:2
+# branch
 # zplug "dohq/7cb290f0a9a90e8f24f0f4912f6633b8", from:gist, defer:2
+# ghq
 # zplug "dohq/a643084df0c1957b6990ee69fb3126a1", from:gist, defer:2
 
-## peco-
+## peco
+# ghq
 zplug "dohq/feef280b4c7b3534c38a4c4f65114a07", from:gist, defer:2
+# branch
 zplug "dohq/8a1c63c104917d3ad1ffd879854826ca", from:gist, defer:2
+# history
 zplug "dohq/73da4a46fc1a18719b54e894c6076a18", from:gist, defer:2
