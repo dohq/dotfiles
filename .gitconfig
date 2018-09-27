@@ -8,7 +8,7 @@
   preloadindex = true
   fscache = true
   pager = LESSCHARSET=utf-8 less -R
-	commentchar = auto
+  commentchar = auto
 [color]
   ui = auto
   diff = always
@@ -22,11 +22,7 @@
 [rebase]
   autosquash = true
 [alias]
-  pr = !hub browse -- compare/$(git symbolic-ref --short HEAD)'?'expand=1'&'body=%23%23%20%E7%9B%AE%E7%9A%84%0A%0A%23%23%20%E5%A4%89%E6%9B%B4%E5%86%85%E5%AE%B9
-  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-[pretty]
-  medium-reverse = format:%C(red reverse)%d%Creset%C(white reverse) %h% Creset %C(green reverse) %an %Creset %C(cyan)%ar%Creset%n%C(white bold)%w(80)%s%Creset%n%n%w(80,2,2)%b
+  lg = log --graph --oneline
 [push]
   default = current
 [ghq]
@@ -43,13 +39,13 @@
 [merge]
   ff = false
 [credential]
-	helper = manager
+  helper = manager
 [secrets]
-	providers = git secrets --aws-provider
-	patterns = [A-Z0-9]{20}
-	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
-	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
-	allowed = AKIAIOSFODNN7EXAMPLE
-	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+  providers = git secrets --aws-provider
+  patterns = [A-Z0-9]{20}
+  patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+  patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+  allowed = AKIAIOSFODNN7EXAMPLE
+  allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [init]
-	templatedir = ~/.git-templates/git-secrets
+  templatedir = ~/.git-templates/git-secrets
