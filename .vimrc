@@ -64,6 +64,8 @@ Plug 'easymotion/vim-easymotion'
 Plug 'y0za/vim-reading-vimrc'
 Plug 'jsfaint/gen_tags.vim'
 Plug 'tpope/vim-repeat'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'terryma/vim-multiple-cursors'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -71,7 +73,13 @@ Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
-" Plug 'maralla/completor.vim'
+Plug 'mattn/sonictemplate-vim'
+Plug 'tyru/eskk.vim'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tyru/caw.vim'
+Plug 'LeafCage/yankround.vim'
+" autocomplete
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 if !has('nvim')
@@ -83,17 +91,11 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim'
 Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-highprio-pop'
 Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-markdown-subscope'
 Plug 'ncm2/ncm2-rst-subscope'
-
-Plug 'mattn/sonictemplate-vim'
-Plug 'tyru/eskk.vim'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tyru/caw.vim'
-Plug 'LeafCage/yankround.vim'
 " Visual
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
@@ -315,9 +317,6 @@ nnoremap N Nzz
 "----------------------------------------
 " completor {{{
 autocmd BufEnter * call ncm2#enable_for_buffer()
-" let g:completor_auto_trigger = 1
-" let g:completor_refresh_always = 1
-" let g:completor_set_options = 1
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
