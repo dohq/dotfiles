@@ -273,20 +273,23 @@ bindkey "^[[3~"   delete-char
 bindkey "^[3;5~"  delete-char
 
 ########################################
-# opt
+# path
 ########################################
-# fly command autocomplete
-_fly_bash_autocomplete() {
-    args=("${COMP_WORDS[@]:1:$COMP_CWORD}")
-    # Only split on newlines
-    local IFS=$'\n'
-    # Call completion (note that the first element of COMP_WORDS is
-    # the executable itself)
-    COMPREPLY=($(GO_FLAGS_COMPLETION=1 ${COMP_WORDS[0]} "${args[@]}"))
-    return 0
-}
-complete -F _fly_bash_autocomplete fly
+# ruby
+path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
 
+# user program
+path=($HOME/.local/bin(N-/) $path)
+
+# RUST_SRC_PATH
+if [[ -x "`which rustc`" ]]; then
+  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
+fi
+
+
+########################################
+# source
+########################################
 # source seacret
 if [[ -f ~/.token ]]; then
   source ~/.token
@@ -297,6 +300,17 @@ if [[ -f ~/.zsh_local ]]; then
   source ~/.zsh_local
 fi
 
+# ruby
+if [[ -d $HOME/.gem/ruby/2.5.0/bin ]]; then
+  export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
+fi
+
+########################################
+# init
+########################################
+# hub alias
+function git(){hub "$@"}
+
 # direnv
 if [[ -x "`which direnv`" ]]; then
   if type "zsh" > /dev/null 2>&1; then
@@ -304,25 +318,34 @@ if [[ -x "`which direnv`" ]]; then
   fi
 fi
 
-# hub alias
-function git(){hub "$@"}
-
-# terraform complete
-if [[ -x "`which terraform`" ]]; then
-  complete -o nospace -C /usr/bin/terraform terraform
-fi
-
-# RUST_SRC_PATH
-if [[ -x "`which rustc`" ]]; then
-  export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
-fi
-
-# vault complete
-if [[ -x "`which vault`" ]]; then
-  complete -o nospace -C /usr/bin/vault vault
-fi
-
 # pyenv
 if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
+fi
+
+# sonar-scanner
+if [[ -d /opt/sonar-scanner/ ]]; then
+  export SONAR_SCANNER_HOME="/opt/sonar-scanner"
+  path=(${SONAR_SCANNER_HOME}/bin $path)
+fi
+
+# pipenv
+if [[ -x "`which pipenv`" ]]; then
+  eval "$(pipenv --completion)"
+fi
+
+# user program
+if [[ -d ~/.local/bin ]]; then
+  path=($HOME/.local/bin $path)
+fi
+
+# sonar-scanner
+if [[ -d /opt/sonar-scanner/ ]]; then
+  export SONAR_SCANNER_HOME="/opt/sonar-scanner"
+  path=(${SONAR_SCANNER_HOME}/bin $path)
+fi
+
+# pipenv
+if [[ -x "`which pipenv`" ]]; then
+  eval "$(pipenv --completion)"
 fi
