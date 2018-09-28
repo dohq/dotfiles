@@ -55,7 +55,6 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'wakatime/vim-wakatime'
-" Plug 'kana/vim-slacky'
 Plug 'tpope/vim-dadbod'
 Plug 'mbbill/undotree'
 Plug 'kana/vim-operator-user'
@@ -90,8 +89,9 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-highprio-pop'
+if !has('win32')
+  Plug 'ncm2/ncm2-tmux'
+endif
 Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-go'
 Plug 'ncm2/ncm2-markdown-subscope'
@@ -152,10 +152,12 @@ Plug 'KabbAmine/gulp-vim'
 Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
 " terraform
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
+" json
+Plug 'elzr/vim-json',                       {'for': 'json'}
 
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
-      \ 'do': 'install.sh',
+      \ 'do': 'sh install.sh',
       \ }
 
 call plug#end()
@@ -255,7 +257,7 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
-let g:vim_json_syntax_conceal = 0
+" let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 " }}}
@@ -681,38 +683,50 @@ autocmd VimEnter *
       \| endif
 " }}}
 " auto-cursorline {{{
-" augroup vimrc-auto-cursorline
-"   autocmd!
-"   set cursorline
-"   autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-"   autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-"   autocmd WinEnter * call s:auto_cursorline('WinEnter')
-"   autocmd WinLeave * call s:auto_cursorline('WinLeave')
-"
-"   let s:cursorline_lock = 0
-"   function! s:auto_cursorline(event)
-"     if a:event ==# 'WinEnter'
-"       setlocal cursorline
-"       let s:cursorline_lock = 2
-"     elseif a:event ==# 'WinLeave'
-"       setlocal nocursorline
-"     elseif a:event ==# 'CursorMoved'
-"       if s:cursorline_lock
-"         if 1 < s:cursorline_lock
-"           let s:cursorline_lock = 1
-"         else
-"           setlocal nocursorline
-"           let s:cursorline_lock = 0
-"         endif
-"       endif
-"     elseif a:event ==# 'CursorHold'
-"       setlocal cursorline
-"       let s:cursorline_lock = 1
-"     endif
-"   endfunction
-" augroup END
-" " }}}
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  autocmd WinEnter * call s:auto_cursorline('WinEnter')
+  autocmd WinLeave * call s:auto_cursorline('WinLeave')
+
+  set cursorline
+  let s:cursorline_lock = 0
+  function! s:auto_cursorline(event)
+    if a:event ==# 'WinEnter'
+      setlocal cursorline
+      let s:cursorline_lock = 2
+    elseif a:event ==# 'WinLeave'
+      setlocal nocursorline
+    elseif a:event ==# 'CursorMoved'
+      if s:cursorline_lock
+        if 1 < s:cursorline_lock
+          let s:cursorline_lock = 1
+        else
+          setlocal nocursorline
+          let s:cursorline_lock = 0
+        endif
+      endif
+    elseif a:event ==# 'CursorHold'
+      setlocal cursorline
+      let s:cursorline_lock = 1
+    endif
+  endfunction
+augroup END
+" }}}
 " reading_vimrc {{{
 autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 "}}}
+" Json-jq {{{
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+  if 0 == a:0
+    let l:arg = "."
+  else
+    let l:arg = a:1
+  endif
+  execute "%! jq \"" . l:arg . "\""
+endfunction
 " }}}
+" }}}
+let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
