@@ -1,19 +1,14 @@
-# unsetopt BG_NICE
-#######################################
-# zplug
-[[ -d ~/.zplug ]] || {
-  # Check if zplug is installed
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
+########################################
+# zshrc compile
+if [ $HOME/dotfiles/.zshrc -nt ~/.zshrc.zwc ]; then
+  zcompile ~/.zshrc
 fi
-}
-# source $HOME/.zsh_plug
+########################################
+# zplug
+# * compinit含む
 export ZPLUG_CACHE_DIR="$HOME/.zplug/cache"
 export ZPLUG_LOADFILE="$HOME/.zsh_plug"
 source $HOME/.zplug/init.zsh
-if [[ $ZPLUG_LOADFILE -nt $ZPLUG_CACHE_DIR/interface || ! -f $ZPLUG_CACHE_DIR/interface ]]; then
-  zplug check || zplug install
-fi
 zplug load
 
 ########################################
@@ -26,11 +21,10 @@ bindkey -v
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=10000
+SAVEHIST=10000
 
 # プロンプト指定
-# [%n"@"%m %T] %{${fg[yellow]}%}%~%{${reset_color}%}
 PROMPT="
 [%n"@"%m %T] %{${fg[yellow]}%}%(5~|%-1~/…/%3~|%4~)%{${reset_color}%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
@@ -48,11 +42,6 @@ zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
 ########################################
-# 補完
-# 補完機能を有効にする
-autoload -Uz compinit; compinit
-autoload -U +X bashcompinit && bashcompinit
-
 # もしかして機能
 setopt correct
 
@@ -65,15 +54,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # ../ の後は今いるディレクトリを補完しない
 zstyle ':completion:*' ignore-parents parent pwd ..
 
-# sudo の後ろでコマンド名を補完する
-zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-  /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
-
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 
 ########################################
-  # vcs_info
+# vcs_info
   # vcs_info 設定{{{
   RPROMPT=""
   autoload -Uz vcs_info
@@ -274,7 +259,6 @@ bindkey "^[3;5~"  delete-char
 
 ########################################
 # path
-########################################
 # ruby
 path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
 
@@ -286,10 +270,8 @@ if [[ -x "`which rustc`" ]]; then
   export RUST_SRC_PATH=$(rustc --print sysroot)/lib/rustlib/src/rust/src
 fi
 
-
 ########################################
 # source
-########################################
 # source seacret
 if [[ -f ~/.token ]]; then
   source ~/.token
@@ -300,14 +282,8 @@ if [[ -f ~/.zsh_local ]]; then
   source ~/.zsh_local
 fi
 
-# ruby
-if [[ -d $HOME/.gem/ruby/2.5.0/bin ]]; then
-  export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
-fi
-
 ########################################
 # init
-########################################
 # hub alias
 function git(){hub "$@"}
 
@@ -321,28 +297,6 @@ fi
 # pyenv
 if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
-fi
-
-# sonar-scanner
-if [[ -d /opt/sonar-scanner/ ]]; then
-  export SONAR_SCANNER_HOME="/opt/sonar-scanner"
-  path=(${SONAR_SCANNER_HOME}/bin $path)
-fi
-
-# pipenv
-if [[ -x "`which pipenv`" ]]; then
-  eval "$(pipenv --completion)"
-fi
-
-# user program
-if [[ -d ~/.local/bin ]]; then
-  path=($HOME/.local/bin $path)
-fi
-
-# sonar-scanner
-if [[ -d /opt/sonar-scanner/ ]]; then
-  export SONAR_SCANNER_HOME="/opt/sonar-scanner"
-  path=(${SONAR_SCANNER_HOME}/bin $path)
 fi
 
 # pipenv
