@@ -25,5 +25,6 @@ let g:gruvbox_italic = 0
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-set guifont=Cica:h12
+" set guifont=Cica:h12
+set guifont=Sarasa\ Term\ J:h12
 set printfont=Cica:h8
