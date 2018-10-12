@@ -16,7 +16,7 @@ URxvt.scrollBar:            false
 URxvt*iso14755:             false
 
 URxvt.allow_bold:           false
-URxvt*font:                 xft:Cica:size=14:antialias=true
+URxvt*font:                 xft:Sarasa Term J:size=16:antialias=true
 
 ! Plugin
 URxvt.perl-ext-common:      fullscreen, resize-font, xim-onthespot, default, clipboard, url-select, keyboard-select
