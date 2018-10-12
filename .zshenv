@@ -36,13 +36,6 @@ alias gs='git status'
 alias gd='git diff'
 alias gnd='git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
 
-# interactive select for fzf
-if [ -x "`which fzf`" ]; then
-  alias ll='ls -lha | fzf'
-  alias tp='top | fzf'
-  alias pp='ps aux | fzf'
-fi
-
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 
@@ -54,6 +47,3 @@ export PIPENV_VENV_IN_PROJECT=true
 
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
-
-# hub alias
-function git(){hub "$@"}

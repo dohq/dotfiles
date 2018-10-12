@@ -94,13 +94,12 @@ if !has('win32')
 endif
 Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-go'
-Plug 'ncm2/ncm2-markdown-subscope'
-Plug 'ncm2/ncm2-rst-subscope'
 " Visual
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/try-colorscheme.vim'
+Plug 'jonathanfilip/vim-lucius'
 " QuickRun
 Plug 'osyo-manga/shabadou.vim'
 Plug 'thinca/vim-quickrun'
@@ -117,11 +116,11 @@ Plug 'w0rp/ale'
 Plug 'maximbaz/lightline-ale'
 " Git
 Plug 'airblade/vim-gitgutter'
+Plug 'neoclide/vim-easygit'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
-Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -132,11 +131,14 @@ Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 " Python
+Plug 'Reyu/vim-virtualenv'
+Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 Plug 'davidhalter/jedi-vim',                {'for': 'python'}
-Plug 'fisadev/vim-isort',                   {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
-Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
 Plug 'kh3phr3n/python-syntax',              {'for': 'python'}
+Plug 'mindriot101/vim-yapf',                {'for': 'python'}
+Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
+Plug 'tweekmonster/impsort.vim',            {'for': 'python'}
 " Markdown
 Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
@@ -209,6 +211,7 @@ set colorcolumn=80
 set completeopt=noinsert,menuone,noselect
 set display=lastline
 set expandtab
+set fileformat=unix
 set foldmethod=marker
 set helplang=ja,en
 set hidden
@@ -311,6 +314,11 @@ nnoremap Y y$
 " Centering search word
 nnoremap n nzz
 nnoremap N Nzz
+
+" map paste, yank and delete to named register so the content
+" will not be overwritten (I know I should just remember...)
+nnoremap x "_x
+vnoremap x "_x
 " }}}
 
 
@@ -319,13 +327,21 @@ nnoremap N Nzz
 "----------------------------------------
 " completor {{{
 autocmd BufEnter * call ncm2#enable_for_buffer()
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+" Use new fuzzy based matches
+let g:ncm2#matcher = 'substrfuzzy'
+
+set pumheight=10
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+inoremap <silent> <expr> <CR> (pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : "\<CR>"
 " }}}
 " LanguageClient {{{
 let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls'],
+      \ 'go': ['go-languserver'],
       \ }
 " }}}
 " ultisnips {{{
@@ -333,8 +349,6 @@ let g:LanguageClient_serverCommands = {
 let g:UltiSnipsExpandTrigger = '<c-k>'
 let g:UltiSnipsJumpForwardTrigger = '<c-k>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
-
-let g:ultisnips_python_style = 'sphinx'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
@@ -370,8 +384,8 @@ autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
-let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'W'
+let g:ale_sign_error = '!!'
+let g:ale_sign_warning = '∙'
 let g:ale_sign_column_always = 1
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_save = 1
@@ -386,9 +400,17 @@ let g:lightline#ale#indicator_errors = 'E'
 let g:lightline#ale#indicator_checking = '..'
 let g:lightline#ale#indicator_ok = 'OK'
 
+" ale options
+let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
+let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
+let g:ale_list_window_size = 4
+let g:ale_sign_column_always = 0
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open = '1'
+
 " keymap
 nmap [ale] <Nop>
-map <C-a> [ale]
+map <C-e> [ale]
 " エラー行にジャンプ
 nmap <silent> [ale]p <Plug>(ale_previous)
 nmap <silent> [ale]n <Plug>(ale_next)
@@ -505,6 +527,9 @@ let g:gitgutter_enabled = 1
 let g:gitgutter_sign_added = '++'
 let g:gitgutter_sign_modified = '~~'
 let g:gitgutter_sign_removed = '--'
+let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_map_keys = 0
+
 nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
@@ -622,13 +647,27 @@ let g:ctrlp_smarttabs_exclude_quickfix = 1
 " }}}
 " Python {{{
 let g:python_highlight_all = 1
+let g:ultisnips_python_style = 'sphinx'
+
+" Disable Jedi-vim autocompletion and enable call-signatures options
+let g:jedi#auto_initialization = 1
 let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_command = ""
+let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures_delay = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#show_call_signatures_modes = 'i'
+let g:jedi#enable_speed_debugging=0
+
 let g:jedi#goto_command = '<leader>g'
 let g:jedi#documentation_command = '<s-k>'
 let g:jedi#usages_command = '<leader>n'
 let g:jedi#completions_command = ''
 let g:jedi#rename_command = '<leader>R'
-let g:jedi#show_call_signatures = 2
+
 let g:formatter_yapf_style = 'google'
 " }}}
 " caw.vim {{{
@@ -670,10 +709,6 @@ nmap # <Plug>(anzu-sharp)
 " }}}
 " emmet {{{
 let g:user_emmet_mode='a'
-" }}}
-" vim-test {{{
-let g:test#strategy = 'dispatch'
-let g:test#preserve_screen = 1
 " }}}
 " user command {{{
 " Auto plugin install {{{
@@ -729,4 +764,6 @@ function! s:Jq(...)
 endfunction
 " }}}
 " }}}
-let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
+if has('win32')
+  let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
+endif
