@@ -47,6 +47,3 @@ export PIPENV_VENV_IN_PROJECT=true
 
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
-
-# hub alias
-function git(){hub "$@"}
