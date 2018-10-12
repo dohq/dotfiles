@@ -1,8 +1,16 @@
 ########################################
+# activate tmux
+if [[ -z "$TMUX" ]];then
+  tmux new-session;
+  exit;
+fi
+
+########################################
 # zshrc compile
 if [ $HOME/dotfiles/.zshrc -nt ~/.zshrc.zwc ]; then
   zcompile ~/.zshrc
 fi
+
 ########################################
 # zplug
 # * compinit含む
