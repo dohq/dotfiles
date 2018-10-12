@@ -98,8 +98,11 @@ Plug 'ncm2/ncm2-go'
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'jacoborus/tender.vim'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'junegunn/seoul256.vim'
 " QuickRun
 Plug 'osyo-manga/shabadou.vim'
 Plug 'thinca/vim-quickrun'
@@ -131,7 +134,7 @@ Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 " Python
-Plug 'Reyu/vim-virtualenv'
+Plug 'tweekmonster/impsort.vim',            {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 Plug 'davidhalter/jedi-vim',                {'for': 'python'}
 Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
@@ -144,7 +147,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoInstallBinaries'}
+Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoUpdateBinaries'}
 " yaml
 Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
 " html
@@ -170,7 +173,12 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-colorscheme iceberg
+syntax on
+colorscheme seoul256
+" colorscheme iceberg
+" colorscheme tender
+" colorscheme lucius
+set background=dark
 if !has('win32')
   highlight Normal ctermbg=none
   highlight NonText ctermbg=none
@@ -178,7 +186,6 @@ if !has('win32')
   highlight Folded ctermbg=none
   highlight EndOfBuffer ctermbg=none
 endif
-let g:gruvbox_italic = 0
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
@@ -207,12 +214,13 @@ set autoread
 set autowrite
 set belloff=all
 set cmdheight=2
-set colorcolumn=80
+set colorcolumn=120
 set completeopt=noinsert,menuone,noselect
 set display=lastline
 set expandtab
 set fileformat=unix
 set foldmethod=marker
+set fileformat=unix
 set helplang=ja,en
 set hidden
 set hlsearch
@@ -226,6 +234,7 @@ set nobackup
 set noequalalways
 set nosmartindent
 set nostartofline
+set noshowmode
 set noswapfile
 set novisualbell
 set nrformats-=octal
@@ -341,7 +350,7 @@ inoremap <silent> <expr> <CR> (pumvisible() && empty(v:completed_item)) ?  "\<c-
 " LanguageClient {{{
 let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls'],
-      \ 'go': ['go-languserver'],
+      \ 'go': ['go-langserver'],
       \ }
 " }}}
 " ultisnips {{{
@@ -550,7 +559,6 @@ augroup hierr
   autocmd FileType go :match goErr /\<err\>/
 augroup END
 
-let g:go_auto_type_info = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -559,9 +567,10 @@ let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
-let g:go_term_enabled = 1
 
-" let g:go_metalinter_autosave = 1
+let g:go_auto_type_info = 0
+let g:go_fmt_auto_save = 1
+let g:go_metalinter_autosave = 0
 let g:go_fmt_command = 'goimports'
 " }}}
 " vim-indent-line {{{
@@ -649,14 +658,13 @@ let g:ctrlp_smarttabs_exclude_quickfix = 1
 let g:python_highlight_all = 1
 let g:ultisnips_python_style = 'sphinx'
 
-" Disable Jedi-vim autocompletion and enable call-signatures options
 let g:jedi#auto_initialization = 1
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ""
-let g:jedi#show_call_signatures = "1"
+let g:jedi#completions_command = ''
+let g:jedi#show_call_signatures = '1'
 let g:jedi#show_call_signatures_delay = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures_modes = 'i'
@@ -665,10 +673,13 @@ let g:jedi#enable_speed_debugging=0
 let g:jedi#goto_command = '<leader>g'
 let g:jedi#documentation_command = '<s-k>'
 let g:jedi#usages_command = '<leader>n'
-let g:jedi#completions_command = ''
 let g:jedi#rename_command = '<leader>R'
 
 let g:formatter_yapf_style = 'google'
+
+" ale
+let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
+let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
 " }}}
 " caw.vim {{{
 nmap <leader>c      <Plug>(caw:hatpos:toggle)
