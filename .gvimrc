@@ -11,19 +11,20 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 
-augroup startfullscreen
-  autocmd!
-  autocmd GUIEnter * simalt ~x
-augroup end
+" augroup startfullscreen
+"   autocmd!
+"   autocmd GUIEnter * simalt ~x
+" augroup end
 
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-colorscheme iceberg
-let g:gruvbox_italic = 0
+" colorscheme iceberg
+colorscheme tender
 
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-set guifont=Cica:h12
+" set guifont=Cica:h12
+set guifont=Sarasa\ Term\ J:h12
 set printfont=Cica:h8
