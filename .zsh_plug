@@ -1,23 +1,24 @@
 # comp
 # コマンドを色々補完する。超便利
-zplug "zsh-users/zsh-completions"
-zplug "docker/cli",                        use:contrib/completion/zsh, lazy:true
-zplug "docker/compose",                    use:contrib/completion/zsh, lazy:true
-zplug "docker/machine",                    use:contrib/completion/zsh, lazy:true
+zplug "zsh-users/zsh-completions",             lazy:true
+zplug "docker/cli",                            use:contrib/completion/zsh, lazy:true
+zplug "docker/compose",                        use:contrib/completion/zsh, lazy:true
+zplug "docker/machine",                        use:contrib/completion/zsh, lazy:true
+zplug "supercrabtree/k",                       lazy:true
 
 # theme
 # 色付ける。便利
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-syntax-highlighting",     defer:2
 zplug "zsh-users/zsh-autosuggestions"
-zplug "arks22/tmuximum",                   as:command, lazy:true
-zplug "chrissicool/zsh-256color",          lazy:true
-zplug "ael-code/zsh-colored-man-pages",    lazy:true
-zplug "zpm-zsh/ls",                        lazy:true
+zplug "arks22/tmuximum",                       as:command, lazy:true
+zplug "chrissicool/zsh-256color",              lazy:true
+zplug "ael-code/zsh-colored-man-pages",        lazy:true
+zplug "zpm-zsh/ls",                            lazy:true
 
 # fzf
-zplug "junegunn/fzf-bin",                  as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
-zplug "b4b4r07/enhancd",                   use:init.sh, lazy:true
-zplug "junegunn/fzf",                      as:command, use:bin/fzf-tmux
+zplug "junegunn/fzf-bin",                      as:command, from:gh-r, rename-to:fzf, use:"*linux*amd64*"
+zplug "b4b4r07/enhancd",                       use:init.sh, lazy:true
+zplug "junegunn/fzf",                          as:command, use:bin/fzf-tmux
 zplug "knu/zsh-git-escape-magic"
 
 ### Function
