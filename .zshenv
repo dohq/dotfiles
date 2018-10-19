@@ -24,6 +24,7 @@ alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias nm="$HOME/bin/notify-me.sh"
 alias vi='vim'
 alias v='vim'
+alias d='docker'
 
 # Gitting
 alias g='git'
