@@ -125,7 +125,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
 " CtrlP
-Plug 'FelikZ/ctrlp-py-matcher'
+" Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'raghur/fruzzy', {'do': { -> fruzzy#install() }}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
 Plug 'mattn/ctrlp-ghq'
@@ -174,10 +175,10 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme seoul256
+" colorscheme seoul256
 " colorscheme iceberg
 " colorscheme tender
-" colorscheme lucius
+colorscheme lucius
 set background=dark
 if !has('win32')
   highlight Normal ctermbg=none
@@ -645,7 +646,10 @@ if executable('ag')
   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
 endif
 
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
+let g:ctrlp_match_current_file = 1 " to include current file in matches
+
+" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
