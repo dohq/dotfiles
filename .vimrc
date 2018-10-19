@@ -348,9 +348,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent> <expr> <CR> (pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : "\<CR>"
 " }}}
 " LanguageClient {{{
+let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls'],
       \ 'go': ['go-langserver'],
+      \ 'yaml': ['yaml-language-server', '--stdio'],
       \ }
 " }}}
 " ultisnips {{{
