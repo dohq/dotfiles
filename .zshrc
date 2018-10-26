@@ -23,10 +23,6 @@ fi
 
   source $ZPLUG_HOME/init.zsh
 
-  if [[ $ZPLUG_LOADFILE -nt $ZPLUG_CACHE_DIR/interface || ! -f $ZPLUG_CACHE_DIR/interface ]]; then
-    zplug check || zplug install
-  fi
-
   if __zplug::core::cache::diff; then
     __zplug::core::load::from_cache
   else
