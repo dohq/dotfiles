@@ -175,18 +175,8 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-" colorscheme seoul256
-" colorscheme iceberg
-" colorscheme tender
-colorscheme lucius
+colorscheme seoul256
 set background=dark
-if !has('win32')
-  highlight Normal ctermbg=none
-  highlight NonText ctermbg=none
-  highlight LineNr ctermbg=none
-  highlight Folded ctermbg=none
-  highlight EndOfBuffer ctermbg=none
-endif
 "}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
@@ -526,6 +516,15 @@ let g:eskk#show_annotation = 0
 let g:eskk#revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
+
+autocmd User eskk-initialize-pre call s:eskk_initial_pre()
+function! s:eskk_initial_pre()
+  let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+  for n in range(10)
+    call t.add_map(n . '.', n . '.')
+  endfor
+  call eskk#register_mode_table('hira', t)
+endfunction
 
 "allow InsertMode toggle ESKK
 augroup eskk
