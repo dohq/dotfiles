@@ -1,14 +1,15 @@
-# PATH
+export EDITOR=vim
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export GOPATH=$HOME/go
+
+# PATH
 path=(/usr/lib/ccache/bin(N-/) /usr/local/bin(N-/) $path)
 path=($HOME/.local/bin(N-/) $HOME/bin(N-/) $GOPATH/bin(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
 path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
+path=($HOME/.local/bin(N-/) $path)
 
-# EDITOR
-export EDITOR=vim
 # Alias作りましょうねー
 alias rm='rm -i'
 alias cp='cp -i'
@@ -16,7 +17,6 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias c='clear'
 alias ls='ls --color'
-alias l='ls -l'
 alias tree='tree -N'
 alias pbcopy='xsel --clipboard --input'
 alias tokyo="curl wttr.in/Tokyo"
@@ -27,7 +27,6 @@ alias v='vim'
 alias d='docker'
 
 # Gitting
-alias g='git'
 alias gl='git lg'
 alias gm='git commit -v'
 alias ga='git add'
