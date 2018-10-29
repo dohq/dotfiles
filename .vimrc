@@ -326,7 +326,10 @@ vnoremap x "_x
 " Plugin Settings
 "----------------------------------------
 " completor {{{
-autocmd BufEnter * call ncm2#enable_for_buffer()
+augroup ncm2
+  " this one is which you're most likely to use?
+  autocmd vimrc BufEnter * call ncm2#enable_for_buffer()
+augroup end
 let ncm2#popup_delay = 5
 let ncm2#complete_length = [[1, 1]]
 " Use new fuzzy based matches
@@ -507,7 +510,6 @@ let g:eskk#revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 
-autocmd User eskk-initialize-pre call s:eskk_initial_pre()
 function! s:eskk_initial_pre()
   let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
   for n in range(10)
@@ -515,6 +517,10 @@ function! s:eskk_initial_pre()
   endfor
   call eskk#register_mode_table('hira', t)
 endfunction
+
+augroup eskk
+  autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
+augroup end
 
 "allow InsertMode toggle ESKK
 augroup eskk
@@ -713,10 +719,12 @@ let g:user_emmet_mode='a'
 " }}}
 " user command {{{
 " Auto plugin install {{{
-autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
+augroup pluginstall
+  autocmd VimEnter *
+        \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+        \|   PlugInstall --sync | q
+        \| endif
+augroup end
 " }}}
 " auto-cursorline {{{
 augroup vimrc-auto-cursorline
@@ -757,7 +765,7 @@ autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
   if 0 == a:0
-    let l:arg = "."
+    let l:arg = '.'
   else
     let l:arg = a:1
   endif
