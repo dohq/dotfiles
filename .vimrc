@@ -118,10 +118,10 @@ Plug 'tyru/open-browser.vim'
 Plug 'w0rp/ale'
 Plug 'maximbaz/lightline-ale'
 " Git
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'neoclide/vim-easygit'
 Plug 'itchyny/vim-gitbranch'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
 " CtrlP
@@ -386,29 +386,19 @@ autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
-let g:ale_sign_error = '!!'
-let g:ale_sign_warning = '∙'
-let g:ale_sign_column_always = 1
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
-let g:ale_keep_list_window_open = 0
+let g:ale_sign_error = 'E'
+let g:ale_sign_warning = 'w'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_column_always = 1
+let g:ale_change_sign_column_color =1
+
+let g:ale_list_window_size = 4
+let g:ale_open_list = 1
 " lightline-ale
 let g:lightline#ale#indicator_warnings = 'W'
 let g:lightline#ale#indicator_errors = 'E'
 let g:lightline#ale#indicator_checking = '..'
 let g:lightline#ale#indicator_ok = 'OK'
-
-" ale options
-let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
-let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
-let g:ale_list_window_size = 4
-let g:ale_sign_column_always = 0
-let g:ale_open_list = 1
-let g:ale_keep_list_window_open = '1'
 
 " keymap
 nmap [ale] <Nop>
@@ -534,18 +524,10 @@ augroup eskk
 augroup END
 "}}}
 " Git {{{
-let g:gitgutter_enabled = 1
-let g:gitgutter_sign_added = '++'
-let g:gitgutter_sign_modified = '~~'
-let g:gitgutter_sign_removed = '--'
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_map_keys = 0
-
+let g:easygit_enable_command = 1
 nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
-nnoremap <silent> [Git]g :<C-u>GitGutterToggle<CR>
-nnoremap <silent> [Git]n :<C-u>GitGutterNextHunk<CR>
-nnoremap <silent> [Git]p :<C-u>GitGutterPrevHunk<CR>
+nnoremap <silent> [Git]g :<C-u>SignifyToggle<CR>
 " git command
 nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
 nnoremap <silent> [Git]m :<C-u>Gcommit -v<CR>
@@ -564,16 +546,19 @@ augroup END
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
+let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_fields = 1
 
-let g:go_auto_type_info = 0
-let g:go_fmt_auto_save = 1
-let g:go_metalinter_autosave = 0
-let g:go_fmt_command = 'goimports'
+let g:go_auto_type_info = 1
+let g:go_metalinter_autosave = 1
+let g:go_fmt_command = 'gofmt'
+let g:go_def_mode = 'guru'
+
+let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
