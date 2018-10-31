@@ -390,13 +390,13 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " ale {{{
 let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'w'
+let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_column_always = 1
 let g:ale_change_sign_column_color =1
 
 let g:ale_list_window_size = 4
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 " lightline-ale
 let g:lightline#ale#indicator_warnings = 'W'
 let g:lightline#ale#indicator_errors = 'E'
