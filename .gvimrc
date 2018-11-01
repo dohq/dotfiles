@@ -11,10 +11,12 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 
-" augroup startfullscreen
-"   autocmd!
-"   autocmd GUIEnter * simalt ~x
-" augroup end
+if has('win32')
+  augroup startfullscreen
+    autocmd!
+    autocmd GUIEnter * simalt ~x
+  augroup end
+endif
 
 "----------------------------------------
 " ColorScheme
