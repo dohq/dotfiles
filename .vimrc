@@ -390,9 +390,8 @@ let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_column_always = 1
 let g:ale_change_sign_column_color =1
+let g:ale_set_quickfix = 1
 
-let g:ale_list_window_size = 4
-let g:ale_open_list = 0
 " lightline-ale
 let g:lightline#ale#indicator_warnings = 'W'
 let g:lightline#ale#indicator_errors = 'E'
@@ -555,12 +554,7 @@ let g:go_highlight_function_arguments = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_fields = 1
 
-let g:go_auto_type_info = 1
-let g:go_metalinter_autosave = 1
-let g:go_fmt_command = 'gofmt'
-let g:go_def_mode = 'guru'
-
-let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
+let g:go_fmt_command = 'goimports'
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
