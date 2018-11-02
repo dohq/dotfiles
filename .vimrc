@@ -80,18 +80,14 @@ Plug 'tyru/caw.vim'
 Plug 'LeafCage/yankround.vim'
 " autocomplete
 Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-if !has('nvim')
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'roxma/nvim-yarp',                     {'cond': v:version == 800 && !has('nvim')}
+Plug 'roxma/vim-hug-neovim-rpc',            {'cond': v:version == 800 && !has('nvim')}
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-tmux',                      {'cond': v:version == 800 && !has('win32')}
 Plug 'ncm2/ncm2-vim'
-if !has('win32')
-  Plug 'ncm2/ncm2-tmux'
-endif
 Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-go'
 " Visual
@@ -126,7 +122,7 @@ Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
 " CtrlP
 " Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'raghur/fruzzy', {'do': { -> fruzzy#install() }}
+Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
 Plug 'mattn/ctrlp-ghq'
