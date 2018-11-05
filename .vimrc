@@ -76,6 +76,7 @@ Plug 'mattn/sonictemplate-vim'
 Plug 'tyru/eskk.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'LeafCage/yankround.vim'
 " autocomplete
@@ -555,6 +556,8 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_fields = 1
 
 let g:go_fmt_command = 'goimports'
+let g:go_auto_type_info = 1
+let g:go_info_mode = 'gocode'
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
