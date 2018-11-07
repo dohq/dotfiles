@@ -39,7 +39,7 @@
 [merge]
   ff = false
 [credential]
-  helper = manager
+  helper = cache
 [secrets]
   providers = git secrets --aws-provider
   patterns = [A-Z0-9]{20}
@@ -48,4 +48,4 @@
   allowed = AKIAIOSFODNN7EXAMPLE
   allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [init]
-	templatedir = ~/.git-templates/git-secrets
+  templatedir = ~/.git-templates/git-secrets

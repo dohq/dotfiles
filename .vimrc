@@ -66,6 +66,8 @@ Plug 'tpope/vim-repeat'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'terryma/vim-multiple-cursors'
 " Input Assist
+Plug 'kana/vim-textobj-user'
+Plug 'thinca/vim-textobj-between'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
@@ -80,14 +82,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'LeafCage/yankround.vim'
 " autocomplete
+Plug 'roxma/nvim-yarp',                     {'cond': v:version >= 800 && !has('nvim')}
+Plug 'roxma/vim-hug-neovim-rpc',            {'cond': v:version >= 800 && !has('nvim')}
 Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp',                     {'cond': v:version == 800 && !has('nvim')}
-Plug 'roxma/vim-hug-neovim-rpc',            {'cond': v:version == 800 && !has('nvim')}
 Plug 'ncm2/ncm2-ultisnips'
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-tmux',                      {'cond': v:version == 800 && !has('win32')}
+Plug 'ncm2/ncm2-tmux',                      {'cond': v:version >= 800 && !has('win32')}
 Plug 'ncm2/ncm2-vim'
 Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2-go'
@@ -606,8 +608,8 @@ let g:memolist_path = '~/Dev/memo'
 "}}}
 "CtrlP {{{
 nnoremap          [CtrlP]   <Nop>
-nmap     <Space>u [CtrlP]
-nnoremap <silent> [CtrlP]u :<C-u>CtrlP<CR>
+nmap     <Space>  [CtrlP]
+nnoremap <silent> [CtrlP]<Space> :<C-u>CtrlP<CR>
 nnoremap <silent> [CtrlP]g :<C-u>CtrlPGhq<CR>
 nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
