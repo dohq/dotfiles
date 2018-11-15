@@ -392,8 +392,11 @@ let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_column_always = 1
-let g:ale_change_sign_column_color =1
 let g:ale_set_quickfix = 1
+
+if has('nvim')
+  let g:ale_virtualtext_cursor = 1
+endif
 
 " lightline-ale
 let g:lightline#ale#indicator_warnings = 'W'
@@ -559,7 +562,7 @@ let g:go_highlight_fields = 1
 
 let g:go_fmt_command = 'goimports'
 let g:go_auto_type_info = 1
-let g:go_info_mode = 'gocode'
+let g:go_info_mode = 'guru'
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
