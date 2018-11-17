@@ -392,8 +392,11 @@ let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_column_always = 1
-let g:ale_change_sign_column_color =1
 let g:ale_set_quickfix = 1
+
+if has('nvim')
+  let g:ale_virtualtext_cursor = 1
+endif
 
 " lightline-ale
 let g:lightline#ale#indicator_warnings = 'W'
