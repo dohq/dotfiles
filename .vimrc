@@ -401,6 +401,10 @@ let g:lightline#ale#indicator_errors = 'E'
 let g:lightline#ale#indicator_checking = '..'
 let g:lightline#ale#indicator_ok = 'OK'
 
+if has('nvim')
+  let g:ale_virtualtext_cursor = 1
+endif
+
 " keymap
 nmap [ale] <Nop>
 map <C-e> [ale]
@@ -559,7 +563,7 @@ let g:go_highlight_fields = 1
 
 let g:go_fmt_command = 'goimports'
 let g:go_auto_type_info = 1
-let g:go_info_mode = 'gocode'
+let g:go_info_mode = 'guru'
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1

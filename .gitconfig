@@ -1,51 +1,25 @@
-[user]
-  useConfigOnly = true
 [core]
-  editor = vim
-  quotepath = false
-  symlinks = true
-  autocrlf = false
-  preloadindex = true
-  fscache = true
-  pager = LESSCHARSET=utf-8 less -R
-  commentchar = auto
+	editor = vim
+	quotepath = false
+	symlinks = true
+	autocrlf = false
+	ignorecase = false
+	safecrlf = true
 [color]
-  ui = auto
-  diff = always
-  status = always
-  branch = always
-  interactive = always
-[pack]
-  packSizeLimit = 2g
-[help]
-  format = html
+	ui = auto
+	diff = always
+	status = always
+	branch = always
+	interactive = always
 [rebase]
-  autosquash = true
-[alias]
-  lg = log --graph --oneline
+	autosquash = true
 [push]
-  default = current
+	default = simple
 [ghq]
-  root = ~/go/src
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
-[winUpdater]
-  recentlySeenVersion = 2.15.1.windows.2
+	root = ~/go/src
 [pull]
-  ff = only
+	ff = only
 [merge]
-  ff = false
+	ff = false
 [credential]
-  helper = cache
-[secrets]
-  providers = git secrets --aws-provider
-  patterns = [A-Z0-9]{20}
-  patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
-  patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
-  allowed = AKIAIOSFODNN7EXAMPLE
-  allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-[init]
-  templatedir = ~/.git-templates/git-secrets
+	helper = cache
