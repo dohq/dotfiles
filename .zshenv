@@ -35,7 +35,7 @@ alias gg='ghq gwt'
 alias gp='git push'
 alias gs='git status'
 alias gd='git diff'
-alias gnd='git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
+alias gnd='git init && git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
