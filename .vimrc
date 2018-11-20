@@ -52,7 +52,7 @@ Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOp
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-endwise'
 Plug 'osyo-manga/vim-anzu'
-Plug 'vim-jp/vimdoc-ja'
+" Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-dadbod'
@@ -211,7 +211,7 @@ set expandtab
 set fileformat=unix
 set foldmethod=marker
 set fileformat=unix
-set helplang=ja,en
+" set helplang=ja,en
 set hidden
 set hlsearch
 set ignorecase
