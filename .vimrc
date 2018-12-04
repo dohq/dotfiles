@@ -52,7 +52,6 @@ Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOp
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-endwise'
 Plug 'osyo-manga/vim-anzu'
-" Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-dadbod'
@@ -64,7 +63,6 @@ Plug 'y0za/vim-reading-vimrc'
 Plug 'jsfaint/gen_tags.vim'
 Plug 'tpope/vim-repeat'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'terryma/vim-multiple-cursors'
 " Input Assist
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-between'
@@ -774,7 +772,13 @@ function! s:Jq(...)
   execute "%! jq \"" . l:arg . "\""
 endfunction
 " }}}
-" }}}
+" get python binary {{{
 if has('win32')
-  let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
+  let g:python3_host_prog = system('where python3')
+  let g:python_host_prog = system('where python')
+else
+  let g:python3_host_prog = system('echo -n  $(which python3)')
+  let g:python_host_prog = system('echo -n $(which python)')
 endif
+" }}}
+" }}}
