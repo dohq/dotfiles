@@ -17,6 +17,7 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 alias c='clear'
 alias ls='ls --color'
+alias ll='ls -la'
 alias tree='tree -N'
 alias pbcopy='xsel --clipboard --input'
 alias tokyo="curl wttr.in/Tokyo"
@@ -27,7 +28,7 @@ alias v='vim'
 alias d='docker'
 
 # Gitting
-alias gl='git lg'
+alias gl='git log --oneline --pretty=format:"%h [%cd] %d %s <%an>" --date=format:"%Y/%m/%d %H:%M:%S" --graph'
 alias gm='git commit -v'
 alias ga='git add'
 alias gc='git clone'
