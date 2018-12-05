@@ -26,6 +26,7 @@ alias nm="$HOME/bin/notify-me.sh"
 alias vi='vim'
 alias v='vim'
 alias d='docker'
+alias pi='ping -c 3 google.com'
 
 # Gitting
 alias gl='git log --oneline --pretty=format:"%h [%cd] %d %s <%an>" --date=format:"%Y/%m/%d %H:%M:%S" --graph'
