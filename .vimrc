@@ -63,6 +63,7 @@ Plug 'y0za/vim-reading-vimrc'
 Plug 'jsfaint/gen_tags.vim'
 Plug 'tpope/vim-repeat'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'mattn/vim-pixela'
 " Input Assist
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-between'
@@ -122,7 +123,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
 " CtrlP
-" Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
@@ -717,6 +717,11 @@ nmap # <Plug>(anzu-sharp)
 " emmet {{{
 let g:user_emmet_mode='a'
 " }}}
+" vim-pixela {{{
+let g:pixela_debug = 0
+let g:pixela_username = 'dohq'
+let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
+" }}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
@@ -777,8 +782,8 @@ if has('win32')
   let g:python3_host_prog = system('where python3')
   let g:python_host_prog = system('where python')
 else
-  let g:python3_host_prog = system('echo -n  $(which python3)')
-  let g:python_host_prog = system('echo -n $(which python)')
+  let g:python3_host_prog = system('/usr/bin/python3')
+  let g:python_host_prog = system('/usr/bin/python')
 endif
 " }}}
 " }}}
