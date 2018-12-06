@@ -18,13 +18,15 @@ alias mkdir='mkdir -p'
 alias c='clear'
 alias ls='ls --color'
 alias tree='tree -N'
-alias pbcopy='xsel --clipboard --input'
+alias pbcopy='xclip -selection c'
 alias tokyo="curl wttr.in/Tokyo"
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias nm="$HOME/bin/notify-me.sh"
 alias vi='vim'
 alias v='vim'
+alias nv='nvim'
 alias d='docker'
+alias u='up'
 
 # Gitting
 alias gl='git lg'
