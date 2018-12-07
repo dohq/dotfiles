@@ -65,6 +65,10 @@ Plug 'jsfaint/gen_tags.vim'
 Plug 'tpope/vim-repeat'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'kana/vim-smartword'
+if !has('nvim')
+  Plug 'mattn/vim-pixela'
+endif
 " Input Assist
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-between'
@@ -159,6 +163,9 @@ Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " json
 Plug 'elzr/vim-json',                       {'for': 'json'}
+" UML
+Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
+Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 
 Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
@@ -204,7 +211,7 @@ set autoread
 set autowrite
 set belloff=all
 set cmdheight=2
-set colorcolumn=120
+" set colorcolumn=120
 set completeopt=noinsert,menuone,noselect
 set display=lastline
 set expandtab
@@ -217,8 +224,10 @@ set hlsearch
 set ignorecase
 set imdisable
 set incsearch
+set lazyredraw
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
+set matchpairs+=<:>
 set noautoindent
 set nobackup
 set noequalalways
@@ -233,6 +242,7 @@ set shiftround
 set shiftwidth=2
 set shortmess+=atIc
 set showtabline=0
+set signcolumn=yes
 set smartcase
 set softtabstop=2
 set splitbelow splitright
@@ -318,6 +328,14 @@ nnoremap N Nzz
 " will not be overwritten (I know I should just remember...)
 nnoremap x "_x
 vnoremap x "_x
+
+" vim-smartword
+if exists('g:loaded_smartword')
+  map w  <Plug>(smartword-w)
+  map b  <Plug>(smartword-b)
+  map e  <Plug>(smartword-e)
+  map ge  <Plug>(smartword-ge)
+endif
 " }}}
 
 
@@ -391,7 +409,6 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_column_always = 1
 let g:ale_set_quickfix = 1
 
 if has('nvim')
@@ -662,7 +679,7 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#smart_auto_mappings = 0
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions_command = ''
-let g:jedi#show_call_signatures = '1'
+let g:jedi#show_call_signatures = '2'
 let g:jedi#show_call_signatures_delay = 0
 let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#show_call_signatures_modes = 'i'
@@ -775,6 +792,14 @@ function! s:Jq(...)
 endfunction
 " }}}
 " }}}
+" vim-pixela {{{
+let g:pixela_username = 'dohq'
+let g:pixela_token = system('echo -n $(echo $PIXELA_TOKEN)')
+let g:pixela_debug = 0
+"}}}
 if has('win32')
   let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
+elseif has('unix')
+  let g:python_host_prog = '/usr/bin/python'
+  let g:python3_host_prog = '/usr/bin/python3'
 endif
