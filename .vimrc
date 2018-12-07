@@ -52,7 +52,6 @@ Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOp
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-endwise'
 Plug 'osyo-manga/vim-anzu'
-" Plug 'vim-jp/vimdoc-ja'
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-dadbod'
@@ -64,7 +63,6 @@ Plug 'y0za/vim-reading-vimrc'
 Plug 'jsfaint/gen_tags.vim'
 Plug 'tpope/vim-repeat'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'kana/vim-smartword'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
@@ -128,7 +126,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/gv.vim'
 Plug 'lambdalisue/vim-gista'
 " CtrlP
-" Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
@@ -736,6 +733,11 @@ nmap # <Plug>(anzu-sharp)
 " emmet {{{
 let g:user_emmet_mode='a'
 " }}}
+" vim-pixela {{{
+let g:pixela_debug = 0
+let g:pixela_username = 'dohq'
+let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
+" }}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
@@ -792,11 +794,6 @@ function! s:Jq(...)
 endfunction
 " }}}
 " }}}
-" vim-pixela {{{
-let g:pixela_username = 'dohq'
-let g:pixela_token = system('echo -n $(echo $PIXELA_TOKEN)')
-let g:pixela_debug = 0
-"}}}
 if has('win32')
   let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
 elseif has('unix')
