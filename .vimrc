@@ -715,7 +715,8 @@ let g:grepper               = {}
 let g:grepper.tools         = ['rg', 'ag', 'pt', 'git']
 let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
-let g:grepper.quickfix      = 1
+let g:grepper.quickfix      = 0
+let g:grepper.highlight     = 1
 " }}}
 " yankround {{{
 nmap p <Plug>(yankround-p)
