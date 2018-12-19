@@ -84,17 +84,14 @@ Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'LeafCage/yankround.vim'
 " autocomplete
-Plug 'roxma/nvim-yarp',                     {'cond': v:version >= 800 && !has('nvim')}
-Plug 'roxma/vim-hug-neovim-rpc',            {'cond': v:version >= 800 && !has('nvim')}
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
-Plug 'ncm2/ncm2-tmux',                      {'cond': v:version >= 800 && !has('win32')}
-Plug 'ncm2/ncm2-vim'
-Plug 'Shougo/neco-vim'
-Plug 'ncm2/ncm2-go'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'wellle/tmux-complete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Visual
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
@@ -234,6 +231,7 @@ set noshowmode
 set noswapfile
 set novisualbell
 set nrformats-=octal
+set pumheight=10
 set scrolloff=7
 set shiftround
 set shiftwidth=2
@@ -339,29 +337,69 @@ endif
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" completor {{{
-augroup ncm2
-  " this one is which you're most likely to use?
-  autocmd vimrc BufEnter * call ncm2#enable_for_buffer()
-augroup end
-let ncm2#popup_delay = 5
-let ncm2#complete_length = [[1, 1]]
-" Use new fuzzy based matches
-let g:ncm2#matcher = 'substrfuzzy'
-
-set pumheight=10
-
+" asyncomplete {{{
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent> <expr> <CR> (pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : "\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_remove_duplicates = 1
+
+call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+      \ 'name': 'file',
+      \ 'whitelist': ['*'],
+      \ 'priority': 10,
+      \ 'completor': function('asyncomplete#sources#file#completor')
+      \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+      \ 'name': 'buffer',
+      \ 'whitelist': ['*'],
+      \ 'blacklist': ['go', 'vim'],
+      \ 'completor': function('asyncomplete#sources#buffer#completor'),
+      \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+      \ 'name': 'ultisnips',
+      \ 'whitelist': ['*'],
+      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+      \ }))
+
+let g:tmuxcomplete#asyncomplete_source_options = {
+      \ 'name':      'tmuxcomplete',
+      \ 'whitelist': ['*'],
+      \ 'config': {
+      \     'splitmode':      'words',
+      \     'filter_prefix':   1,
+      \     'show_incomplete': 1,
+      \     'sort_candidates': 0,
+      \     'scrollback':      0,
+      \     'truncate':        0
+      \     }
+      \ }
 " }}}
 " LanguageClient {{{
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_serverCommands = {
-      \ 'python': ['pyls'],
-      \ 'go': ['go-langserver'],
-      \ 'yaml': ['yaml-language-server', '--stdio'],
-      \ }
+let g:lsp_log_verbose = 0
+let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+if executable('pyls')
+  augroup pyls
+    autocmd!
+    call lsp#register_server({
+          \ 'name': 'pyls',
+          \ 'cmd': {server_info->['pyls']},
+          \ 'whitelist': ['python'],
+          \ })
+  augroup end
+endif
+if executable('bingo')
+  call lsp#register_server({
+        \ 'name': 'bingo',
+        \ 'cmd': {server_info->['bingo', '--mode', 'stdin']},
+        \ 'whitelist': ['go'],
+        \ })
+endif
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -538,6 +576,7 @@ function! s:eskk_initial_pre()
 endfunction
 
 augroup eskk
+  autocmd!
   autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
 augroup end
 

@@ -53,5 +53,6 @@ export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 export DefaultIMModule=fcitx
 fcitx-autostart &
-xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 0
+libinput-gestures-setup start &
+setxkbmap -option ctrl:nocaps
 exec i3
