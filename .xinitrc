@@ -54,5 +54,6 @@ export GTK_IM_MODULE=fcitx
 export DefaultIMModule=fcitx
 fcitx-autostart &
 libinput-gestures-setup start &
+cbatticon &
 setxkbmap -option ctrl:nocaps
 exec i3
