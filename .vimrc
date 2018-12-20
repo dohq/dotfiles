@@ -87,9 +87,6 @@ Plug 'LeafCage/yankround.vim'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'wellle/tmux-complete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Visual
@@ -160,11 +157,6 @@ Plug 'elzr/vim-json',                       {'for': 'json'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
-
-Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'sh install.sh',
-      \ }
 
 call plug#end()
 
@@ -346,38 +338,11 @@ let g:asyncomplete_smart_completion = 1
 let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_remove_duplicates = 1
 
-call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \ 'name': 'file',
-      \ 'whitelist': ['*'],
-      \ 'priority': 10,
-      \ 'completor': function('asyncomplete#sources#file#completor')
-      \ }))
-
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-      \ 'name': 'buffer',
-      \ 'whitelist': ['*'],
-      \ 'blacklist': ['go', 'vim'],
-      \ 'completor': function('asyncomplete#sources#buffer#completor'),
-      \ }))
-
 call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
       \ 'name': 'ultisnips',
       \ 'whitelist': ['*'],
       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
       \ }))
-
-let g:tmuxcomplete#asyncomplete_source_options = {
-      \ 'name':      'tmuxcomplete',
-      \ 'whitelist': ['*'],
-      \ 'config': {
-      \     'splitmode':      'words',
-      \     'filter_prefix':   1,
-      \     'show_incomplete': 1,
-      \     'sort_candidates': 0,
-      \     'scrollback':      0,
-      \     'truncate':        0
-      \     }
-      \ }
 " }}}
 " LanguageClient {{{
 let g:lsp_log_verbose = 0
