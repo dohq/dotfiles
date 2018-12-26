@@ -361,7 +361,7 @@ endif
 if executable('bingo')
   call lsp#register_server({
         \ 'name': 'bingo',
-        \ 'cmd': {server_info->['bingo', '--mode', 'stdin']},
+        \ 'cmd': {server_info->['bingo', '--mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
 endif
