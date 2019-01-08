@@ -7,18 +7,6 @@ if !has('nvim')
   source $VIMRUNTIME/defaults.vim
 endif
 
-" Use as many color as possibleo
-if !has('gui_running')
-      \ && exists('&termguicolors')
-      \ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
-  " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
-  if !has('nvim')
-    let &t_8f = "\e[38;2;%lu;%lu;%lum"
-    let &t_8b = "\e[48;2;%lu;%lu;%lum"
-  endif
-  set termguicolors       " use truecolor in term
-endif
-
 " set MYVIMDIR
 let s:MSWindows = has('win32')
 if s:MSWindows
@@ -45,44 +33,36 @@ augroup END
 
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
+Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
+Plug 'editorconfig/editorconfig-vim'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
-Plug 'justinmk/vim-dirvish'
-Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-endwise'
-Plug 'osyo-manga/vim-anzu'
-Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'wakatime/vim-wakatime'
-Plug 'tpope/vim-dadbod'
-Plug 'mbbill/undotree'
-Plug 'kana/vim-operator-user'
-Plug 'kana/vim-textobj-user'
-Plug 'easymotion/vim-easymotion'
-Plug 'y0za/vim-reading-vimrc'
 Plug 'jsfaint/gen_tags.vim'
-Plug 'tpope/vim-repeat'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'kana/vim-smartword'
+Plug 'justinmk/vim-dirvish'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
+Plug 'osyo-manga/vim-anzu'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-endwise'
+Plug 'wakatime/vim-wakatime'
+Plug 'y0za/vim-reading-vimrc'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
 " Input Assist
-Plug 'kana/vim-textobj-user'
-Plug 'thinca/vim-textobj-between'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
+Plug 'LeafCage/yankround.vim'
 Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/sonictemplate-vim'
-Plug 'tyru/eskk.vim'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
-Plug 'LeafCage/yankround.vim'
+Plug 'tyru/eskk.vim'
 " autocomplete
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -90,20 +70,17 @@ Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Visual
+Plug 'Nequo/vim-allomancer'
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'jonathanfilip/vim-lucius'
 Plug 'jacoborus/tender.vim'
-Plug 'rhysd/try-colorscheme.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
+Plug 'rhysd/try-colorscheme.vim'
 " QuickRun
 Plug 'osyo-manga/shabadou.vim'
 Plug 'thinca/vim-quickrun'
-" Test
-Plug 'janko-m/vim-test'
-Plug 'tpope/vim-dispatch'
 " Twitter
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
@@ -113,50 +90,29 @@ Plug 'tyru/open-browser.vim'
 Plug 'w0rp/ale'
 Plug 'maximbaz/lightline-ale'
 " Git
+Plug 'itchyny/vim-gitbranch'
+Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
 Plug 'neoclide/vim-easygit'
-Plug 'itchyny/vim-gitbranch'
-" Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-Plug 'lambdalisue/vim-gista'
 " CtrlP
-Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-filer'
 Plug 'mattn/ctrlp-ghq'
 Plug 'mattn/ctrlp-register'
+Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 " Python
-Plug 'tweekmonster/impsort.vim',            {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
-Plug 'davidhalter/jedi-vim',                {'for': 'python'}
-Plug 'jmcantrell/vim-virtualenv',           {'for': 'python'}
-Plug 'kh3phr3n/python-syntax',              {'for': 'python'}
-Plug 'mindriot101/vim-yapf',                {'for': 'python'}
-Plug 'tlvince/vim-compiler-python',         {'for': 'python'}
-Plug 'tweekmonster/impsort.vim',            {'for': 'python'}
 " Markdown
 Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoUpdateBinaries'}
-" yaml
-Plug 'stephpy/vim-yaml',                    {'for': 'yml'}
-" html
-Plug 'othree/html5.vim',                    {'for': 'html'}
-Plug 'KabbAmine/gulp-vim'
-" php
-Plug 'alvan/vim-php-manual',                {'for': ['php', 'ctp']}
-" terraform
-Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
-" json
-Plug 'elzr/vim-json',                       {'for': 'json'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
-Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 
 call plug#end()
 
@@ -167,7 +123,7 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme seoul256
+colorscheme tender
 set background=dark
 "}}}
 " set plugin stop {{{
@@ -197,19 +153,18 @@ set autoread
 set autowrite
 set belloff=all
 set cmdheight=2
-" set colorcolumn=120
 set completeopt=noinsert,menuone,noselect
 set display=lastline
 set expandtab
 set fileformat=unix
 set foldmethod=marker
 set fileformat=unix
-" set helplang=ja,en
 set hidden
 set hlsearch
 set ignorecase
 set imdisable
 set incsearch
+set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
@@ -558,7 +513,7 @@ nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>SignifyToggle<CR>
 " git command
-nnoremap <silent> [Git]a :<C-u>Gwrite<CR>
+nnoremap <silent> [Git]a :<C-u>Gadd<CR>
 nnoremap <silent> [Git]m :<C-u>Gcommit -v<CR>
 nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
 nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
@@ -671,26 +626,7 @@ let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
 " }}}
 " Python {{{
-let g:python_highlight_all = 1
 let g:ultisnips_python_style = 'sphinx'
-
-let g:jedi#auto_initialization = 1
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#popup_on_dot = 0
-let g:jedi#completions_command = ''
-let g:jedi#show_call_signatures = '2'
-let g:jedi#show_call_signatures_delay = 0
-let g:jedi#use_tabs_not_buffers = 0
-let g:jedi#show_call_signatures_modes = 'i'
-let g:jedi#enable_speed_debugging=0
-
-let g:jedi#goto_command = '<leader>g'
-let g:jedi#documentation_command = '<s-k>'
-let g:jedi#usages_command = '<leader>n'
-let g:jedi#rename_command = '<leader>R'
-
 let g:formatter_yapf_style = 'google'
 
 " ale
