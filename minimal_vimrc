@@ -5,93 +5,15 @@ let s:MSWindows = has('win32')
 if s:MSWindows
   let $MYVIMDIR = expand($HOME.'/vimfiles')
 else
-  let $MYVIMDIR = expand('~/.vim')
+  let $MYVIMDIR = expand('$HOME/.vim')
 endif
 " }}}
 
 call plug#begin($MYVIMDIR.'/plugins')
 
-Plug 'tlvince/vim-compiler-python'
-Plug 'janko-m/vim-test'
-Plug 'tpope/vim-dispatch'
-" Plug 'neomake/neomake'
-" Plug 'alfredodeza/pytest.vim'
 
 call plug#end()
-" set opt {{{
-set ambiwidth=double
-set autoread
-set autowrite
-set belloff=all
-set cmdheight=2
-set colorcolumn=80
-set completeopt-=preview
-set cursorline
-set display=lastline
-set expandtab
-set foldmethod=marker
-set helplang=ja,en
-set hidden
-set hlsearch
-set ignorecase
-set imdisable
-set incsearch
-set list
-set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
-set matchpairs+=<:>
-set noautoindent
-set nobackup
-set noequalalways
-set nosmartindent
-set nostartofline
-set noswapfile
-set novisualbell
-set nrformats-=octal
-set scrolloff=7
-set shiftround
-set shiftwidth=2
-set shortmess+=atIc
-set showtabline=0
-set smartcase
-set softtabstop=2
-set splitbelow splitright
-set switchbuf=useopen
-set synmaxcol=512
-set tabstop=2
-set tags=./tags;
-set title
-set ttyfast
-set whichwrap=b,s,[,],<,>
-set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
-set wildmenu
-set wildmode=full
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-if has('persistent_undo')
-  let s:undo_dir = $MYVIMDIR . '/.undo'
-  if !isdirectory(s:undo_dir)
-    call mkdir(s:undo_dir)
-  endif
-  set undodir=s:undo_dir
-  set undofile
-endif
-" if !has('nvim') && has('terminal')
-"   set termwinsize=15x0
-" endif
-if exists('+breakindent')
-  set breakindent
-  set breakindentopt=sbr
-  set showbreak=<
-endif
-let g:vim_json_syntax_conceal = 0
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_folding_disabled = 1
-" }}}
 
-let g:test#strategy = 'dispatch'
 " check execution_time
 " let s:starttime = reltime()
 " call MyFunction()
