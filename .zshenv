@@ -23,6 +23,7 @@ alias mkdir='mkdir -p'
 alias c='clear'
 alias ls='ls --color'
 alias ll='ls -la'
+alias pp='ps aux | peco'
 alias tree='tree -N'
 alias pbcopy='xclip -selection c'
 alias tokyo="curl wttr.in/Tokyo"
