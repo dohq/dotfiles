@@ -10,9 +10,9 @@ endif
 " set MYVIMDIR
 let s:MSWindows = has('win32')
 if s:MSWindows
-  let $MYVIMDIR = expand($HOME.'/vimfiles')
+  let $MYVIMDIR = expand('$HOME/vimfiles')
 else
-  let $MYVIMDIR = expand('~/.vim')
+  let $MYVIMDIR = expand('$HOME/.vim')
 endif
 
 " Startup time.
@@ -42,7 +42,6 @@ Plug 'justinmk/vim-dirvish'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'osyo-manga/vim-anzu'
-Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-endwise'
 Plug 'wakatime/vim-wakatime'
 Plug 'y0za/vim-reading-vimrc'
@@ -113,6 +112,8 @@ Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoUpdateBinaries'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
+" Any Syntax
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -289,9 +290,7 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
-let g:asyncomplete_smart_completion = 1
 let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_remove_duplicates = 1
 
 call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
       \ 'name': 'ultisnips',
@@ -330,6 +329,9 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
 "}}}
+" vim-polyglot {{{
+let g:polyglot_disabled = ['go']
+" }}}
 " Quick-Run {{{
 let g:quickrun_config = {
       \   '_' : {
