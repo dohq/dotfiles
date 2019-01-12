@@ -154,12 +154,13 @@ set autoread
 set autowrite
 set belloff=all
 set cmdheight=2
-set completeopt=noinsert,menuone,noselect
+set completeopt+=noinsert,menuone,noselect
+set completeopt-=preview
 set display=lastline
 set expandtab
 set fileformat=unix
-set foldmethod=marker
 set fileformat=unix
+set foldmethod=marker
 set hidden
 set hlsearch
 set ignorecase
@@ -173,9 +174,9 @@ set matchpairs+=<:>
 set noautoindent
 set nobackup
 set noequalalways
+set noshowmode
 set nosmartindent
 set nostartofline
-set noshowmode
 set noswapfile
 set novisualbell
 set nrformats-=octal
@@ -196,9 +197,9 @@ set tags=./tags;
 set title
 set ttyfast
 set whichwrap=b,s,[,],<,>
-set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
 if has('conceal')
