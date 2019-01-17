@@ -107,7 +107,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'fatih/vim-go',                        {'for': 'go', 'do': ':GoUpdateBinaries'}
+Plug 'fatih/vim-go',                        {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " Any Syntax
@@ -311,10 +311,10 @@ if executable('pyls')
           \ })
   augroup end
 endif
-if executable('bingo')
+if executable('gopls')
   call lsp#register_server({
-        \ 'name': 'bingo',
-        \ 'cmd': {server_info->['bingo', '--mode', 'stdio']},
+        \ 'name': 'gopls',
+        \ 'cmd': {server_info->['gopls']},
         \ 'whitelist': ['go'],
         \ })
 endif
@@ -528,19 +528,19 @@ augroup hierr
   autocmd FileType go :match goErr /\<err\>/
 augroup END
 
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_types = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_function_arguments = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_fields = 1
-
-let g:go_fmt_command = 'goimports'
-let g:go_auto_type_info = 1
-let g:go_info_mode = 'guru'
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_function_arguments = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_highlight_fields = 1
+"
+" let g:go_fmt_command = 'goimports'
+" let g:go_auto_type_info = 1
+" let g:go_info_mode = 'guru'
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
