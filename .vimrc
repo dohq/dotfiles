@@ -288,6 +288,13 @@ endif
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+function! OpenCompletion()
+  if &omnifunc != '' && !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z') || v:char == '.')
+    call feedkeys("\<C-x>\<C-o>", "n")
+  endif
+endfunction
+
+autocmd InsertCharPre * call OpenCompletion()
 
 let g:asyncomplete_auto_popup = 1
 
