@@ -69,11 +69,9 @@ Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Visual
-Plug 'Nequo/vim-allomancer'
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'jacoborus/tender.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/try-colorscheme.vim'
@@ -124,7 +122,7 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme tender
+colorscheme lucius
 set background=dark
 "}}}
 " set plugin stop {{{
