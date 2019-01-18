@@ -321,7 +321,7 @@ endif
 if executable('gopls')
   call lsp#register_server({
         \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls']},
+        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
         \ 'whitelist': ['go'],
         \ })
 endif
