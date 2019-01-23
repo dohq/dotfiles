@@ -310,7 +310,7 @@ let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 if executable('pyls')
-  augroup pyls
+  augroup vimrc
     autocmd!
     call lsp#register_server({
           \ 'name': 'pyls',
@@ -320,11 +320,25 @@ if executable('pyls')
   augroup end
 endif
 if executable('gopls')
-  call lsp#register_server({
-        \ 'name': 'gopls',
-        \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-        \ 'whitelist': ['go'],
-        \ })
+  augroup vimrc
+    autocmd!
+    call lsp#register_server({
+          \ 'name': 'gopls',
+          \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+          \ 'whitelist': ['go'],
+          \ })
+  augroup end
+endif
+
+if executable('concourse-language-server')
+  augroup vimrc
+    autocmd!
+    call lsp#register_server({
+          \ 'name': 'concourse-language-server',
+          \ 'cmd': {server_info->['concourse-language-server']},
+          \ 'whitelist': ['yaml'],
+          \ })
+  augroup end
 endif
 " }}}
 " ultisnips {{{
