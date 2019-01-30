@@ -306,6 +306,8 @@ call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_opti
       \ }))
 " }}}
 " LanguageClient {{{
+" disable lint
+let g:lsp_diagnostics_enabled = 0
 let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:asyncomplete_log_file = expand('~/asyncomplete.log')
@@ -340,8 +342,17 @@ if executable('concourse-language-server')
           \ })
   augroup end
 endif
-" disable lint
-let g:lsp_diagnostics_enabled = 0
+
+if executable('docker-langserver')
+  augroup vimrc
+    autocmd!
+    call lsp#register_server({
+          \ 'name': 'docker-langserver',
+          \ 'cmd': {server_info->['docker-langserver', '--stdio']},
+          \ 'whitelist': ['dockerfile'],
+          \ })
+  augroup end
+endif
 " }}}
 " ultisnips {{{
 " Trigger configuration.
