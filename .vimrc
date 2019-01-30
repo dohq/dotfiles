@@ -58,9 +58,9 @@ Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/sonictemplate-vim'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
@@ -148,7 +148,7 @@ let g:loaded_netrwFileHandlers = 1
 set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
-set ambiwidth=double
+" set ambiwidth=double
 set autoread
 set autowrite
 set belloff=all
@@ -340,6 +340,8 @@ if executable('concourse-language-server')
           \ })
   augroup end
 endif
+" disable lint
+let g:lsp_diagnostics_enabled = 0
 " }}}
 " ultisnips {{{
 " Trigger configuration.
