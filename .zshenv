@@ -16,6 +16,7 @@ path=(/usr/lib/ccache/bin(N-/) /usr/local/bin(N-/) $path)
 path=($HOME/.local/bin(N-/) $HOME/bin(N-/) $GOPATH/bin(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
 path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
+path=($HOME/.gem/ruby/2.6.0/bin(N-/) $path)
 path=($HOME/perl5/bin(N-/) $path)
 path=($HOME/.local/bin(N-/) $path)
 
