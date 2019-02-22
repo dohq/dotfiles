@@ -108,7 +108,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'fatih/vim-go',                        {'for': 'go'}
+Plug 'vim-jp/vim-go-extra',                 {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " Any Syntax
@@ -271,27 +271,18 @@ nnoremap N Nzz
 " will not be overwritten (I know I should just remember...)
 nnoremap x "_x
 vnoremap x "_x
-
-" vim-smartword
-if exists('g:loaded_smartword')
-  map w  <Plug>(smartword-w)
-  map b  <Plug>(smartword-b)
-  map e  <Plug>(smartword-e)
-  map ge  <Plug>(smartword-ge)
-endif
 " }}}
-
 
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
 " asyncomplete {{{
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+inoremap <expr> <Tab> pumvisible() ? '\<C-n>' : '\<Tab>'
+inoremap <expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<S-Tab>'
+inoremap <expr> <cr> pumvisible() ? '\<C-y>' : '\<cr>'
 function! OpenCompletion()
   if &omnifunc != '' && !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z') || v:char == '.')
-    call feedkeys("\<C-x>\<C-o>", "n")
+    call feedkeys('\<C-x>\<C-o>', 'n')
   endif
 endfunction
 
@@ -312,7 +303,7 @@ let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 if executable('pyls')
-  augroup vimrc
+  augroup pyls
     autocmd!
     call lsp#register_server({
           \ 'name': 'pyls',
@@ -321,8 +312,9 @@ if executable('pyls')
           \ })
   augroup end
 endif
+
 if executable('gopls')
-  augroup vimrc
+  augroup gopls
     autocmd!
     call lsp#register_server({
           \ 'name': 'gopls',
@@ -332,24 +324,13 @@ if executable('gopls')
   augroup end
 endif
 
-if executable('concourse-language-server')
-  augroup vimrc
+if executable('concourse-language-server.sh')
+  augroup concourse-langserver
     autocmd!
     call lsp#register_server({
           \ 'name': 'concourse-language-server',
-          \ 'cmd': {server_info->['concourse-language-server']},
+          \ 'cmd': {server_info->['concourse-language-server.sh']},
           \ 'whitelist': ['yaml'],
-          \ })
-  augroup end
-endif
-
-if executable('docker-langserver')
-  augroup vimrc
-    autocmd!
-    call lsp#register_server({
-          \ 'name': 'docker-langserver',
-          \ 'cmd': {server_info->['docker-langserver', '--stdio']},
-          \ 'whitelist': ['dockerfile'],
           \ })
   augroup end
 endif
@@ -555,27 +536,20 @@ nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
 nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
 nnoremap <silent> [Git]l :<C-u>GV<CR>
 " }}}
-" vim-go {{{
+" go {{{
 " highlight error
 augroup hierr
   autocmd!
-  autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-  autocmd FileType go :match goErr /\<err\>/
+  autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
+  autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
 
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_extra_types = 1
-" let g:go_highlight_function_arguments = 1
-" let g:go_highlight_function_calls = 1
-" let g:go_highlight_fields = 1
-"
-" let g:go_fmt_command = 'goimports'
-" let g:go_auto_type_info = 1
-" let g:go_info_mode = 'guru'
+augroup gokeymap
+  autocmd!
+  autocmd vimrc FileType go nnoremap <S-k> :<C-u>LspHover<CR>
+  autocmd vimrc FileType go nnoremap <C-]> :<C-u>LspDefinition<CR>
+augroup END
+
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
