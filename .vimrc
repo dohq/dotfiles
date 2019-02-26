@@ -37,7 +37,6 @@ Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'editorconfig/editorconfig-vim'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
-Plug 'jsfaint/gen_tags.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
@@ -52,23 +51,23 @@ endif
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
-Plug 'LeafCage/yankround.vim'
 Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/sonictemplate-vim'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
 Plug 'cocopon/iceberg.vim'
@@ -84,9 +83,6 @@ Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
 Plug 'mattn/webapi-vim'
 Plug 'tyru/open-browser.vim'
-" Syntax Check
-Plug 'w0rp/ale'
-Plug 'maximbaz/lightline-ale'
 " Git
 Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
@@ -111,8 +107,6 @@ Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'vim-jp/vim-go-extra',                 {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
-" Any Syntax
-Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -277,17 +271,7 @@ vnoremap x "_x
 " Plugin Settings
 "----------------------------------------
 " asyncomplete {{{
-inoremap <expr> <Tab> pumvisible() ? '\<C-n>' : '\<Tab>'
-inoremap <expr> <S-Tab> pumvisible() ? '\<C-p>' : '\<S-Tab>'
-inoremap <expr> <cr> pumvisible() ? '\<C-y>' : '\<cr>'
-function! OpenCompletion()
-  if &omnifunc != '' && !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z') || v:char == '.')
-    call feedkeys('\<C-x>\<C-o>', 'n')
-  endif
-endfunction
-
-autocmd InsertCharPre * call OpenCompletion()
-
+let g:asyncomplete_remove_duplicates = 1
 let g:asyncomplete_auto_popup = 1
 
 call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
@@ -295,45 +279,28 @@ call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_opti
       \ 'whitelist': ['*'],
       \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
       \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+      \ 'name': 'buffer',
+      \ 'whitelist': ['*'],
+      \ 'blacklist': ['go'],
+      \ 'completor': function('asyncomplete#sources#buffer#completor'),
+      \ }))
+
+call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+      \ 'name': 'file',
+      \ 'whitelist': ['*'],
+      \ 'priority': 10,
+      \ 'completor': function('asyncomplete#sources#file#completor')
+      \ }))
 " }}}
-" LanguageClient {{{
-" disable lint
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_log_verbose = 0
-let g:lsp_log_file = expand('~/vim-lsp.log')
-let g:asyncomplete_log_file = expand('~/asyncomplete.log')
-if executable('pyls')
-  augroup pyls
-    autocmd!
-    call lsp#register_server({
-          \ 'name': 'pyls',
-          \ 'cmd': {server_info->['pyls']},
-          \ 'whitelist': ['python'],
-          \ })
-  augroup end
-endif
-
-if executable('gopls')
-  augroup gopls
-    autocmd!
-    call lsp#register_server({
-          \ 'name': 'gopls',
-          \ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-          \ 'whitelist': ['go'],
-          \ })
-  augroup end
-endif
-
-if executable('concourse-language-server.sh')
-  augroup concourse-langserver
-    autocmd!
-    call lsp#register_server({
-          \ 'name': 'concourse-language-server',
-          \ 'cmd': {server_info->['concourse-language-server.sh']},
-          \ 'whitelist': ['yaml'],
-          \ })
-  augroup end
-endif
+" LSC {{{
+let g:lsc_auto_map = v:true
+let g:lsc_server_commands = {
+      \ 'go': 'bingo',
+      \ 'python': 'pyls',
+      \ 'yaml': 'yaml-language-server',
+      \}
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -344,9 +311,6 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
 "}}}
-" vim-polyglot {{{
-let g:polyglot_disabled = ['go']
-" }}}
 " Quick-Run {{{
 let g:quickrun_config = {
       \   '_' : {
@@ -377,47 +341,20 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
-" ale {{{
-let g:ale_sign_error = 'E'
-let g:ale_sign_warning = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_set_quickfix = 1
-
-if has('nvim')
-  let g:ale_virtualtext_cursor = 1
-endif
-
-" lightline-ale
-let g:lightline#ale#indicator_warnings = 'W'
-let g:lightline#ale#indicator_errors = 'E'
-let g:lightline#ale#indicator_checking = '..'
-let g:lightline#ale#indicator_ok = 'OK'
-
-if has('nvim')
-  let g:ale_virtualtext_cursor = 1
-endif
-
-" keymap
-nmap [ale] <Nop>
-map <C-e> [ale]
-" エラー行にジャンプ
-nmap <silent> [ale]p <Plug>(ale_previous)
-nmap <silent> [ale]n <Plug>(ale_next)
-
-" " }}}
 " lightline.vim{{{
 let g:lightline = {
       \ 'colorscheme': 'iceberg',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'filename']],
-      \   'right': [['lineinfo', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
+      \   'right': [['lineinfo'],
       \             ['fileformat', 'fileencoding', 'filetype']]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'Branch',
       \ },
       \}
+      "\   'right': [['lineinfo', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
 
 let g:lightline.component_expand = {
       \  'linter_checking': 'lightline#ale#checking',
@@ -482,14 +419,6 @@ let g:easy_align_delimiters = {
       \   }
       \}
 " }}}
-" vim-easymotion{{{
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-overwin-f2)
-let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_enter_jump_first = 1
-let g:EasyMotion_space_jump_first = 1
-" }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($MYVIMDIR.'/eskk')
@@ -537,19 +466,13 @@ nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
 nnoremap <silent> [Git]l :<C-u>GV<CR>
 " }}}
 " go {{{
+let g:gofmt_command = 'goimports'
 " highlight error
 augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
-
-augroup gokeymap
-  autocmd!
-  autocmd vimrc FileType go nnoremap <S-k> :<C-u>LspHover<CR>
-  autocmd vimrc FileType go nnoremap <C-]> :<C-u>LspDefinition<CR>
-augroup END
-
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
@@ -668,21 +591,11 @@ let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 let g:grepper.highlight     = 1
 " }}}
-" yankround {{{
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-let g:yankround_max_history = 50
-" }}}
 " vim-anzu {{{
 nmap n <Plug>(anzu-mode-n)
 nmap N <Plug>(anzu-mode-N)
 nmap * <Plug>(anzu-star)
 nmap # <Plug>(anzu-sharp)
-" }}}
-" emmet {{{
-let g:user_emmet_mode='a'
 " }}}
 " vim-pixela {{{
 let g:pixela_debug = 0
