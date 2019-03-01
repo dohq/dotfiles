@@ -90,7 +90,6 @@ Plug 'mhinz/vim-signify'
 Plug 'neoclide/vim-easygit'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mattn/ctrlp-filer'
 Plug 'mattn/ctrlp-ghq'
 Plug 'mattn/ctrlp-register'
 Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
@@ -296,11 +295,20 @@ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
 " }}}
 " LSC {{{
 let g:lsc_auto_map = v:true
-let g:lsc_server_commands = {
-      \ 'go': 'bingo',
-      \ 'python': 'pyls',
-      \ 'yaml': 'yaml-language-server',
-      \}
+let g:lsc_reference_highlights = v:false
+let g:lsc_server_commands = {}
+if executable('pyls')
+    let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
+endif
+if executable('bingo')
+    let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
+endif
+if executable('yaml-language-server')
+    let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
+endif
+" }}}
+" vim-endwise {{{
+let g:endwise_no_mappings = 1
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -473,6 +481,12 @@ augroup hierr
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
+augroup hierr
+  autocmd!
+  autocmd vimrc FileType go setlocal noexpandtab
+  autocmd vimrc FileType go setlocal tabstop=2
+  autocmd vimrc FileType go setlocal shiftwidth=2
+augroup END
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
@@ -529,7 +543,6 @@ nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
 nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
-nnoremap <silent> [CtrlP]l :<C-u>CtrlPLauncher<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
 nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
@@ -537,8 +550,6 @@ nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
-" let g:ctrlp_use_caching = 0
-" let g:ctrlp_user_command = 'files -i "^(\.git|\.hg|\.svn|_darcs|\.bzr|\.venv|\.mypy_cache|__pycache__|node_modules|vendor)$" -A -a %s'
 if executable('ag')
   let g:ctrlp_use_caching=0
   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
@@ -547,7 +558,6 @@ endif
 let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
 let g:ctrlp_match_current_file = 1 " to include current file in matches
 
-" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
@@ -582,6 +592,7 @@ let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tw
 " }}}
 " lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+call lexima#add_rule({'char': '<', 'input_after': '>'})
 " }}}
 " Grepper {{{
 let g:grepper               = {}
