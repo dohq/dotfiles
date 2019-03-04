@@ -41,6 +41,7 @@ alias nv='nvim'
 alias d='docker'
 alias u='up'
 alias pi='ping -c 3 google.com'
+alias ssh='ssh -o ServerAliveInterval=60'
 
 # Gitting
 alias gl='git log --oneline --pretty=format:"%h [%cd] %d %s <%an>" --date=format:"%Y/%m/%d %H:%M:%S" --graph'
