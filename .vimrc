@@ -34,7 +34,7 @@ augroup END
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'editorconfig/editorconfig-vim'
+Plug 'sgur/vim-editorconfig'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
@@ -106,6 +106,11 @@ Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 Plug 'vim-jp/vim-go-extra',                 {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
+" TOML
+Plug 'cespare/vim-toml',                    {'for': 'toml'}
+" Test
+Plug 'janko/vim-test'
+Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
@@ -116,7 +121,7 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme lucius
+colorscheme seoul256
 set background=dark
 "}}}
 " set plugin stop {{{
@@ -295,16 +300,23 @@ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
 " }}}
 " LSC {{{
 let g:lsc_auto_map = v:true
-let g:lsc_reference_highlights = v:false
+" let g:lsc_reference_highlights = v:true
+" let g:lsc_enable_diagnostics = v:true
 let g:lsc_server_commands = {}
 if executable('pyls')
-    let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
+  let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
 endif
-if executable('bingo')
-    let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
+if executable('gopls')
+  let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
 endif
+" if executable('bingo')
+"   let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
+" endif
+" if executable('go-langserver')
+"   let g:lsc_server_commands['go'] = {'command': 'go-langserver -gocodecompletion -diagnostics -lint-tool golint', 'suppress_stderr': v:true}
+" endif
 if executable('yaml-language-server')
-    let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
+  let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
 endif
 " }}}
 " vim-endwise {{{
@@ -675,3 +687,4 @@ elseif has('unix')
   let g:python_host_prog = '/usr/bin/python'
   let g:python3_host_prog = '/usr/bin/python3'
 endif
+let test#strategy = "dispatch"
