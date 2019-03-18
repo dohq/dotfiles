@@ -45,6 +45,7 @@ Plug 'tpope/vim-endwise'
 Plug 'wakatime/vim-wakatime'
 Plug 'y0za/vim-reading-vimrc'
 Plug 'diepm/vim-rest-console'
+Plug 'tpope/vim-dadbod'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
