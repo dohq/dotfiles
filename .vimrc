@@ -105,6 +105,7 @@ Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
 Plug 'vim-jp/vim-go-extra',                 {'for': 'go'}
+" Plug 'fatih/vim-go',                        {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " TOML
@@ -301,21 +302,18 @@ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
 " }}}
 " LSC {{{
 let g:lsc_auto_map = v:true
-" let g:lsc_reference_highlights = v:true
-" let g:lsc_enable_diagnostics = v:true
+let g:lsc_reference_highlights = v:true
+let g:lsc_enable_diagnostics = v:true
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
 endif
-if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
+" if executable('gopls')
+"   let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
+" endif
+if executable('bingo')
+  let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
 endif
-" if executable('bingo')
-"   let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
-" endif
-" if executable('go-langserver')
-"   let g:lsc_server_commands['go'] = {'command': 'go-langserver -gocodecompletion -diagnostics -lint-tool golint', 'suppress_stderr': v:true}
-" endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
 endif
@@ -494,12 +492,13 @@ augroup hierr
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
-augroup hierr
+augroup tabstop
   autocmd!
   autocmd vimrc FileType go setlocal noexpandtab
   autocmd vimrc FileType go setlocal tabstop=2
   autocmd vimrc FileType go setlocal shiftwidth=2
 augroup END
+
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
