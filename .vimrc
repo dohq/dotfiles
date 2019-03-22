@@ -34,18 +34,20 @@ augroup END
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'sgur/vim-editorconfig'
+Plug 'diepm/vim-rest-console'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'osyo-manga/vim-anzu'
+Plug 'sgur/vim-editorconfig'
+Plug 'svermeulen/vim-cutlass'
+Plug 'svermeulen/vim-yoink'
+Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-endwise'
 Plug 'wakatime/vim-wakatime'
 Plug 'y0za/vim-reading-vimrc'
-Plug 'diepm/vim-rest-console'
-Plug 'tpope/vim-dadbod'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
@@ -269,8 +271,8 @@ nnoremap N Nzz
 
 " map paste, yank and delete to named register so the content
 " will not be overwritten (I know I should just remember...)
-nnoremap x "_x
-vnoremap x "_x
+" nnoremap x "_x
+" vnoremap x "_x
 " }}}
 
 "----------------------------------------
@@ -624,6 +626,13 @@ nmap # <Plug>(anzu-sharp)
 let g:pixela_debug = 0
 let g:pixela_username = 'dohq'
 let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
+" }}}
+" Yoink {{{
+nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
 " }}}
 " user command {{{
 " Auto plugin install {{{
