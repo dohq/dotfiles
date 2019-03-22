@@ -628,6 +628,7 @@ let g:pixela_username = 'dohq'
 let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
 " }}}
 " Yoink {{{
+let g:yoinkIncludeDeleteOperations = 1
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
 
