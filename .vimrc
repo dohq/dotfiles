@@ -55,7 +55,6 @@ Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOp
 Plug 'osyo-manga/vim-anzu'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-endwise'
 Plug 'wakatime/vim-wakatime'
 Plug 'y0za/vim-reading-vimrc'
 if !has('nvim')
@@ -75,11 +74,12 @@ Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-Plug 'prabirshrestha/asyncomplete-file.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
+" Plug 'prabirshrestha/async.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+" Plug 'prabirshrestha/asyncomplete-file.vim'
+" Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
@@ -288,29 +288,13 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" asyncomplete {{{
-let g:asyncomplete_remove_duplicates = 1
-let g:asyncomplete_auto_popup = 1
-
-call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-      \ 'name': 'ultisnips',
-      \ 'whitelist': ['*'],
-      \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-      \ }))
-
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-      \ 'name': 'buffer',
-      \ 'whitelist': ['*'],
-      \ 'blacklist': ['go'],
-      \ 'completor': function('asyncomplete#sources#buffer#completor'),
-      \ }))
-
-call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \ 'name': 'file',
-      \ 'whitelist': ['*'],
-      \ 'priority': 10,
-      \ 'completor': function('asyncomplete#sources#file#completor')
-      \ }))
+" mucomplete {{{
+let g:mucomplete#no_mappings = 1
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay = 1
+let g:mucomplete#reopen_immediately = 0
+imap <c-n> <plug>(MUcompleteFwd)
+imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
 let g:lsc_auto_map = v:true
