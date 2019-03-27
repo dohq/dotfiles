@@ -15,6 +15,18 @@ else
   let $MYVIMDIR = expand('$HOME/.vim')
 endif
 
+" Enable Tmux in TrueColor
+if !has('gui_running')
+      \ && exists('&termguicolors')
+      \ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
+  " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
+  if !has('nvim')
+    let &t_8f = "\e[38;2;%lu;%lu;%lum"
+    let &t_8b = "\e[48;2;%lu;%lu;%lum"
+  endif
+  set termguicolors       " use truecolor in term
+endif
+
 " Startup time.
 if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
@@ -42,7 +54,6 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'osyo-manga/vim-anzu'
 Plug 'sgur/vim-editorconfig'
-Plug 'svermeulen/vim-yoink'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-endwise'
 Plug 'wakatime/vim-wakatime'
@@ -124,7 +135,7 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme seoul256
+colorscheme lucius
 set background=dark
 "}}}
 " set plugin stop {{{
@@ -625,13 +636,6 @@ nmap # <Plug>(anzu-sharp)
 let g:pixela_debug = 0
 let g:pixela_username = 'dohq'
 let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
-" }}}
-" Yoink {{{
-nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-
-nmap p <plug>(YoinkPaste_p)
-nmap P <plug>(YoinkPaste_P)
 " }}}
 " user command {{{
 " Auto plugin install {{{
