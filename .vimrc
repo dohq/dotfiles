@@ -42,7 +42,6 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'osyo-manga/vim-anzu'
 Plug 'sgur/vim-editorconfig'
-Plug 'svermeulen/vim-cutlass'
 Plug 'svermeulen/vim-yoink'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-endwise'
@@ -271,8 +270,8 @@ nnoremap N Nzz
 
 " map paste, yank and delete to named register so the content
 " will not be overwritten (I know I should just remember...)
-" nnoremap x "_x
-" vnoremap x "_x
+nnoremap x "_x
+vnoremap x "_x
 " }}}
 
 "----------------------------------------
@@ -628,7 +627,6 @@ let g:pixela_username = 'dohq'
 let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
 " }}}
 " Yoink {{{
-let g:yoinkIncludeDeleteOperations = 1
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
 
