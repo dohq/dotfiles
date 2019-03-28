@@ -217,7 +217,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 if !has('nvim') && has('terminal')
-  set termwinsize=15x0
+  set termwinsize=10x0
 endif
 if exists('+breakindent')
   set breakindent
