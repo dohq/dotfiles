@@ -74,11 +74,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/asyncomplete.vim'
-" Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-" Plug 'prabirshrestha/asyncomplete-file.vim'
-" Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'lifepillar/vim-mucomplete'
 Plug 'natebosch/vim-lsc'
 " Visual
@@ -100,7 +95,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
-Plug 'neoclide/vim-easygit'
+Plug 'lambdalisue/gina.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -291,7 +286,7 @@ vnoremap x "_x
 " mucomplete {{{
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 1
+" let g:mucomplete#completion_delay = 1
 let g:mucomplete#reopen_immediately = 0
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
@@ -304,12 +299,12 @@ let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
 endif
-" if executable('gopls')
-"   let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
-" endif
-if executable('bingo')
-  let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
+if executable('gopls')
+  let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
 endif
+" if executable('bingo')
+"   let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
+" endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
 endif
@@ -474,10 +469,10 @@ nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>SignifyToggle<CR>
 " git command
-nnoremap <silent> [Git]a :<C-u>Gadd<CR>
-nnoremap <silent> [Git]m :<C-u>Gcommit -v<CR>
-nnoremap <silent> [Git]s :<C-u>Gstatus<CR>
-nnoremap <silent> [Git]d :<C-u>Gdiff<CR>
+nnoremap <silent> [Git]a :<C-u>Gina add %<CR>
+nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
+nnoremap <silent> [Git]s :<C-u>Gina status<CR>
+nnoremap <silent> [Git]d :<C-u>Gina diff<CR>
 nnoremap <silent> [Git]l :<C-u>GV<CR>
 " }}}
 " go {{{
