@@ -112,7 +112,6 @@ Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
 Plug 'vim-jp/vim-go-extra',                 {'for': 'go'}
-" Plug 'fatih/vim-go',                        {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " TOML
@@ -283,11 +282,9 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" mucomplete {{{
+"z mucomplete {{{
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
-" let g:mucomplete#completion_delay = 1
-let g:mucomplete#reopen_immediately = 0
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
@@ -302,9 +299,6 @@ endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
 endif
-" if executable('bingo')
-"   let g:lsc_server_commands['go'] = {'command': 'bingo', 'suppress_stderr': v:true}
-" endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
 endif
@@ -468,11 +462,12 @@ let g:easygit_enable_command = 1
 nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>SignifyToggle<CR>
+nnoremap <silent> [Git]r :<C-u>SignifyRefresh<CR>
 " git command
-nnoremap <silent> [Git]a :<C-u>Gina add %<CR>
+nnoremap <silent> [Git]a :<C-u>Gina add -- %<CR>
 nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
 nnoremap <silent> [Git]s :<C-u>Gina status<CR>
-nnoremap <silent> [Git]d :<C-u>Gina diff<CR>
+nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
 nnoremap <silent> [Git]l :<C-u>GV<CR>
 " }}}
 " go {{{
