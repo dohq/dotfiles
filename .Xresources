@@ -35,7 +35,7 @@ URxvt.keysym.M-s:           perl:keyboard-select:search
 ! color
 URxvt.depth:                32
 ! URxvt*inheritPixmap: true
-! URxvt*.transparent: true
+URxvt*.transparent: true
 ! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
 ! URxvt*.shading: 30
 URxvt.color0:      [100]#282828

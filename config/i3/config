@@ -208,4 +208,4 @@ bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 10; notify-send Brigh
 bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 10; notify-send Brightness[$(light -G)]"
 for_window [class="gimp"] floating disable
 exec --no-startup-id compton -cbm 0.75
-exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.jpg"
+exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.png"
