@@ -7,14 +7,12 @@
 	safecrlf = true
 [color]
 	ui = auto
-	diff = always
-	status = always
-	branch = always
-	interactive = always
 [rebase]
 	autosquash = true
+	autostash = true
 [push]
-	default = simple
+	default = current
+	followTags = true
 [ghq]
 	root = ~/go/src
 [pull]
@@ -23,3 +21,12 @@
 	ff = false
 [credential]
 	helper = cache
+[diff]
+	altorithm = histogram
+	compactionHeuristic = true
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+
+# vim: ft=gitconfig
