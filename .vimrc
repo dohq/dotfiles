@@ -129,7 +129,7 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme lucius
+colorscheme seoul256
 set background=dark
 "}}}
 " set plugin stop {{{
@@ -282,7 +282,7 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-"z mucomplete {{{
+" mucomplete {{{
 let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
 imap <c-n> <plug>(MUcompleteFwd)
@@ -297,7 +297,7 @@ if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio -logfile /home/dohq/gopls.log', 'suppress_stderr': v:false}
+  let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio', 'suppress_stderr': v:false}
 endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
