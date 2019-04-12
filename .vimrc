@@ -60,6 +60,7 @@ Plug 'y0za/vim-reading-vimrc'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
+Plug 'andymass/vim-matchup'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -175,7 +176,7 @@ set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
-set matchpairs+=<:>
+" set matchpairs+=<:>
 set noautoindent
 set nobackup
 set noequalalways
@@ -302,9 +303,6 @@ endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
 endif
-" }}}
-" vim-endwise {{{
-let g:endwise_no_mappings = 1
 " }}}
 " ultisnips {{{
 " Trigger configuration.
