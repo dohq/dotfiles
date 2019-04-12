@@ -22,11 +22,11 @@ endif
 " ColorScheme
 "----------------------------------------
 " colorscheme iceberg
-colorscheme tender
+colorscheme seoul256
 
 "----------------------------------------
 " FontSetting
 "----------------------------------------
 " set guifont=Cica:h12
-set guifont=Sarasa\ Term\ J:h12
+set guifont=Sarasa\ Mono\ J:h12
 set printfont=Cica:h8
