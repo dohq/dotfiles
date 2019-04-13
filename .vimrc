@@ -50,6 +50,7 @@ Plug 'diepm/vim-rest-console'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
+Plug 'liuchengxu/vista.vim'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'osyo-manga/vim-anzu'
@@ -84,6 +85,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/try-colorscheme.vim'
+Plug 'shinchu/lightline-seoul256.vim'
 " QuickRun
 Plug 'osyo-manga/shabadou.vim'
 Plug 'thinca/vim-quickrun'
@@ -285,7 +287,7 @@ vnoremap x "_x
 "----------------------------------------
 " mucomplete {{{
 let g:mucomplete#no_mappings = 1
-let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#enable_auto_at_startup = 0
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
@@ -345,7 +347,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " lightline.vim{{{
 let g:lightline = {
-      \ 'colorscheme': 'iceberg',
+      \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'filename']],
@@ -356,27 +358,10 @@ let g:lightline = {
       \   'gitbranch': 'Branch',
       \ },
       \}
-      "\   'right': [['lineinfo', 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok'],
-
-let g:lightline.component_expand = {
-      \  'linter_checking': 'lightline#ale#checking',
-      \  'linter_warnings': 'lightline#ale#warnings',
-      \  'linter_errors': 'lightline#ale#errors',
-      \  'linter_ok': 'lightline#ale#ok',
-      \ }
-let g:lightline.component_type = {
-      \     'linter_checking': 'left',
-      \     'linter_warnings': 'warning',
-      \     'linter_errors': 'error',
-      \     'linter_ok': 'left',
-      \ }
 
 function! FileName()
   let s:name = expand('%:t')
   let s:name = s:name !=# '' ? s:name : '[No Name]'
-  if s:name =~? 'netrw'
-    return 'netrw'
-  endif
   let s:readonly = &readonly ? ' Ro' : ''
   let s:modified = &modified ? ' Nm' : ''
   return s:readonly . s:name . s:modified
@@ -456,7 +441,6 @@ augroup eskk
 augroup END
 "}}}
 " Git {{{
-let g:easygit_enable_command = 1
 nnoremap          [Git]   <Nop>
 nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>SignifyToggle<CR>
@@ -466,7 +450,6 @@ nnoremap <silent> [Git]a :<C-u>Gina add -- %<CR>
 nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
 nnoremap <silent> [Git]s :<C-u>Gina status<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
-nnoremap <silent> [Git]l :<C-u>GV<CR>
 " }}}
 " go {{{
 let g:gofmt_command = 'goimports'
@@ -494,17 +477,14 @@ let g:indentLine_char = '¦'
 let g:indentLine_fileTypeExclude = ['tweetvim', 'help']
 " }}}
 " Twit {{{
-" open-browser.vim
-let g:netrw_nogx = 1
-autocmd vimrc FileType twitvim call s:twitvim_my_settings()
-function! s:twitvim_my_settings()
+autocmd vimrc FileType tweetvim call s:tweetvim_my_settings()
+function! s:tweetvim_my_settings()
   set nowrap
+  set signcolumn=no
 endfunction
 
-let g:tweetvim_display_source = 1
 let g:tweetvim_open_buffer_cmd = 'split'
-let g:tweetvim_display_separator = 1
-let g:tweetvim_empty_separator = 1
+let g:tweetvim_display_username =1
 
 "KeyMapping
 nnoremap    [TweetVim]   <Nop>
@@ -608,6 +588,9 @@ nmap # <Plug>(anzu-sharp)
 let g:pixela_debug = 0
 let g:pixela_username = 'dohq'
 let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
+" }}}
+" Vista {{{
+let g:vista_icon_indent = ["-> ", ""]
 " }}}
 " user command {{{
 " Auto plugin install {{{
