@@ -206,6 +206,7 @@ bindsym Print exec gscreenshot
 
 bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 2"
 bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 2"
+bindsym XF86Tools exec --no-startup-id "/home/dohq/dotfiles/scripts/toggle_touchpad.sh"
 for_window [class="gimp"] floating disable
 exec --no-startup-id compton -cbm 0.75
 exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.png"
