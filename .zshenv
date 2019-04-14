@@ -28,6 +28,7 @@ alias f='find . -name'
 alias ll='ls -la'
 alias la='ls -lah'
 alias ls='ls --color'
+alias mkdir='mkdir -p'
 alias m='mkdir -p'
 alias mv='mv -i'
 alias nm="$HOME/bin/notify-me.sh"
