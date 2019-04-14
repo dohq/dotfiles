@@ -114,7 +114,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'vim-jp/vim-go-extra',                 {'for': 'go'}
+Plug 'dohq/vim-go',                         {'for': 'go', 'branch': 'feature/toggle-autocomplete'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " TOML
@@ -452,7 +452,12 @@ nnoremap <silent> [Git]s :<C-u>Gina status<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
 " }}}
 " go {{{
-let g:gofmt_command = 'goimports'
+let g:go_fmt_command = 'goimports'
+let g:go_autocomplete_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_auto_type_info = 1
+let g:go_info_mode = 'guru'
 " highlight error
 augroup hierr
   autocmd!
