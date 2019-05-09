@@ -53,7 +53,6 @@ Plug 'justinmk/vim-dirvish'
 Plug 'liuchengxu/vista.vim'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'osyo-manga/vim-anzu'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
@@ -114,7 +113,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'dohq/vim-go',                         {'for': 'go', 'branch': 'feature/toggle-autocomplete'}
+Plug 'fatih/vim-go',                        {'for': 'go'}
 Plug 'buoto/gotests-vim',                   {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
@@ -194,6 +193,7 @@ set scrolloff=7
 set shiftround
 set shiftwidth=2
 set shortmess+=atIc
+set shortmess-=S
 set showtabline=0
 set signcolumn=yes
 set smartcase
@@ -583,12 +583,6 @@ let g:grepper.jump          = 0
 let g:grepper.simple_prompt = 1
 let g:grepper.quickfix      = 0
 let g:grepper.highlight     = 1
-" }}}
-" vim-anzu {{{
-nmap n <Plug>(anzu-mode-n)
-nmap N <Plug>(anzu-mode-N)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
 " }}}
 " vim-pixela {{{
 let g:pixela_debug = 0
