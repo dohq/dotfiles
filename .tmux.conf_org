@@ -38,30 +38,35 @@ set  -g visual-activity on
 #}}}
 #display-base {{{
 # https://github.com/seebi/tmux-colors-solarized/blob/master/tmuxcolors-256.conf
-set -g status-style bg=colour235,fg=colour136,default
+set -g status-bg colour235 #base02
+set -g status-fg colour136 #yellow
+set -g status-attr default
 # default window title colors
-setw -g window-status-style fg=colour244,bg=default
+setw -g window-status-fg colour244 #base0
+setw -g window-status-bg default
 # active window title colors
-setw -g window-status-current-style fg=colour166,bg=default
+setw -g window-status-current-fg colour166 #orange
+setw -g window-status-current-bg default
 # pane border
-set -g pane-border-style fg=colour235
-set -g pane-active-border-style fg=colour240
+set -g pane-border-fg colour235 #base02
+set -g pane-active-border-fg colour240 #base01
 # message text
-set -g message-style bg=colour235,fg=colour166
+set -g message-bg colour235 #base02
+set -g message-fg colour166 #orange
 # pane number display
 set -g display-panes-active-colour colour33 #blue
 set -g display-panes-colour colour166 #orange
 # clock
 setw -g clock-mode-colour green #green
 #}}}
-# display-statusline {{{
+#zdisplay-status line {{{
 # set  -g status-position bottom
-setw -g window-status-activity-style bold
+setw -g window-status-activity-attr bold
 set -g status-justify centre
 set -g status-left-length 20
 set -g status-right-length 140
 set -g status-left '#[fg=green]#U@#[fg=green,bright]#H #[default]'
-set -g status-right "#{prefix_highlight} CPU:#{cpu_percentage} | Mem:#{mem_percentage}% | %a %h-%d %H:%M "
+set -g status-right "#{prefix_highlight} CPU:#{cpu_percentage} | Mem:#{mem_percentage}% | Bat:#{battery_percentage} #{battery_remain} | #(/home/dohq/dotfiles/scripts/network_info.sh) | %a %h-%d %H:%M "
 #}}}
 #mapping {{{
 # prefix
