@@ -12,24 +12,20 @@ fi
 
 ########################################
 # zplug
-# * compinit含む
-: 'zplug' && () {
-  export ZPLUG_REPOS="$HOME/.zplug/src"
-  export ZPLUG_HOME="$ZPLUG_REPOS/zplug/zplug"
-  export ZPLUG_BIN="$HOME/.zplug/bin"
-  export PATH=$ZPLUG_BIN:$PATH
-  export ZPLUG_CACHE_DIR="$HOME/.zplug/cache"
-  export ZPLUG_LOADFILE="$HOME/.zsh_plug"
-
-  source $ZPLUG_HOME/init.zsh
-
-  if __zplug::core::cache::diff; then
-    __zplug::core::load::from_cache
-  else
-    zplug load
+if [[ -f ~/.zplug/init.zsh ]]; then
+  source ~/.zplug/init.zsh
+  source ~/.zsh_plug
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+      echo; zplug install
+    fi
   fi
-}
 
+  # Then, source plugins and add commands to $PATH
+  zplug load
+fi
 ########################################
 # 環境変数
 # 補完リストその他でもASCII(7ビット)以上の文字(8ビダ(ncm2_auto_trigger)ト)文字を表示 
@@ -43,8 +39,8 @@ bindkey -v
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 
 # プロンプト指定
 PROMPT="
@@ -62,6 +58,9 @@ select-word-style default
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
+
+# bash compinit
+autoload -U +X bashcompinit && bashcompinit
 
 ########################################
 # もしかして機能
@@ -293,4 +292,9 @@ fi
 # pyenv
 if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
+fi
+
+# nomad
+if [[ -x "`which nomad`" ]]; then
+  complete -o nospace -C /usr/bin/nomad nomad
 fi
