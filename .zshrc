@@ -294,7 +294,13 @@ if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
 fi
 
-# nomad
+# Hashi
 if [[ -x "`which nomad`" ]]; then
-  complete -o nospace -C /usr/bin/nomad nomad
+  complete -o nospace -C nomad nomad
+fi
+if [[ -x "`which consul`" ]]; then
+  complete -o nospace -C consul consul
+fi
+if [[ -x "`which vault`" ]]; then
+  complete -o nospace -C vault vault
 fi
