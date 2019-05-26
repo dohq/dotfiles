@@ -124,7 +124,7 @@ Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
 " Hashicorp
 Plug 'marcosnils/vim-hclfmt'
-Plug 'b4b4r07/vim-hcl'
+Plug 'jvirtanen/vim-hcl'
 
 call plug#end()
 
