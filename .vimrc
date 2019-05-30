@@ -123,7 +123,7 @@ Plug 'cespare/vim-toml',                    {'for': 'toml'}
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
 " Hashicorp
-Plug 'marcosnils/vim-hclfmt'
+Plug 'fatih/vim-hclfmt'
 Plug 'jvirtanen/vim-hcl'
 
 call plug#end()
