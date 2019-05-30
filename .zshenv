@@ -19,21 +19,23 @@ path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
 path=($HOME/.gem/ruby/2.6.0/bin(N-/) $path)
 path=($HOME/perl5/bin(N-/) $path)
 path=($HOME/.local/bin(N-/) $path)
+path=($HOME/.tfenv/bin(N-/) $path)
 
 # Alias作りましょうねー
 alias c='clear'
 alias cp='cp -i'
 alias d='docker'
 alias f='find . -name'
+alias ls='ls --color'
 alias ll='ls -la'
 alias la='ls -lah'
-alias ls='ls --color'
 alias mkdir='mkdir -p'
 alias m='mkdir -p'
 alias mv='mv -i'
 alias nm="$HOME/bin/notify-me.sh"
 alias nv='nvim'
-alias p='xclip -selection c'
+alias pbcopy='xclip -selection c'
+alias pbpaste='xclip -selection c -o'
 alias pi='ping -c 3 google.com'
 alias pp='ps aux | peco'
 alias rm='rm -i'
