@@ -26,9 +26,10 @@ if [[ -f ~/.zplug/init.zsh ]]; then
   # Then, source plugins and add commands to $PATH
   zplug load
 fi
+
 ########################################
 # 環境変数
-# 補完リストその他でもASCII(7ビット)以上の文字(8ビダ(ncm2_auto_trigger)ト)文字を表示 
+# 補完リストその他でもASCII(7ビット)以上のを表示
 # (マルチバイト文字補完)
 setopt PRINT_EIGHT_BIT
 # 色を使用出来るようにする
@@ -303,4 +304,12 @@ if [[ -x "`which consul`" ]]; then
 fi
 if [[ -x "`which vault`" ]]; then
   complete -o nospace -C vault vault
+fi
+if [[ -x "`which terraform`" ]]; then
+  complete -o nospace -C terraform terraform
+fi
+
+# AWS CLI
+if [[ -f "/usr/bin/aws_zsh_completer.sh" ]]; then
+  source /usr/bin/aws_zsh_completer.sh
 fi
