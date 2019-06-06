@@ -57,6 +57,7 @@ Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
 Plug 'y0za/vim-reading-vimrc'
+Plug 'powerman/vim-plugin-AnsiEsc'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
@@ -122,9 +123,10 @@ Plug 'cespare/vim-toml',                    {'for': 'toml'}
 " Test
 Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
+Plug 'skywind3000/asyncrun.vim'
 " Hashicorp
-Plug 'fatih/vim-hclfmt'
-Plug 'jvirtanen/vim-hcl'
+Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
 
 call plug#end()
 
@@ -595,6 +597,17 @@ let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
 " Vista {{{
 let g:vista_icon_indent = ["-> ", ""]
 " }}}
+" Terrafrom {{{
+" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
+let g:terraform_completion_keys = 0
+" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
+let g:terraform_registry_module_completion = 0
+" terraform
+let g:terraform_align = 1
+let g:terraform_fmt_on_save = 1
+let g:terraform_remap_spacebar = 0
+autocmd FileType terraform setlocal commentstring=#%s
+" }}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
@@ -658,3 +671,5 @@ elseif has('unix')
   let g:python3_host_prog = '/usr/bin/python3'
 endif
 let test#strategy = "dispatch"
+
+let g:asyncrun_open = 8
