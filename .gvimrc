@@ -30,3 +30,7 @@ colorscheme seoul256
 " set guifont=Cica:h12
 set guifont=Sarasa\ Mono\ J:h12
 set printfont=Cica:h8
+
+if has('directx')
+  set rop=type:directx,renmode:5
+endif
