@@ -126,7 +126,6 @@ Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 " Hashicorp
 Plug 'hashivim/vim-terraform'
-Plug 'juliosueiras/vim-terraform-completion'
 
 call plug#end()
 
@@ -293,7 +292,7 @@ vnoremap x "_x
 "----------------------------------------
 " mucomplete {{{
 let g:mucomplete#no_mappings = 1
-let g:mucomplete#enable_auto_at_startup = 0
+let g:mucomplete#enable_auto_at_startup = 1
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
@@ -310,6 +309,9 @@ if executable('gopls')
 endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
+endif
+if executable('terraform-lsp')
+  let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:false}
 endif
 " }}}
 " ultisnips {{{
@@ -598,11 +600,6 @@ let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
 let g:vista_icon_indent = ["-> ", ""]
 " }}}
 " Terrafrom {{{
-" (Optional) Default: 0, enable(1)/disable(0) plugin's keymapping
-let g:terraform_completion_keys = 0
-" (Optional) Default: 1, enable(1)/disable(0) terraform module registry completion
-let g:terraform_registry_module_completion = 0
-" terraform
 let g:terraform_align = 1
 let g:terraform_fmt_on_save = 1
 let g:terraform_remap_spacebar = 0
@@ -670,6 +667,6 @@ elseif has('unix')
   let g:python_host_prog = '/usr/bin/python'
   let g:python3_host_prog = '/usr/bin/python3'
 endif
-let test#strategy = "dispatch"
+let test#strategy = "asyncrun"
 
 let g:asyncrun_open = 8
