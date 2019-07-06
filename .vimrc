@@ -297,21 +297,27 @@ imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
+let g:lsc_auto_completeopt = v:false
 let g:lsc_auto_map = v:true
-let g:lsc_reference_highlights = v:true
 let g:lsc_enable_diagnostics = v:true
+let g:lsc_enable_incremental_sync = v:true
+let g:lsc_enable_snippet_support = v:true
+let g:lsc_reference_highlights = v:false
 let g:lsc_server_commands = {}
 if executable('pyls')
-  let g:lsc_server_commands['python'] = {'command': 'pyls', 'suppress_stderr': v:true}
+  let g:lsc_server_commands['python'] = {'command': 'pyls'}
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls -mode stdio', 'suppress_stderr': v:false}
+  let g:lsc_server_commands['go'] = {'command': 'gopls'}
 endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
 endif
+if executable('bash-language-server')
+  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
+endif
 if executable('terraform-lsp')
-  let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:false}
+  let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp'}
 endif
 " }}}
 " ultisnips {{{
@@ -461,24 +467,19 @@ nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
 " }}}
 " go {{{
 let g:go_fmt_command = 'goimports'
-let g:go_autocomplete_enabled = 0
+let g:go_code_completion_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
 let g:go_def_mapping_enabled = 0
-" let g:go_auto_type_info = 1
-" let g:go_info_mode = 'guru'
 " highlight error
+augroup completefunc
+  autocmd!
+  autocmd vimrc FileType go set omnifunc=lsc#complete#complete
+augroup END
 augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
-augroup tabstop
-  autocmd!
-  autocmd vimrc FileType go setlocal noexpandtab
-  autocmd vimrc FileType go setlocal tabstop=2
-  autocmd vimrc FileType go setlocal shiftwidth=2
-augroup END
-
 " }}}
 " vim-indent-line {{{
 let g:indentLine_setColors = 1
