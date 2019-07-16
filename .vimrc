@@ -118,6 +118,7 @@ Plug 'fatih/vim-go',                        {'for': 'go'}
 Plug 'buoto/gotests-vim',                   {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
+Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 " TOML
 Plug 'cespare/vim-toml',                    {'for': 'toml'}
 " Test
@@ -126,6 +127,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 " Hashicorp
 Plug 'hashivim/vim-terraform'
+" Toml
+Plug 'cespare/vim-toml'
 
 call plug#end()
 
