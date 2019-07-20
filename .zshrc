@@ -309,6 +309,10 @@ if [[ -x "`which terraform`" ]]; then
   complete -o nospace -C terraform terraform
 fi
 
+if [[ -x "`which mcli`" ]]; then
+  complete -o nospace -C /usr/bin/mcli mc
+fi
+
 # AWS CLI
 if [[ -f "/usr/bin/aws_zsh_completer.sh" ]]; then
   source /usr/bin/aws_zsh_completer.sh
