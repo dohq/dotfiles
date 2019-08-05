@@ -30,3 +30,5 @@
 	enabled = true
 
 # vim: ft=gitconfig
+[http]
+	postBuffer = 524288000

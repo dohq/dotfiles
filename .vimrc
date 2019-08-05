@@ -46,12 +46,9 @@ augroup END
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'diepm/vim-rest-console'
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
-Plug 'liuchengxu/vista.vim'
-Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
@@ -77,6 +74,7 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
 Plug 'lifepillar/vim-mucomplete'
+" Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
@@ -87,8 +85,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'shinchu/lightline-seoul256.vim'
 " QuickRun
-Plug 'osyo-manga/shabadou.vim'
 Plug 'thinca/vim-quickrun'
+Plug 'osyo-manga/shabadou.vim'
 " Twitter
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
@@ -126,9 +124,9 @@ Plug 'janko/vim-test'
 Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 " Hashicorp
-Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " Toml
-Plug 'cespare/vim-toml'
+Plug 'cespare/vim-toml',                    {'for': 'toml'}
 
 call plug#end()
 
@@ -185,7 +183,6 @@ set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
-" set matchpairs+=<:>
 set noautoindent
 set nobackup
 set noequalalways
@@ -200,7 +197,7 @@ set scrolloff=7
 set shiftround
 set shiftwidth=2
 set shortmess+=atIc
-set shortmess-=S
+set shortmess-=SF
 set showtabline=0
 set signcolumn=yes
 set smartcase
@@ -213,9 +210,6 @@ set tags=./tags;
 set title
 set ttyfast
 set whichwrap=b,s,[,],<,>
-set wildignore+=*.out,.git,*.rbc,*.rbo,*.class,.svn,*.gem
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore=*.o,*.obj,*.pyc,*.so,*.dll,*.exe,*.xlsx
 set wildmenu
 set wildmode=full
 if has('conceal')
@@ -300,11 +294,7 @@ imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
-let g:lsc_auto_completeopt = v:false
 let g:lsc_auto_map = v:true
-let g:lsc_enable_diagnostics = v:true
-let g:lsc_enable_incremental_sync = v:true
-let g:lsc_enable_snippet_support = v:true
 let g:lsc_reference_highlights = v:false
 let g:lsc_server_commands = {}
 if executable('pyls')
@@ -314,13 +304,13 @@ if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls'}
 endif
 if executable('yaml-language-server')
-  let g:lsc_server_commands['yml'] = {'command': 'yaml-language-server'}
+  let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server'}
 endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
 endif
 if executable('terraform-lsp')
-  let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp'}
+  let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
 endif
 " }}}
 " ultisnips {{{
@@ -473,11 +463,18 @@ let g:go_fmt_command = 'goimports'
 let g:go_code_completion_enabled = 0
 let g:go_doc_keywordprg_enabled = 0
 let g:go_def_mapping_enabled = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_info_mode = 'gopls'
 " highlight error
-augroup completefunc
-  autocmd!
-  autocmd vimrc FileType go set omnifunc=lsc#complete#complete
-augroup END
+" augroup completefunc
+"   autocmd!
+"   autocmd vimrc FileType go set omnifunc=lsc#complete#complete
+" augroup END
 augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
@@ -539,7 +536,6 @@ nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
 nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
-nnoremap <silent> [CtrlP]d :<C-u>UndotreeToggle<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
@@ -599,9 +595,6 @@ let g:grepper.highlight     = 1
 let g:pixela_debug = 0
 let g:pixela_username = 'dohq'
 let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
-" }}}
-" Vista {{{
-let g:vista_icon_indent = ["-> ", ""]
 " }}}
 " Terrafrom {{{
 let g:terraform_align = 1
