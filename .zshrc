@@ -317,3 +317,5 @@ fi
 if [[ -f "/usr/bin/aws_zsh_completer.sh" ]]; then
   source /usr/bin/aws_zsh_completer.sh
 fi
+
+complete -o nospace -C /usr/bin/mcli mc

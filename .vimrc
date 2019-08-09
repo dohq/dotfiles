@@ -65,22 +65,21 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
-Plug 'junegunn/vim-easy-align'
 Plug 'mattn/sonictemplate-vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
 " autocomplete
 Plug 'lifepillar/vim-mucomplete'
 " Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
-Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'jonathanfilip/vim-lucius'
 Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'shinchu/lightline-seoul256.vim'
@@ -105,6 +104,10 @@ Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
+" Test
+Plug 'janko/vim-test'
+Plug 'tpope/vim-dispatch'
+Plug 'skywind3000/asyncrun.vim'
 " Python
 Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 " Markdown
@@ -119,14 +122,12 @@ Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 " TOML
 Plug 'cespare/vim-toml',                    {'for': 'toml'}
-" Test
-Plug 'janko/vim-test'
-Plug 'tpope/vim-dispatch'
-Plug 'skywind3000/asyncrun.vim'
 " Hashicorp
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " Toml
 Plug 'cespare/vim-toml',                    {'for': 'toml'}
+" Dockerfile
+Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
 
 call plug#end()
 
@@ -296,12 +297,14 @@ imap <c-p> <plug>(MUcompleteBwd)
 " LSC {{{
 let g:lsc_auto_map = v:true
 let g:lsc_reference_highlights = v:false
+let g:lsc_enable_diagnostics = v:true
+let g:lsc_preview_popup_hover = v:true
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls'}
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls'}
+  let g:lsc_server_commands['go'] = {'command': 'gopls -logfile /dev/null serve', 'log_level': -1}
 endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server'}
@@ -311,6 +314,12 @@ if executable('bash-language-server')
 endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
+endif
+if executable('docker-langserver')
+  let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
+endif
+if executable('solargraph')
+  let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio'}
 endif
 " }}}
 " ultisnips {{{
@@ -385,34 +394,6 @@ function! Branch()
 endfunction
 
 " }}}
-" EasyAlign{{{
-vnoremap <silent> <Enter> :EasyAlign<cr>
-let g:easy_align_bypass_fold = 1
-let g:easy_align_delimiters = {
-      \ '>': { 'pattern': '>>\|=>\|>' },
-      \ '/': {
-      \     'pattern':         '//\+\|/\*\|\*/',
-      \     'delimiter_align': 'l',
-      \     'ignore_groups':   ['!Comment'] },
-      \ ']': {
-      \     'pattern':       '[[\]]',
-      \     'left_margin':   0,
-      \     'right_margin':  0,
-      \     'stick_to_left': 0
-      \   },
-      \ ')': {
-      \     'pattern':       '[()]',
-      \     'left_margin':   0,
-      \     'right_margin':  0,
-      \     'stick_to_left': 0
-      \   },
-      \ 'd': {
-      \     'pattern':      ' \(\S\+\s*[;=]\)\@=',
-      \     'left_margin':  0,
-      \     'right_margin': 0
-      \   }
-      \}
-" }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($MYVIMDIR.'/eskk')
@@ -427,18 +408,18 @@ let g:eskk#revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
 
-function! s:eskk_initial_pre()
-  let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-  for n in range(10)
-    call t.add_map(n . '.', n . '.')
-  endfor
-  call eskk#register_mode_table('hira', t)
-endfunction
-
-augroup eskk
-  autocmd!
-  autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
-augroup end
+" function! s:eskk_initial_pre()
+"   let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
+"   for n in range(10)
+"     call t.add_map(n . '.', n . '.')
+"   endfor
+"   call eskk#register_mode_table('hira', t)
+" endfunction
+"
+" augroup eskk
+"   autocmd!
+"   autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
+" augroup end
 
 "allow InsertMode toggle ESKK
 augroup eskk
@@ -600,7 +581,12 @@ let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
 let g:terraform_align = 1
 let g:terraform_fmt_on_save = 1
 let g:terraform_remap_spacebar = 0
+let g:terraform_completion_keys = 0
 autocmd FileType terraform setlocal commentstring=#%s
+" }}}
+" operator-user {{{
+map y <Plug>(operator-flashy)
+nmap Y 0<Plug>(operator-flashy)$
 " }}}
 " user command {{{
 " Auto plugin install {{{
