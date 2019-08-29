@@ -59,6 +59,7 @@ if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
 Plug 'andymass/vim-matchup'
+Plug 'echuraev/translate-shell.vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'Chiel92/vim-autoformat'
@@ -115,7 +116,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'fatih/vim-go',                        {'for': 'go'}
+Plug 'arp242/gopher.vim',                   {'for': 'go'}
 Plug 'buoto/gotests-vim',                   {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
@@ -289,17 +290,35 @@ vnoremap x "_x
 " Plugin Settings
 "----------------------------------------
 " mucomplete {{{
-let g:mucomplete#no_mappings = 1
 let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay= 2
+let g:mucomplete#reopen_immediately = 0
+let g:mucomplete#no_mappings = 1
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['omni']
+let g:mucomplete#can_complete = {
+      \ 'default': {
+      \ 'omni': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\|->\|::\|\.\)$' }
+      \ }
+      \ }
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
-let g:lsc_auto_map = v:true
+" let g:lsc_enable_autocomplete = v:false
+let g:lsc_auto_map = v:false
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
 let g:lsc_server_commands = {}
+nnoremap <silent> gd :LSClientGoToDefinition<CR>
+nnoremap <silent> gds :LSClientGoToDefinitionSplit<cr>
+nnoremap <silent> gr :LSClientRename<CR>
+nnoremap <silent> ga :LSClientFindCodeActions<CR>
+nnoremap <silent> gx :LSClientFindReferences<CR>
+nnoremap <silent> gi :LSClientFindImplementations<CR>
+nnoremap <silent> gh :LSClientShowHover<CR>
+nnoremap <silent> gs :LSClientDocumentSymbol<CR>
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls'}
 endif
@@ -440,22 +459,8 @@ nnoremap <silent> [Git]s :<C-u>Gina status<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
 " }}}
 " go {{{
-let g:go_fmt_command = 'goimports'
-let g:go_code_completion_enabled = 0
-let g:go_doc_keywordprg_enabled = 0
-let g:go_def_mapping_enabled = 0
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_info_mode = 'gopls'
 " highlight error
-" augroup completefunc
-"   autocmd!
-"   autocmd vimrc FileType go set omnifunc=lsc#complete#complete
-" augroup END
+let g:gopher_map = 0
 augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
@@ -562,7 +567,6 @@ let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tw
 " }}}
 " lexima {{{
 inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
-call lexima#add_rule({'char': '<', 'input_after': '>'})
 " }}}
 " Grepper {{{
 let g:grepper               = {}
