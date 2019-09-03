@@ -12,14 +12,17 @@ if [[ -d /mnt/ssd/ccache ]]; then
 fi
 
 # PATH
-path=(/usr/lib/ccache/bin(N-/) /usr/local/bin(N-/) $path)
-path=($HOME/.local/bin(N-/) $HOME/bin(N-/) $GOPATH/bin(N-/) $path)
+path=(/usr/lib/ccache/bin(N-/) $path)
+path=($HOME/.ghg/bin(N-/) $path)
+path=($HOME/bin(N-/) $path)
+path=($GOPATH/bin(N-/) $path)
+path=($HOME/.local/bin(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
 path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
 path=($HOME/.gem/ruby/2.6.0/bin(N-/) $path)
 path=($HOME/perl5/bin(N-/) $path)
-path=($HOME/.local/bin(N-/) $path)
 path=($HOME/.tfenv/bin(N-/) $path)
+path=(/usr/local/bin(N-/) $path)
 
 # Alias作りましょうねー
 alias c='clear'
@@ -46,6 +49,7 @@ alias u='up'
 alias v='vim'
 alias vi='vim'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
+alias tb="nc termbin.com 9999"
 
 # Gitting
 alias g='git'
