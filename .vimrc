@@ -125,8 +125,6 @@ Plug 'cespare/vim-toml',                    {'for': 'toml'}
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " yaml
 Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
-" Toml
-Plug 'cespare/vim-toml',                    {'for': 'toml'}
 " Dockerfile
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
 
