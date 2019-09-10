@@ -67,16 +67,14 @@ Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'mattn/sonictemplate-vim'
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-repeat'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 " autocomplete
 Plug 'lifepillar/vim-mucomplete'
-" Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
@@ -125,6 +123,8 @@ Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
 Plug 'cespare/vim-toml',                    {'for': 'toml'}
 " Hashicorp
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
+" yaml
+Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
 " Toml
 Plug 'cespare/vim-toml',                    {'for': 'toml'}
 " Dockerfile
@@ -254,6 +254,11 @@ inoremap <Right> <Nop>
 " Switch
 nnoremap <silent> <leader>s :Switch<CR>
 
+
+" sandwich
+nmap s <Nop>
+xmap s <Nop>
+
 " moving nextline
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
@@ -294,51 +299,27 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay= 2
 let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#no_mappings = 1
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['omni']
-let g:mucomplete#can_complete = {
-      \ 'default': {
-      \ 'omni': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\|->\|::\|\.\)$' }
-      \ }
-      \ }
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
-" let g:lsc_enable_autocomplete = v:false
+let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_map = v:false
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
 let g:lsc_server_commands = {}
-nnoremap <silent> gd :LSClientGoToDefinition<CR>
-nnoremap <silent> gds :LSClientGoToDefinitionSplit<cr>
-nnoremap <silent> gr :LSClientRename<CR>
-nnoremap <silent> ga :LSClientFindCodeActions<CR>
-nnoremap <silent> gx :LSClientFindReferences<CR>
-nnoremap <silent> gi :LSClientFindImplementations<CR>
-nnoremap <silent> gh :LSClientShowHover<CR>
-nnoremap <silent> gs :LSClientDocumentSymbol<CR>
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls'}
+  autocmd vimrc FileType python setlocal omnifunc=lsc#complete#complete
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls -logfile /dev/null serve', 'log_level': -1}
-endif
-if executable('yaml-language-server')
-  let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server'}
-endif
-if executable('bash-language-server')
-  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
+  autocmd vimrc FileType go setlocal omnifunc=lsc#complete#complete
 endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
-endif
-if executable('docker-langserver')
-  let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
-endif
-if executable('solargraph')
-  let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio'}
+  autocmd vimrc FileType terraform setlocal omnifunc=lsc#complete#complete
 endif
 " }}}
 " ultisnips {{{
@@ -407,7 +388,6 @@ function! Branch()
     if &filetype !~? 'vimfiler\|gundo' && exists('*gitbranch#name') && strlen(gitbranch#name())
       return gitbranch#name()
     endif
-  catch
   endtry
   return ''
 endfunction
@@ -516,7 +496,7 @@ nnoremap <silent> [CtrlP]<Space> :<C-u>CtrlP<CR>
 nnoremap <silent> [CtrlP]g :<C-u>CtrlPGhq<CR>
 nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
-nnoremap <silent> [CtrlP]m :<C-u>CtrlPMRU<CR>
+nnoremap <silent> [CtrlP]u :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
 nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
