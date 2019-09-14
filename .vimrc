@@ -64,7 +64,7 @@ Plug 'andymass/vim-matchup'
 Plug 'echuraev/translate-shell.vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
-Plug 'Chiel92/vim-autoformat'
+Plug 'sbdchd/neoformat'
 Plug 'SirVer/ultisnips'
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
@@ -307,6 +307,7 @@ imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:false
+let g:lsc_auto_map = v:true
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
@@ -455,12 +456,13 @@ nnoremap <silent> [Git]s :<C-u>Gina status<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
 " }}}
 " go {{{
-" highlight error
 let g:gopher_map = 0
+" highlight error
 augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
+  autocmd vimrc FileType go set omnifunc=lsc#complete#complete
 augroup END
 " }}}
 " vim-indent-line {{{
@@ -587,6 +589,16 @@ autocmd FileType terraform setlocal commentstring=#%s
 " operator-user {{{
 map y <Plug>(operator-flashy)
 nmap Y 0<Plug>(operator-flashy)$
+" }}}
+" neoformat {{{
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
+" Have Neoformat only msg when there is an error
+let g:neoformat_only_msg_on_error = 1
 " }}}
 " user command {{{
 " Auto plugin install {{{
