@@ -28,6 +28,7 @@ compinit -C
 # 補完リストその他でもASCII(7ビット)以上のを表示
 # (マルチバイト文字補完)
 setopt PRINT_EIGHT_BIT
+
 # 色を使用出来るようにする
 autoload -Uz colors; colors
 
@@ -47,7 +48,6 @@ PROMPT="
 PROMPT2='[%n]> '
 # もしかして時のプロンプト指定
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
-# RPROMPT='$GITSTATUS_PROMPT'
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -293,6 +293,3 @@ fi
 if [[ -f "/usr/bin/aws_zsh_completer.sh" ]]; then
   source /usr/bin/aws_zsh_completer.sh
 fi
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /home/dohq/.tfenv/versions/0.11.14/terraform terraform
