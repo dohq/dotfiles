@@ -1,3 +1,4 @@
+# vim: ft=gitconfig
 [core]
 	editor = vim
 	quotepath = false
@@ -28,7 +29,7 @@
 	verbose = true
 [rerere]
 	enabled = true
-
-# vim: ft=gitconfig
 [http]
 	postBuffer = 524288000
+[alias]
+  co = checkout

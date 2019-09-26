@@ -7,6 +7,7 @@ export PERL_LOCAL_LIB_ROOT=$HOME/perl5
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export USE_CCACHE=1
+export GOPROXY=proxy.golang.org
 if [[ -d /mnt/ssd/ccache ]]; then
   export CCACHE_DIR=/mnt/ssd/ccache
 fi

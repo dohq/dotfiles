@@ -16,13 +16,13 @@ else
 endif
 
 " Enable Tmux in TrueColor
+      "\ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
 if !has('gui_running')
       \ && exists('&termguicolors')
-      \ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
   " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
   if !has('nvim')
-    let &t_8f = "\e[38;2;%lu;%lu;%lum"
-    let &t_8b = "\e[48;2;%lu;%lu;%lum"
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   endif
   set termguicolors       " use truecolor in term
 endif
@@ -55,6 +55,8 @@ Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
 Plug 'y0za/vim-reading-vimrc'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'kana/vim-textobj-user'
+Plug 'mattn/vim-textobj-url'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
@@ -82,6 +84,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'shinchu/lightline-seoul256.vim'
+Plug 'morhetz/gruvbox'
+Plug 'gkapfham/vim-vitamin-onec'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -95,6 +99,7 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/gina.vim'
+Plug 'rhysd/git-messenger.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -137,7 +142,7 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme seoul256
+colorscheme vitaminonec
 set background=dark
 "}}}
 " set plugin stop {{{
@@ -294,18 +299,31 @@ vnoremap x "_x
 "----------------------------------------
 " mucomplete {{{
 let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay= 2
-let g:mucomplete#reopen_immediately = 0
+" let g:mucomplete#completion_delay= 2
+" let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#no_mappings = 1
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:false
-let g:lsc_auto_map = v:false
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
+let g:lsc_auto_map = v:true
+let g:lsc_auto_map = {
+      \ 'GoToDefinition': '<C-]>',
+      \ 'FindReferences': 'gr',
+      \ 'NextReference': '<C-n>',
+      \ 'PreviousReference': '<C-p>',
+      \ 'FindImplementations': 'gI',
+      \ 'FindCodeActions': 'ga',
+      \ 'DocumentSymbol': 'go',
+      \ 'WorkspaceSymbol': 'gS',
+      \ 'ShowHover': '<S-k>',
+      \ 'SignatureHelp': '<C-m>',
+      \ 'Completion': 'completefunc',
+      \}
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls'}
@@ -361,7 +379,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " lightline.vim{{{
 let g:lightline = {
-      \ 'colorscheme': 'seoul256',
+      \ 'colorscheme': 'vitaminonec',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'filename']],

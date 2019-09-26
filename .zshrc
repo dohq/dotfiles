@@ -1,31 +1,27 @@
 ########################################
-# source
+### Added by zplugin's installer
+source "$HOME/.zplugin/bin/zplugin.zsh"
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source "$HOME/.zsh_plug"
+
+########################################
+# source zsh_local
+if [[ -f ~/.zsh_local ]]; then
+  source ~/.zsh_local
+fi
 # source seacret
 if [[ -f ~/.token ]]; then
   source ~/.token
 fi
 
-# source zsh_local
-if [[ -f ~/.zsh_local ]]; then
-  source ~/.zsh_local
-fi
-
 ########################################
-# zplug
-if [[ -f ~/.zplug/init.zsh ]]; then
-  source ~/.zplug/init.zsh
-  source ~/.zsh_plug
-  # Install plugins if there are plugins that have not been installed
-  if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-      echo; zplug install
-    fi
-  fi
-
-  # Then, source plugins and add commands to $PATH
-  zplug load
-fi
+# compinit
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 ########################################
 # 環境変数
@@ -33,7 +29,7 @@ fi
 # (マルチバイト文字補完)
 setopt PRINT_EIGHT_BIT
 # 色を使用出来るようにする
-# autoload -Uz colors; colors
+autoload -Uz colors; colors
 
 # vim 風キーバインドにする
 bindkey -v
@@ -51,6 +47,7 @@ PROMPT="
 PROMPT2='[%n]> '
 # もしかして時のプロンプト指定
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+# RPROMPT='$GITSTATUS_PROMPT'
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -59,9 +56,6 @@ select-word-style default
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
-
-# bash compinit
-autoload -U +X bashcompinit && bashcompinit
 
 ########################################
 # もしかして機能
@@ -295,27 +289,10 @@ if [[ -x "`which pyenv`" ]]; then
   eval "$(pyenv init -)"
 fi
 
-# Hashi
-if [[ -x "`which nomad`" ]]; then
-  complete -o nospace -C nomad nomad
-fi
-if [[ -x "`which consul`" ]]; then
-  complete -o nospace -C consul consul
-fi
-if [[ -x "`which vault`" ]]; then
-  complete -o nospace -C vault vault
-fi
-if [[ -x "`which terraform`" ]]; then
-  complete -o nospace -C terraform terraform
-fi
-
-if [[ -x "`which mcli`" ]]; then
-  complete -o nospace -C /usr/bin/mcli mc
-fi
-
 # AWS CLI
 if [[ -f "/usr/bin/aws_zsh_completer.sh" ]]; then
   source /usr/bin/aws_zsh_completer.sh
 fi
 
-complete -o nospace -C /usr/bin/mcli mc
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/dohq/.tfenv/versions/0.11.14/terraform terraform
