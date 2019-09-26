@@ -2,7 +2,7 @@ zplugin light "paulmelnikow/zsh-startup-timer"
 zplugin ice wait; zplugin load "knu/zsh-git-escape-magic"
 zplugin ice wait; zplugin load "b4b4r07/ssh-keyreg"
 zplugin ice wait; zplugin load "zsh-users/zsh-autosuggestions"
-zplugin ice wait atinit"zpcompinit; zpcdreplay"; zplugin load "zdharma/fast-syntax-highlighting"
+zplugin ice wait atinit"zpcompinit; zpcdreplay"; zplugin load "zsh-users/zsh-syntax-highlighting"
 zplugin ice wait; zplugin load "peterhurford/up.zsh"
 zplugin ice wait; zplugin load "zsh-users/zsh-completions"
 
