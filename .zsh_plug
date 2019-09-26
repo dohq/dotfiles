@@ -1,10 +1,21 @@
 zplugin light "paulmelnikow/zsh-startup-timer"
-zplugin ice wait lucid; zplugin load "knu/zsh-git-escape-magic"
-zplugin ice wait lucid; zplugin load "b4b4r07/ssh-keyreg"
-zplugin ice wait lucid; zplugin load "zsh-users/zsh-autosuggestions"
-zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"; zplugin load "zsh-users/zsh-syntax-highlighting"
-zplugin ice wait lucid; zplugin load "peterhurford/up.zsh"
-zplugin ice wait lucid; zplugin load "zsh-users/zsh-completions"
+zplugin ice wait lucid; zplugin light "knu/zsh-git-escape-magic"
+zplugin ice wait lucid; zplugin light "b4b4r07/ssh-keyreg"
+zplugin ice wait lucid; zplugin light "zsh-users/zsh-autosuggestions"
+zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"; zplugin light "zsh-users/zsh-syntax-highlighting"
+zplugin ice wait lucid; zplugin light "peterhurford/up.zsh"
+zplugin ice wait lucid; zplugin light "zsh-users/zsh-completions"
+
+# ls color
+zplugin ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zplugin light trapd00r/LS_COLORS
+
+# direnv
+zplugin ice wait lucid from"gh-r" as"program" mv"direnv* -> direnv" \
+    './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
+zplugin light direnv/direnv
 
 ### Function
 ## fzf

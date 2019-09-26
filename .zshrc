@@ -4,6 +4,7 @@ source "$HOME/.zplugin/bin/zplugin.zsh"
 autoload -Uz _zplugin
 (( ${+_comps} )) && _comps[zplugin]=_zplugin
 source "$HOME/.zsh_plug"
+### End of Zplugin's installer chunk
 
 ########################################
 # source zsh_local
@@ -37,8 +38,8 @@ bindkey -v
 
 # ヒストリの設定
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 
 # プロンプト指定
 PROMPT="
