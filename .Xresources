@@ -16,7 +16,7 @@ URxvt.scrollBar:            false
 URxvt*iso14755:             false
 
 URxvt.allow_bold:           false
-URxvt*font:                 xft:Sarasa Mono J:size=14
+URxvt*font:                 xft:Sarasa Mono T J:size=14
 
 ! Plugin
 URxvt.perl-ext-common:      default, resize-font, xim-onthespot, clipboard, url-select, keyboard-select
