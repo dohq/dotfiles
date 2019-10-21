@@ -322,6 +322,10 @@ if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
   autocmd vimrc FileType terraform setlocal omnifunc=lsc#complete#complete
 endif
+if executable('docker-langserver')
+  let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
+  autocmd vimrc FileType dockerfile setlocal omnifunc=lsc#complete#complete
+endif
 " }}}
 " ultisnips {{{
 " Trigger configuration.
