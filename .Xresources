@@ -19,44 +19,43 @@ URxvt.allow_bold:           false
 URxvt*font:                 xft:Sarasa Mono T J:size=14
 
 ! Plugin
-URxvt.perl-ext-common:      default, resize-font, xim-onthespot, clipboard, url-select, keyboard-select
-URxvt.resize-font.smaller:  C-Down
-URxvt.resize-font.bigger:   C-Up
-URxvt.inputMethod:          fcitx
-URxvt.preeditType:          OnTheSpot
-
+URxvt.perl-ext-common:      default,resize-font,clipboard,xim-onthespot,url-select,keyboard-select
 URxvt.url-select.launcher:  vivaldi
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
+URxvt.keysym.C-Down:        resize-font:smaller
+URxvt.keysym.C-Up:          resize-font:bigger
+URxvt.inputMethod:          uim
+URxvt.preeditType:          OnTheSpot
 
 ! color
 URxvt.depth:                32
 ! URxvt*inheritPixmap: true
-URxvt*.transparent: true
+URxvt*.transparent:         true
 ! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
 ! URxvt*.shading: 30
-URxvt.color0:      [100]#282828
-URxvt.color1:      [100]#cc241d
-URxvt.color2:      [100]#98971a
-URxvt.color3:      [100]#d79921
-URxvt.color4:      [100]#458588
-URxvt.color5:      [100]#b16286
-URxvt.color6:      [100]#689d6a
-URxvt.color7:      [100]#a89984
-URxvt.color8:      [100]#928374
-URxvt.color9:      [100]#fb4934
-URxvt.color10:     [100]#b8bb26
-URxvt.color11:     [100]#fabd2f
-URxvt.color12:     [100]#83a598
-URxvt.color13:     [100]#d3869b
-URxvt.color14:     [100]#8ec07c
-URxvt.color15:     [100]#ebdbb2
-URxvt.foreground:  [100]#ebdbb2
-URxvt.background:  [100]#282828
-URxvt.colorIT:     [100]#8ec07c
-URxvt.colorBD:     [100]#fe8019
-URxvt.colorUL:     [100]#83a598
-URxvt.scrollColor: [100]#504945
-URxvt.troughColor: [100]#3C3836
+URxvt.color0:               [100]#282828
+URxvt.color1:               [100]#cc241d
+URxvt.color2:               [100]#98971a
+URxvt.color3:               [100]#d79921
+URxvt.color4:               [100]#458588
+URxvt.color5:               [100]#b16286
+URxvt.color6:               [100]#689d6a
+URxvt.color7:               [100]#a89984
+URxvt.color8:               [100]#928374
+URxvt.color9:               [100]#fb4934
+URxvt.color10:              [100]#b8bb26
+URxvt.color11:              [100]#fabd2f
+URxvt.color12:              [100]#83a598
+URxvt.color13:              [100]#d3869b
+URxvt.color14:              [100]#8ec07c
+URxvt.color15:              [100]#ebdbb2
+URxvt.foreground:           [100]#ebdbb2
+URxvt.background:           [100]#282828
+URxvt.colorIT:              [100]#8ec07c
+URxvt.colorBD:              [100]#fe8019
+URxvt.colorUL:              [100]#83a598
+URxvt.scrollColor:          [100]#504945
+URxvt.troughColor:          [100]#3C3836
