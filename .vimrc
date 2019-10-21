@@ -61,7 +61,6 @@ if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
 Plug 'andymass/vim-matchup'
-Plug 'echuraev/translate-shell.vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -299,8 +298,8 @@ vnoremap x "_x
 "----------------------------------------
 " mucomplete {{{
 let g:mucomplete#enable_auto_at_startup = 1
-" let g:mucomplete#completion_delay= 2
-" let g:mucomplete#reopen_immediately = 0
+let g:mucomplete#completion_delay= 2
+let g:mucomplete#reopen_immediately = 0
 let g:mucomplete#no_mappings = 1
 imap <c-n> <plug>(MUcompleteFwd)
 imap <c-p> <plug>(MUcompleteBwd)
@@ -311,7 +310,6 @@ let g:lsc_auto_map = v:true
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
-let g:lsc_auto_map = v:true
 let g:lsc_auto_map = {
       \ 'GoToDefinition': '<C-]>',
       \ 'FindReferences': 'gr',
@@ -331,7 +329,7 @@ if executable('pyls')
   autocmd vimrc FileType python setlocal omnifunc=lsc#complete#complete
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls -logfile /dev/null serve', 'log_level': -1}
+  let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1}
   autocmd vimrc FileType go setlocal omnifunc=lsc#complete#complete
 endif
 if executable('terraform-lsp')
