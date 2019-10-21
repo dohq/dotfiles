@@ -25,6 +25,7 @@ path=(
   $HOME/perl5/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   /usr/local/bin(N-/)
+  $path
 )
 
 # Alias作りましょうねー
@@ -45,7 +46,6 @@ alias pbpaste='xclip -selection c -o'
 alias pi='ping -c 3 google.com'
 alias pp='ps aux | peco'
 alias rm='rm -i'
-alias ssh='ssh -o ServerAliveInterval=60'
 alias tokyo="curl wttr.in/Tokyo"
 alias tree='tree -N'
 alias u='up'
