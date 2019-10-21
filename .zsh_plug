@@ -1,16 +1,26 @@
-zplugin light "paulmelnikow/zsh-startup-timer"
-zplugin ice wait lucid
-  zplugin light "knu/zsh-git-escape-magic"
-zplugin ice wait lucid
-  zplugin light "b4b4r07/ssh-keyreg"
-zplugin ice wait lucid atload"_zsh_autosuggest_start"
-  zplugin light "zsh-users/zsh-autosuggestions"
-zplugin ice wait lucid atinit"zpcompinit; zpcdreplay"
+# auto suggestions
+zplugin ice wait"1" lucid atload"!_zsh_autosuggest_start"
+  zplugin load zsh-users/zsh-autosuggestions
+
+# syntax highlighting
+zplugin ice wait lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
   zplugin light "zsh-users/zsh-syntax-highlighting"
+
+# up command
 zplugin ice wait lucid
   zplugin light "peterhurford/up.zsh"
+
+# completion
 zplugin ice wait lucid blockf
   zplugin light "zsh-users/zsh-completions"
+
+# git status prompt
+zplugin ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
+  zplugin light "romkatv/gitstatus"
+
+# sharkdp/fd
+zplugin ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+  zplugin light "sharkdp/fd"
 
 # ls color
 zplugin ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
@@ -23,7 +33,13 @@ zplugin ice wait lucid from"gh-r" as"program" mv"direnv* -> direnv" \
     './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
 zplugin light direnv/direnv
 
-### Function
+# pyenv
+zplugin ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
+    atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
+    as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!'
+zplugin light pyenv/pyenv
+
+########## Function
 # history
 zplugin ice wait lucid
 zplugin snippet "https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/f6f1f70e43f2c62d6d5eae16d47f78da208b17f3/fzf-history.zsh"
