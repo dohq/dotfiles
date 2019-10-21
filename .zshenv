@@ -13,17 +13,19 @@ if [[ -d /mnt/ssd/ccache ]]; then
 fi
 
 # PATH
-path=(/usr/lib/ccache/bin(N-/) $path)
-path=($HOME/.ghg/bin(N-/) $path)
-path=($HOME/bin(N-/) $path)
-path=($GOPATH/bin(N-/) $path)
-path=($HOME/.local/bin(N-/) $path)
-path=($HOME/.cargo/bin(N-/) $path)
-path=($HOME/.gem/ruby/2.5.0/bin(N-/) $path)
-path=($HOME/.gem/ruby/2.6.0/bin(N-/) $path)
-path=($HOME/perl5/bin(N-/) $path)
-path=($HOME/.tfenv/bin(N-/) $path)
-path=(/usr/local/bin(N-/) $path)
+path=(
+  /usr/lib/ccache/bin(N-/)
+  $HOME/.ghg/bin(N-/)
+  $HOME/bin(N-/)
+  $GOPATH/bin(N-/)
+  $HOME/.local/bin(N-/)
+  $HOME/.cargo/bin(N-/)
+  $HOME/.gem/ruby/2.5.0/bin(N-/)
+  $HOME/.gem/ruby/2.6.0/bin(N-/)
+  $HOME/perl5/bin(N-/)
+  $HOME/.tfenv/bin(N-/)
+  /usr/local/bin(N-/)
+)
 
 # Alias作りましょうねー
 alias c='clear'
