@@ -47,7 +47,6 @@ call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'itchyny/vim-parenmatch'
 Plug 'justinmk/vim-dirvish'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'sgur/vim-editorconfig'
@@ -310,19 +309,6 @@ let g:lsc_auto_map = v:true
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
-let g:lsc_auto_map = {
-      \ 'GoToDefinition': '<C-]>',
-      \ 'FindReferences': 'gr',
-      \ 'NextReference': '<C-n>',
-      \ 'PreviousReference': '<C-p>',
-      \ 'FindImplementations': 'gI',
-      \ 'FindCodeActions': 'ga',
-      \ 'DocumentSymbol': 'go',
-      \ 'WorkspaceSymbol': 'gS',
-      \ 'ShowHover': '<S-k>',
-      \ 'SignatureHelp': '<C-m>',
-      \ 'Completion': 'completefunc',
-      \}
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls'}
