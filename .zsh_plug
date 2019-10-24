@@ -30,7 +30,7 @@ zplugin light trapd00r/LS_COLORS
 
 # direnv
 zplugin ice from"gh-r" as"program" mv"direnv* -> direnv" \
-    './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src"zhook.zsh"
+    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src"zhook.zsh"
 zplugin light direnv/direnv
 
 # pyenv
