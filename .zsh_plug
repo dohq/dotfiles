@@ -29,8 +29,8 @@ zplugin ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
 zplugin light trapd00r/LS_COLORS
 
 # direnv
-zplugin ice wait lucid from"gh-r" as"program" mv"direnv* -> direnv" \
-    './direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv"
+zplugin ice wait lucid as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' src"zhook.zsh"
 zplugin light direnv/direnv
 
 # pyenv
