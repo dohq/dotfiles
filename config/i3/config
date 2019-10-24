@@ -202,7 +202,9 @@ client.background       $base07
 
 
 # activate screenshot
-bindsym Print exec gscreenshot
+# bindsym Print exec gscreenshot
+bindsym Print --release exec "scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Shift+Print exec "scrot /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 
 bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 2"
 bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 2"
