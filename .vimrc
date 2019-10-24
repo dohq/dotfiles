@@ -172,6 +172,7 @@ set belloff=all
 set cmdheight=2
 set completeopt+=noinsert,menuone,noselect
 set completeopt-=preview
+set diffopt=internal,filler,algorithm:histogram,indent-heuristic
 set display=lastline
 set expandtab
 set fileformat=unix
