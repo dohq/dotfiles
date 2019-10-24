@@ -126,3 +126,5 @@ bindkey "^[3;5~"  delete-char
 # init
 # hub alias
 function git(){hub "$@"}
+# remove dupulicate path/PATH
+typeset -U path PATH
