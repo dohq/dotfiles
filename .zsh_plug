@@ -1,6 +1,6 @@
 # auto suggestions
 zplugin ice wait"1" lucid atload"!_zsh_autosuggest_start"
-  zplugin load zsh-users/zsh-autosuggestions
+  zplugin load "zsh-users/zsh-autosuggestions"
 
 # syntax highlighting
 zplugin ice wait lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
@@ -26,18 +26,18 @@ zplugin ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
 zplugin ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zplugin light trapd00r/LS_COLORS
+zplugin light "trapd00r/LS_COLORS"
 
 # direnv
 zplugin ice from"gh-r" as"program" mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src"zhook.zsh"
-zplugin light direnv/direnv
+zplugin light "direnv/direnv"
 
 # pyenv
 zplugin ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
     atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
     as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!'
-zplugin light pyenv/pyenv
+zplugin light "pyenv/pyenv"
 
 ########## Function
 # history
