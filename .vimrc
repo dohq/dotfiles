@@ -312,6 +312,10 @@ let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
 let g:lsc_server_commands = {}
+if executable('bash-language-server')
+  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
+  autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
+endif
 if executable('pyls')
   let g:lsc_server_commands['python'] = {'command': 'pyls'}
   autocmd vimrc FileType python setlocal omnifunc=lsc#complete#complete
@@ -589,6 +593,10 @@ let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 " Have Neoformat only msg when there is an error
 let g:neoformat_only_msg_on_error = 1
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 " }}}
 " user command {{{
 " Auto plugin install {{{
