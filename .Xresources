@@ -31,6 +31,7 @@ URxvt.inputMethod:          uim
 URxvt.preeditType:          OnTheSpot
 
 ! color
+ssh-askpass*background:     #000000
 URxvt.depth:                32
 ! URxvt*inheritPixmap: true
 URxvt*.transparent:         true
