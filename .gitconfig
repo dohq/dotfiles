@@ -26,6 +26,7 @@
 [diff]
 	altorithm = histogram
 	compactionHeuristic = true
+	tool = vimdiff
 [commit]
 	verbose = true
 [rerere]

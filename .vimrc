@@ -307,7 +307,7 @@ imap <c-p> <plug>(MUcompleteBwd)
 " LSC {{{
 let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_map = v:true
-let g:lsc_enable_autocomplete = v:false
+let g:lsc_complete_timeout = 0.5
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_preview_popup_hover = v:true
