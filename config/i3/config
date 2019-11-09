@@ -206,6 +206,11 @@ client.background       $base07
 bindsym Print --release exec "scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 bindsym Shift+Print exec "scrot /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 
+# set volume
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute 7 false ; pactl set-sink-volume 7 -1%"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute 7 false ; pactl set-sink-volume 7 +1%"
+
+# lg gram monitor backlight
 bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 2"
 bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 2"
 bindsym XF86Tools exec --no-startup-id "/home/dohq/dotfiles/scripts/toggle_touchpad.sh"
