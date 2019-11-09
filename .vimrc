@@ -593,10 +593,10 @@ let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 " Have Neoformat only msg when there is an error
 let g:neoformat_only_msg_on_error = 1
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * undojoin | Neoformat
+" augroup END
 " }}}
 " user command {{{
 " Auto plugin install {{{
