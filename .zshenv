@@ -46,14 +46,20 @@ alias pbpaste='xclip -selection c -o'
 alias pi='ping -c 3 google.com'
 alias pp='ps aux | peco'
 alias rm='rm -i'
-alias tb="nc termbin.com 9999"
-alias tokyo="curl wttr.in/Tokyo"
+alias tb='nc termbin.com 9999'
+alias tokyo='curl wttr.in/Tokyo'
 alias tree='tree -N'
 alias u='up'
 alias v='vim'
 alias vd='vimdiff'
 alias vi='vim'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
+
+# terraform
+alias tf='terraform'
+alias tfpp='terraform plan -out plan'
+alias tfap='terraform apply plan'
+alias tfop='terraform output'
 
 # Gitting
 alias g='git'
