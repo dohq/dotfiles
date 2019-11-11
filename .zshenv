@@ -55,11 +55,15 @@ alias vd='vimdiff'
 alias vi='vim'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 
+# openstack
+alias op='openstack'
+
 # terraform
 alias tf='terraform'
 alias tfpp='terraform plan -out plan'
 alias tfap='terraform apply plan'
 alias tfop='terraform output'
+alias tfvt='terraform validate'
 
 # Gitting
 alias g='git'
