@@ -21,15 +21,14 @@ endif
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-" colorscheme iceberg
 colorscheme seoul256
 
 "----------------------------------------
 " FontSetting
 "----------------------------------------
 " set guifont=Cica:h12
-set guifont=Sarasa\ Mono\ J:h12
-set printfont=Cica:h8
+set guifont=Sarasa\ Mono\ T\ J:h12
+" set printfont=Cica:h8
 
 if has('directx')
   set rop=type:directx,renmode:5

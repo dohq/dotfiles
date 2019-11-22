@@ -22,7 +22,7 @@
 [merge]
 	ff = false
 [credential]
-	helper = cache
+	helper = manager
 [diff]
 	altorithm = histogram
 	compactionHeuristic = true
