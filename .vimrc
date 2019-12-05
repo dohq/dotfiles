@@ -526,7 +526,7 @@ endif
 let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
 let g:ctrlp_match_current_file = 1 " to include current file in matches
 
-let g:ctrlp_lazy_update = 0
+let g:ctrlp_lazy_update = 1
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'

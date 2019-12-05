@@ -58,6 +58,10 @@ alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 # openstack
 alias op='openstack'
 
+# kubernetes
+alias kns='kubens'
+alias kcx='kubectx'
+
 # terraform
 alias tf='terraform'
 alias tfpp='terraform plan -out plan'
