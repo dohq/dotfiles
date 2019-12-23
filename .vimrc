@@ -73,6 +73,7 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
+Plug 'liuchengxu/vista.vim'
 " autocomplete
 Plug 'lifepillar/vim-mucomplete'
 Plug 'natebosch/vim-lsc'
@@ -190,6 +191,7 @@ set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
 set noautoindent
 set nobackup
+set nojs
 set noequalalways
 set noshowmode
 set nosmartindent
@@ -322,7 +324,7 @@ if executable('pyls')
   autocmd vimrc FileType python setlocal omnifunc=lsc#complete#complete
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1}
+  let g:lsc_server_commands['go'] = {'command': 'gopls', 'log_level': -1, 'suppress_stderr': v:true}
   autocmd vimrc FileType go setlocal omnifunc=lsc#complete#complete
 endif
 if executable('terraform-lsp')
@@ -332,6 +334,10 @@ endif
 if executable('docker-langserver')
   let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
   autocmd vimrc FileType dockerfile setlocal omnifunc=lsc#complete#complete
+endif
+if executable('rls')
+  let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
+  autocmd vimrc FileType rust setlocal omnifunc=lsc#complete#complete
 endif
 " }}}
 " ultisnips {{{
@@ -380,10 +386,11 @@ let g:lightline = {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'filename']],
       \   'right': [['lineinfo'],
-      \             ['fileformat', 'fileencoding', 'filetype']]
+      \             ['method', 'fileformat', 'fileencoding', 'filetype']]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'Branch',
+      \   'method': 'NearestMethodOrFunction',
       \ },
       \}
 
@@ -404,6 +411,13 @@ function! Branch()
   return ''
 endfunction
 
+function! NearestMethodOrFunction() abort
+  let l:func_name = get(b:, 'vista_nearest_method_or_function', '')
+  if l:func_name != ''
+    return l:func_name
+  endif
+  return ''
+endfunction
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
@@ -502,7 +516,7 @@ let g:memolist_ex_cmd = 'CtrlP'
 let g:memolist_memo_suffix = 'md'
 let g:memolist_path = '~/Dev/memo'
 "}}}
-"CtrlP {{{
+" CtrlP {{{
 nnoremap          [CtrlP]   <Nop>
 nmap     <Space>  [CtrlP]
 nnoremap <silent> [CtrlP]<Space> :<C-u>CtrlP<CR>
@@ -511,7 +525,7 @@ nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
 nnoremap <silent> [CtrlP]u :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
-nnoremap <silent> [CtrlP]t :<C-u>CtrlPTag<CR>
+nnoremap <silent> [CtrlP]t :<C-u>Vista!!<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
 nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
@@ -598,6 +612,17 @@ let g:neoformat_only_msg_on_error = 1
 "   autocmd!
 "   autocmd BufWritePre * undojoin | Neoformat
 " augroup END
+" }}}
+" vista.vim {{{
+let g:vista_sidebar_width = 40
+let g:vista_echo_cursor = 0
+let g:vista_default_executive = 'ctags'
+
+" relaod NearestMethodOrFunction
+augroup LightLineOnVista
+  autocmd!
+  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+augroup END
 " }}}
 " user command {{{
 " Auto plugin install {{{
