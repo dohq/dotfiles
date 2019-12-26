@@ -172,7 +172,7 @@ set autoread
 set autowrite
 set belloff=all
 set cmdheight=2
-set completeopt+=noinsert,menuone,noselect
+set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
 set diffopt=internal,filler,algorithm:histogram,indent-heuristic
 set display=lastline

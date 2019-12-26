@@ -18,11 +18,12 @@ fi
 
 ########################################
 # compinit
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
+## loaded zplugin
+# autoload -Uz compinit
+# for dump in ~/.zcompdump(N.mh+24); do
+#   compinit
+# done
+# compinit -C
 
 ########################################
 # 色を使用出来るようにする

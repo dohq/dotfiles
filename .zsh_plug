@@ -14,6 +14,11 @@ zplugin ice wait lucid
 zplugin ice wait lucid blockf
   zplugin light "zsh-users/zsh-completions"
 
+# abbrev
+# zplugin ice wait lucid blockf
+zplugin ice wait'!0' lucid blockf
+  zplugin light "momo-lab/zsh-abbrev-alias"
+
 # git status prompt
 zplugin ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
   zplugin light "romkatv/gitstatus"
