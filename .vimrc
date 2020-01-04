@@ -131,6 +131,8 @@ Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
 " Dockerfile
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
+" Ansible
+Plug 'pearofducks/ansible-vim',             { 'do': './UltiSnips/generate.sh' }
 
 
 call plug#end()
@@ -332,7 +334,7 @@ if executable('pyls')
   autocmd vimrc FileType python setlocal omnifunc=lsc#complete#complete
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls', 'log_level': -1, 'suppress_stderr': v:true}
+  let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
   autocmd vimrc FileType go setlocal omnifunc=lsc#complete#complete
 endif
 if executable('terraform-lsp')
@@ -633,6 +635,9 @@ augroup LightLineOnVista
   autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 augroup END
 " }}}
+" Ansible {{{
+au BufRead,BufNewFile */Ansible/*.yml set filetype=yaml.ansible
+" }}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
@@ -687,6 +692,20 @@ function! s:Jq(...)
   endif
   execute "%! jq \"" . l:arg . "\""
 endfunction
+" }}}
+" Window Size {{{
+let g:toggle_window_size = 0
+function! ToggleWindowSize()
+  if g:toggle_window_size == 1
+    exec "normal \<C-w>="
+    let g:toggle_window_size = 0
+  else
+    :resize
+    :vertical resize
+    let g:toggle_window_size = 1
+  endif
+endfunction
+nnoremap M :call ToggleWindowSize()<CR>
 " }}}
 " }}}
 if has('win32')
