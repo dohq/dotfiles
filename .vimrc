@@ -131,8 +131,6 @@ Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
 " Dockerfile
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
-" Ansible
-Plug 'pearofducks/ansible-vim',             { 'do': './UltiSnips/generate.sh' }
 
 
 call plug#end()
@@ -224,9 +222,6 @@ set wildmode=full
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
-if !has('nvim') && has('terminal')
-  set termwinsize=10x0
-endif
 if exists('+breakindent')
   set breakindent
   set breakindentopt=sbr
@@ -317,6 +312,10 @@ let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_enable_snippet_support = v:false
 let g:lsc_server_commands = {}
+if executable('yaml-language-server')
+  let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
+  autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
+endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
   autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
@@ -636,7 +635,7 @@ augroup LightLineOnVista
 augroup END
 " }}}
 " Ansible {{{
-au BufRead,BufNewFile */Ansible/*.yml set filetype=yaml.ansible
+" au BufRead,BufNewFile */Ansible/*.yml set filetype=yaml.ansible
 " }}}
 " user command {{{
 " Auto plugin install {{{
