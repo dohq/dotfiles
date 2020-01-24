@@ -63,6 +63,3 @@ zplugin snippet "https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f49
 # ghq
 zplugin ice wait lucid
 zplugin snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/5b598d4df6fdbb5b52002653deec144aa5b72b59/fzf-ghq.zsh"
-# Kubernetes alias
-zplugin ice wait lucid
-zplugin snippet OMZ::plugins/kubectl/kubectl.plugin.zsh
