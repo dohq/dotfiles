@@ -60,6 +60,7 @@ if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
 Plug 'andymass/vim-matchup'
+Plug 'voldikss/vim-translator'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -131,6 +132,8 @@ Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
 " Dockerfile
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
+" Jinja2
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 
 call plug#end()
@@ -588,8 +591,10 @@ inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 let g:grepper               = {}
 let g:grepper.tools         = ['rg', 'ag', 'pt', 'git']
 let g:grepper.jump          = 0
-let g:grepper.simple_prompt = 1
-let g:grepper.quickfix      = 0
+let g:grepper.open          = 1
+let g:grepper.switch        = 1
+let g:grepper.repo          = ['.git', '.hg', '.svn']
+let g:grepper.quickfix      = 1
 let g:grepper.highlight     = 1
 " }}}
 " vim-pixela {{{
@@ -636,6 +641,11 @@ augroup END
 " }}}
 " Ansible {{{
 " au BufRead,BufNewFile */Ansible/*.yml set filetype=yaml.ansible
+" }}}
+" Translate {{{
+let g:translator_default_engines = ['google', 'bing']
+let g:translator_target_lang = 'ja'
+let g:translator_history_enable = v:true
 " }}}
 " user command {{{
 " Auto plugin install {{{
