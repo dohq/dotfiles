@@ -1,65 +1,65 @@
 # auto suggestions
-zplugin ice wait"1" lucid atload"!_zsh_autosuggest_start"
-  zplugin load "zsh-users/zsh-autosuggestions"
+zinit ice wait"1" lucid atload"!_zsh_autosuggest_start"
+  zinit load "zsh-users/zsh-autosuggestions"
 
 # syntax highlighting
-zplugin ice wait lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
-  zplugin light "zsh-users/zsh-syntax-highlighting"
+zinit ice wait lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+  zinit light "zsh-users/zsh-syntax-highlighting"
 
 # up command
-zplugin ice wait lucid
-  zplugin light "peterhurford/up.zsh"
+zinit ice wait lucid
+  zinit light "peterhurford/up.zsh"
 
 # completion
-zplugin ice wait lucid blockf
-  zplugin light "zsh-users/zsh-completions"
+zinit ice wait lucid blockf
+  zinit light "zsh-users/zsh-completions"
 
 # abbrev
-# zplugin ice wait lucid blockf
-zplugin ice wait'!0' lucid blockf
-  zplugin light "momo-lab/zsh-abbrev-alias"
+# zinit ice wait lucid blockf
+zinit ice wait'!0' lucid blockf
+  zinit light "momo-lab/zsh-abbrev-alias"
 
 # git status prompt
-zplugin ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
-  zplugin light "romkatv/gitstatus"
+zinit ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
+  zinit light "romkatv/gitstatus"
 
 # sharkdp/fd
-zplugin ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
-  zplugin light "sharkdp/fd"
+zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
+  zinit light "sharkdp/fd"
 
 # ls color
-zplugin ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
+zinit ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
     atpull'%atclone' pick"clrs.zsh" nocompile'!' \
     atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zplugin light "trapd00r/LS_COLORS"
+zinit light "trapd00r/LS_COLORS"
 
 # direnv
-zplugin ice from"gh-r" as"program" mv"direnv* -> direnv" \
+zinit ice from"gh-r" as"program" mv"direnv* -> direnv" \
     atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src"zhook.zsh"
-zplugin light "direnv/direnv"
+zinit light "direnv/direnv"
 
 # pyenv
-zplugin ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
+zinit ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
     atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
     as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!'
-zplugin light "pyenv/pyenv"
+zinit light "pyenv/pyenv"
 
 # rbenv
-zplugin ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
+zinit ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
     atinit'export RBENV_ROOT="$PWD"' atpull"%atclone" \
     as'command' pick'bin/rbenv' src"zrbenv.zsh" nocompile'!'
-zplugin light "rbenv/rbenv"
+zinit light "rbenv/rbenv"
 
 ########## Function
 # history
-zplugin ice wait lucid
-zplugin snippet "https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/f6f1f70e43f2c62d6d5eae16d47f78da208b17f3/fzf-history.zsh"
+zinit ice wait lucid
+zinit snippet "https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/f6f1f70e43f2c62d6d5eae16d47f78da208b17f3/fzf-history.zsh"
 # ssh
-zplugin ice wait lucid
-zplugin snippet "https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/402372539ffeca45812497ae0a5a54108fc6a36d/fzf-ssh.zsh"
+zinit ice wait lucid
+zinit snippet "https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/402372539ffeca45812497ae0a5a54108fc6a36d/fzf-ssh.zsh"
 # branch
-zplugin ice wait lucid
-zplugin snippet "https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/229483b3fbc60dc41ee778d678a87cba72ddfa7a/fzf-branch.zsh"
+zinit ice wait lucid
+zinit snippet "https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/229483b3fbc60dc41ee778d678a87cba72ddfa7a/fzf-branch.zsh"
 # ghq
-zplugin ice wait lucid
-zplugin snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/5b598d4df6fdbb5b52002653deec144aa5b72b59/fzf-ghq.zsh"
+zinit ice wait lucid
+zinit snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/5b598d4df6fdbb5b52002653deec144aa5b72b59/fzf-ghq.zsh"

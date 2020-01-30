@@ -1,8 +1,8 @@
 ########################################
 ### Added by zplugin's installer
-source "$HOME/.zplugin/bin/zplugin.zsh"
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+source "/home/dohq/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 source "$HOME/.zsh_plug"
 ### End of Zplugin's installer chunk
 
@@ -15,15 +15,6 @@ fi
 if [[ -f ~/.token ]]; then
   source ~/.token
 fi
-
-########################################
-# compinit
-## loaded zplugin
-# autoload -Uz compinit
-# for dump in ~/.zcompdump(N.mh+24); do
-#   compinit
-# done
-# compinit -C
 
 ########################################
 # 色を使用出来るようにする
