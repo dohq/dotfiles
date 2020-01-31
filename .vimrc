@@ -61,6 +61,7 @@ if !has('nvim')
 endif
 Plug 'andymass/vim-matchup'
 Plug 'voldikss/vim-translator'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -646,6 +647,9 @@ augroup END
 let g:translator_default_engines = ['google', 'bing']
 let g:translator_target_lang = 'ja'
 let g:translator_history_enable = v:true
+" }}}
+" Clap {{{
+let g:clap_theme = 'material_design_dark'
 " }}}
 " user command {{{
 " Auto plugin install {{{
