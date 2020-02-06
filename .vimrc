@@ -56,6 +56,7 @@ Plug 'y0za/vim-reading-vimrc'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
+Plug 'kana/vim-operator-replace'
 if !has('nvim')
   Plug 'mattn/vim-pixela'
 endif
@@ -550,6 +551,7 @@ if executable('ag')
   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
 endif
 
+let g:fruzzy#usenative = 1
 let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
 let g:ctrlp_match_current_file = 1 " to include current file in matches
 
@@ -613,6 +615,7 @@ autocmd FileType terraform setlocal commentstring=#%s
 " operator-user {{{
 map y <Plug>(operator-flashy)
 nmap Y 0<Plug>(operator-flashy)$
+nmap s <Plug>(operator-replace)
 " }}}
 " neoformat {{{
 " Enable alignment
