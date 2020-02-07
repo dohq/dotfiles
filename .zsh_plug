@@ -62,4 +62,4 @@ zinit ice wait lucid
 zinit snippet "https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/229483b3fbc60dc41ee778d678a87cba72ddfa7a/fzf-branch.zsh"
 # ghq
 zinit ice wait lucid
-zinit snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/5b598d4df6fdbb5b52002653deec144aa5b72b59/fzf-ghq.zsh"
+zinit snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/48907f538b984a5997cdef276265ea4d5a5cd983/fzf-ghq.zsh"
