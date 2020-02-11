@@ -132,10 +132,12 @@ Plug 'cespare/vim-toml',                    {'for': 'toml'}
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " yaml
 Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
+Plug 'pearofducks/ansible-vim',             {'for': 'yaml'}
 " Dockerfile
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
 " Jinja2
 Plug 'Glench/Vim-Jinja2-Syntax'
+
 
 
 call plug#end()
@@ -317,14 +319,6 @@ let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_enable_snippet_support = v:false
 let g:lsc_server_commands = {}
-if executable('yaml-language-server')
-  let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
-  autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
-endif
-if executable('bash-language-server')
-  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
-  autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
-endif
 if executable('pyls')
   let g:lsc_server_commands['python'] = {
         \ 'command': 'pyls',
@@ -345,14 +339,26 @@ if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
   autocmd vimrc FileType terraform setlocal omnifunc=lsc#complete#complete
 endif
-if executable('docker-langserver')
-  let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
-  autocmd vimrc FileType dockerfile setlocal omnifunc=lsc#complete#complete
-endif
 if executable('rls')
   let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
   autocmd vimrc FileType rust setlocal omnifunc=lsc#complete#complete
 endif
+" if executable('solargraph')
+"   let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio'}
+"   autocmd vimrc FileType ruby setlocal omnifunc=lsc#complete#complete
+" endif
+" if executable('yaml-language-server')
+"   let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
+"   autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
+" endif
+" if executable('bash-language-server')
+"   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
+"   autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
+" endif
+" if executable('docker-langserver')
+"   let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
+"   autocmd vimrc FileType dockerfile setlocal omnifunc=lsc#complete#complete
+" endif
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -644,7 +650,6 @@ augroup LightLineOnVista
 augroup END
 " }}}
 " Ansible {{{
-" au BufRead,BufNewFile */Ansible/*.yml set filetype=yaml.ansible
 " }}}
 " Translate {{{
 let g:translator_default_engines = ['google', 'bing']
@@ -653,6 +658,10 @@ let g:translator_history_enable = v:true
 " }}}
 " Clap {{{
 let g:clap_theme = 'material_design_dark'
+" }}}
+" vim-test {{{
+let test#strategy = "asyncrun"
+let g:asyncrun_open = 8
 " }}}
 " user command {{{
 " Auto plugin install {{{
@@ -730,6 +739,3 @@ elseif has('unix')
   let g:python_host_prog = '/usr/bin/python'
   let g:python3_host_prog = '/usr/bin/python3'
 endif
-let test#strategy = "asyncrun"
-
-let g:asyncrun_open = 8
