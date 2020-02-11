@@ -23,6 +23,7 @@ path=(
   $HOME/.cargo/bin(N-/)
   $HOME/.gem/ruby/2.5.0/bin(N-/)
   $HOME/.gem/ruby/2.6.0/bin(N-/)
+  $HOME/.gem/ruby/2.7.0/bin(N-/)
   $HOME/perl5/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   /usr/local/bin(N-/)
