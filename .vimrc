@@ -66,7 +66,9 @@ Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
-Plug 'SirVer/ultisnips'
+if has('python3')
+  Plug 'SirVer/ultisnips'
+endif
 Plug 'cohama/lexima.vim'
 Plug 'honza/vim-snippets'
 Plug 'mattn/sonictemplate-vim'
@@ -78,7 +80,8 @@ Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'liuchengxu/vista.vim'
 " autocomplete
-Plug 'lifepillar/vim-mucomplete'
+" Plug 'lifepillar/vim-mucomplete'
+Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
@@ -101,6 +104,7 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/gina.vim'
+Plug 'jreybert/vimagit'
 Plug 'rhysd/git-messenger.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
@@ -303,17 +307,25 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" mucomplete {{{
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay= 2
-let g:mucomplete#reopen_immediately = 0
-let g:mucomplete#no_mappings = 1
-imap <c-n> <plug>(MUcompleteFwd)
-imap <c-p> <plug>(MUcompleteBwd)
-" }}}
+" " mucomplete {{{
+" let g:mucomplete#enable_auto_at_startup = 1
+" let g:mucomplete#completion_delay= 2
+" let g:mucomplete#reopen_immediately = 0
+" let g:mucomplete#no_mappings = 1
+" imap <c-n> <plug>(MUcompleteFwd)
+" imap <c-p> <plug>(MUcompleteBwd)
+" " }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:false
-let g:lsc_auto_map = v:true
+" let g:lsc_auto_map = v:true
+let g:lsc_auto_map = {
+      \  'GoToDefinition': 'gd',
+      \  'FindReferences': 'gr',
+      \  'Rename': 'gR',
+      \  'ShowHover': 'K',
+      \  'FindCodeActions': 'ga',
+      \  'Completion': 'omnifunc',
+      \}
 let g:lsc_complete_timeout = 0.3
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
@@ -342,6 +354,11 @@ endif
 if executable('rls')
   let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
   autocmd vimrc FileType rust setlocal omnifunc=lsc#complete#complete
+endif
+if executable('efm-langserver')
+  let g:lsc_server_commands['yaml'] = {'command': 'efm-langserver', 'suppress_stderr': v:true}
+  let g:lsc_server_commands['yaml.ansible'] = {'command': 'efm-langserver', 'suppress_stderr': v:true}
+  let g:lsc_server_commands['sh'] = {'command': 'efm-langserver', 'suppress_stderr': v:true}
 endif
 " if executable('solargraph')
 "   let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio'}
