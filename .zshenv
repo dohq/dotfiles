@@ -9,6 +9,7 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export USE_CCACHE=1
 export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
+export VAGRANT_DEFAULT_PROVIDER=libvirt
 if [[ -d /mnt/ssd/ccache ]]; then
   export CCACHE_DIR=/mnt/ssd/ccache
 fi
