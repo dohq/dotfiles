@@ -10,8 +10,11 @@ export USE_CCACHE=1
 export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
-if [[ -d /mnt/ssd/ccache ]]; then
-  export CCACHE_DIR=/mnt/ssd/ccache
+if [[ -d /mnt/ssd/cache/ccache ]]; then
+  export CCACHE_DIR=/mnt/ssd/cache/ccache
+fi
+if [[ -d /mnt/ssd/cache/sccache ]]; then
+  export SCCACHE_DIR=/mnt/ssd/cache/sccache
 fi
 
 # PATH
