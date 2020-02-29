@@ -21,7 +21,7 @@ endif
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-colorscheme seoul256
+colorscheme vitaminonec
 
 "----------------------------------------
 " FontSetting

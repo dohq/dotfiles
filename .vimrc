@@ -355,15 +355,6 @@ if executable('rls')
   let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
   autocmd vimrc FileType rust setlocal omnifunc=lsc#complete#complete
 endif
-if executable('efm-langserver')
-  let g:lsc_server_commands['yaml'] = {'command': 'efm-langserver', 'suppress_stderr': v:true}
-  let g:lsc_server_commands['yaml.ansible'] = {'command': 'efm-langserver', 'suppress_stderr': v:true}
-  let g:lsc_server_commands['sh'] = {'command': 'efm-langserver', 'suppress_stderr': v:true}
-endif
-" if executable('solargraph')
-"   let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio'}
-"   autocmd vimrc FileType ruby setlocal omnifunc=lsc#complete#complete
-" endif
 " if executable('yaml-language-server')
 "   let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
 "   autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
@@ -371,10 +362,6 @@ endif
 " if executable('bash-language-server')
 "   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
 "   autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
-" endif
-" if executable('docker-langserver')
-"   let g:lsc_server_commands['dockerfile'] = {'command': 'docker-langserver --stdio', 'suppress_stderr': v:true}
-"   autocmd vimrc FileType dockerfile setlocal omnifunc=lsc#complete#complete
 " endif
 " }}}
 " ultisnips {{{
