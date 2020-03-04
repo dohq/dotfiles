@@ -62,6 +62,7 @@ if !has('nvim')
 endif
 Plug 'andymass/vim-matchup'
 Plug 'voldikss/vim-translator'
+Plug 'thinca/vim-qfreplace'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
@@ -80,8 +81,8 @@ Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'liuchengxu/vista.vim'
 " autocomplete
-" Plug 'lifepillar/vim-mucomplete'
-Plug 'ajh17/VimCompletesMe'
+Plug 'lifepillar/vim-mucomplete'
+" Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
@@ -307,17 +308,16 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" " mucomplete {{{
-" let g:mucomplete#enable_auto_at_startup = 1
-" let g:mucomplete#completion_delay= 2
-" let g:mucomplete#reopen_immediately = 0
-" let g:mucomplete#no_mappings = 1
-" imap <c-n> <plug>(MUcompleteFwd)
-" imap <c-p> <plug>(MUcompleteBwd)
+" mucomplete {{{
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay= 2
+let g:mucomplete#reopen_immediately = 0
+let g:mucomplete#no_mappings = 1
+imap <c-n> <plug>(MUcompleteFwd)
+imap <c-p> <plug>(MUcompleteBwd)
 " " }}}
 " LSC {{{
-let g:lsc_enable_autocomplete = v:false
-" let g:lsc_auto_map = v:true
+let g:lsc_enable_autocomplete = v:true
 let g:lsc_auto_map = {
       \  'GoToDefinition': 'gd',
       \  'FindReferences': 'gr',
@@ -326,7 +326,7 @@ let g:lsc_auto_map = {
       \  'FindCodeActions': 'ga',
       \  'Completion': 'omnifunc',
       \}
-let g:lsc_complete_timeout = 0.3
+let g:lsc_complete_timeout = 0.2
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_enable_snippet_support = v:false
@@ -384,8 +384,8 @@ let g:quickrun_config = {
       \       'outputter/error/error' : 'quickfix',
       \       'outputter/buffer/split' : ':botright 8',
       \       'outputter/buffer/close_on_empty' : 1,
-      \       'outputter/buffer/into' : 1,
-      \       'outputter/quickfix/into' : 1,
+      \       'outputter/buffer/into' : 0,
+      \       'outputter/quickfix/into' : 0,
       \   },
       \}
 
@@ -670,6 +670,7 @@ let g:asyncrun_open = 8
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
+  autocmd!
   autocmd VimEnter *
         \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
         \|   PlugInstall --sync | q
