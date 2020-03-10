@@ -7,6 +7,7 @@ export PERL_LOCAL_LIB_ROOT=$HOME/perl5
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export USE_CCACHE=1
+export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
@@ -69,7 +70,7 @@ alias kcx='kubectx'
 
 # terraform
 alias tf='terraform'
-alias tfpp='terraform plan -out plan'
+alias tfpp='terraform plan -out plan --parallelism=30'
 alias tfap='terraform apply plan'
 alias tfop='terraform output'
 alias tfvt='terraform validate'

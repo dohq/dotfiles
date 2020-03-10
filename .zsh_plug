@@ -1,10 +1,8 @@
 # auto suggestions
-zinit ice wait lucid atload"!_zsh_autosuggest_start"
-  zinit load "zsh-users/zsh-autosuggestions"
+zinit light "zsh-users/zsh-autosuggestions"
 
 # syntax highlighting
-zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
-  zinit light zdharma/fast-syntax-highlighting
+zinit light "zdharma/fast-syntax-highlighting"
 
 # up command
 zinit ice wait lucid
