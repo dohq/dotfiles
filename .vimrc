@@ -408,7 +408,7 @@ let g:lightline = {
       \ 'colorscheme': 'vitaminonec',
       \ 'active': {
       \   'left': [['mode', 'paste'],
-      \            ['gitbranch', 'filename']],
+      \            ['gitbranch', 'relativepath']],
       \   'right': [['lineinfo'],
       \             ['method', 'fileformat', 'fileencoding', 'filetype']]
       \ },
@@ -417,14 +417,6 @@ let g:lightline = {
       \   'method': 'NearestMethodOrFunction',
       \ },
       \}
-
-function! FileName()
-  let s:name = expand('%:t')
-  let s:name = s:name !=# '' ? s:name : '[No Name]'
-  let s:readonly = &readonly ? ' Ro' : ''
-  let s:modified = &modified ? ' Nm' : ''
-  return s:readonly . s:name . s:modified
-endfunction
 
 function! Branch()
   try
