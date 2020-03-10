@@ -1,10 +1,10 @@
 ########################################
-### Added by zplugin's installer
+### Added of Zinit's installer chunk
 source "/home/dohq/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 source "$HOME/.zsh_plug"
-### End of Zplugin's installer chunk
+### End of Zinit's installer chunk
 
 ########################################
 # source zsh_local
