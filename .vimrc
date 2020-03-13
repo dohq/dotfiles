@@ -408,7 +408,7 @@ let g:lightline = {
       \ 'colorscheme': 'vitaminonec',
       \ 'active': {
       \   'left': [['mode', 'paste'],
-      \            ['gitbranch', 'relativepath']],
+      \            ['gitbranch', 'absolutepath']],
       \   'right': [['lineinfo'],
       \             ['method', 'fileformat', 'fileencoding', 'filetype']]
       \ },
