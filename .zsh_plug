@@ -1,8 +1,9 @@
 # auto suggestions
-zinit light "zsh-users/zsh-autosuggestions"
+zinit ice wait lucid atload"!_zsh_autosuggest_start"
+  zinit load "zsh-users/zsh-autosuggestions"
 
-# syntax highlighting
-zinit light "zdharma/fast-syntax-highlighting"
+zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
+  zinit light "zdharma/fast-syntax-highlighting"
 
 # up command
 zinit ice wait lucid
@@ -10,12 +11,7 @@ zinit ice wait lucid
 
 # completion
 zinit ice wait lucid blockf atpull'zinit creinstall -q .'
-  zinit light zsh-users/zsh-completions
-
-# abbrev
-# zinit ice wait lucid blockf
-zinit ice wait'!0' lucid blockf
-  zinit light "momo-lab/zsh-abbrev-alias"
+  zinit light "zsh-users/zsh-completions"
 
 # git status prompt
 zinit ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
@@ -26,10 +22,8 @@ zinit ice as"command" from"gh-r" mv"fd* -> fd" pick"fd/fd"
   zinit light "sharkdp/fd"
 
 # ls color
-zinit ice wait lucid atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zinit light "trapd00r/LS_COLORS"
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+  zinit light "trapd00r/LS_COLORS"
 
 # direnv
 zinit ice from"gh-r" as"program" mv"direnv* -> direnv" \
@@ -47,6 +41,10 @@ zinit ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
     atinit'export RBENV_ROOT="$PWD"' atpull"%atclone" \
     as'command' pick'bin/rbenv' src"zrbenv.zsh" nocompile'!'
 zinit light "rbenv/rbenv"
+
+# fzf
+zinit ice from"gh-r" as"program"
+  zinit load junegunn/fzf-bin
 
 ########## Function
 # history

@@ -11,6 +11,7 @@ export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
+export RUSTC_WRAPPER=$(which sccache)
 if [[ -d /mnt/ssd/cache/ccache ]]; then
   export CCACHE_DIR=/mnt/ssd/cache/ccache
 fi
