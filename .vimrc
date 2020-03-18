@@ -81,8 +81,8 @@ Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'liuchengxu/vista.vim'
 " autocomplete
-Plug 'lifepillar/vim-mucomplete'
-" Plug 'ajh17/VimCompletesMe'
+" Plug 'lifepillar/vim-mucomplete'
+Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'Yggdroot/indentLine'
@@ -308,28 +308,31 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" mucomplete {{{
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay= 2
-let g:mucomplete#reopen_immediately = 0
-let g:mucomplete#no_mappings = 1
-imap <c-n> <plug>(MUcompleteFwd)
-imap <c-p> <plug>(MUcompleteBwd)
-" " }}}
+" " mucomplete {{{
+" let g:mucomplete#enable_auto_at_startup = 1
+" let g:mucomplete#completion_delay= 2
+" let g:mucomplete#reopen_immediately = 0
+" let g:mucomplete#no_mappings = 1
+" imap <c-n> <plug>(MUcompleteFwd)
+" imap <c-p> <plug>(MUcompleteBwd)
+" " " }}}
+" VimCompletesMe {{{
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+autocmd vimrc FileType go let b:vcm_tab_complete = "omni"
+autocmd vimrc FileType terraform let b:vcm_tab_complete = "omni"
+autocmd vimrc FileType python let b:vcm_tab_complete = "omni"
+autocmd vimrc FileType rust let b:vcm_tab_complete = "omni"
+" }}}
 " LSC {{{
-let g:lsc_enable_autocomplete = v:true
-let g:lsc_auto_map = {
-      \  'GoToDefinition': 'gd',
-      \  'FindReferences': 'gr',
-      \  'Rename': 'gR',
-      \  'ShowHover': 'K',
-      \  'FindCodeActions': 'ga',
-      \  'Completion': 'omnifunc',
-      \}
+let g:lsc_auto_map = v:true
+let g:lsc_enable_autocomplete = v:false
+let g:lsc_auto_completeopt = v:false
 let g:lsc_complete_timeout = 0.2
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_enable_snippet_support = v:false
+let g:lsc_trace_level = 'off'
+
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {
@@ -355,14 +358,14 @@ if executable('rls')
   let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
   autocmd vimrc FileType rust setlocal omnifunc=lsc#complete#complete
 endif
-" if executable('yaml-language-server')
-"   let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
-"   autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
-" endif
-" if executable('bash-language-server')
-"   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
-"   autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
-" endif
+if executable('yaml-language-server')
+  let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
+  autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
+endif
+if executable('bash-language-server')
+  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
+  autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
+endif
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -487,7 +490,6 @@ augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
-  autocmd vimrc FileType go set omnifunc=lsc#complete#complete
 augroup END
 " }}}
 " vim-indent-line {{{
@@ -620,6 +622,7 @@ nmap Y 0<Plug>(operator-flashy)$
 nmap s <Plug>(operator-replace)
 " }}}
 " neoformat {{{
+let g:neoformat_try_formatprg = 1
 " Enable alignment
 let g:neoformat_basic_format_align = 1
 " Enable tab to spaces conversion
