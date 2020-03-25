@@ -89,6 +89,11 @@ alias gnd='git init && git config user.name "dohq" && git config user.email "dor
 alias gp='git push'
 alias gs='git status'
 
+# podman
+if command -v podman >/dev/null; then
+  alias docker='podman'
+fi
+
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
 
