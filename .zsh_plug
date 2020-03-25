@@ -63,3 +63,6 @@ zinit snippet "https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912
 # ghq
 zinit ice wait lucid
 zinit snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/48907f538b984a5997cdef276265ea4d5a5cd983/fzf-ghq.zsh"
+# kubectl
+zinit ice wait lucid
+zinit snippet "https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases"
