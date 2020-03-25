@@ -81,7 +81,6 @@ Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'liuchengxu/vista.vim'
 " autocomplete
-" Plug 'lifepillar/vim-mucomplete'
 Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
@@ -101,6 +100,7 @@ Plug 'basyura/twibill.vim'
 Plug 'mattn/webapi-vim'
 Plug 'tyru/open-browser.vim'
 " Git
+Plug 'tpope/vim-git'
 Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
@@ -126,7 +126,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
 Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
-Plug 'arp242/gopher.vim',                   {'for': 'go'}
+Plug 'mattn/vim-goimports',                 {'for': 'go'}
 Plug 'buoto/gotests-vim',                   {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
@@ -141,7 +141,7 @@ Plug 'pearofducks/ansible-vim',             {'for': 'yaml'}
 " Dockerfile
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
 " Jinja2
-Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'Glench/Vim-Jinja2-Syntax',            {'for': 'jinja'}
 
 
 
@@ -186,7 +186,9 @@ set belloff=all
 set cmdheight=2
 set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
-set diffopt=internal,filler,algorithm:histogram,indent-heuristic
+if has('nvim-0.3.2') || has('patch-8.1.0360')
+    set diffopt+=internal,algorithm:histogram,indent-heuristic
+endif
 set display=lastline
 set expandtab
 set fileformat=unix
@@ -308,14 +310,6 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" " mucomplete {{{
-" let g:mucomplete#enable_auto_at_startup = 1
-" let g:mucomplete#completion_delay= 2
-" let g:mucomplete#reopen_immediately = 0
-" let g:mucomplete#no_mappings = 1
-" imap <c-n> <plug>(MUcompleteFwd)
-" imap <c-p> <plug>(MUcompleteBwd)
-" " " }}}
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 autocmd vimrc FileType go let b:vcm_tab_complete = "omni"
@@ -324,7 +318,16 @@ autocmd vimrc FileType python let b:vcm_tab_complete = "omni"
 autocmd vimrc FileType rust let b:vcm_tab_complete = "omni"
 " }}}
 " LSC {{{
-let g:lsc_auto_map = v:true
+" let g:lsc_auto_map = v:true
+let g:lsc_auto_map = {
+ \  'FindCodeActions': 'gA',
+ \  'GoToDefinition': 'gd',
+ \  'GoToDefinitionSplit': 'gs',
+ \  'FindReferences': 'gr',
+ \  'Rename': 'gR',
+ \  'ShowHover': 'K',
+ \  'Completion': 'omnifunc',
+ \}
 let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_completeopt = v:false
 let g:lsc_complete_timeout = 0.2
