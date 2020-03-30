@@ -42,9 +42,15 @@ zinit light "rbenv/rbenv"
 zinit ice from"gh-r" as"program"
   zinit load "junegunn/fzf-bin"
 
-# # dalance/procs
-# zinit ice as"command" from"gh-r" mv"procs* -> procs" pick"procs/procs"
-#   zinit light "dalance/procs"
+# hub
+zinit ice from"gh-r" as"program" mv"hub-*/bin/hub -> hub" pick"hub"
+  zinit light "github/hub"
+
+# ghq
+zinit ice from"gh-r" as"program" mv"ghq_*/ghq -> ghq" pick"ghq"
+  zinit light "x-motemen/ghq"
+zinit ice silent as"completion"
+  zinit snippet "https://github.com/x-motemen/ghq/blob/master/misc/zsh/_ghq"
 
 # ogham/exa
 zinit ice as"command" from"gh-r" mv"exa* -> exa" pick"exa/exa"
