@@ -142,6 +142,8 @@ Plug 'pearofducks/ansible-vim',             {'for': 'yaml'}
 Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
 " Jinja2
 Plug 'Glench/Vim-Jinja2-Syntax',            {'for': 'jinja'}
+" zsh
+Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 
 
 
