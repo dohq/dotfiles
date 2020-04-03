@@ -43,6 +43,10 @@ zinit light "rbenv/rbenv"
 zinit ice lucid from"gh-r" sbin"fzf"
   zinit load "junegunn/fzf-bin"
 
+# peco
+zinit ice lucid from"gh-r" sbin"peco" mv"peco_*/peco -> peco"
+  zinit light "peco/peco"
+
 # bat
 zinit ice lucid from"gh-r" sbin"bat" mv"bat-*/bat -> bat"
   zinit light "sharkdp/bat"
@@ -59,12 +63,23 @@ zinit ice lucid from"gh-r" sbin"hub" mv"hub-*/bin/hub -> hub"
 zinit ice lucid from"gh-r" sbin"exa" mv"exa* -> exa"
   zinit light "ogham/exa"
 
+# ripgrep
+zinit ice lucid from"gh-r" sbin"rg" mv"ripgrep-*/rg -> rg"
+  zinit light "BurntSushi/ripgrep"
+
+zinit ice lucid silent as"completion"
+  zinit snippet "https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg"
+
 # ghq
 zinit ice lucid from"gh-r" sbin"ghq" mv"ghq_*/ghq -> ghq"
   zinit light "x-motemen/ghq"
 
 zinit ice lucid silent as"completion"
   zinit snippet "https://github.com/x-motemen/ghq/blob/master/misc/zsh/_ghq"
+
+# bosh
+zinit ice lucid from"gh-r" sbin"bosh" mv"bosh-cli-* -> bosh"
+  zinit load "cloudfoundry/bosh-cli"
 
 # credhub-cli
 zinit ice lucid from"gh-r" sbin"credhub"
