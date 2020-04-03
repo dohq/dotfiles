@@ -189,7 +189,7 @@ set cmdheight=2
 set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
 if has('nvim-0.3.2') || has('patch-8.1.0360')
-    set diffopt+=internal,algorithm:histogram,indent-heuristic
+  set diffopt+=internal,algorithm:histogram,indent-heuristic
 endif
 set display=lastline
 set expandtab
@@ -322,14 +322,14 @@ autocmd vimrc FileType rust let b:vcm_tab_complete = "omni"
 " LSC {{{
 " let g:lsc_auto_map = v:true
 let g:lsc_auto_map = {
- \  'FindCodeActions': 'gA',
- \  'GoToDefinition': 'gd',
- \  'GoToDefinitionSplit': 'gs',
- \  'FindReferences': 'gr',
- \  'Rename': 'gR',
- \  'ShowHover': 'K',
- \  'Completion': 'omnifunc',
- \}
+      \  'FindCodeActions': 'gA',
+      \  'GoToDefinition': 'gd',
+      \  'GoToDefinitionSplit': 'gs',
+      \  'FindReferences': 'gr',
+      \  'Rename': 'gR',
+      \  'ShowHover': 'K',
+      \  'Completion': 'omnifunc',
+      \}
 let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_completeopt = v:false
 let g:lsc_complete_timeout = 0.2
