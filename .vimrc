@@ -80,9 +80,12 @@ Plug 'tyru/eskk.vim'
 Plug 'kana/vim-operator-user'
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'liuchengxu/vista.vim'
+Plug 'rhysd/conflict-marker.vim'
 " autocomplete
-Plug 'ajh17/VimCompletesMe'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'natebosch/vim-lsc'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 " Visual
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
@@ -272,7 +275,6 @@ inoremap <Right> <Nop>
 " Switch
 nnoremap <silent> <leader>s :Switch<CR>
 
-
 " sandwich
 nmap s <Nop>
 xmap s <Nop>
@@ -312,15 +314,14 @@ vnoremap x "_x
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" VimCompletesMe {{{
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-autocmd vimrc FileType go let b:vcm_tab_complete = "omni"
-autocmd vimrc FileType terraform let b:vcm_tab_complete = "omni"
-autocmd vimrc FileType python let b:vcm_tab_complete = "omni"
-autocmd vimrc FileType rust let b:vcm_tab_complete = "omni"
+" vim-mucomplete {{{
+inoremap <expr> <cr> pumvisible() ? "<c-y><cr>" : "<cr>"
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#no_mappings = 1
+imap <Tab> <plug>(MUcompleteFwd)
+imap <S-Tab> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
-" let g:lsc_auto_map = v:true
 let g:lsc_auto_map = {
       \  'FindCodeActions': 'gA',
       \  'GoToDefinition': 'gd',
@@ -349,27 +350,35 @@ if executable('pyls')
         \   }},
         \ },
         \ }
-  autocmd vimrc FileType python setlocal omnifunc=lsc#complete#complete
 endif
 if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
-  autocmd vimrc FileType go setlocal omnifunc=lsc#complete#complete
+  let g:lsc_server_commands['go'] = {
+        \ 'command': 'gopls serve',
+        \ 'initialization_options': {
+        \   'usePlaceholders': v:true,
+        \   'hoverKind': 'FullDocumentation',
+        \   'completeUnimported': v:true,
+        \ },
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \ }
 endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
-  autocmd vimrc FileType terraform setlocal omnifunc=lsc#complete#complete
 endif
 if executable('rls')
   let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
-  autocmd vimrc FileType rust setlocal omnifunc=lsc#complete#complete
-endif
-if executable('yaml-language-server')
-  let g:lsc_server_commands['yaml'] = {'command': 'yaml-language-server --stdio'}
-  autocmd vimrc FileType yaml setlocal omnifunc=lsc#complete#complete
 endif
 if executable('bash-language-server')
-  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start'}
-  autocmd vimrc FileType sh setlocal omnifunc=lsc#complete#complete
+  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
+endif
+if executable('concourse-language-server')
+  autocmd BufRead,BufNewFile *pipeline*.yml set filetype=yaml.concourse
+  let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
+endif
+if executable('manifest-yaml-language-server')
+  autocmd BufRead,BufNewFile *manifest*.yml set filetype=yaml.manifest
+  let g:lsc_server_commands['yaml.manifest'] = {'command': 'manifest-yaml-language-server', 'suppress_stderr': v:true}
 endif
 " }}}
 " ultisnips {{{
@@ -403,6 +412,9 @@ if has('win32')
         \     'hook/output_encode/encoding' : 'cp932',
         \}
 endif
+autocmd BufRead,BufNewFile *_test.go set filetype=go.test
+let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
+let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
 
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
@@ -653,12 +665,9 @@ augroup LightLineOnVista
   autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 augroup END
 " }}}
-" Ansible {{{
-" }}}
 " Translate {{{
 let g:translator_default_engines = ['google', 'bing']
 let g:translator_target_lang = 'ja'
-let g:translator_history_enable = v:true
 " }}}
 " Clap {{{
 let g:clap_theme = 'material_design_dark'
