@@ -217,6 +217,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 2"
 bindsym XF86Tools exec --no-startup-id "/home/dohq/dotfiles/scripts/toggle_touchpad.sh"
 for_window [class="gimp"] floating disable
 for_window [class="mpv"] floating enable
+for_window [class="vlc"] floating enable
 for_window [class="KeePassXC"] floating enable
 for_window [class="Zeal"] floating enable
 for_window [class="Gscreenshot"] floating enable
