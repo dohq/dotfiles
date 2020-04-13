@@ -59,6 +59,10 @@ zinit ice lucid from"gh-r" sbin"fd" mv"fd-*/fd -> fd"
 zinit ice lucid from"gh-r" sbin"hub" mv"hub-*/bin/hub -> hub"
   zinit light "github/hub"
 
+# bootandy/dust
+zinit ice lucid from"gh-r" sbin"dust" mv"dust-*/dust -> dust"
+  zinit light "bootandy/dust"
+
 # ogham/exa
 zinit ice lucid from"gh-r" sbin"exa" mv"exa* -> exa"
   zinit light "ogham/exa"
