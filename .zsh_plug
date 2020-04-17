@@ -1,31 +1,24 @@
-zinit light zinit-zsh/z-a-bin-gem-node
-# auto suggestions
-zinit ice wait lucid atload"!_zsh_autosuggest_start"
-  zinit load "zsh-users/zsh-autosuggestions"
+zinit wait lucid for \
+  peterhurford/up.zsh \
+  atinit"zpcompinit; zpcdreplay"  zdharma/fast-syntax-highlighting \
+  blockf                          zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
 
-zinit ice wait lucid atinit"zpcompinit; zpcdreplay"
-  zinit light "zdharma/fast-syntax-highlighting"
-
-# up command
-zinit ice wait lucid
-  zinit light "peterhurford/up.zsh"
-
-# completion
-zinit ice wait lucid blockf atpull'zinit creinstall -q .'
-  zinit light "zsh-users/zsh-completions"
+# ls color
+zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
+    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zinit light trapd00r/LS_COLORS
 
 # git status prompt
 zinit ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
-  zinit light "romkatv/gitstatus"
-
-# ls color
-zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
-  zinit light "trapd00r/LS_COLORS"
+zinit light "romkatv/gitstatus"
 
 # direnv
-zinit ice from"gh-r" as"command" mv"direnv* -> direnv" \
-    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src"zhook.zsh"
-zinit light "direnv/direnv"
+zinit from"gh-r" as"program" mv"direnv* -> direnv" \
+    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+    pick"direnv" src="zhook.zsh" for \
+        direnv/direnv
 
 # pyenv
 zinit ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
@@ -39,63 +32,27 @@ zinit ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
     as'command' pick'bin/rbenv' src"zrbenv.zsh" nocompile'!'
 zinit light "rbenv/rbenv"
 
-# fzf
-zinit ice lucid from"gh-r" sbin"fzf"
-  zinit load "junegunn/fzf-bin"
-
-# peco
-zinit ice lucid from"gh-r" sbin"peco" mv"peco_*/peco -> peco"
-  zinit light "peco/peco"
+# Binary
+zinit wait"2" as"null" lucid from"gh-r" for \
+  mv"fzf -> $ZPFX/bin/fzf" junegunn/fzf-bin \
+  mv"peco_*/peco -> $ZPFX/bin/peco" peco/peco \
+  mv"dust-*/dust -> $ZPFX/bin/dust" bootandy/dust \
+  mv"ripgrep-*/rg -> $ZPFX/bin/rg" BurntSushi/ripgrep \
+  mv"ghq_*/ghq -> $ZPFX/bin/ghq" x-motemen/ghq \
+  mv"bosh-cli-* -> $ZPFX/bin/bosh" cloudfoundry/bosh-cli \
+  mv"credhub -> $ZPFX/bin/credhub" cloudfoundry-incubator/credhub-cli \
+  mv"om-* -> $ZPFX/bin/om" pivotal-cf/om \
+  bpick"fly-*" mv"fly -> $ZPFX/bin/fly" concourse/concourse \
 
 # bat
-zinit ice lucid from"gh-r" sbin"bat" mv"bat-*/bat -> bat"
-  zinit light "sharkdp/bat"
-
+zinit ice lucid from"gh-r" mv"bat-*/bat -> $ZPFX/bin/bat"
+zinit light "sharkdp/bat"
 # fd
-zinit ice lucid from"gh-r" sbin"fd" mv"fd-*/fd -> fd"
-  zinit light "sharkdp/fd"
-
+zinit ice lucid from"gh-r" mv"fd-*/fd -> $ZPFX/bin/fd"
+zinit light "sharkdp/fd"
 # hub
-zinit ice lucid from"gh-r" sbin"hub" mv"hub-*/bin/hub -> hub"
-  zinit light "github/hub"
-
-# bootandy/dust
-zinit ice lucid from"gh-r" sbin"dust" mv"dust-*/dust -> dust"
-  zinit light "bootandy/dust"
-
-# ogham/exa
-zinit ice lucid from"gh-r" sbin"exa" mv"exa* -> exa"
-  zinit light "ogham/exa"
-
-# ripgrep
-zinit ice lucid from"gh-r" sbin"rg" mv"ripgrep-*/rg -> rg"
-  zinit light "BurntSushi/ripgrep"
-
-zinit ice lucid silent as"completion"
-  zinit snippet "https://github.com/BurntSushi/ripgrep/blob/master/complete/_rg"
-
-# ghq
-zinit ice lucid from"gh-r" sbin"ghq" mv"ghq_*/ghq -> ghq"
-  zinit light "x-motemen/ghq"
-
-zinit ice lucid silent as"completion"
-  zinit snippet "https://github.com/x-motemen/ghq/blob/master/misc/zsh/_ghq"
-
-# bosh
-zinit ice lucid from"gh-r" sbin"bosh" mv"bosh-cli-* -> bosh"
-  zinit load "cloudfoundry/bosh-cli"
-
-# credhub-cli
-zinit ice lucid from"gh-r" sbin"credhub"
-  zinit load "cloudfoundry-incubator/credhub-cli"
-
-# om
-zinit ice lucid from"gh-r" sbin"om" mv"om-* -> om"
-  zinit load "pivotal-cf/om"
-
-# fly
-zinit ice lucid from"gh-r" bpick"fly-*" sbin"fly"
-  zinit load "concourse/concourse"
+zinit ice lucid from"gh-r" mv"hub-*/bin/hub -> $ZPFX/bin/hub"
+zinit light "github/hub"
 
 ########## Function
 # history
