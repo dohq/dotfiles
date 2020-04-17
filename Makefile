@@ -11,6 +11,7 @@ init: ## init dotfiles
 	ln -vsf ${PWD}/.zsh_plug ${HOME}/.zsh_plug
 	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
 	ln -vsf ${PWD}/config/rofi/config ${HOME}/.config/rofi/config
+	ln -vsf ${PWD}/config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
