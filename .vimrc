@@ -300,6 +300,7 @@ cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
 
 " yanky
 nnoremap Y y$
+vnoremap y y`>
 
 " Centering search word
 nnoremap n nzz
