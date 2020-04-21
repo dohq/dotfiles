@@ -47,39 +47,30 @@ call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'justinmk/vim-dirvish'
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
+Plug 'justinmk/vim-dirvish'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
-Plug 'y0za/vim-reading-vimrc'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
+Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
-if !has('nvim')
-  Plug 'mattn/vim-pixela'
-endif
 Plug 'andymass/vim-matchup'
-Plug 'voldikss/vim-translator'
 Plug 'thinca/vim-qfreplace'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
 if has('python3')
   Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets'
 endif
 Plug 'cohama/lexima.vim'
-Plug 'honza/vim-snippets'
 Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
-Plug 'tpope/vim-speeddating'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
-Plug 'kana/vim-operator-user'
-Plug 'haya14busa/vim-operator-flashy'
-Plug 'liuchengxu/vista.vim'
 Plug 'rhysd/conflict-marker.vim'
 " autocomplete
 Plug 'lifepillar/vim-mucomplete'
@@ -87,11 +78,8 @@ Plug 'natebosch/vim-lsc'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 " Visual
-Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/seoul256.vim'
 Plug 'rhysd/try-colorscheme.vim'
-Plug 'shinchu/lightline-seoul256.vim'
 Plug 'morhetz/gruvbox'
 Plug 'gkapfham/vim-vitamin-onec'
 " QuickRun
@@ -120,7 +108,6 @@ Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 " Test
 Plug 'janko/vim-test'
-Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 " Python
 Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
@@ -148,20 +135,12 @@ Plug 'Glench/Vim-Jinja2-Syntax',            {'for': 'jinja'}
 " zsh
 Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 
-
-
 call plug#end()
 
 
 "----------------------------------------
 " Option Settings
 "----------------------------------------
-" color {{{
-set t_Co=256
-syntax on
-colorscheme vitaminonec
-set background=dark
-"}}}
 " set plugin stop {{{
 let g:loaded_matchparen        = 1
 let g:loaded_gzip              = 1
@@ -180,11 +159,17 @@ let g:loaded_netrwPlugin       = 1
 let g:loaded_netrwSettings     = 1
 let g:loaded_netrwFileHandlers = 1
 " }}}
+" color {{{
+set t_Co=256
+syntax on
+colorscheme vitaminonec
+set background=dark
+"}}}
 " Encoding {{{
 set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
-" set ambiwidth=double
+set ambiwidth=double
 set autoread
 set autowrite
 set belloff=all
@@ -196,7 +181,6 @@ if has('nvim-0.3.2') || has('patch-8.1.0360')
 endif
 set display=lastline
 set expandtab
-set fileformat=unix
 set fileformat=unix
 set foldmethod=marker
 set hidden
@@ -246,7 +230,7 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
-" let g:vim_json_syntax_conceal = 0
+let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_folding_disabled = 1
 " }}}
@@ -262,16 +246,6 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-" disable allow key
-nnoremap <Up>    <Nop>
-nnoremap <Down>  <Nop>
-nnoremap <Left>  <Nop>
-nnoremap <Right> <Nop>
-inoremap <Up>    <Nop>
-inoremap <Down>  <Nop>
-inoremap <Left>  <Nop>
-inoremap <Right> <Nop>
-
 " Switch
 nnoremap <silent> <leader>s :Switch<CR>
 
@@ -283,17 +257,8 @@ xmap s <Nop>
 nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
 nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
 
-" C-n and C-p now complete commands in command mode like up and down arrow
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
-
 " redraw and nohl
 nnoremap <silent> <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:redraw!<cr>
-
-" I don't want help right now!
-vnoremap <F1> <Esc>
-nnoremap <F1> <Esc>
-inoremap <F1> <Esc>
 
 " sudo write
 cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
@@ -305,11 +270,6 @@ vnoremap y y`>
 " Centering search word
 nnoremap n nzz
 nnoremap N Nzz
-
-" map paste, yank and delete to named register so the content
-" will not be overwritten (I know I should just remember...)
-nnoremap x "_x
-vnoremap x "_x
 " }}}
 
 "----------------------------------------
@@ -334,7 +294,7 @@ let g:lsc_auto_map = {
       \}
 let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_completeopt = v:false
-let g:lsc_complete_timeout = 0.2
+let g:lsc_complete_timeout = 1
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_enable_snippet_support = v:false
@@ -390,6 +350,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
+" Python Comment Style
+let g:ultisnips_python_style = 'sphinx'
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
@@ -431,11 +393,10 @@ let g:lightline = {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'absolutepath']],
       \   'right': [['lineinfo'],
-      \             ['method', 'fileformat', 'fileencoding', 'filetype']]
+      \             ['fileformat', 'fileencoding', 'filetype']]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'Branch',
-      \   'method': 'NearestMethodOrFunction',
+      \   'gitbranch': 'Branch'
       \ },
       \}
 
@@ -448,17 +409,14 @@ function! Branch()
   return ''
 endfunction
 
-function! NearestMethodOrFunction() abort
-  let l:func_name = get(b:, 'vista_nearest_method_or_function', '')
-  if l:func_name != ''
-    return l:func_name
-  endif
-  return ''
-endfunction
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($MYVIMDIR.'/eskk')
+if !filereadable(expand($MYVIMDIR.'/eskk/SKK-JISYO.L'))
+  silent !curl -fLo expand($MYVIMDIR.'/eskk/SKK-JISYO.L') --create-dirs
+        \ http://openlab.jp/skk/skk/dic/SKK-JISYO.L
+endif
 let g:eskk#large_dictionary = {
       \ 'path': $MYVIMDIR.'/eskk/SKK-JISYO.L',
       \ 'sorted': 1,
@@ -469,19 +427,6 @@ let g:eskk#show_annotation = 0
 let g:eskk#revert_henkan_style = 'okuri'
 let g:eskk#egg_like_newline = 1
 let g:eskk#egg_like_newline_completion = 1
-
-" function! s:eskk_initial_pre()
-"   let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-"   for n in range(10)
-"     call t.add_map(n . '.', n . '.')
-"   endfor
-"   call eskk#register_mode_table('hira', t)
-" endfunction
-"
-" augroup eskk
-"   autocmd!
-"   autocmd vimrc User eskk-initialize-pre call s:eskk_initial_pre()
-" augroup end
 
 "allow InsertMode toggle ESKK
 augroup eskk
@@ -502,22 +447,12 @@ nnoremap <silent> [Git]s :<C-u>Gina status<CR>
 nnoremap <silent> [Git]d :<C-u>Gina diff :%<CR>
 " }}}
 " go {{{
-let g:gopher_map = 0
 " highlight error
 augroup hierr
   autocmd!
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
-" }}}
-" vim-indent-line {{{
-let g:indentLine_setColors = 1
-let g:indentLine_setConceal = 1
-let g:indentLine_faster = 1
-let g:indentLine_color_term = 111
-let g:indentLine_color_gui = '#708090'
-let g:indentLine_char = '¦'
-let g:indentLine_fileTypeExclude = ['tweetvim', 'help']
 " }}}
 " Twit {{{
 autocmd vimrc FileType tweetvim call s:tweetvim_my_settings()
@@ -561,7 +496,6 @@ nnoremap <silent> [CtrlP]b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> [CtrlP]f :<C-u>CtrlPFunky<CR>
 nnoremap <silent> [CtrlP]u :<C-u>CtrlPMRU<CR>
 nnoremap <silent> [CtrlP]r :<C-u>CtrlPRegister<CR>
-nnoremap <silent> [CtrlP]t :<C-u>Vista!!<CR>
 nnoremap <silent> [CtrlP]h :<C-u>CtrlPHelp<CR>
 nnoremap <silent> [CtrlP]s :<C-u>CtrlPSmartTabs<CR>
 nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
@@ -586,14 +520,6 @@ let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
 let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
-" }}}
-" Python {{{
-let g:ultisnips_python_style = 'sphinx'
-let g:formatter_yapf_style = 'google'
-
-" ale
-let g:ale_python_flake8_options = '--ignore=E129,E501,E302,E265,E241,E305,E402,W503'
-let g:ale_python_pylint_options = '-j 0 --max-line-length=120'
 " }}}
 " caw.vim {{{
 nmap <leader>c      <Plug>(caw:hatpos:toggle)
@@ -622,22 +548,12 @@ let g:grepper.repo          = ['.git', '.hg', '.svn']
 let g:grepper.quickfix      = 1
 let g:grepper.highlight     = 1
 " }}}
-" vim-pixela {{{
-let g:pixela_debug = 0
-let g:pixela_username = 'dohq'
-let g:pixela_token = system('echo -n $(echo $VIM_PIXELA_TOKEN)')
-" }}}
 " Terrafrom {{{
 let g:terraform_align = 1
-let g:terraform_fmt_on_save = 1
+let g:terraform_fmt_on_save = 0
 let g:terraform_remap_spacebar = 0
 let g:terraform_completion_keys = 0
 autocmd FileType terraform setlocal commentstring=#%s
-" }}}
-" operator-user {{{
-map y <Plug>(operator-flashy)
-nmap Y 0<Plug>(operator-flashy)$
-nmap s <Plug>(operator-replace)
 " }}}
 " neoformat {{{
 let g:neoformat_try_formatprg = 1
@@ -654,24 +570,6 @@ let g:neoformat_enabled_python = ['black']
 "   autocmd!
 "   autocmd BufWritePre * undojoin | Neoformat
 " augroup END
-" }}}
-" vista.vim {{{
-let g:vista_sidebar_width = 40
-let g:vista_echo_cursor = 0
-let g:vista_default_executive = 'ctags'
-
-" relaod NearestMethodOrFunction
-augroup LightLineOnVista
-  autocmd!
-  autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-augroup END
-" }}}
-" Translate {{{
-let g:translator_default_engines = ['google', 'bing']
-let g:translator_target_lang = 'ja'
-" }}}
-" Clap {{{
-let g:clap_theme = 'material_design_dark'
 " }}}
 " vim-test {{{
 let test#strategy = "asyncrun"
