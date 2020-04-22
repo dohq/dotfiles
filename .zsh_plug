@@ -1,24 +1,21 @@
-zinit wait lucid for \
+zinit wait lucid light-mode for \
   peterhurford/up.zsh \
-  atinit"zpcompinit; zpcdreplay"  zdharma/fast-syntax-highlighting \
-  blockf                          zsh-users/zsh-completions \
-  atload"!_zsh_autosuggest_start" zsh-users/zsh-autosuggestions
-
-# ls color
-zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
-    atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
-zinit light trapd00r/LS_COLORS
+  hlissner/zsh-autopair \
+  popstas/zsh-command-time \
+  atinit"zpcompinit; zpcdreplay" \
+    zdharma/fast-syntax-highlighting \
+  atpull'zinit creinstall -q .' blockf \
+    zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  atclone"dircolors -b LS_COLORS > clrs.zsh" \
+  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"' \
+    trapd00r/LS_COLORS
 
 # git status prompt
-zinit ice pick"gitstatus.plugin.zsh" src"gitstatus.prompt.zsh"
+zinit ice src"gitstatus.plugin.zsh"
 zinit light "romkatv/gitstatus"
-
-# direnv
-zinit from"gh-r" as"program" mv"direnv* -> direnv" \
-    atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
-    pick"direnv" src="zhook.zsh" for \
-        direnv/direnv
 
 # pyenv
 zinit ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
@@ -33,26 +30,30 @@ zinit ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
 zinit light "rbenv/rbenv"
 
 # Binary
-zinit wait"2" as"null" lucid from"gh-r" for \
+zinit wait"2" as"null" lucid from"gh-r" light-mode for \
   mv"fzf -> $ZPFX/bin/fzf" junegunn/fzf-bin \
-  mv"peco_*/peco -> $ZPFX/bin/peco" peco/peco \
-  mv"dust-*/dust -> $ZPFX/bin/dust" bootandy/dust \
-  mv"ripgrep-*/rg -> $ZPFX/bin/rg" BurntSushi/ripgrep \
-  mv"ghq_*/ghq -> $ZPFX/bin/ghq" x-motemen/ghq \
+  mv"**/peco -> $ZPFX/bin/peco" peco/peco \
+  mv"**/dust -> $ZPFX/bin/dust" bootandy/dust \
+  mv"**/rg -> $ZPFX/bin/rg" BurntSushi/ripgrep \
+  mv"**/ghq -> $ZPFX/bin/ghq" x-motemen/ghq \
+  mv"direnv* -> $ZPFX/bin/direnv" atclone"$ZPFX/bin/direnv hook zsh > zhook.zsh" atpull"%atclone" src"zhook.zsh" direnv/direnv \
   mv"bosh-cli-* -> $ZPFX/bin/bosh" cloudfoundry/bosh-cli \
   mv"credhub -> $ZPFX/bin/credhub" cloudfoundry-incubator/credhub-cli \
-  mv"om-* -> $ZPFX/bin/om" pivotal-cf/om \
+  mv"om-* -> $ZPFX/om" pivotal-cf/om \
+  mv"**/bat -> $ZPFX/bin/bat" @sharkdp/bat \
+  mv"**/fd -> $ZPFX/bin/fd" @sharkdp/fd \
+  mv"**/**/hub -> $ZPFX/bin/hub" @github/hub \
   bpick"fly-*" mv"fly -> $ZPFX/bin/fly" concourse/concourse \
+  mv"docker* -> $ZPFX/bin/docker-compose" docker/compose \
+  mv"shfmt* -> $ZPFX/bin/shfmt" @mvdan/sh \
+  mv"ytdl* -> $ZPFX/bin/ytdl" rylio/ytdl \
+  mv"kapp* -> $ZPFX/bin/kapp" k14s/kapp \
+  mv"ytt* -> $ZPFX/bin/ytt" k14s/ytt \
+  mv"terraform-lsp -> $ZPFX/bin/terraform-lsp" juliosueiras/terraform-lsp
 
-# bat
-zinit ice lucid from"gh-r" mv"bat-*/bat -> $ZPFX/bin/bat"
-zinit light "sharkdp/bat"
-# fd
-zinit ice lucid from"gh-r" mv"fd-*/fd -> $ZPFX/bin/fd"
-zinit light "sharkdp/fd"
-# hub
-zinit ice lucid from"gh-r" mv"hub-*/bin/hub -> $ZPFX/bin/hub"
-zinit light "github/hub"
+zinit wait"2" as"program" lucid light-mode for \
+  pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" tj/git-extras \
+  pick"yank" make mptre/yank
 
 ########## Function
 # history

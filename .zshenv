@@ -1,7 +1,6 @@
 export EDITOR=vim
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
-export GOPATH=$HOME/go
 export PERL5LIB=$HOME/perl5/lib/perl5
 export PERL_LOCAL_LIB_ROOT=$HOME/perl5
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
@@ -12,16 +11,12 @@ export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 
-# sccache
 if command -v sccache >/dev/null; then
   export RUSTC_WRAPPER=$(which sccache)
-  if [[ -d /mnt/ssd/cache/ccache ]]; then
-    export CCACHE_DIR=/mnt/ssd/cache/ccache
-  fi
+  export SCCACHE_DIR=$HOME/.cache/sccache
 fi
-
-if [[ -d /mnt/ssd/cache/sccache ]]; then
-  export SCCACHE_DIR=/mnt/ssd/cache/sccache
+if command -v ccache >/dev/null; then
+  export CCACHE_DIR=$HOME/.cache/ccache
 fi
 
 # PATH
