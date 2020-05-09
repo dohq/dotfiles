@@ -55,10 +55,12 @@ Plug 'wakatime/vim-wakatime'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
+Plug 'deris/vim-textobj-ipmac'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
 Plug 'andymass/vim-matchup'
 Plug 'thinca/vim-qfreplace'
+Plug 'markonm/traces.vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -71,9 +73,8 @@ Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
-Plug 'rhysd/conflict-marker.vim'
 " autocomplete
-Plug 'lifepillar/vim-mucomplete'
+Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -91,13 +92,13 @@ Plug 'basyura/twibill.vim'
 Plug 'mattn/webapi-vim'
 Plug 'tyru/open-browser.vim'
 " Git
-Plug 'tpope/vim-git'
 Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/gina.vim'
 Plug 'jreybert/vimagit'
 Plug 'rhysd/git-messenger.vim'
+Plug 'rhysd/conflict-marker.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -113,27 +114,16 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 " Markdown
 Plug 'previm/previm',                       {'for': 'markdown'}
-Plug 'rcmdnk/vim-markdown',                 {'for': 'markdown'}
-Plug 'rcmdnk/vim-markdown-quote-syntax',    {'for': 'markdown'}
 " go
 Plug 'mattn/vim-goimports',                 {'for': 'go'}
-Plug 'buoto/gotests-vim',                   {'for': 'go'}
 " UML
 Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
-Plug 'aklt/plantuml-syntax',                {'for': 'plantuml'}
-" TOML
-Plug 'cespare/vim-toml',                    {'for': 'toml'}
 " Hashicorp
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
-" yaml
-Plug 'stephpy/vim-yaml',                    {'for': 'yaml'}
-Plug 'pearofducks/ansible-vim',             {'for': 'yaml'}
-" Dockerfile
-Plug 'ekalinin/Dockerfile.vim',             {'for': 'dockerfile'}
-" Jinja2
-Plug 'Glench/Vim-Jinja2-Syntax',            {'for': 'jinja'}
 " zsh
 Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
+" syntax
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -270,17 +260,25 @@ vnoremap y y`>
 " Centering search word
 nnoremap n nzz
 nnoremap N Nzz
+
+" disable space keymap
+nnoremap <Space> <Nop>
 " }}}
 
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" vim-mucomplete {{{
-inoremap <expr> <cr> pumvisible() ? "<c-y><cr>" : "<cr>"
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#no_mappings = 1
-imap <Tab> <plug>(MUcompleteFwd)
-imap <S-Tab> <plug>(MUcompleteBwd)
+" VimCompletesMe {{{
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+let g:vcm_s_tab_behavior = 1
+autocmd FileType terraform let b:vcm_tab_complete = "omni"
+autocmd FileType go let b:vcm_tab_complete = "omni"
+autocmd FileType python let b:vcm_tab_complete = "omni"
+autocmd FileType rust let b:vcm_tab_complete = "omni"
+autocmd FileType sh let b:vcm_tab_complete = "omni"
+autocmd FileType yaml let b:vcm_tab_complete = "omni"
+autocmd FileType yaml.concourse let b:vcm_tab_complete = "omni"
+autocmd FileType yaml.manifest let b:vcm_tab_complete = "omni"
 " }}}
 " LSC {{{
 let g:lsc_auto_map = {
@@ -341,6 +339,9 @@ if executable('manifest-yaml-language-server')
   autocmd BufRead,BufNewFile *manifest*.yml set filetype=yaml.manifest
   let g:lsc_server_commands['yaml.manifest'] = {'command': 'manifest-yaml-language-server', 'suppress_stderr': v:true}
 endif
+" }}}
+" vsnip {{{
+" let g:vsnip_integ_config.vim_lsc = v:true
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -550,7 +551,7 @@ let g:grepper.highlight     = 1
 " }}}
 " Terrafrom {{{
 let g:terraform_align = 1
-let g:terraform_fmt_on_save = 0
+let g:terraform_fmt_on_save = 1
 let g:terraform_remap_spacebar = 0
 let g:terraform_completion_keys = 0
 autocmd FileType terraform setlocal commentstring=#%s
