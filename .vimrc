@@ -1,11 +1,10 @@
+"----------------------------------------
+" init
+"----------------------------------------
 " init {{{
 " encoding
 set encoding=utf8
 scriptencoding utf-8
-if !has('nvim')
-  unlet! g:skip_defaults_vim
-  source $VIMRUNTIME/defaults.vim
-endif
 
 " set MYVIMDIR
 let s:MSWindows = has('win32')
@@ -16,15 +15,13 @@ else
 endif
 
 " Enable Tmux in TrueColor
-      "\ && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
-if !has('gui_running')
-      \ && exists('&termguicolors')
+if !has('gui_running') && exists('&termguicolors') && $COLORTERM =~# '^\%(truecolor\|24bit\)$'
   " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
   if !has('nvim')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   endif
-  set termguicolors       " use truecolor in term
+  set termguicolors
 endif
 
 " Startup time.
@@ -43,6 +40,138 @@ augroup vimrc
 augroup END
 " }}}
 
+"----------------------------------------
+" Option Settings
+"----------------------------------------
+" set plugin stop {{{
+let g:loaded_matchparen        = 1
+let g:loaded_gzip              = 1
+let g:loaded_tar               = 1
+let g:loaded_tarPlugin         = 1
+let g:loaded_zip               = 1
+let g:loaded_zipPlugin         = 1
+let g:loaded_rrhelper          = 1
+let g:loaded_2html_plugin      = 1
+let g:loaded_vimball           = 1
+let g:loaded_vimballPlugin     = 1
+let g:loaded_getscript         = 1
+let g:loaded_getscriptPlugin   = 1
+let g:loaded_netrw             = 1
+let g:loaded_netrwPlugin       = 1
+let g:loaded_netrwSettings     = 1
+let g:loaded_netrwFileHandlers = 1
+" }}}
+" Encoding {{{
+set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
+" }}}
+" set opt {{{
+set ambiwidth=double
+set autoread
+set autowrite
+set belloff=all
+set cmdheight=2
+set completeopt+=noinsert,menuone,noselect,popup
+set completeopt-=preview
+if has('nvim-0.3.2') || has('patch-8.1.0360')
+  set diffopt+=internal,algorithm:histogram,indent-heuristic
+endif
+set display=lastline
+set expandtab
+set fileformat=unix
+set foldmethod=marker
+set hidden
+set hlsearch
+set ignorecase
+set imdisable
+set incsearch
+set laststatus=2
+set lazyredraw
+set list
+set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
+set noautoindent
+set nobackup
+set nojs
+set noequalalways
+set noshowmode
+set nosmartindent
+set nostartofline
+set noswapfile
+set novisualbell
+set nrformats-=octal
+set pumheight=10
+set scrolloff=7
+set shiftround
+set shiftwidth=2
+set shortmess+=atIc
+set shortmess-=SF
+set showtabline=0
+set signcolumn=yes
+set smartcase
+set softtabstop=2
+set splitbelow splitright
+set switchbuf=useopen
+set synmaxcol=512
+set tabstop=2
+set tags=./tags;
+set title
+set ttyfast
+set whichwrap=b,s,[,],<,>
+set wildmenu
+set wildmode=full
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+if exists('+breakindent')
+  set breakindent
+  set breakindentopt=sbr
+  set showbreak=<
+endif
+" }}}
+" Keybind {{{
+let g:mapleader = ','
+
+" escape
+inoremap jj <ESC>
+
+" replace ; to :
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+" Switch
+nnoremap <silent> <leader>s :Switch<CR>
+
+" sandwich
+nmap s <Nop>
+xmap s <Nop>
+
+" moving nextline
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+
+" redraw and nohl
+nnoremap <silent> <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:redraw!<cr>
+
+" sudo write
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
+
+" yanky
+nnoremap Y y$
+vnoremap y y`>
+
+" Centering search word
+nnoremap n nzz
+nnoremap N Nzz
+
+" disable space keymap
+nnoremap <Space> <Nop>
+" }}}
+
+"----------------------------------------
+" Plugin list
+"----------------------------------------
+" plugins {{{
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
@@ -124,146 +253,18 @@ Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 " syntax
 Plug 'sheerun/vim-polyglot'
-
 call plug#end()
-
-
-"----------------------------------------
-" Option Settings
-"----------------------------------------
-" set plugin stop {{{
-let g:loaded_matchparen        = 1
-let g:loaded_gzip              = 1
-let g:loaded_tar               = 1
-let g:loaded_tarPlugin         = 1
-let g:loaded_zip               = 1
-let g:loaded_zipPlugin         = 1
-let g:loaded_rrhelper          = 1
-let g:loaded_2html_plugin      = 1
-let g:loaded_vimball           = 1
-let g:loaded_vimballPlugin     = 1
-let g:loaded_getscript         = 1
-let g:loaded_getscriptPlugin   = 1
-let g:loaded_netrw             = 1
-let g:loaded_netrwPlugin       = 1
-let g:loaded_netrwSettings     = 1
-let g:loaded_netrwFileHandlers = 1
 " }}}
+
+"----------------------------------------
+" color settings
+"----------------------------------------
 " color {{{
 set t_Co=256
 syntax on
 colorscheme vitaminonec
 set background=dark
 "}}}
-" Encoding {{{
-set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
-" }}}
-" set opt {{{
-set ambiwidth=double
-set autoread
-set autowrite
-set belloff=all
-set cmdheight=2
-set completeopt+=noinsert,menuone,noselect,popup
-set completeopt-=preview
-if has('nvim-0.3.2') || has('patch-8.1.0360')
-  set diffopt+=internal,algorithm:histogram,indent-heuristic
-endif
-set display=lastline
-set expandtab
-set fileformat=unix
-set foldmethod=marker
-set hidden
-set hlsearch
-set ignorecase
-set imdisable
-set incsearch
-set laststatus=2
-set lazyredraw
-set list
-set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
-set noautoindent
-set nobackup
-set nojs
-set noequalalways
-set noshowmode
-set nosmartindent
-set nostartofline
-set noswapfile
-set novisualbell
-set nrformats-=octal
-set pumheight=10
-set scrolloff=7
-set shiftround
-set shiftwidth=2
-set shortmess+=atIc
-set shortmess-=SF
-set showtabline=0
-set signcolumn=yes
-set smartcase
-set softtabstop=2
-set splitbelow splitright
-set switchbuf=useopen
-set synmaxcol=512
-set tabstop=2
-set tags=./tags;
-set title
-set ttyfast
-set whichwrap=b,s,[,],<,>
-set wildmenu
-set wildmode=full
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-if exists('+breakindent')
-  set breakindent
-  set breakindentopt=sbr
-  set showbreak=<
-endif
-let g:vim_json_syntax_conceal = 0
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_folding_disabled = 1
-" }}}
-" Keybind {{{
-let g:mapleader = ','
-
-" escape
-inoremap jj <ESC>
-
-" replace ; to :
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
-
-" Switch
-nnoremap <silent> <leader>s :Switch<CR>
-
-" sandwich
-nmap s <Nop>
-xmap s <Nop>
-
-" moving nextline
-nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
-nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
-
-" redraw and nohl
-nnoremap <silent> <C-l> :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr>:redraw!<cr>
-
-" sudo write
-cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>
-
-" yanky
-nnoremap Y y$
-vnoremap y y`>
-
-" Centering search word
-nnoremap n nzz
-nnoremap N Nzz
-
-" disable space keymap
-nnoremap <Space> <Nop>
-" }}}
 
 "----------------------------------------
 " Plugin Settings
