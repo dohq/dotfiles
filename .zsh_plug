@@ -49,7 +49,8 @@ zinit wait"2" as"null" lucid from"gh-r" light-mode for \
   mv"ytdl* -> $ZPFX/bin/ytdl" rylio/ytdl \
   mv"kapp* -> $ZPFX/bin/kapp" k14s/kapp \
   mv"ytt* -> $ZPFX/bin/ytt" k14s/ytt \
-  mv"terraform-lsp -> $ZPFX/bin/terraform-lsp" juliosueiras/terraform-lsp
+  mv"terraform-lsp -> $ZPFX/bin/terraform-lsp" juliosueiras/terraform-lsp \
+  mv"*-levant -> $ZPFX/bin/levant" jrasell/levant
 
 zinit wait"2" as"program" lucid light-mode for \
   pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" tj/git-extras \
