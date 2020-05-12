@@ -487,7 +487,7 @@ nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
 
 let g:memolist_ex_cmd = 'CtrlP'
 let g:memolist_memo_suffix = 'md'
-let g:memolist_path = '~/Dev/memo'
+let g:memolist_path = '~/memo'
 "}}}
 " CtrlP {{{
 nnoremap          [CtrlP]   <Nop>
