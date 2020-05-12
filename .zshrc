@@ -22,13 +22,34 @@ if [[ -f ~/.zsh_local ]]; then
 fi
 
 ########################################
+# completion
+autoload -Uz +X compinit && compinit
+autoload -Uz +X bashcompinit && bashcompinit
+# 短縮補完の有効化 (https://gihyo.jp/dev/serial/01/zsh-book/0005)
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
+# <Tab> でパス名の補完候補を表示したあと、
+zstyle ':completion:*:default' menu select=1
+# 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# ../ の後は今いるディレクトリを補完しない
+zstyle ':completion:*' ignore-parents parent pwd ..
+# ps コマンドのプロセス名補完
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+
+########################################
+# edit-command
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^E" edit-command-line
+
+########################################
 # 色を使用出来るようにする
 autoload -Uz colors; colors
 # vim 風キーバインドにする
 bindkey -v
 # ヒストリの設定
 HISTFILE=~/.zsh_history
-HISTSIZE=100000
+HISTSIZE=10000
 SAVEHIST=100000
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -48,7 +69,7 @@ PROMPT="
 PROMPT2='[%n]> '
 # もしかして時のプロンプト指定
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
-# reqire romkatv/gitstatus and kube_ps1 {{{
+# reqire romkatv/gitstatus {{{
 function gitstatus_prompt_update() {
   emulate -L zsh
   typeset -g  GITSTATUS_PROMPT=''
@@ -124,22 +145,9 @@ setopt no_prompt_bang prompt_percent prompt_subst
 RPROMPT='$GITSTATUS_PROMPT'
 
 ########################################
+# オプション
 # もしかして機能
 setopt correct
-# <Tab> でパス名の補完候補を表示したあと、
-zstyle ':completion:*:default' menu select=1
-# 補完で小文字でも大文字にマッチさせる
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# ../ の後は今いるディレクトリを補完しない
-zstyle ':completion:*' ignore-parents parent pwd ..
-# ps コマンドのプロセス名補完
-zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
-########################################
-# オプション
-# 補完リストその他でもASCII(7ビット)以上のを表示
-# (マルチバイト文字補完)
-setopt PRINT_EIGHT_BIT
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 # beep を無効にする
@@ -154,6 +162,12 @@ setopt auto_cd
 setopt auto_pushd
 # 重複したディレクトリを追加しない
 setopt pushd_ignore_dups
+# 同時に起動したzshの間でヒストリを上書きではなく追記する
+setopt append_history
+# 履歴がいっぱいの時は最も古いものを先ず削除
+setopt hist_expire_dups_first
+# history コマンドをヒストリに入れない
+setopt hist_no_store
 # 同時に起動したzshの間でヒストリを共有する
 setopt share_history
 # 同じコマンドをヒストリに残さない
@@ -162,8 +176,28 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
+# ヒストリを呼び出してから実行する間に一旦編集
+setopt hist_verify
 # 高機能なワイルドカード展開を使用する
 setopt extended_glob
+# 内部コマンド jobs の出力をデフォルトで jobs -l にする
+setopt long_list_jobs
+# 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
+setopt list_types
+# --prefix=/usr などの = 以降も補完
+setopt magic_equal_subst
+# カッコの対応などを自動的に補完
+setopt auto_param_keys
+# ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
+setopt auto_param_slash
+# スペルチェック
+setopt correct
+# rm *で確認を求める
+setopt rm_star_wait
+# 補完候補を一覧表示
+setopt auto_list
+# TAB で順に補完候補を切り替える
+setopt auto_menu
 
 #######################################
 # Home Endキーを有効に
@@ -176,12 +210,17 @@ bindkey "^[3;5~"  delete-char
 # init
 # hub alias
 function git(){hub "$@"}
+# gitignore
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 # remove dupulicate path/PATH
 typeset -U path PATH
-# If command execution time above min. time, plugins will not output time.
-ZSH_COMMAND_TIME_MIN_SECONDS=5
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
-### End of Zinit's installer chunk
+
+# hashicorp
+complete -o nospace -C /usr/bin/consul consul
+complete -o nospace -C /usr/bin/nomad nomad
+complete -o nospace -C /usr/bin/vault vault
+complete -o nospace -C /usr/bin/mcli mcli
+
+if (which zprof > /dev/null 2>&1) ;then
+  zprof
+fi
