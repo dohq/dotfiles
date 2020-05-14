@@ -65,6 +65,7 @@ alias u='up'
 alias v='vim'
 alias vd='vimdiff'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
+alias ssh='TERM=xterm ssh'
 
 # openstack
 alias op='openstack'
