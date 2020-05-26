@@ -171,7 +171,6 @@ nnoremap <Space> <Nop>
 "----------------------------------------
 " Plugin list
 "----------------------------------------
-" plugins {{{
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
@@ -187,9 +186,11 @@ Plug 'mattn/vim-textobj-url'
 Plug 'deris/vim-textobj-ipmac'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
+Plug 'haya14busa/vim-operator-flashy'
 Plug 'andymass/vim-matchup'
 Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
+Plug 'freitass/todo.txt-vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -213,6 +214,7 @@ Plug 'rhysd/try-colorscheme.vim'
 Plug 'morhetz/gruvbox'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'cocopon/iceberg.vim'
+Plug 'sainnhe/gruvbox-material'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -255,7 +257,6 @@ Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 " syntax
 Plug 'sheerun/vim-polyglot'
 call plug#end()
-" }}}
 
 "----------------------------------------
 " color settings
@@ -263,8 +264,11 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
-colorscheme iceberg
 set background=dark
+let g:gruvbox_material_background = 'soft'
+let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_enable_italic = 0
+colorscheme gruvbox-material
 "}}}
 
 "----------------------------------------
@@ -284,14 +288,14 @@ autocmd FileType yaml.manifest let b:vcm_tab_complete = "omni"
 " }}}
 " LSC {{{
 let g:lsc_auto_map = {
-      \  'FindCodeActions': 'gA',
-      \  'GoToDefinition': 'gd',
-      \  'GoToDefinitionSplit': 'gs',
-      \  'FindReferences': 'gr',
-      \  'Rename': 'gR',
-      \  'ShowHover': 'K',
-      \  'Completion': 'omnifunc',
-      \}
+    \  'FindCodeActions': 'gA',
+    \  'GoToDefinition': 'gd',
+    \  'GoToDefinitionSplit': 'gs',
+    \  'FindReferences': 'gr',
+    \  'Rename': 'gR',
+    \  'ShowHover': 'K',
+    \  'Completion': 'omnifunc',
+    \}
 let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_completeopt = v:false
 let g:lsc_complete_timeout = 1
@@ -303,26 +307,26 @@ let g:lsc_trace_level = 'off'
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {
-        \ 'command': 'pyls',
-        \ 'workspace_config' : {
-        \   'pyls': {'plugins': {
-        \      'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},
-        \      'pycodestyle': {'maxLineLength': 160, 'ignore': 'W292'},
-        \   }},
-        \ },
-        \ }
+      \ 'command': 'pyls',
+      \ 'workspace_config' : {
+      \   'pyls': {'plugins': {
+      \      'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},
+      \      'pycodestyle': {'maxLineLength': 160, 'ignore': 'W292'},
+      \   }},
+      \ },
+      \ }
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {
-        \ 'command': 'gopls serve',
-        \ 'initialization_options': {
-        \   'usePlaceholders': v:true,
-        \   'hoverKind': 'FullDocumentation',
-        \   'completeUnimported': v:true,
-        \ },
-        \ 'log_level': -1,
-        \ 'suppress_stderr': v:true
-        \ }
+      \ 'command': 'gopls serve',
+      \ 'initialization_options': {
+      \   'usePlaceholders': v:true,
+      \   'hoverKind': 'FullDocumentation',
+      \   'completeUnimported': v:true,
+      \ },
+      \ 'log_level': -1,
+      \ 'suppress_stderr': v:true
+      \ }
 endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
@@ -358,25 +362,25 @@ let g:ultisnips_python_style = 'sphinx'
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
-      \   '_' : {
-      \       'runner' : 'job',
-      \       'outputter' : 'error',
-      \       'hook/neco/enable' : 1,
-      \       'hook/neco/wait' : 10,
-      \       'outputter/error/success' : 'buffer',
-      \       'outputter/error/error' : 'quickfix',
-      \       'outputter/buffer/split' : ':botright 8',
-      \       'outputter/buffer/close_on_empty' : 1,
-      \       'outputter/buffer/into' : 0,
-      \       'outputter/quickfix/into' : 0,
-      \   },
-      \}
+    \   '_' : {
+    \       'runner' : 'job',
+    \       'outputter' : 'error',
+    \       'hook/neco/enable' : 1,
+    \       'hook/neco/wait' : 10,
+    \       'outputter/error/success' : 'buffer',
+    \       'outputter/error/error' : 'quickfix',
+    \       'outputter/buffer/split' : ':botright 8',
+    \       'outputter/buffer/close_on_empty' : 1,
+    \       'outputter/buffer/into' : 0,
+    \       'outputter/quickfix/into' : 0,
+    \   },
+    \}
 
 if has('win32')
   let g:quickrun_config['python'] = {
-        \     'hook/output_encode/enable' : 1,
-        \     'hook/output_encode/encoding' : 'cp932',
-        \}
+      \     'hook/output_encode/enable' : 1,
+      \     'hook/output_encode/encoding' : 'cp932',
+      \}
 endif
 autocmd BufRead,BufNewFile *_test.go set filetype=go.test
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
@@ -391,7 +395,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " lightline.vim{{{
 let g:lightline = {
-      \ 'colorscheme': 'iceberg',
+      \ 'colorscheme': 'gruvbox_material',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'absolutepath']],
@@ -416,12 +420,16 @@ endfunction
 " ESKK {{{
 let g:eskk#enable_completion = 0
 let g:eskk#directory = expand($MYVIMDIR.'/eskk')
-if !filereadable(expand($MYVIMDIR.'/eskk/SKK-JISYO.L'))
-  silent !curl -fLo expand($MYVIMDIR.'/eskk/SKK-JISYO.L') --create-dirs
-        \ http://openlab.jp/skk/skk/dic/SKK-JISYO.L
+if filereadable('/usr/share/skk/SKK-JISYO.L')
+  let s:skk_dic = '/usr/share/skk/SKK-JISYO.L'
+else
+  let s:skk_dic = expand($MYVIMDIR.'/eskk/SKK-JISYO.L')
+  if !filereadable(s:skk_dic)
+    silent !curl -fLo s:skk_dic --create-dirs "http://openlab.jp/skk/skk/dic/SKK-JISYO.L"
+  endif
 endif
 let g:eskk#large_dictionary = {
-      \ 'path': $MYVIMDIR.'/eskk/SKK-JISYO.L',
+      \ 'path': s:skk_dic,
       \ 'sorted': 1,
       \}
 " Don't keep state.
@@ -577,6 +585,10 @@ let g:neoformat_enabled_python = ['black']
 " vim-test {{{
 let test#strategy = "asyncrun"
 let g:asyncrun_open = 8
+" }}}
+" operator {{{
+map y <Plug>(operator-flashy)
+nmap Y <Plug>(operator-flashy)$
 " }}}
 " user command {{{
 " Auto plugin install {{{
