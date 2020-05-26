@@ -23,8 +23,10 @@ fi
 
 ########################################
 # completion
-autoload -Uz +X compinit && compinit
-autoload -Uz +X bashcompinit && bashcompinit
+autoload -Uz compinit && compinit
+autoload -Uz bashcompinit && bashcompinit
+zinit cdreplay -q # <- execute compdefs provided by rest of plugins
+zinit cdlist # look at gathered compdefs
 # 短縮補完の有効化 (https://gihyo.jp/dev/serial/01/zsh-book/0005)
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
 # <Tab> でパス名の補完候補を表示したあと、
