@@ -39,7 +39,7 @@ zinit wait"2" as"null" lucid from"gh-r" light-mode for \
   mv"direnv* -> $ZPFX/bin/direnv" atclone"$ZPFX/bin/direnv hook zsh > zhook.zsh" atpull"%atclone" src"zhook.zsh" direnv/direnv \
   mv"bosh-cli-* -> $ZPFX/bin/bosh" cloudfoundry/bosh-cli \
   mv"credhub -> $ZPFX/bin/credhub" cloudfoundry-incubator/credhub-cli \
-  mv"om-* -> $ZPFX/om" pivotal-cf/om \
+  mv"om-* -> $ZPFX/bin/om" pivotal-cf/om \
   mv"**/bat -> $ZPFX/bin/bat" @sharkdp/bat \
   mv"**/fd -> $ZPFX/bin/fd" @sharkdp/fd \
   mv"**/**/hub -> $ZPFX/bin/hub" @github/hub \
@@ -72,3 +72,6 @@ zinit snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69f
 # kubectl
 zinit ice wait lucid
 zinit snippet "https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases"
+# aws profile
+zinit ice wait lucid
+zinit snippet "https://gist.githubusercontent.com/cm-watanabeseigo/0a103315529d502ce4a82d2a8aab6cd3/raw/46f68815678a952b4319cb029f50f0029246650a/.bash_profile_aws-profile"
