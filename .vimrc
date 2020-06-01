@@ -129,6 +129,7 @@ endif
 " }}}
 " Keybind {{{
 let g:mapleader = ','
+let g:maplocalleader = ','
 
 " escape
 inoremap jj <ESC>
@@ -425,7 +426,8 @@ if filereadable('/usr/share/skk/SKK-JISYO.L')
 else
   let s:skk_dic = expand($MYVIMDIR.'/eskk/SKK-JISYO.L')
   if !filereadable(s:skk_dic)
-    silent !curl -fLo s:skk_dic --create-dirs "http://openlab.jp/skk/skk/dic/SKK-JISYO.L"
+    echo s:skk_dic
+    execute 'silent !curl -fLo '.s:skk_dic.' --create-dirs "http://openlab.jp/skk/skk/dic/SKK-JISYO.L"'
   endif
 endif
 let g:eskk#large_dictionary = {
