@@ -75,6 +75,7 @@ set display=lastline
 set expandtab
 set fileformat=unix
 set foldmethod=marker
+set helplang=ja,en
 set hidden
 set hlsearch
 set ignorecase
@@ -166,6 +167,10 @@ nnoremap N Nzz
 " disable space keymap
 nnoremap <Space> <Nop>
 " }}}
+" manual filetype {{{
+autocmd BufRead,BufNewFile *pipeline*.yml set filetype=yaml.concourse
+autocmd BufRead,BufNewFile *_test.go set filetype=go.test
+" }}}
 
 "----------------------------------------
 " Plugin list
@@ -184,10 +189,12 @@ Plug 'andymass/vim-matchup'
 Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
 Plug 'freitass/todo.txt-vim'
+Plug 'vim-jp/vimdoc-ja'
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
 Plug 'deris/vim-textobj-ipmac'
+Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
 Plug 'haya14busa/vim-operator-flashy'
@@ -328,7 +335,6 @@ if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
 endif
 if executable('concourse-language-server')
-  autocmd BufRead,BufNewFile *pipeline*.yml set filetype=yaml.concourse
   let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
 endif
 " }}}
@@ -365,7 +371,6 @@ if has('win32')
         \     'hook/output_encode/encoding' : 'cp932',
         \}
 endif
-autocmd BufRead,BufNewFile *_test.go set filetype=go.test
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
 
