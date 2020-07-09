@@ -15,13 +15,9 @@ else
 endif
 
 " Enable Tmux in TrueColor
-if !has('gui_running') && exists('&termguicolors')
-  " https://medium.com/@dubistkomisch/how-to-actually-get-italics-and-true-colour-to-work-in-iterm-tmux-vim-9ebe55ebc2be
-  set termguicolors
-  if !has('nvim')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  endif
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 " Startup time.
@@ -88,9 +84,10 @@ set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
+set nu rnu
 set noautoindent
 set nobackup
-set nojs
+set nojoinspaces
 set noequalalways
 set noshowmode
 set nosmartindent
@@ -115,6 +112,7 @@ set tabstop=2
 set tags=./tags;
 set title
 set ttyfast
+set updatetime=50
 set whichwrap=b,s,[,],<,>
 set wildmenu
 set wildmode=full
@@ -182,16 +180,17 @@ Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'andymass/vim-matchup'
+Plug 'thinca/vim-qfreplace'
+Plug 'markonm/traces.vim'
+Plug 'freitass/todo.txt-vim'
+" textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
 Plug 'deris/vim-textobj-ipmac'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
 Plug 'haya14busa/vim-operator-flashy'
-Plug 'andymass/vim-matchup'
-Plug 'thinca/vim-qfreplace'
-Plug 'markonm/traces.vim'
-Plug 'freitass/todo.txt-vim'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -207,15 +206,12 @@ Plug 'tyru/eskk.vim'
 " autocomplete
 Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 " Visual
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'morhetz/gruvbox'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'cocopon/iceberg.vim'
-Plug 'sainnhe/gruvbox-material'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -249,8 +245,6 @@ Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 Plug 'previm/previm',                       {'for': 'markdown'}
 " go
 Plug 'mattn/vim-goimports',                 {'for': 'go'}
-" UML
-Plug 'scrooloose/vim-slumlord',             {'for': 'plantuml'}
 " Hashicorp
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " zsh
@@ -265,11 +259,9 @@ call plug#end()
 " color {{{
 set t_Co=256
 syntax on
+let g:gruvbox_invert_selection='0'
 set background=dark
-let g:gruvbox_material_background = 'soft'
-let g:gruvbox_material_disable_italic_comment = 1
-let g:gruvbox_material_enable_italic = 0
-colorscheme gruvbox-material
+colorscheme gruvbox
 "}}}
 
 "----------------------------------------
@@ -289,16 +281,16 @@ autocmd FileType yaml.manifest let b:vcm_tab_complete = "omni"
 " }}}
 " LSC {{{
 let g:lsc_auto_map = {
-    \  'FindCodeActions': 'gA',
-    \  'GoToDefinition': 'gd',
-    \  'GoToDefinitionSplit': 'gs',
-    \  'FindReferences': 'gr',
-    \  'Rename': 'gR',
-    \  'ShowHover': 'K',
-    \  'Completion': 'omnifunc',
-    \}
+      \  'FindCodeActions': 'gA',
+      \  'GoToDefinition': 'gd',
+      \  'GoToDefinitionSplit': 'gs',
+      \  'FindReferences': 'gr',
+      \  'Rename': 'gR',
+      \  'ShowHover': 'K',
+      \  'Completion': 'omnifunc',
+      \}
 let g:lsc_enable_autocomplete = v:false
-let g:lsc_auto_completeopt = v:false
+let g:lsc_auto_completeopt = v:true
 let g:lsc_complete_timeout = 1
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
@@ -308,32 +300,29 @@ let g:lsc_trace_level = 'off'
 let g:lsc_server_commands = {}
 if executable('pyls')
   let g:lsc_server_commands['python'] = {
-      \ 'command': 'pyls',
-      \ 'workspace_config' : {
-      \   'pyls': {'plugins': {
-      \      'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},
-      \      'pycodestyle': {'maxLineLength': 160, 'ignore': 'W292'},
-      \   }},
-      \ },
-      \ }
+        \ 'command': 'pyls',
+        \ 'workspace_config' : {
+        \   'pyls': {'plugins': {
+        \      'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},
+        \      'pycodestyle': {'maxLineLength': 160, 'ignore': 'W292'},
+        \   }},
+        \ },
+        \ }
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {
-      \ 'command': 'gopls serve',
-      \ 'initialization_options': {
-      \   'usePlaceholders': v:true,
-      \   'hoverKind': 'FullDocumentation',
-      \   'completeUnimported': v:true,
-      \ },
-      \ 'log_level': -1,
-      \ 'suppress_stderr': v:true
-      \ }
+        \ 'command': 'gopls serve',
+        \ 'initialization_options': {
+        \   'usePlaceholders': v:true,
+        \   'hoverKind': 'FullDocumentation',
+        \   'completeUnimported': v:true,
+        \ },
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \ }
 endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
-endif
-if executable('rls')
-  let g:lsc_server_commands['rust'] = {'command': 'rls', 'suppress_stderr': v:true}
 endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
@@ -342,13 +331,6 @@ if executable('concourse-language-server')
   autocmd BufRead,BufNewFile *pipeline*.yml set filetype=yaml.concourse
   let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
 endif
-if executable('manifest-yaml-language-server')
-  autocmd BufRead,BufNewFile *manifest*.yml set filetype=yaml.manifest
-  let g:lsc_server_commands['yaml.manifest'] = {'command': 'manifest-yaml-language-server', 'suppress_stderr': v:true}
-endif
-" }}}
-" vsnip {{{
-" let g:vsnip_integ_config.vim_lsc = v:true
 " }}}
 " ultisnips {{{
 " Trigger configuration.
@@ -363,25 +345,25 @@ let g:ultisnips_python_style = 'sphinx'
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
-    \   '_' : {
-    \       'runner' : 'job',
-    \       'outputter' : 'error',
-    \       'hook/neco/enable' : 1,
-    \       'hook/neco/wait' : 10,
-    \       'outputter/error/success' : 'buffer',
-    \       'outputter/error/error' : 'quickfix',
-    \       'outputter/buffer/split' : ':botright 8',
-    \       'outputter/buffer/close_on_empty' : 1,
-    \       'outputter/buffer/into' : 0,
-    \       'outputter/quickfix/into' : 0,
-    \   },
-    \}
+      \   '_' : {
+      \       'runner' : 'job',
+      \       'outputter' : 'error',
+      \       'hook/neco/enable' : 1,
+      \       'hook/neco/wait' : 10,
+      \       'outputter/error/success' : 'buffer',
+      \       'outputter/error/error' : 'quickfix',
+      \       'outputter/buffer/split' : ':botright 8',
+      \       'outputter/buffer/close_on_empty' : 1,
+      \       'outputter/buffer/into' : 0,
+      \       'outputter/quickfix/into' : 0,
+      \   },
+      \}
 
 if has('win32')
   let g:quickrun_config['python'] = {
-      \     'hook/output_encode/enable' : 1,
-      \     'hook/output_encode/encoding' : 'cp932',
-      \}
+        \     'hook/output_encode/enable' : 1,
+        \     'hook/output_encode/encoding' : 'cp932',
+        \}
 endif
 autocmd BufRead,BufNewFile *_test.go set filetype=go.test
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
@@ -396,7 +378,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " lightline.vim{{{
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox_material',
+      \ 'colorscheme': 'gruvbox',
       \ 'active': {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'absolutepath']],
@@ -466,6 +448,20 @@ augroup hierr
   autocmd vimrc FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd vimrc FileType go :match goErr /\<err\>/
 augroup END
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_auto_sameids = 1
 " }}}
 " Twit {{{
 autocmd vimrc FileType tweetvim call s:tweetvim_my_settings()
@@ -591,6 +587,7 @@ let g:asyncrun_open = 8
 " operator {{{
 map y <Plug>(operator-flashy)
 nmap Y <Plug>(operator-flashy)$
+map _ <Plug>(operator-replace)
 " }}}
 " user command {{{
 " Auto plugin install {{{
