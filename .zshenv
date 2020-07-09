@@ -13,6 +13,9 @@ export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
+if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
+  export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+fi
 
 # If command execution time above min. time, plugins will not output time.
 export ZSH_COMMAND_TIME_MIN_SECONDS=5
@@ -95,11 +98,6 @@ alias gm='git commit -v'
 alias gnd='git init && git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
 alias gp='git push'
 alias gs='git status'
-
-# podman
-if command -v podman >/dev/null; then
-  alias docker='podman'
-fi
 
 # fzf
 export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
