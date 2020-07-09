@@ -1,3 +1,5 @@
+.PHONY: init
+
 init: ## init dotfiles
 	test -L ${HOME}/.tmux || rm -rf ${HOME}/.tmux
 	ln -vsfn ${PWD}/.tmux ${HOME}/.tmux
