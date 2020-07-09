@@ -38,3 +38,5 @@
 [grep]
 	lineNumber = true
 	patternType = extended
+[help]
+	autocorrect = 1
