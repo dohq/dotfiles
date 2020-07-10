@@ -85,7 +85,6 @@ set laststatus=2
 set lazyredraw
 set list
 set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
-set nu rnu
 set noautoindent
 set nobackup
 set nojoinspaces
@@ -287,34 +286,70 @@ autocmd FileType yaml.concourse let b:vcm_tab_complete = "omni"
 autocmd FileType yaml.manifest let b:vcm_tab_complete = "omni"
 " }}}
 " LSC {{{
-let g:lsc_auto_map = {
-      \  'FindCodeActions': 'gA',
-      \  'GoToDefinition': 'gd',
-      \  'GoToDefinitionSplit': 'gs',
-      \  'FindReferences': 'gr',
-      \  'Rename': 'gR',
-      \  'ShowHover': 'K',
-      \  'Completion': 'omnifunc',
-      \}
 let g:lsc_enable_autocomplete = v:false
 let g:lsc_auto_completeopt = v:true
+let g:lsc_enable_snippet_support = v:true
+let g:lsp_ultisnips_integration = 1
 let g:lsc_complete_timeout = 1
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
 let g:lsc_enable_snippet_support = v:false
 let g:lsc_trace_level = 'off'
+let g:lsc_auto_map = {
+      \ 'GoToDefinition': 'gd',
+      \ 'GoToDefinitionSplit': 'gD',
+      \ 'FindReferences': 'gR',
+      \ 'NextReference': '<C-n>',
+      \ 'PreviousReference': '<C-p>',
+      \ 'FindImplementations': 'gI',
+      \ 'FindCodeActions': 'ga',
+      \ 'Rename': 'gr',
+      \ 'ShowHover': v:true,
+      \ 'DocumentSymbol': 'go',
+      \ 'WorkspaceSymbol': 'gS',
+      \ 'SignatureHelp': 'gm',
+      \ 'Completion': 'completefunc',
+      \}
 
 let g:lsc_server_commands = {}
+
 if executable('pyls')
   let g:lsc_server_commands['python'] = {
         \ 'command': 'pyls',
-        \ 'workspace_config' : {
-        \   'pyls': {'plugins': {
-        \      'jedi_definition': {'follow_imports': v:true, 'follow_builtin_imports': v:true},
-        \      'pycodestyle': {'maxLineLength': 160, 'ignore': 'W292'},
-        \   }},
+        \ 'workspace_config': {
+        \   'pyls': {
+        \     'plugins': {
+        \       'jedi_completion': {'enabled': v:true},
+        \       'jedi_definition': {
+        \         'follow_imports': v:true,
+        \         'follow_builtin_imports': v:true
+        \       },
+        \       'jedi_hover': {'enabled': v:true},
+        \       'jedi_references': {'enabled': v:true},
+        \       'jedi_signature_help': {'enabled': v:true},
+        \       'jedi_symbols': {
+        \         'enabled': v:true,
+        \         'all_scopes': v:true,
+        \       },
+        \       'mccabe': {
+        \         'enabled': v:true,
+        \         'threshold': 15,
+        \       },
+        \       'preload': {'enabled': v:true},
+        \       'pylint': {'enabled': v:false},
+        \       'pycodestyle': {
+        \         'enabled': v:true,
+        \         'maxLineLength': 160,
+        \         'ignore': 'W292'
+        \       },
+        \       'pydocstyle': {'enabled': v:true},
+        \       'flake8': {'enabled': v:true},
+        \       'rope_completion': {'enabled': v:true},
+        \       'yapf': {'enabled': v:true},
+        \     }
+        \   },
         \ },
-        \ }
+        \}
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {
@@ -326,7 +361,7 @@ if executable('gopls')
         \ },
         \ 'log_level': -1,
         \ 'suppress_stderr': v:true
-        \ }
+        \}
 endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
@@ -347,7 +382,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit='vertical'
 " Python Comment Style
-let g:ultisnips_python_style = 'sphinx'
+let g:ultisnips_python_style = 'numpy'
 "}}}
 " Quick-Run {{{
 let g:quickrun_config = {
@@ -382,18 +417,83 @@ autocmd vimrc FileType qf nnoremap <silent><buffer>q :cclose<CR>
 command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " }}}
 " lightline.vim{{{
-let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
-      \ 'active': {
+let g:lightline = {}
+
+let g:lightline.colorscheme = "gruvbox"
+
+let g:lightline.active = {
       \   'left': [['mode', 'paste'],
       \            ['gitbranch', 'absolutepath']],
       \   'right': [['lineinfo'],
+      \             [ 'error', 'warning', 'info', 'hint', 'fix' ],
+      \             ['status'],
       \             ['fileformat', 'fileencoding', 'filetype']]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'Branch'
-      \ },
       \}
+
+let g:lightline.component_function = {
+      \   'gitbranch': 'Branch',
+      \   'status'   : 'LightlineStatus',
+      \}
+let g:lightline.component_expand = {
+      \ 'error'       : 'LightlineErrors',
+      \ 'warning'     : 'LightlineWarnings',
+      \ 'info'        : 'LightlineInfos',
+      \ 'hint'        : 'LightlineHints',
+      \ 'fix'         : 'LightlineFixes',
+      \}
+let g:lightline.component_type = {
+      \ 'error'       : 'error',
+      \ 'warning'     : 'warning',
+      \ 'info'        : 'info',
+      \ 'hint'        : 'middle',
+      \ 'fix'         : 'middle',
+      \}
+" Diagnostic error messages count
+function! LightlineErrors() abort
+  let l:current_buf_number = bufnr('%')
+  let l:qflist = getloclist(0)
+  let l:current_buf_diagnostics = filter(qflist, {index, dict -> dict['bufnr'] == current_buf_number && dict['type'] == 'E'})
+  let l:count = len(current_buf_diagnostics)
+  return l:count > 0 ? 'E:' . l:count : ''
+endfunction
+
+" Diagnostic warning messages count
+function! LightlineWarnings() abort
+  let l:current_buf_number = bufnr('%')
+  let l:qflist = getloclist(0)
+  let l:current_buf_diagnostics = filter(qflist, {index, dict -> dict['bufnr'] == current_buf_number && dict['type'] == 'W'})
+  let l:count = len(current_buf_diagnostics)
+  return l:count > 0 ? 'W:' . l:count : ''
+endfunction
+
+" Diagnostic informational messages count
+function! LightlineInfos() abort
+  let l:current_buf_number = bufnr('%')
+  let l:qflist = getloclist(0)
+  let l:current_buf_diagnostics = filter(qflist, {index, dict -> dict['bufnr'] == current_buf_number && dict['type'] == 'I'})
+  let l:count = len(current_buf_diagnostics)
+  return l:count > 0 ? 'I:' . l:count : ''
+endfunction
+
+" Diagnostic hint's count
+function! LightlineHints() abort
+  let l:current_buf_number = bufnr('%')
+  let l:qflist = getloclist(0)
+  let l:current_buf_diagnostics = filter(qflist, {index, dict -> dict['bufnr'] == current_buf_number && dict['type'] == 'H'})
+  let l:count = len(current_buf_diagnostics)
+  return l:count > 0 ? 'H:' . l:count : ''
+endfunction
+
+" Language Server Status
+function! LightlineStatus() abort
+  return LSCServerStatus()
+endfunction
+
+augroup exec_lsc_actions
+  autocmd!
+  " Update lightline on LSC diagnostic update
+  autocmd User LSCDiagnosticsChange call lightline#update()
+augroup end
 
 function! Branch()
   try
@@ -403,7 +503,6 @@ function! Branch()
   endtry
   return ''
 endfunction
-
 " }}}
 " ESKK {{{
 let g:eskk#enable_completion = 0
@@ -665,9 +764,3 @@ endfunction
 nnoremap M :call ToggleWindowSize()<CR>
 " }}}
 " }}}
-if has('win32')
-  let g:python3_host_prog = 'C:/devtools/Python/Python36/python.exe'
-elseif has('unix')
-  let g:python_host_prog = '/usr/bin/python'
-  let g:python3_host_prog = '/usr/bin/python3'
-endif
