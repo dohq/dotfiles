@@ -245,8 +245,6 @@ Plug 'zeero/vim-ctrlp-help'
 " Test
 Plug 'janko/vim-test'
 Plug 'skywind3000/asyncrun.vim'
-" Python
-Plug 'Vimjas/vim-python-pep8-indent',       {'for': 'python'}
 " Markdown
 Plug 'previm/previm',                       {'for': 'markdown'}
 " go
@@ -308,11 +306,10 @@ let g:lsc_auto_map = {
       \ 'DocumentSymbol': 'go',
       \ 'WorkspaceSymbol': 'gS',
       \ 'SignatureHelp': 'gm',
-      \ 'Completion': 'completefunc',
+      \ 'Completion': 'omnifunc',
       \}
 
 let g:lsc_server_commands = {}
-
 if executable('pyls')
   let g:lsc_server_commands['python'] = {
         \ 'command': 'pyls',
