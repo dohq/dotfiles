@@ -21,14 +21,13 @@ endif
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-colorscheme vitaminonec
+colorscheme gruvbox
 
 "----------------------------------------
 " FontSetting
 "----------------------------------------
 " set guifont=Cica:h12
-set guifont=Sarasa\ Mono\ T\ J:h12
-" set printfont=Cica:h8
+set guifont=Sarasa\ Mono\ J:h12
 
 if has('directx')
   set rop=type:directx,renmode:5
