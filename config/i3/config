@@ -59,6 +59,18 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+# workspace output
+workspace 1 output DisplayPort-1
+workspace 2 output DisplayPort-1
+workspace 3 output DisplayPort-1
+workspace 4 output DisplayPort-1
+workspace 5 output DisplayPort-1
+workspace 6 output DisplayPort-2
+workspace 7 output DisplayPort-2
+workspace 8 output DisplayPort-2
+workspace 9 output DisplayPort-2
+workspace 10 output DisplayPort-2
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -161,6 +173,7 @@ for_window [class="vlc"] floating enable
 for_window [class="KeePassXC"] floating enable
 for_window [class="Zeal"] floating enable
 for_window [class="Gscreenshot"] floating enable
+for_window [class="looking-glass-client"] floating enable
 for_window [class="Pavucontrol"] floating enable
 for_window [class="Virt-manager"] floating enable
 for_window [class="feh"] floating enable
