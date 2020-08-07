@@ -16,10 +16,6 @@ export VAGRANT_DEFAULT_PROVIDER=libvirt
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 fi
-
-# If command execution time above min. time, plugins will not output time.
-export ZSH_COMMAND_TIME_MIN_SECONDS=5
-
 if command -v sccache >/dev/null; then
   export RUSTC_WRAPPER=$(which sccache)
   export SCCACHE_DIR=$HOME/.cache/sccache
@@ -65,10 +61,13 @@ alias tb='nc termbin.com 9999'
 alias tokyo='curl wttr.in/Tokyo'
 alias tree='tree -N'
 alias u='up'
-alias v='vim'
-alias vd='vimdiff'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias ssh='TERM=xterm ssh'
+if type vim > /dev/null; then
+  alias vi='vim'
+  alias v='vim'
+  alias vd='vimdiff'
+fi
 
 # openstack
 alias op='openstack'
@@ -77,6 +76,9 @@ alias d='docker'
 alias dim='docker image'
 alias dp='docker ps'
 alias dpa='docker ps -a'
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcud='docker-compose up -d'
 # kubernetes
 alias kns='kubens'
 alias kcx='kubectx'
@@ -107,3 +109,6 @@ alias sudo='sudo '
 
 # pipenv
 export PIPENV_VENV_IN_PROJECT=true
+
+# If command execution time above min. time, plugins will not output time.
+export ZSH_COMMAND_TIME_MIN_SECONDS=5
