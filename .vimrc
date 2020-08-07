@@ -94,9 +94,10 @@ set nosmartindent
 set nostartofline
 set noswapfile
 set novisualbell
+set nowrap
 set nrformats-=octal
 set pumheight=10
-set scrolloff=7
+set scrolloff=9999
 set shiftround
 set shiftwidth=2
 set shortmess+=atIc
@@ -110,6 +111,8 @@ set switchbuf=useopen
 set synmaxcol=512
 set tabstop=2
 set tags=./tags;
+set textwidth=99
+set colorcolumn=100
 set title
 set ttyfast
 set updatetime=50
@@ -137,6 +140,11 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
+nnoremap <c-h> :<c-u>bp <enter>
+nnoremap <c-l> :<c-u>bn <enter>
+
+nnoremap <leader>y "+
 
 " Switch
 nnoremap <silent> <leader>s :Switch<CR>
@@ -204,13 +212,14 @@ if has('python3')
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 endif
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
-Plug 'ajh17/VimCompletesMe'
+" Plug 'ajh17/VimCompletesMe'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'itchyny/lightline.vim'
@@ -249,6 +258,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'previm/previm',                       {'for': 'markdown'}
 " go
 Plug 'mattn/vim-goimports',                 {'for': 'go'}
+Plug 'mattn/vim-godoc',                     {'for': 'go'}
 " Hashicorp
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " zsh
@@ -271,21 +281,22 @@ colorscheme gruvbox
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" VimCompletesMe {{{
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-let g:vcm_s_tab_behavior = 1
-autocmd FileType terraform let b:vcm_tab_complete = "omni"
-autocmd FileType go let b:vcm_tab_complete = "omni"
-autocmd FileType python let b:vcm_tab_complete = "omni"
-autocmd FileType rust let b:vcm_tab_complete = "omni"
-autocmd FileType sh let b:vcm_tab_complete = "omni"
-autocmd FileType yaml let b:vcm_tab_complete = "omni"
-autocmd FileType yaml.concourse let b:vcm_tab_complete = "omni"
-autocmd FileType yaml.manifest let b:vcm_tab_complete = "omni"
+" vim-mucomplete {{{
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay = 0
+let g:mucomplete#no_mappings = 1
+let g:mucomplete#no_popup_mappings = 1
+let g:mucomplete#always_use_completeopt = 1
+let g:mucomplete#buffer_relative_paths = 1
+let g:mucomplete#chains = {
+      \ 'default' : ['ulti', 'omni', 'c-n', 'path'],
+      \ }
+imap <unique> <tab> <plug>(MUcompleteFwd)
+imap <unique> <s-tab> <plug>(MUcompleteBwd)
 " }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:false
-let g:lsc_auto_completeopt = v:true
+let g:lsc_auto_completeopt = v:false
 let g:lsc_enable_snippet_support = v:true
 let g:lsp_ultisnips_integration = 1
 let g:lsc_complete_timeout = 1
@@ -646,7 +657,7 @@ vmap gx <Plug>(openbrowser-smart-search)
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
 " }}}
 " lexima {{{
-inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+" inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 " }}}
 " Grepper {{{
 let g:grepper               = {}
