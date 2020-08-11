@@ -187,7 +187,7 @@ call plug#begin($MYVIMDIR.'/plugins')
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'justinmk/vim-dirvish'
+Plug 'cocopon/vaffle.vim'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
@@ -197,6 +197,7 @@ Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
 Plug 'freitass/todo.txt-vim'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'chaoren/vim-wordmotion'
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
@@ -366,6 +367,7 @@ if executable('gopls')
         \   'usePlaceholders': v:true,
         \   'hoverKind': 'FullDocumentation',
         \   'completeUnimported': v:true,
+        \   'matcher': 'fuzzy',
         \ },
         \ 'log_level': -1,
         \ 'suppress_stderr': v:true
