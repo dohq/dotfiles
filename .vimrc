@@ -175,7 +175,7 @@ nnoremap N Nzz
 nnoremap <Space> <Nop>
 " }}}
 " manual filetype {{{
-autocmd BufRead,BufNewFile *pipeline*.yml set filetype=yaml.concourse
+autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
 autocmd BufRead,BufNewFile *_test.go set filetype=go.test
 " }}}
 
