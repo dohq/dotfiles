@@ -37,7 +37,9 @@ export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 export DefaultIMModule=fcitx
 
-fcitx-autostart &
+if command -v fcitx-autostart >/dev/null; then
+  fcitx-autostart &
+fi
 if command -v libinput-gestures-setup >/dev/null; then
   libinput-gestures-setup start &
 fi
@@ -47,5 +49,6 @@ fi
 if command -v greenclip >/dev/null; then
   /usr/bin/greenclip daemon &
 fi
+urxvtd -o -f
 setxkbmap -option ctrl:nocaps
 exec i3
