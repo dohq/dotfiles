@@ -213,14 +213,13 @@ if has('python3')
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
 endif
-" Plug 'cohama/lexima.vim'
+Plug 'cohama/lexima.vim'
 Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
 Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 " autocomplete
-" Plug 'ajh17/VimCompletesMe'
-Plug 'lifepillar/vim-mucomplete'
+Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
 " Visual
 Plug 'itchyny/lightline.vim'
@@ -282,28 +281,18 @@ colorscheme gruvbox
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
-" vim-mucomplete {{{
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 0
-let g:mucomplete#no_mappings = 1
-let g:mucomplete#no_popup_mappings = 1
-let g:mucomplete#always_use_completeopt = 1
-let g:mucomplete#buffer_relative_paths = 1
-let g:mucomplete#chains = {
-      \ 'default' : ['ulti', 'omni', 'c-n', 'path'],
-      \ }
-imap <unique> <tab> <plug>(MUcompleteFwd)
-imap <unique> <s-tab> <plug>(MUcompleteBwd)
+" VimCompletesMe {{{
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+let g:vcm_s_tab_behavior = 1
 " }}}
 " LSC {{{
-let g:lsc_enable_autocomplete = v:false
+let g:lsc_enable_autocomplete = v:true
 let g:lsc_auto_completeopt = v:false
 let g:lsc_enable_snippet_support = v:true
 let g:lsp_ultisnips_integration = 1
 let g:lsc_complete_timeout = 1
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
-let g:lsc_enable_snippet_support = v:false
 let g:lsc_trace_level = 'off'
 let g:lsc_auto_map = {
       \ 'GoToDefinition': 'gd',
@@ -368,6 +357,30 @@ if executable('gopls')
         \   'hoverKind': 'FullDocumentation',
         \   'completeUnimported': v:true,
         \   'matcher': 'fuzzy',
+        \ },
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \}
+endif
+if executable('vim-language-server')
+  let g:lsc_server_commands['vim'] = {
+        \ 'command': 'vim-language-server --stdio',
+        \ 'initialization_options': {
+        \   "iskeyword": "",
+        \   "vimruntime": $VIMRUNTIME,
+        \   "runtimepath": &rtp,
+        \   "diagnostic": {
+        \     "enable": v:true
+        \   },
+        \   "indexes": {
+        \     "runtimepath": v:true,
+        \     "gap": 100,
+        \     "count": 3,
+        \   },
+        \   "suggest": {
+        \     "fromVimruntime": v:true,
+        \     "fromRuntimepath": v:false
+        \   }
         \ },
         \ 'log_level': -1,
         \ 'suppress_stderr': v:true
