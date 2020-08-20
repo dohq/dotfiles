@@ -10,30 +10,19 @@ URxvt.cursorUnderline: false
 URxvt.pointerBlank: true
 URxvt.visualBell: false
 URxvt.saveLines: 30000
-URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 URxvt*iso14755: false
-URxvt.font: xft:Sarasa Fixed J:size=12:antialias=false, \
-            xft:Noto Color Emoji:size=12:antialias=false
+URxvt.font: xft:Sarasa Fixed J:size=12:antialias=false, xft:Noto Color Emoji:size=12:antialias=false
 ! Plugin
-URxvt.perl-ext-common: default,resize-font,clipboard
+URxvt.perl-ext-common: default,resize-font,clipboard,matcher
 URxvt.keysym.Control-Meta-c: builtin-string:
 URxvt.keysym.Control-Meta-v: builtin-string:
-URxvt.keysym.Shift-Control-c: perl:clipboard:copy
-URxvt.keysym.Shift-Control-v: perl:clipboard:paste
-URxvt.keysym.Shift-Control-V: eval:paste_clipboard
-URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-URxvt.perl-ext-common: default,matcher
-URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.matcher.launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
-URxvt.url-select.launcher: vivaldi
-URxvt.url-select.underline: true
 URxvt.keysym.C-Down: resize-font:smaller
 URxvt.keysym.C-Up: resize-font:bigger
-
-! color
-ssh-askpass*background: #000000
-URxvt.depth: 32
 
 urxvt.boldFont:
 Xft*dpi: 96
@@ -41,32 +30,85 @@ Xft*antialias: true
 Xft*hinting: true
 Xft*hintstyle: hintfull
 Xft*rgba: rgb
-URxvt*geometry: 85x20
-! *internalBorder: 25
-URxvt*fading: 0
+URxvt*geometry: 100x50
+URxvt*fading: 40
 URxvt*tintColor: #ffffff
 URxvt*shading: 0
 URxvt*inheritPixmap: False
-URxvt.color0: [100]#282828
-URxvt.color1: [100]#cc241d
-URxvt.color2: [100]#98971a
-URxvt.color3: [100]#d79921
-URxvt.color4: [100]#458588
-URxvt.color5: [100]#b16286
-URxvt.color6: [100]#689d6a
-URxvt.color7: [100]#a89984
-URxvt.color8: [100]#928374
-URxvt.color9: [100]#fb4934
-URxvt.color10: [100]#b8bb26
-URxvt.color11: [100]#fabd2f
-URxvt.color12: [100]#83a598
-URxvt.color13: [100]#d3869b
-URxvt.color14: [100]#8ec07c
-URxvt.color15: [100]#ebdbb2
-URxvt.colorIT: [100]#8ec07c
-URxvt.colorBD: [100]#fe8019
-URxvt.colorUL: [100]#83a598
-URxvt.foreground: [100]#ebdbb2
-URxvt.background: [100]#262626
-URxvt.scrollColor: [100]#504945
-URxvt.troughColor: [100]#3C3836
+! color
+! -----------------------------------------------------------------------------
+! File: gruvbox-urxvt256.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 13 Dec 2013
+! -----------------------------------------------------------------------------
+
+URxvt.depth:    32
+URxvt.color24:  [90]#076678
+URxvt.color66:  [90]#427b58
+URxvt.color88:  [90]#9d0006
+URxvt.color96:  [90]#8f3f71
+URxvt.color100: [90]#79740e
+URxvt.color108: [90]#8ec07c
+URxvt.color109: [90]#83a598
+URxvt.color130: [90]#af3a03
+URxvt.color136: [90]#b57614
+URxvt.color142: [90]#b8bb26
+URxvt.color167: [90]#fb4934
+URxvt.color175: [90]#d3869b
+URxvt.color208: [90]#fe8019
+URxvt.color214: [90]#fabd2f
+URxvt.color223: [90]#ebdbb2
+URxvt.color228: [90]#f2e5bc
+URxvt.color229: [90]#fbf1c7
+URxvt.color230: [90]#f9f5d7
+URxvt.color234: [90]#1d2021
+URxvt.color235: [90]#282828
+URxvt.color236: [90]#32302f
+URxvt.color237: [90]#3c3836
+URxvt.color239: [90]#504945
+URxvt.color241: [90]#665c54
+URxvt.color243: [90]#7c6f64
+URxvt.color244: [90]#928374
+URxvt.color245: [90]#928374
+URxvt.color246: [90]#a89984
+URxvt.color248: [90]#bdae93
+URxvt.color250: [90]#d5c4a1
+
+! -----------------------------------------------------------------------------
+! File: gruvbox-dark.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 6 Sep 2014
+! -----------------------------------------------------------------------------
+
+! hard contrast: *background: #1d2021
+*background: #282828
+! soft contrast: *background: #32302f
+*foreground: #ebdbb2
+! Black + DarkGrey
+*color0:  #282828
+*color8:  #928374
+! DarkRed + Red
+*color1:  #cc241d
+*color9:  #fb4934
+! DarkGreen + Green
+*color2:  #98971a
+*color10: #b8bb26
+! DarkYellow + Yellow
+*color3:  #d79921
+*color11: #fabd2f
+! DarkBlue + Blue
+*color4:  #458588
+*color12: #83a598
+! DarkMagenta + Magenta
+*color5:  #b16286
+*color13: #d3869b
+! DarkCyan + Cyan
+*color6:  #689d6a
+*color14: #8ec07c
+! LightGrey + White
+*color7:  #a89984
+*color15: #ebdbb2
