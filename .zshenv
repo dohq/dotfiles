@@ -43,7 +43,7 @@ path=(
 
 # Alias作りましょうねー
 alias c='clear'
-alias cp='cp -i'
+alias cp='cp -i --reflink=auto'
 alias rm='rm -i'
 alias mv='mv -i'
 alias f='find . -name'
@@ -68,6 +68,7 @@ if type vim > /dev/null; then
   alias v='vim'
   alias vd='vimdiff'
 fi
+alias dohq='cd $HOME/go/src/github.com/dohq'
 
 # openstack
 alias op='openstack'
