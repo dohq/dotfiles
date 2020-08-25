@@ -2,6 +2,8 @@ zinit wait lucid light-mode for \
   peterhurford/up.zsh \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
+  sobolevn/wakatime-zsh-plugin \
+  wbingli/zsh-wakatime \
   atinit"zpcompinit; zpcdreplay" \
     zdharma/fast-syntax-highlighting \
   atpull'zinit creinstall -q .' blockf \
