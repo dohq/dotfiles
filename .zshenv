@@ -7,7 +7,6 @@ export PERL5LIB=$HOME/perl5/lib/perl5
 export PERL_LOCAL_LIB_ROOT=$HOME/perl5
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
-export USE_CCACHE=1
 export GOPATH=$HOME/go
 export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
@@ -21,7 +20,10 @@ if command -v sccache >/dev/null; then
   export SCCACHE_DIR=$HOME/.cache/sccache
 fi
 if command -v ccache >/dev/null; then
+  export USE_CCACHE=1
   export CCACHE_DIR=$HOME/.cache/ccache
+  export CC="$(which ccache) gcc"
+  export CXX="$(which ccache) g++"
 fi
 
 # PATH
