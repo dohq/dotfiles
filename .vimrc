@@ -197,7 +197,6 @@ Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
 Plug 'freitass/todo.txt-vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'chaoren/vim-wordmotion'
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
@@ -253,7 +252,6 @@ Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
 " Test
 Plug 'janko/vim-test'
-Plug 'skywind3000/asyncrun.vim'
 " Markdown
 Plug 'previm/previm',                       {'for': 'markdown'}
 " go
@@ -708,8 +706,7 @@ let g:neoformat_enabled_python = ['black']
 " augroup END
 " }}}
 " vim-test {{{
-let test#strategy = "asyncrun"
-let g:asyncrun_open = 8
+let test#strategy = "vimterminal"
 " }}}
 " operator {{{
 map y <Plug>(operator-flashy)
