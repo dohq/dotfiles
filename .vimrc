@@ -111,7 +111,6 @@ set switchbuf=useopen
 set synmaxcol=512
 set tabstop=2
 set tags=./tags;
-set textwidth=99
 set colorcolumn=100
 set title
 set ttyfast
@@ -208,10 +207,12 @@ Plug 'haya14busa/vim-operator-flashy'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
-if has('python3')
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-endif
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+" if has('python3')
+"   Plug 'SirVer/ultisnips'
+"   Plug 'honza/vim-snippets'
+" endif
 Plug 'cohama/lexima.vim'
 Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
@@ -257,6 +258,7 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 " go
 Plug 'mattn/vim-goimports',                 {'for': 'go'}
 Plug 'mattn/vim-godoc',                     {'for': 'go'}
+Plug 'buoto/gotests-vim',                   {'for': 'go'}
 " Hashicorp
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " zsh
@@ -270,7 +272,7 @@ call plug#end()
 "----------------------------------------
 " color {{{
 set t_Co=256
-syntax on
+syntax enable
 let g:gruvbox_invert_selection='0'
 set background=dark
 colorscheme gruvbox
@@ -287,7 +289,7 @@ let g:vcm_s_tab_behavior = 1
 let g:lsc_enable_autocomplete = v:true
 let g:lsc_auto_completeopt = v:false
 let g:lsc_enable_snippet_support = v:true
-let g:lsp_ultisnips_integration = 1
+let g:lsp_ultisnips_integration = 0
 let g:lsc_complete_timeout = 1
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
@@ -384,6 +386,14 @@ if executable('vim-language-server')
         \ 'suppress_stderr': v:true
         \}
 endif
+if executable('solargraph')
+  let g:lsc_server_commands['ruby'] = {
+        \ 'command': 'solargraph.sh',
+        \ 'initialization_options': {'diagnostic': v:true},
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \}
+endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
 endif
@@ -394,17 +404,26 @@ if executable('concourse-language-server')
   let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
 endif
 " }}}
-" ultisnips {{{
-" Trigger configuration.
-let g:UltiSnipsExpandTrigger = '<c-k>'
-let g:UltiSnipsJumpForwardTrigger = '<c-k>'
-let g:UltiSnipsJumpBackwardTrigger = '<c-h>'
+" vsnip {{{
+" Expand
+imap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
+smap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit='vertical'
-" Python Comment Style
-let g:ultisnips_python_style = 'numpy'
-"}}}
+" Jump forward or backward
+imap <expr> <C-k>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+smap <expr> <C-k>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+smap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+smap        S   <Plug>(vsnip-cut-text)
+" }}}
 " Quick-Run {{{
 let g:quickrun_config = {
       \   '_' : {
@@ -783,4 +802,24 @@ function! ToggleWindowSize()
 endfunction
 nnoremap M :call ToggleWindowSize()<CR>
 " }}}
+" }}}
+" vsnip {{{
+" Expand
+imap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
+smap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
+
+" Jump forward or backward
+imap <expr> <C-k>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+smap <expr> <C-k>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
+imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+
+" Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
+" See https://github.com/hrsh7th/vim-vsnip/pull/50
+nmap        s   <Plug>(vsnip-select-text)
+xmap        s   <Plug>(vsnip-select-text)
+smap        s   <Plug>(vsnip-select-text)
+nmap        S   <Plug>(vsnip-cut-text)
+xmap        S   <Plug>(vsnip-cut-text)
+smap        S   <Plug>(vsnip-cut-text)
 " }}}
