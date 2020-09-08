@@ -95,6 +95,7 @@ set nostartofline
 set noswapfile
 set novisualbell
 set nowrap
+set maxmempattern=200000
 set nrformats-=octal
 set pumheight=10
 set scrolloff=9999
@@ -204,6 +205,7 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
 Plug 'haya14busa/vim-operator-flashy'
+Plug 'kana/vim-slacky'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
@@ -397,6 +399,9 @@ endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
 endif
+" if executable('terraform-ls')
+"   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
+" endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
 endif
@@ -731,6 +736,93 @@ let test#strategy = "vimterminal"
 map y <Plug>(operator-flashy)
 nmap Y <Plug>(operator-flashy)$
 map _ <Plug>(operator-replace)
+" }}}
+" vim-slackey {{{
+let s:PATH_RULES = [
+     \   ['\.log$', ':elasticsearch:'],
+     \ ]
+let s:FILETYPE_RULE_MAP = {
+     \   'git': ':git:',
+     \   'gitcommit': ':git:',
+     \   'gitconfig': ':git:',
+     \   'gitrebase': ':git:',
+     \   'help': ':p-hatena:',
+     \   'markdown': ':markdown:',
+     \   'sql': ':mysql:',
+     \   'vim': ':vim:',
+     \   'yaml.concourse': ':concourse_circle:',
+     \   'sh': ':shell:',
+     \   'terraform': ':terraform:',
+     \   'txt': ':file-txt:',
+     \   'yaml.docker-compose': ':party_docker:',
+     \ }
+let s:FALLBACK_EMOJIS = [
+     \   ':vim:',
+     \   ':eagles:',
+     \ ]
+
+" Format: [$branch] $path ($line,$col)
+" Note that:
+" - Head part of $path might be truncated if there is not enough room.
+" - Tail part of $branch might be truncated too.
+function! Slacky_build_status_text()
+  let branch = Branch()
+  let pjname = substitute(getcwd(), '^.*/', '', '')
+  let bufname = bufname('')
+  if bufname == ''
+    let bufname = '[No Name]'
+  endif
+  let path = fnamemodify(bufname, ':~:.')
+  let s_pos = ' (' . line('.') . ',' . col('.') . ')'
+
+  let limit = 100
+  let estimated_branch_room = min([16, strchars(branch, 1)]) + 3
+  let path_room = limit - strchars(s_pos, 1) - estimated_branch_room
+  if strchars(path, 1) <= path_room
+    let s_path = path
+  else
+    let s_path = '…' . path[-(path_room - 1):]
+  endif
+
+  let actual_branch_room = limit - 3 - strchars(s_path, 1) - strchars(s_pos, 1)
+  if strchars(branch, 1) <= actual_branch_room
+    let s_branch = branch
+  else
+    let s_branch = branch[:actual_branch_room - 1 - 1] . '…'
+  endif
+
+  return '{' . pjname . '}' . '[' . s_branch . '] ' . s_path . s_pos
+endfunction
+
+function! Slacky_build_status_emoji()
+  let path = bufname('')
+
+  for [pattern, emoji] in s:PATH_RULES
+    if path =~? pattern
+      return emoji
+    endif
+  endfor
+
+  let emoji = get(s:FILETYPE_RULE_MAP, &l:filetype, 0)
+  if emoji isnot 0
+    return emoji
+  endif
+
+  let hash = s:hash_path(path)
+  return s:FALLBACK_EMOJIS[hash % len(s:FALLBACK_EMOJIS)]
+endfunction
+
+function! s:hash_path(path)
+  let n = len(a:path)
+  let m = 4
+  let hash = 0
+  for i in range(m)
+    let hash = xor(hash * 2, char2nr(a:path[n * i / m]))
+  endfor
+  return hash
+endfunction
+let g:slacky_build_status_emoji = 'Slacky_build_status_emoji'
+let g:slacky_build_status_text = 'Slacky_build_status_text'
 " }}}
 " user command {{{
 " Auto plugin install {{{

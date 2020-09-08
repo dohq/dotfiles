@@ -44,3 +44,5 @@
 	pushInsteadOf = https://github.com/dohq
 [url "git@github.com:bosh-elastic-stack"]
 	pushInsteadOf = https://github.com/bosh-elastic-stack
+[hub]
+	protocol = ssh
