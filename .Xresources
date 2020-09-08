@@ -23,6 +23,7 @@ URxvt.matcher.launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt.keysym.C-Down: resize-font:smaller
 URxvt.keysym.C-Up: resize-font:bigger
+URxvt.keysym.C-Right: resize-font:default
 
 urxvt.boldFont:
 Xft*dpi: 96
@@ -32,9 +33,7 @@ Xft*hintstyle: hintfull
 Xft*rgba: rgb
 URxvt*geometry: 100x50
 URxvt*fading: 40
-URxvt*tintColor: #ffffff
 URxvt*shading: 0
-URxvt*inheritPixmap: False
 ! color
 ! -----------------------------------------------------------------------------
 ! File: gruvbox-urxvt256.xresources
