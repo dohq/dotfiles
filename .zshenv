@@ -22,8 +22,6 @@ fi
 if command -v ccache >/dev/null; then
   export USE_CCACHE=1
   export CCACHE_DIR=$HOME/.cache/ccache
-  export CC="$(which ccache) gcc"
-  export CXX="$(which ccache) g++"
 fi
 
 # PATH
@@ -90,11 +88,13 @@ alias tf='terraform'
 alias tfpp='terraform plan -out plan --parallelism=30'
 alias tfap='terraform apply plan'
 alias tfop='terraform output'
-alias tfvt='terraform validate'
+alias tfv='terraform validate'
+alias tff='terraform fmt'
 # Gitting
 alias g='git'
 alias ga='git add'
 alias gc='git clone'
+alias gb='git branch'
 alias gco='git checkout'
 alias gd='git diff'
 alias gf='git fetch --all'
@@ -103,9 +103,13 @@ alias gm='git commit -v'
 alias gnd='git init && git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
 alias gp='git push'
 alias gs='git status'
+alias gg='ghq get'
 
 # fzf
-export FZF_DEFAULT_OPTS='--height 70% --no-sort +m --reverse'
+export FZF_DEFAULT_OPTS='
+--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+--color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
+--height 70% --no-sort +m --reverse'
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
