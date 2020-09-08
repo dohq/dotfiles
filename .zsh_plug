@@ -32,13 +32,12 @@ zinit ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
 zinit light "rbenv/rbenv"
 
 # Binary
-zinit wait"2" as"null" lucid from"gh-r" light-mode for \
+zinit wait as"null" lucid from"gh-r" light-mode for \
   mv"fzf -> $ZPFX/bin/fzf" junegunn/fzf-bin \
   mv"**/peco -> $ZPFX/bin/peco" peco/peco \
   mv"**/dust -> $ZPFX/bin/dust" bootandy/dust \
   mv"**/rg -> $ZPFX/bin/rg" BurntSushi/ripgrep \
   mv"**/ghq -> $ZPFX/bin/ghq" x-motemen/ghq \
-  mv"direnv* -> $ZPFX/bin/direnv" atclone"$ZPFX/bin/direnv hook zsh > zhook.zsh" atpull"%atclone" src"zhook.zsh" direnv/direnv \
   mv"bosh-cli-* -> $ZPFX/bin/bosh" cloudfoundry/bosh-cli \
   mv"credhub -> $ZPFX/bin/credhub" cloudfoundry-incubator/credhub-cli \
   mv"om-* -> $ZPFX/bin/om" pivotal-cf/om \
@@ -55,7 +54,12 @@ zinit wait"2" as"null" lucid from"gh-r" light-mode for \
   mv"*-levant -> $ZPFX/bin/levant" jrasell/levant \
   mv"pack -> $ZPFX/bin/pack" buildpacks/pack
 
-zinit wait"2" as"program" lucid light-mode for \
+zinit from"gh-r" as"program" mv"direnv* -> $ZPFX/bin/direnv" \
+   atclone"$ZPFX/bin/direnv hook zsh > zhook.zsh" atpull'%atclone' \
+   pick"direnv" src="zhook.zsh" for \
+   direnv/direnv
+
+zinit wait as"program" lucid light-mode for \
   pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" tj/git-extras \
   pick"yank" make mptre/yank
 
