@@ -14,6 +14,12 @@ else
   let $MYVIMDIR = expand('$HOME/.vim')
 endif
 
+if empty(glob('$MYVIMDIR/autoload/plug.vim'))
+  silent !curl -fLo $MYVIMDIR/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " Enable Tmux in TrueColor
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -209,12 +215,6 @@ Plug 'kana/vim-slacky'
 " Input Assist
 Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-" if has('python3')
-"   Plug 'SirVer/ultisnips'
-"   Plug 'honza/vim-snippets'
-" endif
 Plug 'cohama/lexima.vim'
 Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
@@ -223,6 +223,11 @@ Plug 'tyru/eskk.vim'
 " autocomplete
 Plug 'ajh17/VimCompletesMe'
 Plug 'natebosch/vim-lsc'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'golang/vscode-go'
+Plug 'microsoft/vscode-python'
+Plug 'hashicorp/vscode-terraform'
 " Visual
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/try-colorscheme.vim'
@@ -399,9 +404,6 @@ endif
 if executable('terraform-lsp')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
 endif
-" if executable('terraform-ls')
-"   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
-" endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
 endif
@@ -411,23 +413,23 @@ endif
 " }}}
 " vsnip {{{
 " Expand
-imap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
-smap <expr> <C-k>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-k>'
+imap <expr> <C-k> vsnip#expandable() ? '<Plug>(vsnip-expand)'    : '<C-k>'
+smap <expr> <C-k> vsnip#expandable() ? '<Plug>(vsnip-expand)'    : '<C-k>'
 
 " Jump forward or backward
-imap <expr> <C-k>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
-smap <expr> <C-k>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-k>'
-imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
-smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+imap <expr> <C-k> vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<C-k>'
+smap <expr> <C-k> vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<C-k>'
+imap <expr> <C-h> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-h>'
+smap <expr> <C-h> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-h>'
 
 " Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 " See https://github.com/hrsh7th/vim-vsnip/pull/50
-nmap        s   <Plug>(vsnip-select-text)
-xmap        s   <Plug>(vsnip-select-text)
-smap        s   <Plug>(vsnip-select-text)
-nmap        S   <Plug>(vsnip-cut-text)
-xmap        S   <Plug>(vsnip-cut-text)
-smap        S   <Plug>(vsnip-cut-text)
+nmap s <Plug>(vsnip-select-text)
+xmap s <Plug>(vsnip-select-text)
+smap s <Plug>(vsnip-select-text)
+nmap S <Plug>(vsnip-cut-text)
+xmap S <Plug>(vsnip-cut-text)
+smap S <Plug>(vsnip-cut-text)
 " }}}
 " Quick-Run {{{
 let g:quickrun_config = {
@@ -739,27 +741,27 @@ map _ <Plug>(operator-replace)
 " }}}
 " vim-slackey {{{
 let s:PATH_RULES = [
-     \   ['\.log$', ':elasticsearch:'],
-     \ ]
+      \   ['\.log$', ':elasticsearch:'],
+      \ ]
 let s:FILETYPE_RULE_MAP = {
-     \   'git': ':git:',
-     \   'gitcommit': ':git:',
-     \   'gitconfig': ':git:',
-     \   'gitrebase': ':git:',
-     \   'help': ':p-hatena:',
-     \   'markdown': ':markdown:',
-     \   'sql': ':mysql:',
-     \   'vim': ':vim:',
-     \   'yaml.concourse': ':concourse_circle:',
-     \   'sh': ':shell:',
-     \   'terraform': ':terraform:',
-     \   'txt': ':file-txt:',
-     \   'yaml.docker-compose': ':party_docker:',
-     \ }
+      \   'git': ':git:',
+      \   'gitcommit': ':git:',
+      \   'gitconfig': ':git:',
+      \   'gitrebase': ':git:',
+      \   'help': ':p-hatena:',
+      \   'markdown': ':markdown:',
+      \   'sql': ':mysql:',
+      \   'vim': ':vim:',
+      \   'yaml.concourse': ':concourse_circle:',
+      \   'sh': ':shell:',
+      \   'terraform': ':terraform:',
+      \   'txt': ':file-txt:',
+      \   'yaml.docker-compose': ':party_docker:',
+      \ }
 let s:FALLBACK_EMOJIS = [
-     \   ':vim:',
-     \   ':eagles:',
-     \ ]
+      \   ':vim:',
+      \   ':eagles:',
+      \ ]
 
 " Format: [$branch] $path ($line,$col)
 " Note that:
