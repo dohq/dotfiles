@@ -63,7 +63,7 @@ zstyle ':zle:*' word-style unspecified
 
 ########################################
 # プロンプト指定
-PROMPT=""
+# PROMPT {{{
 PROMPT="
 [%n"@"%m %T] %{${fg[yellow]}%}%(5~|%-1~/…/%3~|%4~)%{${reset_color}%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
@@ -71,11 +71,13 @@ PROMPT="
 PROMPT2='[%n]> '
 # もしかして時のプロンプト指定
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+# }}}
+# RPROMPT {{{
+RPROMPT=""
 # reqire romkatv/gitstatus {{{
 function gitstatus_prompt_update() {
   emulate -L zsh
   typeset -g  GITSTATUS_PROMPT=''
-  typeset -gi GITSTATUS_PROMPT_LEN=0
 
   # Call gitstatus_query synchronously. Note that gitstatus_query can also be called
   # asynchronously; see documentation in gitstatus.plugin.zsh.
@@ -126,25 +128,39 @@ function gitstatus_prompt_update() {
   # ?42 if have untracked files. It's really a question mark, your font isn't broken.
   (( VCS_STATUS_NUM_UNTRACKED  )) && p+=" ${untracked}?${VCS_STATUS_NUM_UNTRACKED}"
 
-  GITSTATUS_PROMPT="${p}%f"
-
-  # The length of GITSTATUS_PROMPT after removing %f and %F.
-  GITSTATUS_PROMPT_LEN="${(m)#${${GITSTATUS_PROMPT//\%\%/x}//\%(f|<->F)}}"
+  # GITSTATUS_PROMPT="${p}%f"
+  print "${p}%f"
 }
-
+# 
 # Start gitstatusd instance with name "MY". The same name is passed to
 # gitstatus_query in gitstatus_prompt_update. The flags with -1 as values
 # enable staged, unstaged, conflicted and untracked counters.
 gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 
 # On every prompt, fetch git status and set GITSTATUS_PROMPT.
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd gitstatus_prompt_update
+# autoload -Uz add-zsh-hook
+# add-zsh-hook precmd gitstatus_prompt_update
 
 # Enable/disable the right prompt options.
 setopt no_prompt_bang prompt_percent prompt_subst
 # }}}
-RPROMPT='$GITSTATUS_PROMPT'
+git_status() {
+  cd -q $1
+  gitstatus_prompt_update
+}
+_git_status_done() {
+    local stdout=$3
+    RPROMPT=$stdout
+    zle reset-prompt
+}
+async_start_worker rprompt_worker -n
+async_register_callback rprompt_worker _git_status_done
+async_job rprompt_worker git_status $(pwd)
+
+add-zsh-hook precmd (){
+    async_job rprompt_worker git_status $PWD
+}
+# }}}
 
 ########################################
 # オプション
