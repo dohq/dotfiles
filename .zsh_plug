@@ -1,3 +1,8 @@
+zinit light-mode for \
+  @zinit-zsh/z-a-bin-gem-node \
+  mafredri/zsh-async \
+  src"gitstatus.plugin.zsh" romkatv/gitstatus
+
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
   hlissner/zsh-autopair \
@@ -13,55 +18,40 @@ zinit wait lucid light-mode for \
   atclone"dircolors -b LS_COLORS > clrs.zsh" \
   atpull'%atclone' pick"clrs.zsh" nocompile'!' \
   atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"' \
-    trapd00r/LS_COLORS
-
-# git status prompt
-zinit ice src"gitstatus.plugin.zsh"
-zinit light "romkatv/gitstatus"
-
-# pyenv
-zinit ice wait lucid atclone"./libexec/pyenv init - > zpyenv.zsh" \
-    atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
-    as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!'
-zinit light "pyenv/pyenv"
-
-# rbenv
-zinit ice wait lucid atclone"./libexec/rbenv init - > zrbenv.zsh" \
-    atinit'export RBENV_ROOT="$PWD"' atpull"%atclone" \
-    as'command' pick'bin/rbenv' src"zrbenv.zsh" nocompile'!'
-zinit light "rbenv/rbenv"
+    trapd00r/LS_COLORS \
+  atclone"./libexec/pyenv init - > zpyenv.zsh" \
+  atinit'export PYENV_ROOT="$PWD"' atpull"%atclone" \
+  as'command' pick'bin/pyenv' src"zpyenv.zsh" nocompile'!' \
+    pyenv/pyenv \
+  atclone"./libexec/rbenv init - > zrbenv.zsh" \
+  atinit'export RBENV_ROOT="$PWD"' atpull"%atclone" \
+  as'command' pick'bin/rbenv' src"zrbenv.zsh" nocompile'!' \
+    rbenv/rbenv
 
 # Binary
-zinit wait as"null" lucid from"gh-r" light-mode for \
-  mv"fzf -> $ZPFX/bin/fzf" junegunn/fzf-bin \
-  mv"**/peco -> $ZPFX/bin/peco" peco/peco \
-  mv"**/dust -> $ZPFX/bin/dust" bootandy/dust \
-  mv"**/rg -> $ZPFX/bin/rg" BurntSushi/ripgrep \
-  mv"**/ghq -> $ZPFX/bin/ghq" x-motemen/ghq \
-  mv"bosh-cli-* -> $ZPFX/bin/bosh" cloudfoundry/bosh-cli \
-  mv"credhub -> $ZPFX/bin/credhub" cloudfoundry-incubator/credhub-cli \
-  mv"om-* -> $ZPFX/bin/om" pivotal-cf/om \
-  mv"**/bat -> $ZPFX/bin/bat" @sharkdp/bat \
-  mv"**/fd -> $ZPFX/bin/fd" @sharkdp/fd \
-  mv"**/**/hub -> $ZPFX/bin/hub" @github/hub \
-  bpick"fly-*" mv"fly -> $ZPFX/bin/fly" concourse/concourse \
-  mv"docker* -> $ZPFX/bin/docker-compose" docker/compose \
-  mv"shfmt* -> $ZPFX/bin/shfmt" @mvdan/sh \
-  mv"ytdl* -> $ZPFX/bin/ytdl" rylio/ytdl \
-  mv"kapp* -> $ZPFX/bin/kapp" k14s/kapp \
-  mv"ytt* -> $ZPFX/bin/ytt" k14s/ytt \
-  mv"terraform-lsp -> $ZPFX/bin/terraform-lsp" juliosueiras/terraform-lsp \
-  mv"*-levant -> $ZPFX/bin/levant" jrasell/levant \
-  mv"pack -> $ZPFX/bin/pack" buildpacks/pack
-
-zinit from"gh-r" as"program" mv"direnv* -> $ZPFX/bin/direnv" \
-   atclone"$ZPFX/bin/direnv hook zsh > zhook.zsh" atpull'%atclone' \
-   pick"direnv" src="zhook.zsh" for \
-   direnv/direnv
-
-zinit wait as"program" lucid light-mode for \
-  pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX" tj/git-extras \
-  pick"yank" make mptre/yank
+zinit wait lucid from"gh-r" as"null" for \
+  sbin"fzf" junegunn/fzf-bin \
+  sbin"**/peco" peco/peco \
+  sbin"**/dust" bootandy/dust \
+  sbin"**/rg" BurntSushi/ripgrep \
+  sbin"**/ghq" x-motemen/ghq \
+  sbin"bosh-cli-* -> bosh" cloudfoundry/bosh-cli \
+  sbin"credhub" cloudfoundry-incubator/credhub-cli \
+  sbin"om-* -> om" pivotal-cf/om \
+  sbin"**/bat" @sharkdp/bat \
+  sbin"**/fd" @sharkdp/fd \
+  sbin"**/**/hub" @github/hub \
+  bpick"fly-*" sbin"fly" concourse/concourse \
+  bpick'kubectx*' id-as'kubectx' sbin"kubectx" ahmetb/kubectx \
+  bpick'kubens*' id-as'kubens' sbin"kubens" ahmetb/kubectx \
+  sbin"docker* -> docker-compose" docker/compose \
+  sbin"shfmt*" @mvdan/sh \
+  sbin"kapp*" k14s/kapp \
+  sbin"ytt*" k14s/ytt \
+  sbin"terraform-lsp" juliosueiras/terraform-lsp \
+  sbin"pack" buildpacks/pack \
+  sbin"direnv* -> direnv" atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src="zhook.zsh" \
+    direnv/direnv
 
 ########## Function
 # history
@@ -76,7 +66,7 @@ zinit snippet "https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912
 # ghq
 zinit ice wait lucid
 zinit snippet "https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/48907f538b984a5997cdef276265ea4d5a5cd983/fzf-ghq.zsh"
-# kubectl
+# kube
 zinit ice wait lucid
 zinit snippet "https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases"
 # aws profile
