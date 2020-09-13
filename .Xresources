@@ -12,7 +12,7 @@ URxvt.visualBell: false
 URxvt.saveLines: 30000
 URxvt.scrollBar: false
 URxvt*iso14755: false
-URxvt.font: xft:Sarasa Fixed J:size=12:antialias=false, xft:Noto Color Emoji:size=12:antialias=false
+URxvt.font: xft:Sarasa Fixed J:size=12:antialias=false, xft:DejaVu Sans Mono:size=12:antialias=false
 ! Plugin
 URxvt.perl-ext-common: default,resize-font,clipboard,matcher
 URxvt.keysym.Control-Meta-c: builtin-string:
