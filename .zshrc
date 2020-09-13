@@ -127,8 +127,8 @@ function gitstatus_prompt_update() {
   # ?42 if have untracked files. It's really a question mark, your font isn't broken.
   (( VCS_STATUS_NUM_UNTRACKED  )) && p+=" ${untracked}?${VCS_STATUS_NUM_UNTRACKED}"
 
-  GITSTATUS_PROMPT="${p}%f"
-  # print "${p}%f"
+  # GITSTATUS_PROMPT="${p}%f"
+  print "${p}%f"
 }
 # 
 # Start gitstatusd instance with name "MY". The same name is passed to
@@ -138,28 +138,49 @@ gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 
 # On every prompt, fetch git status and set GITSTATUS_PROMPT.
 # autoload -Uz add-zsh-hook
-add-zsh-hook precmd gitstatus_prompt_update
+# add-zsh-hook precmd gitstatus_prompt_update
 
 # Enable/disable the right prompt options.
 setopt no_prompt_bang prompt_percent prompt_subst
 # }}}
-RPROMPT='$GITSTATUS_PROMPT'
-# git_status() {
-#   cd -q $1
-#   gitstatus_prompt_update
-# }
-# _git_status_done() {
-#     local stdout=$3
-#     RPROMPT=$stdout
-#     zle reset-prompt
-# }
-# async_start_worker rprompt_worker -n
-# async_register_callback rprompt_worker _git_status_done
-# async_job rprompt_worker git_status $(pwd)
-# 
-# add-zsh-hook precmd (){
-#   async_job rprompt_worker git_status $PWD
-# }
+typeset -Ag prompt_data
+
+function prompt_k8s() {
+  print '$(kube_ps1)'
+}
+
+# section for git branch
+function prompt_git() {
+  cd -q $1
+  gitstatus_prompt_update
+}
+
+KUBE_PS1_SYMBOL_ENABLE=true
+# refresh prompt with new data
+prompt_refresh() {
+  RPROMPT="$prompt_data[prompt_git] $prompt_data[prompt_k8s] "
+  # Redraw the prompt.
+  zle reset-prompt
+}
+
+prompt_callback() {
+  local job=$1 output=$3
+  prompt_data[$job]=$output
+  prompt_refresh
+}
+
+# Start async worker
+async_start_worker 'prompt' -n -u
+# Register callback function for the workers completed jobs
+async_register_callback 'prompt' prompt_callback
+
+# Setup
+add-zsh-hook precmd (){
+  async_job 'prompt' prompt_k8s
+  async_job 'prompt' prompt_git $PWD # required
+}
+
+RPROMPT=''
 # }}}
 
 ########################################
