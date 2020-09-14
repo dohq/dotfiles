@@ -27,7 +27,11 @@ zinit wait lucid light-mode for \
   atclone"./libexec/rbenv init - > zrbenv.zsh" \
   atinit'export RBENV_ROOT="$PWD"' atpull"%atclone" \
   as'command' pick'bin/rbenv' src"zrbenv.zsh" nocompile'!' \
-    rbenv/rbenv
+    rbenv/rbenv \
+  as'command' pick'kubectx' id-as'kubectx' \
+    ahmetb/kubectx \
+  as'command' pick'kubens' id-as'kubens' \
+    ahmetb/kubectx
 
 # Binary
 zinit wait lucid from"gh-r" as"null" for \
@@ -43,12 +47,10 @@ zinit wait lucid from"gh-r" as"null" for \
   sbin"**/fd" @sharkdp/fd \
   sbin"**/**/hub" @github/hub \
   bpick"fly-*" sbin"fly" concourse/concourse \
-  bpick'kubectx*' id-as'kubectx' sbin"kubectx" ahmetb/kubectx \
-  bpick'kubens*' id-as'kubens' sbin"kubens" ahmetb/kubectx \
   sbin"docker* -> docker-compose" docker/compose \
   sbin"shfmt*" @mvdan/sh \
-  sbin"kapp*" k14s/kapp \
-  sbin"ytt*" k14s/ytt \
+  sbin"kapp-* -> kapp" k14s/kapp \
+  sbin"ytt-* -> ytt" k14s/ytt \
   sbin"terraform-lsp" juliosueiras/terraform-lsp \
   sbin"pack" buildpacks/pack \
   sbin"direnv* -> direnv" atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src="zhook.zsh" \
