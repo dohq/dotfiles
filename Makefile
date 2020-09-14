@@ -2,18 +2,19 @@
 
 init: ## init dotfiles
 	test -L ${HOME}/.tmux || rm -rf ${HOME}/.tmux
-	ln -vsfn ${PWD}/.tmux ${HOME}/.tmux
-	ln -vsf ${PWD}/.tmux.conf ${HOME}/.tmux.conf
-	ln -vsf ${PWD}/.gitconfig ${HOME}/.gitconfig
-	ln -vsf ${PWD}/.gvimrc ${HOME}/.gvimrc
-	ln -vsf ${PWD}/.vimrc ${HOME}/.vimrc
-	ln -vsf ${PWD}/.xinitrc ${HOME}/.xinitrc
-	ln -vsf ${PWD}/.Xresources ${HOME}/.Xresources
-	ln -vsf ${PWD}/.zshenv ${HOME}/.zshenv
-	ln -vsf ${PWD}/.zsh_plug ${HOME}/.zsh_plug
-	ln -vsf ${PWD}/.zshrc ${HOME}/.zshrc
-	ln -vsf ${PWD}/config/rofi/config ${HOME}/.config/rofi/config
-	ln -vsf ${PWD}/config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
+	ln -vsn ${PWD}/.tmux ${HOME}/.tmux
+	ln -vs ${PWD}/.tmux.conf ${HOME}/.tmux.conf
+	ln -vs ${PWD}/.gitconfig ${HOME}/.gitconfig
+	ln -vs ${PWD}/.gvimrc ${HOME}/.gvimrc
+	ln -vs ${PWD}/.vimrc ${HOME}/.vimrc
+	ln -vs ${PWD}/.xinitrc ${HOME}/.xinitrc
+	ln -vs ${PWD}/.Xresources ${HOME}/.Xresources
+	ln -vs ${PWD}/.zshenv ${HOME}/.zshenv
+	ln -vs ${PWD}/.zsh_plug ${HOME}/.zsh_plug
+	ln -vs ${PWD}/.zshrc ${HOME}/.zshrc
+	ln -vs ${PWD}/config/rofi/config ${HOME}/.config/rofi/config
+	ln -vs ${PWD}/config/dunst/dunstrc ${HOME}/.config/dunst/dunstrc
+	ln -vs ${PWD}/config/pulseaudio/default.pa ${HOME}/.config/pulseaudio/default.pa
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
