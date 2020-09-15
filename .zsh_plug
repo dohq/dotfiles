@@ -53,8 +53,7 @@ zinit wait lucid from"gh-r" as"null" for \
   sbin"ytt-* -> ytt" k14s/ytt \
   sbin"terraform-lsp" juliosueiras/terraform-lsp \
   sbin"pack" buildpacks/pack \
-  sbin"direnv* -> direnv" atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src="zhook.zsh" \
-    direnv/direnv
+  sbin"direnv* -> direnv" atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' pick"direnv" src="zhook.zsh" direnv/direnv
 
 ########## Function
 # history

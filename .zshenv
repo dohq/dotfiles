@@ -38,6 +38,7 @@ path=(
   $HOME/perl5/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   /usr/local/bin(N-/)
+  "${KREW_ROOT:-$HOME/.krew}/bin"(N-/)
   $path
 )
 
