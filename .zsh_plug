@@ -31,14 +31,28 @@ zinit wait lucid light-mode for \
   as'command' pick'kubectx' id-as'kubectx' \
     ahmetb/kubectx \
   as'command' pick'kubens' id-as'kubens' \
-    ahmetb/kubectx
+    ahmetb/kubectx \
+  has'helm' id-as'helm-completion' \
+  as'completion' \
+  atclone'helm completion zsh > _helm' \
+  atpull'%atclone' \
+  run-atpull \
+    zdharma/null \
+  has'kubectl'  id-as'kubectl-completion' \
+  as'completion' \
+  atclone'kubectl completion zsh > _kubectl' \
+  atpull'%atclone' \
+  run-atpull \
+    zdharma/null \
+  pick'.kubectl_aliases' \
+    ahmetb/kubectl-aliases
 
 # Binary
 # No Wait direnv
-zinit from"gh-r" as"program" sbin"direnv* -> direnv" \
-    atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' \
-    pick"direnv" src="zhook.zsh" for \
-        direnv/direnv
+zinit from'gh-r' as'program' sbin'direnv* -> direnv' \
+  atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' \
+  pick'direnv' src='zhook.zsh' for \
+    direnv/direnv
 
 zinit wait lucid from'gh-r' as'null' for \
   sbin'fzf' junegunn/fzf-bin \
@@ -63,19 +77,16 @@ zinit wait lucid from'gh-r' as'null' for \
 ########## Function
 # history
 zinit ice wait lucid
-zinit snippet 'https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/f6f1f70e43f2c62d6d5eae16d47f78da208b17f3/fzf-history.zsh'
+zinit snippet 'https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/fzf-history.zsh'
 # ssh
 zinit ice wait lucid
-zinit snippet 'https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/402372539ffeca45812497ae0a5a54108fc6a36d/fzf-ssh.zsh'
+zinit snippet 'https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/fzf-ssh.zsh'
 # branch
 zinit ice wait lucid
-zinit snippet 'https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/229483b3fbc60dc41ee778d678a87cba72ddfa7a/fzf-branch.zsh'
+zinit snippet 'https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/fzf-branch.zsh'
 # ghq
 zinit ice wait lucid
-zinit snippet 'https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/48907f538b984a5997cdef276265ea4d5a5cd983/fzf-ghq.zsh'
-# kube
-zinit ice wait lucid
-zinit snippet 'https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.kubectl_aliases'
+zinit snippet 'https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/fzf-ghq.zsh'
 # aws profile
 zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/cm-watanabeseigo/0a103315529d502ce4a82d2a8aab6cd3/raw/.bash_profile_aws-profile'
