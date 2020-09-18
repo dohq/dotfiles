@@ -44,6 +44,11 @@ autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^E" edit-command-line
 
+# smart insert last word
+autoload smart-insert-last-word
+zle -N insert-last-word smart-insert-last-word
+bindkey '^]' insert-last-word
+
 ########################################
 # 色を使用出来るようにする
 autoload -Uz colors; colors
