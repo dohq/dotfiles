@@ -150,7 +150,7 @@ vnoremap : ;
 nnoremap <c-h> :<c-u>bp <enter>
 nnoremap <c-l> :<c-u>bn <enter>
 
-nnoremap <leader>y "+
+nnoremap <leader>y "*
 
 " Switch
 nnoremap <silent> <leader>s :Switch<CR>
@@ -651,9 +651,12 @@ nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 if executable('ag')
   let g:ctrlp_use_caching=0
   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+else
+  let g:ctrlp_user_command='files -a %s'
 endif
 
 let g:fruzzy#usenative = 1
+let g:fruzzy#sortonempty = 1
 let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
 let g:ctrlp_match_current_file = 1 " to include current file in matches
 
@@ -883,3 +886,4 @@ endfunction
 nnoremap M :call ToggleWindowSize()<CR>
 " }}}
 " }}}
+set clipboard=unnamedplus
