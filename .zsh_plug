@@ -28,10 +28,12 @@ zinit wait lucid light-mode for \
   atinit'export RBENV_ROOT="$PWD"' atpull'%atclone' \
   as'command' pick'bin/rbenv' src'zrbenv.zsh' nocompile'!' \
     rbenv/rbenv \
-  as'command' pick'kubectx' id-as'kubectx' \
+  as'command' sbin'kubectx' id-as'kubectx' \
     ahmetb/kubectx \
-  as'command' pick'kubens' id-as'kubens' \
-    ahmetb/kubectx \
+  as'command' sbin'kubens' id-as'kubens' \
+    ahmetb/kubectx
+
+zinit wait lucid light-mode for \
   has'helm' id-as'helm-completion' \
   as'completion' \
   atclone'helm completion zsh > _helm' \
@@ -62,8 +64,9 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'**/ghq' x-motemen/ghq \
   sbin'**/**/hub' @github/hub \
   sbin'docker* -> docker-compose' docker/compose \
-  sbin'shfmt*' @mvdan/sh \
+  sbin'shfmt* -> shfmt' @mvdan/sh \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \
+  sbin'kubeval' instrumenta/kubeval \
   sbin'kapp-* -> kapp' k14s/kapp \
   sbin'ytt-* -> ytt' k14s/ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
