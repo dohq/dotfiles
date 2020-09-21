@@ -24,7 +24,6 @@ fi
 ########################################
 # completion
 autoload -Uz compinit && compinit
-autoload -Uz bashcompinit && bashcompinit
 zinit cdreplay -q # <- execute compdefs provided by rest of plugins
 zinit cdlist # look at gathered compdefs
 # 短縮補完の有効化 (https://gihyo.jp/dev/serial/01/zsh-book/0005)
@@ -258,12 +257,6 @@ function git(){hub "$@"}
 function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 # remove dupulicate path/PATH
 typeset -U path PATH
-
-# hashicorp
-complete -o nospace -C /usr/bin/consul consul
-complete -o nospace -C /usr/bin/nomad nomad
-complete -o nospace -C /usr/bin/vault vault
-complete -o nospace -C /usr/bin/mcli mcli
 
 if (which zprof > /dev/null 2>&1) ;then
   zprof
