@@ -71,6 +71,7 @@ set ambiwidth=double
 set autoread
 set autowrite
 set belloff=all
+set clipboard=unnamedplus
 set cmdheight=2
 set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
@@ -270,10 +271,6 @@ Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
-" manual filetype {{{
-autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
-autocmd BufRead,BufNewFile *_test.go set filetype=go.test
-" }}}
 "----------------------------------------
 " color settings
 "----------------------------------------
@@ -288,6 +285,10 @@ colorscheme gruvbox
 "----------------------------------------
 " Plugin Settings
 "----------------------------------------
+" manual filetype {{{
+autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
+autocmd BufRead,BufNewFile *_test.go set filetype=go.test
+" }}}
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:vcm_s_tab_behavior = 1
@@ -887,4 +888,3 @@ endfunction
 nnoremap M :call ToggleWindowSize()<CR>
 " }}}
 " }}}
-set clipboard=unnamedplus
