@@ -180,10 +180,6 @@ nnoremap N Nzz
 " disable space keymap
 nnoremap <Space> <Nop>
 " }}}
-" manual filetype {{{
-autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
-autocmd BufRead,BufNewFile *_test.go set filetype=go.test
-" }}}
 
 "----------------------------------------
 " Plugin list
@@ -274,6 +270,10 @@ Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
+" manual filetype {{{
+autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
+autocmd BufRead,BufNewFile *_test.go set filetype=go.test
+" }}}
 "----------------------------------------
 " color settings
 "----------------------------------------
@@ -440,7 +440,7 @@ if has('win32')
         \     'hook/output_encode/encoding' : 'cp932',
         \}
 endif
-let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test']}
+let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test -v']}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
 
 let g:quickrun_no_default_key_mappings = 1
