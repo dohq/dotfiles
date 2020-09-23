@@ -254,7 +254,7 @@ bindkey "^[3;5~"  delete-char
 # hub alias
 function git(){hub "$@"}
 # gitignore
-function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
+function gi() { curl -L -s https://www.gitignore.io/api/"$@" >> .gitignore ;}
 # remove dupulicate path/PATH
 typeset -U path PATH
 
