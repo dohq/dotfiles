@@ -27,6 +27,7 @@
 	tool = vimdiff
 [commit]
 	verbose = true
+	gpgsign = true
 [rerere]
 	enabled = true
 [http]
@@ -46,3 +47,9 @@
 	pushInsteadOf = https://github.com/bosh-elastic-stack
 [hub]
 	protocol = ssh
+[gpg]
+	program = gpg
+[user]
+	signingkey = 3441E0B8A6850D2AA086231D37D38BFE80A21F42
+[include]
+	path = $HOME/.gitconfig_local
