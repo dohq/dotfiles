@@ -250,8 +250,8 @@ Plug 'rhysd/conflict-marker.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-ghq'
+Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'mattn/ctrlp-register'
-Plug 'raghur/fruzzy',                       {'do': { -> fruzzy#install() }}
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'zeero/vim-ctrlp-help'
@@ -650,19 +650,12 @@ nnoremap <silent> [CtrlP]y :<C-u>CtrlPYankRound<CR>
 nnoremap <silent> [CtrlP]c :<C-u>call ctrlp#init(ctrlp#commandline#id())<CR>
 nnoremap <silent> [CtrlP]e :<C-u>e $MYVIMRC<CR>
 
-if executable('ag')
-  let g:ctrlp_use_caching=0
-  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-else
-  let g:ctrlp_user_command='files -a %s'
-endif
-
 let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 1
-let g:ctrlp_match_func = {'match': 'fruzzy#ctrlp#matcher'}
-let g:ctrlp_match_current_file = 1 " to include current file in matches
+let g:ctrlp_match_current_file = 1
+let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 
-let g:ctrlp_lazy_update = 1
+
 let g:ctrlp_map = '<Nop>'
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'
