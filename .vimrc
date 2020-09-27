@@ -288,6 +288,7 @@ colorscheme gruvbox
 " manual filetype {{{
 autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
 autocmd BufRead,BufNewFile *_test.go set filetype=go.test
+autocmd BufRead,BufNewFile .envrc set filetype=sh
 " }}}
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -443,6 +444,7 @@ if has('win32')
 endif
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test -v']}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
+let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
 
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
