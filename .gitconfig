@@ -41,15 +41,9 @@
 	autocorrect = 1
 [ghq]
 	root = ~/go/src
-[url "git@github.com:dohq"]
-	pushInsteadOf = https://github.com/dohq
-[url "git@github.com:bosh-elastic-stack"]
-	pushInsteadOf = https://github.com/bosh-elastic-stack
 [hub]
 	protocol = ssh
 [gpg]
 	program = gpg
 [user]
-	signingkey = 3441E0B8A6850D2AA086231D37D38BFE80A21F42
-[include]
-	path = $HOME/.gitconfig_local
+	signingkey = 914842721B38D36E4C36C2D6B592055EDF2B6111
