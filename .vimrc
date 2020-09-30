@@ -225,6 +225,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'golang/vscode-go'
 Plug 'microsoft/vscode-python'
 Plug 'hashicorp/vscode-terraform'
+Plug 'DeepInThought/vscode-shell-snippets'
 " Visual
 Plug 'itchyny/lightline.vim'
 Plug 'rhysd/try-colorscheme.vim'
