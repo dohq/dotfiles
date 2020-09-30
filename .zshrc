@@ -159,7 +159,7 @@ function prompt_git() {
   gitstatus_prompt_update
 }
 
-KUBE_PS1_SYMBOL_ENABLE=true
+KUBE_PS1_SYMBOL_ENABLE=false
 # refresh prompt with new data
 prompt_refresh() {
   RPROMPT="$prompt_data[prompt_git] $prompt_data[prompt_k8s] "
