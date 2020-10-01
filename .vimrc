@@ -71,7 +71,6 @@ set ambiwidth=double
 set autoread
 set autowrite
 set belloff=all
-set clipboard=unnamedplus
 set cmdheight=2
 set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
