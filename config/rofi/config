@@ -1,4 +1,3 @@
-rofi.width:                          100
-rofi.lines:                          10
-rofi.font:                           Sarasa Fixed J 12
-rofi.theme: /home/dohq/dotfiles/rofi-themes/User Themes/slate.rasi
+rofi.lines: 10
+rofi.font: Sarasa Fixed J 12
+rofi.theme: /usr/share/rofi/themes/gruvbox-dark-soft.rasi
