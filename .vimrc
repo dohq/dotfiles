@@ -75,7 +75,7 @@ set cmdheight=2
 set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
 if has('nvim-0.3.2') || has('patch-8.1.0360')
-  set diffopt+=internal,algorithm:histogram,indent-heuristic
+  set diffopt+=internal,filler,iblank,closeoff,algorithm:histogram,indent-heuristic
 endif
 set display=lastline
 set expandtab
@@ -105,6 +105,7 @@ set maxmempattern=200000
 set nrformats-=octal
 set pumheight=10
 set scrolloff=9999
+set scrollbind
 set shiftround
 set shiftwidth=2
 set shortmess+=atIc
@@ -445,6 +446,11 @@ endif
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test -v']}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
 let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
+let g:quickrun_config['typescript'] = {
+      \ 'command': 'npx tsc',
+      \ 'exec': ['%C --project . --noEmit'],
+      \ 'outputter/quickfix/errorformat' : '%+A %#%f %#(%l\,%c): %m,%C%m',
+      \ }
 
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
