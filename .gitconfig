@@ -47,3 +47,8 @@
 	program = gpg
 [user]
 	signingkey = 914842721B38D36E4C36C2D6B592055EDF2B6111
+[url "git@github.com:"]
+	pushInsteadOf = git://github.com/
+	pushInsteadOf = https://github.com/
+[url "git://github.com/"]
+	insteadOf = https://github.com/
