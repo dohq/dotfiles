@@ -105,7 +105,6 @@ set maxmempattern=200000
 set nrformats-=octal
 set pumheight=10
 set scrolloff=9999
-set scrollbind
 set shiftround
 set shiftwidth=2
 set shortmess+=atIc
