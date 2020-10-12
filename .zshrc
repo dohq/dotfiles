@@ -52,7 +52,7 @@ bindkey '^]' insert-last-word
 # 色を使用出来るようにする
 autoload -Uz colors; colors
 # vim 風キーバインドにする
-bindkey -v
+# bindkey -v
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -254,9 +254,17 @@ bindkey "^[3;5~"  delete-char
 # hub alias
 function git(){hub "$@"}
 # gitignore
-function gi() { curl -L -s https://www.gitignore.io/api/"$@" >> .gitignore ;}
+function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
 # remove dupulicate path/PATH
 typeset -U path PATH
+
+# thefuck
+if type fuck > /dev/null; then
+  fuck() {
+    eval "$(command thefuck --alias)"
+    fuck
+  }
+fi
 
 if (which zprof > /dev/null 2>&1) ;then
   zprof
