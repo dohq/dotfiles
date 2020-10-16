@@ -199,6 +199,7 @@ Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
 Plug 'freitass/todo.txt-vim'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'Yggdroot/indentLine'
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
@@ -449,7 +450,7 @@ let g:quickrun_config['typescript'] = {
       \ 'command': 'npx tsc',
       \ 'exec': ['%C --project . --noEmit'],
       \ 'outputter/quickfix/errorformat' : '%+A %#%f %#(%l\,%c): %m,%C%m',
-      \ }
+      \}
 
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
@@ -748,7 +749,7 @@ let s:FILETYPE_RULE_MAP = {
       \   'terraform': ':terraform:',
       \   'txt': ':file-txt:',
       \   'yaml.docker-compose': ':party_docker:',
-      \ }
+      \}
 let s:FALLBACK_EMOJIS = [
       \   ':vim:',
       \   ':eagles:',
@@ -816,6 +817,10 @@ function! s:hash_path(path)
 endfunction
 let g:slacky_build_status_emoji = 'Slacky_build_status_emoji'
 let g:slacky_build_status_text = 'Slacky_build_status_text'
+" }}}
+" IndentLine {{{
+let g:indentLine_setColors = 0
+let g:indentLine_char_list = ['¦']
 " }}}
 " user command {{{
 " Auto plugin install {{{
