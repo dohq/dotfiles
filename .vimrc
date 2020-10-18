@@ -71,6 +71,7 @@ set ambiwidth=double
 set autoread
 set autowrite
 set belloff=all
+set colorcolumn=100
 set cmdheight=2
 set completeopt+=noinsert,menuone,noselect,popup
 set completeopt-=preview
@@ -118,7 +119,7 @@ set switchbuf=useopen
 set synmaxcol=512
 set tabstop=2
 set tags=./tags;
-set colorcolumn=100
+set termwinsize=15x0
 set title
 set ttyfast
 set updatetime=50
@@ -729,7 +730,8 @@ let test#strategy = "vimterminal"
 " operator {{{
 map y <Plug>(operator-flashy)
 nmap Y <Plug>(operator-flashy)$
-map _ <Plug>(operator-replace)
+map mp <Plug>(operator-replace)
+vmap p <Plug>(operator-replace)
 " }}}
 " vim-slackey {{{
 let s:PATH_RULES = [
