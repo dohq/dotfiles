@@ -351,10 +351,10 @@ if executable('pyls')
         \         'maxLineLength': 160,
         \         'ignore': 'W292'
         \       },
-        \       'pydocstyle': {'enabled': v:true},
-        \       'flake8': {'enabled': v:true},
+        \       'pydocstyle': {'enabled': v:false},
+        \       'flake8': {'enabled': v:false},
         \       'rope_completion': {'enabled': v:true},
-        \       'yapf': {'enabled': v:true},
+        \       'yapf': {'enabled': v:false},
         \     }
         \   },
         \ },
@@ -437,13 +437,6 @@ let g:quickrun_config = {
       \       'outputter/quickfix/into' : 0,
       \   },
       \}
-
-if has('win32')
-  let g:quickrun_config['python'] = {
-        \     'hook/output_encode/enable' : 1,
-        \     'hook/output_encode/encoding' : 'cp932',
-        \}
-endif
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test -v']}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
 let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
@@ -452,6 +445,12 @@ let g:quickrun_config['typescript'] = {
       \ 'exec': ['%C --project . --noEmit'],
       \ 'outputter/quickfix/errorformat' : '%+A %#%f %#(%l\,%c): %m,%C%m',
       \}
+let g:quickrun_config['python'] = {
+      \ 'command': 'python',
+      \ 'exec': ['%C %s'],
+      \ 'hook/shebang/enable': 0,
+      \ 'outputter/quickfix/errorformat' : '%C %.%#,%A  File "%f"\, line %l%.%#,%Z%[%^ ]%@=%m',
+      \ }
 
 let g:quickrun_no_default_key_mappings = 1
 " Running with close quickfix and save file
@@ -718,14 +717,12 @@ let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
 " Have Neoformat only msg when there is an error
 let g:neoformat_only_msg_on_error = 1
-let g:neoformat_enabled_python = ['black']
-" augroup fmt
-"   autocmd!
-"   autocmd BufWritePre * undojoin | Neoformat
-" augroup END
 " }}}
 " vim-test {{{
 let test#strategy = "vimterminal"
+" }}}
+" Python {{{
+let g:neoformat_enabled_python = ['black']
 " }}}
 " operator {{{
 map y <Plug>(operator-flashy)
