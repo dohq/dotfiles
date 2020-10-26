@@ -202,6 +202,7 @@ Plug 'markonm/traces.vim'
 Plug 'freitass/todo.txt-vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'Yggdroot/indentLine'
+Plug 'rbtnn/vim-pterm'
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
@@ -270,6 +271,8 @@ Plug 'buoto/gotests-vim',                   {'for': 'go'}
 Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 " zsh
 Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
+" Ansible
+Plug 'pearofducks/ansible-vim'
 " syntax
 Plug 'sheerun/vim-polyglot'
 call plug#end()
@@ -664,10 +667,15 @@ let g:fruzzy#sortonempty = 1
 let g:ctrlp_match_current_file = 1
 let g:ctrlp_match_func = {'match': 'ctrlp_matchfuzzy#matcher'}
 
-
-let g:ctrlp_map = '<Nop>'
+let g:ctrlp_use_caching = 0
 " Guess vcs root dir
 let g:ctrlp_working_path_mode = 'ra'
+if executable('rg')
+  let g:ctrlp_user_command = 'rg --files %s'
+  let g:ctrlp_switch_buffer = 'et'
+endif
+
+let g:ctrlp_map = '<Nop>'
 " Open new file in current window
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_match_window = 'order:ttb,max:10'
