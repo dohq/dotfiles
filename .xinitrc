@@ -52,6 +52,4 @@ fi
 urxvtd -o -f
 setxkbmap -option ctrl:nocaps
 phonesim -p 12345 /usr/share/phonesim/default.xml &
-$HOME/Dev/ofono/test/enable-modem &
-$HOME/Dev/ofono/test/online-modem &
 exec i3
