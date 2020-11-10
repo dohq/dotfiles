@@ -56,17 +56,15 @@ zinit from'gh-r' as'program' sbin'direnv* -> direnv' \
     direnv/direnv
 
 zinit wait lucid from'gh-r' as'null' for \
-  sbin'fzf' id-as'fzf' junegunn/fzf \
   sbin'**/peco' peco/peco \
   sbin'**/dust' bootandy/dust \
   sbin'**/rg' BurntSushi/ripgrep \
   sbin'**/ghq' x-motemen/ghq \
-  sbin'**/**/hub' @github/hub \
-  sbin'docker* -> docker-compose' docker/compose \
+  sbin'**/hub' @github/hub \
+  sbin'**/shellcheck' koalaman/shellcheck \
+  sbin'**/pandoc' jgm/pandoc \
   sbin'shfmt* -> shfmt' @mvdan/sh \
-  sbin'terraform-lsp' juliosueiras/terraform-lsp \
-  sbin'terraform-ls' hashicorp/terraform-ls \
-  sbin'kubeval' instrumenta/kubeval \
+  sbin'docker* -> docker-compose' docker/compose \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
   sbin'kapp-* -> kapp' k14s/kapp \
@@ -74,10 +72,14 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'om-* -> om' pivotal-cf/om \
+  sbin'pack' buildpacks/pack \
+  sbin'terraform-lsp' juliosueiras/terraform-lsp \
+  sbin'terraform-ls' hashicorp/terraform-ls \
+  sbin'kubeval' instrumenta/kubeval \
+  sbin'fzf' id-as'fzf' junegunn/fzf \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
-  bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt \
-  sbin'pack' buildpacks/pack
+  bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
 
 ########## Function
 # history
