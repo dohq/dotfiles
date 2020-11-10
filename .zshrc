@@ -148,6 +148,7 @@ gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 setopt no_prompt_bang prompt_percent prompt_subst
 # }}}
 typeset -Ag prompt_data
+KUBE_PS1_SYMBOL_ENABLE=false
 
 function prompt_k8s() {
   print '$(kube_ps1)'
@@ -159,7 +160,6 @@ function prompt_git() {
   gitstatus_prompt_update
 }
 
-KUBE_PS1_SYMBOL_ENABLE=false
 # refresh prompt with new data
 prompt_refresh() {
   RPROMPT="$prompt_data[prompt_git] $prompt_data[prompt_k8s] "

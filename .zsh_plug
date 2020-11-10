@@ -2,14 +2,13 @@ zinit light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
   mafredri/zsh-async \
   jonmosco/kube-ps1 \
-  sobolevn/wakatime-zsh-plugin \
-  wbingli/zsh-wakatime \
-  src'gitstatus.plugin.zsh' romkatv/gitstatus
+  romkatv/gitstatus \
 
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
+  sobolevn/wakatime-zsh-plugin \
   atinit'zpcompinit; zpcdreplay' \
     zdharma/fast-syntax-highlighting \
   atpull'zinit creinstall -q .' blockf \
@@ -31,9 +30,9 @@ zinit wait lucid light-mode for \
   as'command' sbin'kubectx' id-as'kubectx' \
     ahmetb/kubectx \
   as'command' sbin'kubens' id-as'kubens' \
-    ahmetb/kubectx
-
-zinit wait lucid light-mode for \
+    ahmetb/kubectx \
+  as'command' pick'bin/fzf-tmux' id-as'fzf-tmux' \
+    junegunn/fzf \
   has'helm' id-as'helm-completion' \
   as'completion' \
   atclone'helm completion zsh > _helm' \
@@ -57,7 +56,7 @@ zinit from'gh-r' as'program' sbin'direnv* -> direnv' \
     direnv/direnv
 
 zinit wait lucid from'gh-r' as'null' for \
-  sbin'fzf' junegunn/fzf-bin \
+  sbin'fzf' id-as'fzf' junegunn/fzf \
   sbin'**/peco' peco/peco \
   sbin'**/dust' bootandy/dust \
   sbin'**/rg' BurntSushi/ripgrep \
