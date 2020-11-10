@@ -20,13 +20,6 @@ if empty(glob('$MYVIMDIR/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Enable Tmux in TrueColor
-if exists('+termguicolors')
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 " Startup time.
 if !v:vim_did_enter && has('reltime')
   let g:startuptime = reltime()
@@ -71,6 +64,7 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 set ambiwidth=double
 set autoread
 set autowrite
+set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
 set cmdheight=2
@@ -92,7 +86,7 @@ set incsearch
 set laststatus=2
 set lazyredraw
 set list
-set listchars=tab:▸.,trail:-,eol:\ ,extends:»,precedes:«,nbsp:%
+set listchars=tab:»-,eol:\ ,extends:»,precedes:«,nbsp:%,trail:-
 set noautoindent
 set nobackup
 set nojoinspaces
@@ -191,7 +185,7 @@ call plug#begin($MYVIMDIR.'/plugins')
 Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
 Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'cocopon/vaffle.vim'
+Plug 'mattn/vim-molder'
 Plug 'sgur/vim-editorconfig'
 Plug 'tpope/vim-dadbod'
 Plug 'wakatime/vim-wakatime'
@@ -199,10 +193,11 @@ Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'andymass/vim-matchup'
 Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
-Plug 'freitass/todo.txt-vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'Yggdroot/indentLine'
 Plug 'rbtnn/vim-pterm'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'LeafCage/yankround.vim'
+Plug 'kana/vim-slacky'
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
@@ -211,11 +206,9 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-operator-replace'
 Plug 'haya14busa/vim-operator-flashy'
-Plug 'kana/vim-slacky'
 " Input Assist
-Plug 'AndrewRadev/switch.vim'
 Plug 'sbdchd/neoformat'
-Plug 'cohama/lexima.vim'
+Plug 'mattn/vim-lexiv'
 Plug 'mattn/sonictemplate-vim'
 Plug 'machakann/vim-sandwich'
 Plug 'tyru/caw.vim'
@@ -248,9 +241,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'lambdalisue/vim-gista'
 Plug 'mhinz/vim-signify'
 Plug 'lambdalisue/gina.vim'
-Plug 'jreybert/vimagit'
-Plug 'rhysd/git-messenger.vim'
-Plug 'rhysd/conflict-marker.vim'
 " CtrlP
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -274,16 +264,18 @@ Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
 " Ansible
 Plug 'pearofducks/ansible-vim'
 " syntax
-Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 "----------------------------------------
 " color settings
 "----------------------------------------
 " color {{{
-set t_Co=256
+if exists('+termguicolors')
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 syntax enable
-let g:gruvbox_invert_selection='0'
 set background=dark
 colorscheme gruvbox
 "}}}
@@ -425,6 +417,19 @@ imap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 smap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+" }}}
+" AsyncRun {{{
+let g:asyncrun_open = 8
+" }}}
+" YankRound {{{
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
 " }}}
 " Quick-Run {{{
 let g:quickrun_config = {
@@ -696,9 +701,6 @@ vmap gx <Plug>(openbrowser-smart-search)
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
 " }}}
-" lexima {{{
-" inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
-" }}}
 " Grepper {{{
 let g:grepper               = {}
 let g:grepper.tools         = ['rg', 'ag', 'pt', 'git']
@@ -825,10 +827,6 @@ function! s:hash_path(path)
 endfunction
 let g:slacky_build_status_emoji = 'Slacky_build_status_emoji'
 let g:slacky_build_status_text = 'Slacky_build_status_text'
-" }}}
-" IndentLine {{{
-let g:indentLine_setColors = 0
-let g:indentLine_char_list = ['¦']
 " }}}
 " user command {{{
 " Auto plugin install {{{
