@@ -45,8 +45,8 @@ path=(
 # Alias作りましょうねー
 alias c='clear'
 alias cp='cp -i --reflink=auto'
-alias rm='rm -i'
 alias mv='mv -i'
+alias rm='rm -i'
 alias f='find . -name'
 alias ls='ls --color'
 alias ll='ls -lah'
@@ -73,6 +73,11 @@ alias dohq='cd $HOME/go/src/github.com/dohq'
 
 # openstack
 alias op='openstack'
+# Ansible
+alias a='ansible'
+alias ap='ansible-playbook'
+alias av='ansible-vault'
+alias ag='ansible-galaxy'
 # docker
 alias d='docker'
 alias dim='docker image'

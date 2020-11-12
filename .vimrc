@@ -257,13 +257,9 @@ Plug 'previm/previm',                       {'for': 'markdown'}
 Plug 'mattn/vim-goimports',                 {'for': 'go'}
 Plug 'mattn/vim-godoc',                     {'for': 'go'}
 Plug 'buoto/gotests-vim',                   {'for': 'go'}
-" Hashicorp
-Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
-" zsh
-Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
-" Ansible
-Plug 'pearofducks/ansible-vim'
 " syntax
+Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
+Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 call plug#end()
 
 "----------------------------------------
@@ -275,6 +271,7 @@ if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
+filetype plugin indent on
 syntax enable
 set background=dark
 colorscheme gruvbox
