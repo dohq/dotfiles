@@ -2,7 +2,7 @@ zinit light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
   mafredri/zsh-async \
   jonmosco/kube-ps1 \
-  romkatv/gitstatus \
+  romkatv/gitstatus
 
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
