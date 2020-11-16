@@ -76,6 +76,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \
   sbin'terraform-ls' hashicorp/terraform-ls \
   sbin'kubeval' instrumenta/kubeval \
+  sbin'jwt' mike-engel/jwt-cli \
   sbin'fzf' id-as'fzf' junegunn/fzf \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
