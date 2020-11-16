@@ -143,10 +143,11 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-nnoremap <c-h> :<c-u>bp <enter>
-nnoremap <c-l> :<c-u>bn <enter>
+nnoremap <c-h> :<C-u>bp <enter>
+nnoremap <c-l> :<C-u>bn <enter>
 
 nnoremap <leader>y "*
+nnoremap gf :<C-u>e <cfile><cr>
 
 " Switch
 nnoremap <silent> <leader>s :Switch<CR>
