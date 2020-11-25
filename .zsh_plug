@@ -70,15 +70,16 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'kapp-* -> kapp' k14s/kapp \
   sbin'ytt-* -> ytt' k14s/ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
-  sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'om-* -> om' pivotal-cf/om \
+  bpick'fly-*' sbin'fly' concourse/concourse \
+  sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'pack' buildpacks/pack \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \
-  sbin'terraform-ls' hashicorp/terraform-ls \
+  sbin'terraform-ls' @hashicorp/terraform-ls \
   sbin'kubeval' instrumenta/kubeval \
   sbin'jwt' mike-engel/jwt-cli \
   sbin'fzf' id-as'fzf' junegunn/fzf \
-  bpick'fly-*' sbin'fly' concourse/concourse \
+  sbin'git-bump' b4b4r07/git-bump \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
 
