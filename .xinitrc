@@ -51,5 +51,4 @@ if command -v greenclip >/dev/null; then
 fi
 urxvtd -o -f
 setxkbmap -option ctrl:nocaps
-phonesim -p 12345 /usr/share/phonesim/default.xml &
 exec i3
