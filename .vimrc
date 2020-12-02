@@ -400,12 +400,9 @@ if executable('solargraph')
         \ 'suppress_stderr': v:true
         \}
 endif
-if executable('terraform-lsp')
-  let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
+if executable('terraform-ls')
+  let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
 endif
-" if executable('terraform-ls')
-"   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
-" endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
 endif
