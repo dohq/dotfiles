@@ -173,15 +173,17 @@ prompt_callback() {
   prompt_refresh
 }
 
+# init async
+async_init
 # Start async worker
-async_start_worker 'prompt' -n -u
+async_start_worker prompt
 # Register callback function for the workers completed jobs
-async_register_callback 'prompt' prompt_callback
+async_register_callback prompt prompt_callback
 
 # Setup
 add-zsh-hook precmd (){
-  async_job 'prompt' prompt_k8s
-  async_job 'prompt' prompt_git $PWD # required
+  async_job prompt prompt_k8s
+  async_job prompt prompt_git $PWD # required
 }
 
 RPROMPT=''
