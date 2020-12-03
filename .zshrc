@@ -134,7 +134,7 @@ function gitstatus_prompt_update() {
   # GITSTATUS_PROMPT="${p}%f"
   print "${p}%f"
 }
-# 
+
 # Start gitstatusd instance with name "MY". The same name is passed to
 # gitstatus_query in gitstatus_prompt_update. The flags with -1 as values
 # enable staged, unstaged, conflicted and untracked counters.
@@ -145,48 +145,56 @@ gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 # add-zsh-hook precmd gitstatus_prompt_update
 
 # Enable/disable the right prompt options.
-setopt no_prompt_bang prompt_percent prompt_subst
+# setopt no_prompt_bang prompt_percent prompt_subst
 # }}}
-typeset -Ag prompt_data
-KUBE_PS1_SYMBOL_ENABLE=false
-
-function prompt_k8s() {
-  print '$(kube_ps1)'
-}
-
+# typeset -Ag prompt_data
+# KUBE_PS1_SYMBOL_ENABLE=false
+#
+# function prompt_k8s() {
+#   print '$(kube_ps1)'
+# }
 # section for git branch
 function prompt_git() {
   cd -q $1
   gitstatus_prompt_update
 }
-
-# refresh prompt with new data
-prompt_refresh() {
-  RPROMPT="$prompt_data[prompt_git] $prompt_data[prompt_k8s] "
-  # Redraw the prompt.
-  zle reset-prompt
-}
-
-prompt_callback() {
-  local job=$1 output=$3
-  prompt_data[$job]=$output
-  prompt_refresh
-}
-
-# init async
+# # refresh prompt with new data
+# prompt_refresh() {
+#   RPROMPT="$prompt_data[prompt_git] $prompt_data[prompt_k8s] "
+#   # Redraw the prompt.
+#   zle reset-prompt
+# }
+#
+# prompt_callback() {
+#   local job=$1 output=$3
+#   prompt_data[$job]=$output
+#   prompt_refresh
+# }
 async_init
-# Start async worker
-async_start_worker prompt -u
-# Register callback function for the workers completed jobs
-async_register_callback prompt prompt_callback
+async_start_worker rprompt -n -u
+async_register_callback rprompt prompt_refresh
 
-# Setup
-add-zsh-hook precmd (){
-  async_job prompt prompt_k8s
-  async_job prompt prompt_git $PWD # required
+prompt_refresh() {
+    RPROMPT=$3
+    zle reset-prompt
 }
-
-RPROMPT=''
+add-zsh-hook precmd (){
+    async_flush_jobs rprompt
+    async_job rprompt prompt_git $PWD
+}
+# # init async
+# async_init
+# # Start async worker
+# async_start_worker prompt -u
+# # Register callback function for the workers completed jobs
+# async_register_callback prompt prompt_callback
+#
+# # Setup
+# add-zsh-hook precmd (){
+#   async_job prompt prompt_k8s
+#   async_job prompt prompt_git $PWD # required
+# }
+# RPROMPT='$GITSTATUS_PROMPT'
 # }}}
 
 ########################################
