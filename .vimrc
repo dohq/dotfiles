@@ -229,6 +229,7 @@ Plug 'rhysd/try-colorscheme.vim'
 Plug 'morhetz/gruvbox'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'cocopon/iceberg.vim'
+Plug 'ulwlu/elly.vim'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -276,7 +277,8 @@ if exists('+termguicolors')
 endif
 syntax enable
 set background=dark
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme elly
 "}}}
 
 "----------------------------------------
@@ -470,7 +472,8 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " lightline.vim{{{
 let g:lightline = {}
 
-let g:lightline.colorscheme = "gruvbox"
+" let g:lightline.colorscheme = "gruvbox"
+let g:lightline.colorscheme = "elly"
 
 let g:lightline.active = {
       \   'left': [['mode', 'paste'],

@@ -176,7 +176,7 @@ prompt_callback() {
 # init async
 async_init
 # Start async worker
-async_start_worker prompt
+async_start_worker -u prompt
 # Register callback function for the workers completed jobs
 async_register_callback prompt prompt_callback
 
