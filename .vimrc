@@ -114,7 +114,9 @@ set switchbuf=useopen
 set synmaxcol=512
 set tabstop=2
 set tags=./tags;
-set termwinsize=15x0
+if !has('nvim')
+  set termwinsize=15x0
+endif
 set title
 set ttyfast
 set updatetime=50
@@ -195,10 +197,12 @@ Plug 'andymass/vim-matchup'
 Plug 'thinca/vim-qfreplace'
 Plug 'markonm/traces.vim'
 Plug 'vim-jp/vimdoc-ja'
-Plug 'rbtnn/vim-pterm'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'LeafCage/yankround.vim'
-Plug 'kana/vim-slacky'
+if !has('nvim')
+  Plug 'rbtnn/vim-pterm'
+  Plug 'kana/vim-slacky'
+endif
 " textobj/operator
 Plug 'kana/vim-textobj-user'
 Plug 'mattn/vim-textobj-url'
@@ -229,7 +233,6 @@ Plug 'rhysd/try-colorscheme.vim'
 Plug 'morhetz/gruvbox'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'cocopon/iceberg.vim'
-Plug 'ulwlu/elly.vim'
 " QuickRun
 Plug 'thinca/vim-quickrun'
 Plug 'osyo-manga/shabadou.vim'
@@ -268,17 +271,16 @@ call plug#end()
 " color settings
 "----------------------------------------
 " color {{{
-if exists('+termguicolors')
-  set termguicolors
-  if $TMUX != ""
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  endif
+" if exists('+termguicolors')
+"   set termguicolors
+" endif
+if $TMUX != ""
+  let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+  let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 endif
 syntax enable
 set background=dark
-" colorscheme gruvbox
-colorscheme elly
+colorscheme gruvbox
 "}}}
 
 "----------------------------------------
@@ -405,6 +407,9 @@ endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
 endif
+" if executable('terraform-lsp')
+"   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
+" endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
 endif
@@ -472,8 +477,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " lightline.vim{{{
 let g:lightline = {}
 
-" let g:lightline.colorscheme = "gruvbox"
-let g:lightline.colorscheme = "elly"
+let g:lightline.colorscheme = "gruvbox"
 
 let g:lightline.active = {
       \   'left': [['mode', 'paste'],
@@ -891,4 +895,28 @@ function! ToggleWindowSize()
 endfunction
 nnoremap M :call ToggleWindowSize()<CR>
 " }}}
+" color picker {{{
+function! s:get_syn_id(transparent)
+  let synid = synID(line('.'), col('.'), 1)
+  return a:transparent ? synIDtrans(synid) : synid
+endfunction
+function! s:get_syn_name(synid)
+  return synIDattr(a:synid, 'name')
+endfunction
+function! s:get_highlight_info()
+  execute 'highlight ' . s:get_syn_name(s:get_syn_id(0))
+  execute 'highlight ' . s:get_syn_name(s:get_syn_id(1))
+endfunction
+command! HighlightInfo call s:get_highlight_info()
+" }}}
+" }}}
+" FIXME {{{
+if !has('nvim')
+  augroup usrcmd
+    autocmd!
+    " fix vim script user command syntax highlighting
+    " (should be unnecessary when https://github.com/vim/vim/issues/6587 is fixed)
+    autocmd Syntax vim syn match vimUsrCmd '^\s*\zs\u\%(\w*\)\@>(\@!'
+  augroup end
+endif
 " }}}
