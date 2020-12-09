@@ -37,8 +37,8 @@ export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 export DefaultIMModule=fcitx
 
-if command -v fcitx-autostart >/dev/null; then
-  fcitx-autostart &
+if command -v fcitx5 >/dev/null; then
+  fcitx5 &
 fi
 if command -v libinput-gestures-setup >/dev/null; then
   libinput-gestures-setup start &
