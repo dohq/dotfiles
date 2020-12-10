@@ -80,6 +80,8 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'jwt' mike-engel/jwt-cli \
   sbin'fzf' id-as'fzf' junegunn/fzf \
   sbin'git-bump' b4b4r07/git-bump \
+  sbin'tflint' terraform-linters/tflint \
+  sbin'jid' simeji/jid \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
 
