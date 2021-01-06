@@ -63,7 +63,7 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " set opt {{{
 set ambiwidth=double
 set autoread
-set autowrite
+" set autowrite
 set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
@@ -131,6 +131,20 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
+" File Backups
+set backupcopy=yes
+let swpdir = expand('~/.vim/swp')
+if !isdirectory(swpdir)
+  call mkdir(swpdir)
+endif
+set directory=~/.vim/swp//
+" Persistent Undo
+let undodir = expand('~/.vim/undo')
+if !isdirectory(undodir)
+  call mkdir(undodir)
+endif
+set undodir=~/.vim/undo
+set undofile
 " }}}
 " Keybind {{{
 let g:mapleader = ','
@@ -825,6 +839,11 @@ endfunction
 let g:slacky_build_status_emoji = 'Slacky_build_status_emoji'
 let g:slacky_build_status_text = 'Slacky_build_status_text'
 " }}}
+" sonic-template {{{
+let g:sonictemplate_vim_template_dir = [
+      \ '~/dotfiles/vim/template'
+      \]
+" }}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
@@ -909,6 +928,11 @@ function! s:get_highlight_info()
 endfunction
 command! HighlightInfo call s:get_highlight_info()
 " }}}
+" Only use paste mode once {{{
+augroup paste
+  autocmd!
+  autocmd InsertLeave * set nopaste
+augroup END
 " }}}
 " FIXME {{{
 if !has('nvim')
