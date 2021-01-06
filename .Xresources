@@ -1,17 +1,38 @@
 !! ~/.Xresources
 
+!-------------------------------------------------------------------------------
+! Xft settings
+!-------------------------------------------------------------------------------
+Xft.dpi: 96
+Xft.antialias: 1
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintfull
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+
 !!
 !! rxvt-unicode (urxvt)
 !!
 ! settings
+URxvt.font: xft:Sarasa Term J:size=12:antialias=false, xft:DejaVu Sans Mono:size=12:antialias=false
+URxvt.depth: 32
+URxvt.geometry: 80x24
+URxvt.transparent: false
+URxvt.fading: 0
+URxvt.loginShell: true
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
 URxvt.scrollBar_right: false
-URxvt.cursorBlink: false
-URxvt.pointerBlank: true
 URxvt.visualBell: false
 URxvt.saveLines: 30000
 URxvt.scrollBar: false
-URxvt*iso14755: false
-URxvt.font: xft:Sarasa Term J:size=12:antialias=false, xft:DejaVu Sans Mono:size=12:antialias=false
+URxvt.iso14755: false
+
+! cursor
+URxvt.cursorBlink: true
+URxvt.pointerBlank: true
+URxvt.cursorUnderline: false
 ! Plugin
 URxvt.perl-ext-common: default,resize-font,clipboard,matcher
 URxvt.keysym.Control-Meta-c: builtin-string:
@@ -24,15 +45,6 @@ URxvt.keysym.C-Down: resize-font:smaller
 URxvt.keysym.C-Up: resize-font:bigger
 URxvt.keysym.C-Right: resize-font:default
 
-urxvt.boldFont:
-Xft*dpi: 96
-Xft*antialias: true
-Xft*hinting: true
-Xft*hintstyle: hintfull
-Xft*rgba: rgb
-URxvt*geometry: 100x50
-URxvt*fading: 40
-URxvt*shading: 0
 ! -----------------------------------------------------------------------------
 ! File: gruvbox-dark.xresources
 ! Description: Retro groove colorscheme generalized
