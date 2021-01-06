@@ -1,23 +1,26 @@
 zinit light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
-  mafredri/zsh-async \
-  jonmosco/kube-ps1 \
   romkatv/gitstatus
+  # jonmosco/kube-ps1 \
+  # mafredri/zsh-async \
 
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
-  atinit'zpcompinit; zpcdreplay' \
+  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
     zdharma/fast-syntax-highlighting \
   atpull'zinit creinstall -q .' blockf \
     zsh-users/zsh-completions \
   atload'!_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
-  atclone'dircolors -b LS_COLORS > clrs.zsh' \
-  atpull'%atclone' pick'clrs.zsh' nocompile'!' \
-  atload'zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"' \
+  atclone"local P=${${(M)OSTYPE:#*darwin*}:+g} \
+          \${P}sed -i \
+          '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
+          \${P}dircolors -b LS_COLORS > c.zsh" \
+  atpull'%atclone' pick"c.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
     trapd00r/LS_COLORS \
   atclone'./libexec/pyenv init - > zpyenv.zsh' \
   atinit'export PYENV_ROOT="$PWD"' atpull'%atclone' \
@@ -33,12 +36,8 @@ zinit wait lucid light-mode for \
     ahmetb/kubectx \
   as'command' pick'bin/fzf-tmux' id-as'fzf-tmux' \
     junegunn/fzf \
-  has'helm' id-as'helm-completion' \
-  as'completion' \
-  atclone'helm completion zsh > _helm' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma/null \
+  as'command' pick'bin/xpanes' \
+    greymd/tmux-xpanes \
   has'kubectl'  id-as'kubectl-completion' \
   as'completion' \
   atclone'kubectl completion zsh > _kubectl' \
@@ -72,6 +71,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
   bpick'fly-*' sbin'fly' concourse/concourse \
+  sbin'bbr-* -> bbr' cloudfoundry-incubator/bosh-backup-and-restore \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'pack' buildpacks/pack \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \
@@ -82,6 +82,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'git-bump' b4b4r07/git-bump \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
+  sbin'tfnotify' mercari/tfnotify \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
 

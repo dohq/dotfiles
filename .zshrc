@@ -22,13 +22,12 @@ if [[ -f ~/.zsh_local ]]; then
 fi
 
 ########################################
+# autoload {{{
+# color
+autoload -Uz colors; colors
 # completion
 autoload -Uz compinit && compinit
-zinit cdreplay -q # <- execute compdefs provided by rest of plugins
-zinit cdlist # look at gathered compdefs
-# 短縮補完の有効化 (https://gihyo.jp/dev/serial/01/zsh-book/0005)
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' '+m:{A-Z}={a-z}'
-# <Tab> でパス名の補完候補を表示したあと、
+# 補完後、メニュー選択モードになり左右キーで移動が出来る
 zstyle ':completion:*:default' menu select=1
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -36,27 +35,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' ignore-parents parent pwd ..
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
-########################################
-# edit-command
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^E" edit-command-line
-
-# smart insert last word
-autoload smart-insert-last-word
-zle -N insert-last-word smart-insert-last-word
-bindkey '^]' insert-last-word
-
-########################################
-# 色を使用出来るようにする
-autoload -Uz colors; colors
-# vim 風キーバインドにする
-# bindkey -v
-# ヒストリの設定
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=100000
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
@@ -64,6 +42,19 @@ select-word-style default
 # / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
+# }}}
+
+########################################
+# ヒストリの設定
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=10000
+
+########################################
+# edit-command
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^E" edit-command-line
 
 ########################################
 # プロンプト指定
@@ -77,7 +68,7 @@ PROMPT2='[%n]> '
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
 # }}}
 # RPROMPT {{{
-# reqire romkatv/gitstatus {{{
+# require romkatv/gitstatus {{{
 function gitstatus_prompt_update() {
   emulate -L zsh
   typeset -g  GITSTATUS_PROMPT=''
@@ -131,8 +122,8 @@ function gitstatus_prompt_update() {
   # ?42 if have untracked files. It's really a question mark, your font isn't broken.
   (( VCS_STATUS_NUM_UNTRACKED  )) && p+=" ${untracked}?${VCS_STATUS_NUM_UNTRACKED}"
 
-  # GITSTATUS_PROMPT="${p}%f"
-  print "${p}%f"
+  GITSTATUS_PROMPT="${p}%f"
+  # print "${p}%f"
 }
 
 # Start gitstatusd instance with name "MY". The same name is passed to
@@ -141,64 +132,17 @@ function gitstatus_prompt_update() {
 gitstatus_stop 'MY' && gitstatus_start -s -1 -u -1 -c -1 -d -1 'MY'
 
 # On every prompt, fetch git status and set GITSTATUS_PROMPT.
-# autoload -Uz add-zsh-hook
-# add-zsh-hook precmd gitstatus_prompt_update
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd gitstatus_prompt_update
 
 # Enable/disable the right prompt options.
-# setopt no_prompt_bang prompt_percent prompt_subst
+setopt no_prompt_bang prompt_percent prompt_subst
 # }}}
-# typeset -Ag prompt_data
-# KUBE_PS1_SYMBOL_ENABLE=false
-#
-# function prompt_k8s() {
-#   print '$(kube_ps1)'
-# }
-# section for git branch
-function prompt_git() {
-  cd -q $1
-  gitstatus_prompt_update
-}
-# # refresh prompt with new data
-# prompt_refresh() {
-#   RPROMPT="$prompt_data[prompt_git] $prompt_data[prompt_k8s] "
-#   # Redraw the prompt.
-#   zle reset-prompt
-# }
-#
-# prompt_callback() {
-#   local job=$1 output=$3
-#   prompt_data[$job]=$output
-#   prompt_refresh
-# }
-async_init
-async_start_worker rprompt -n -u
-async_register_callback rprompt prompt_refresh
-
-prompt_refresh() {
-    RPROMPT=$3
-    zle reset-prompt
-}
-add-zsh-hook precmd (){
-    async_flush_jobs rprompt
-    async_job rprompt prompt_git $PWD
-}
-# # init async
-# async_init
-# # Start async worker
-# async_start_worker prompt -u
-# # Register callback function for the workers completed jobs
-# async_register_callback prompt prompt_callback
-#
-# # Setup
-# add-zsh-hook precmd (){
-#   async_job prompt prompt_k8s
-#   async_job prompt prompt_git $PWD # required
-# }
-# RPROMPT='$GITSTATUS_PROMPT'
+RPROMPT='$GITSTATUS_PROMPT'
 # }}}
 
 ########################################
-# オプション
+# Options {{{
 # もしかして機能
 setopt correct
 # 日本語ファイル名を表示可能にする
@@ -209,8 +153,6 @@ setopt no_beep
 setopt no_flow_control
 # '#' 以降をコメントとして扱う
 setopt interactive_comments
-# ディレクトリ名だけでcdする
-setopt auto_cd
 # cd したら自動的にpushdする
 setopt auto_pushd
 # 重複したディレクトリを追加しない
@@ -239,18 +181,15 @@ setopt long_list_jobs
 setopt list_types
 # --prefix=/usr などの = 以降も補完
 setopt magic_equal_subst
-# カッコの対応などを自動的に補完
-setopt auto_param_keys
 # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
-# スペルチェック
-setopt correct
 # rm *で確認を求める
 setopt rm_star_wait
 # 補完候補を一覧表示
 setopt auto_list
 # TAB で順に補完候補を切り替える
 setopt auto_menu
+# }}}
 
 #######################################
 # Home Endキーを有効に
@@ -260,22 +199,24 @@ bindkey "^[[3~"   delete-char
 bindkey "^[3;5~"  delete-char
 
 ########################################
-# init
+# func
 # hub alias
 function git(){hub "$@"}
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
 # remove dupulicate path/PATH
-typeset -U path PATH
+typeset -U path cdpath fpath manpath
 
 # thefuck
 if type fuck > /dev/null; then
-  fuck() {
+  f() {
     eval "$(command thefuck --alias)"
     fuck
   }
 fi
 
+########################################
+# zprof
 if (which zprof > /dev/null 2>&1) ;then
   zprof
 fi

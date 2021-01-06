@@ -32,13 +32,10 @@ path=(
   $GOPATH/bin(N-/)
   $HOME/.local/bin(N-/)
   $HOME/.cargo/bin(N-/)
-  $HOME/.gem/ruby/2.5.0/bin(N-/)
-  $HOME/.gem/ruby/2.6.0/bin(N-/)
   $HOME/.gem/ruby/2.7.0/bin(N-/)
   $HOME/perl5/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   /usr/local/bin(N-/)
-  "${KREW_ROOT:-$HOME/.krew}/bin"(N-/)
   $path
 )
 
@@ -47,7 +44,6 @@ alias c='clear'
 alias cp='cp -i --reflink=auto'
 alias mv='mv -i'
 alias rm='rm -i'
-alias f='find . -name'
 alias ls='ls --color'
 alias ll='ls -lah'
 alias ltr='ls -lhtr'
@@ -81,8 +77,11 @@ alias ag='ansible-galaxy'
 # docker
 alias d='docker'
 alias dim='docker image'
+alias dr='docker run --rm'
 alias dp='docker ps'
 alias dpa='docker ps -a'
+alias dl='docker logs'
+alias dlf='docker logs -f'
 alias dc='docker-compose'
 alias dcu='docker-compose up'
 alias dcud='docker-compose up -d'
