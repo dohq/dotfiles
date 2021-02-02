@@ -12,6 +12,7 @@ export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
 export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
+export DOCKER_BUILDKIT=1
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 fi

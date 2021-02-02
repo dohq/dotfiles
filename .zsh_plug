@@ -67,6 +67,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
   sbin'kapp-* -> kapp' k14s/kapp \
+  sbin'img-* -> img' genuinetools/img \
   sbin'ytt-* -> ytt' k14s/ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
