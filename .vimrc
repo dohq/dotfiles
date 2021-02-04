@@ -201,87 +201,76 @@ nnoremap <Space> <Nop>
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
 " exTools
-Plug 'bronson/vim-trailing-whitespace',     {'on': 'FixWhitespace'}
-Plug 'glidenote/memolist.vim',              {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'mhinz/vim-grepper',                   {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'mattn/vim-molder'
-Plug 'sgur/vim-editorconfig'
-Plug 'tpope/vim-dadbod'
-Plug 'wakatime/vim-wakatime'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'andymass/vim-matchup'
-Plug 'thinca/vim-qfreplace'
-Plug 'markonm/traces.vim'
-Plug 'vim-jp/vimdoc-ja'
-Plug 'skywind3000/asyncrun.vim'
+Plug 'DeepInThought/vscode-shell-snippets'
 Plug 'LeafCage/yankround.vim'
+Plug 'ajh17/VimCompletesMe'
+Plug 'andymass/vim-matchup'
+Plug 'basyura/TweetVim'
+Plug 'basyura/twibill.vim'
+Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
+Plug 'buoto/gotests-vim', {'for': 'go'}
+Plug 'cocopon/iceberg.vim'
+Plug 'cohama/lexima.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'deris/vim-textobj-ipmac'
+Plug 'gkapfham/vim-vitamin-onec'
+Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'golang/vscode-go'
+Plug 'hashicorp/vscode-terraform'
+Plug 'hashivim/vim-terraform', {'for': 'terraform'}
+Plug 'haya14busa/vim-operator-flashy'
+Plug 'hrsh7th/vim-lamp'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+Plug 'janko/vim-test'
+Plug 'kana/vim-operator-replace'
+Plug 'kana/vim-operator-user'
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-user'
+Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/vim-gista'
+Plug 'machakann/vim-sandwich'
+Plug 'markonm/traces.vim'
+Plug 'mattn/ctrlp-ghq'
+Plug 'mattn/ctrlp-matchfuzzy'
+Plug 'mattn/ctrlp-register'
+Plug 'mattn/sonictemplate-vim'
+Plug 'mattn/vim-godoc', {'for': 'go'}
+Plug 'mattn/vim-goimports', {'for': 'go'}
+Plug 'mattn/vim-molder'
+Plug 'mattn/vim-textobj-url'
+Plug 'mattn/webapi-vim'
+Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
+Plug 'mhinz/vim-signify' , {'commit': 'd80e507'}
+Plug 'microsoft/vscode-python'
+Plug 'morhetz/gruvbox'
+Plug 'osyo-manga/shabadou.vim'
+Plug 'osyo-manga/vim-operator-stay-cursor'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'previm/previm', {'for': 'markdown'}
+Plug 'rhysd/try-colorscheme.vim'
+Plug 'sbdchd/neoformat'
+Plug 'sgur/vim-editorconfig'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'suy/vim-ctrlp-commandline'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'thinca/vim-qfreplace'
+Plug 'thinca/vim-quickrun'
+Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-speeddating'
+Plug 'tyru/caw.vim'
+Plug 'tyru/eskk.vim'
+Plug 'tyru/open-browser.vim'
+Plug 'vim-jp/vimdoc-ja'
+Plug 'wakatime/vim-wakatime'
+Plug 'zeero/vim-ctrlp-help'
+Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
   Plug 'kana/vim-slacky'
 endif
-" textobj/operator
-Plug 'kana/vim-textobj-user'
-Plug 'mattn/vim-textobj-url'
-Plug 'deris/vim-textobj-ipmac'
-Plug 'kana/vim-textobj-entire'
-Plug 'kana/vim-operator-user'
-Plug 'kana/vim-operator-replace'
-Plug 'haya14busa/vim-operator-flashy'
-Plug 'osyo-manga/vim-operator-stay-cursor'
-" Input Assist
-Plug 'sbdchd/neoformat'
-Plug 'cohama/lexima.vim'
-Plug 'mattn/sonictemplate-vim'
-Plug 'machakann/vim-sandwich'
-Plug 'tyru/caw.vim'
-Plug 'tyru/eskk.vim'
-" autocomplete
-Plug 'ajh17/VimCompletesMe'
-Plug 'hrsh7th/vim-lamp'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'golang/vscode-go'
-Plug 'microsoft/vscode-python'
-Plug 'hashicorp/vscode-terraform'
-Plug 'DeepInThought/vscode-shell-snippets'
-" Visual
-Plug 'itchyny/lightline.vim'
-Plug 'rhysd/try-colorscheme.vim'
-Plug 'morhetz/gruvbox'
-Plug 'gkapfham/vim-vitamin-onec'
-Plug 'cocopon/iceberg.vim'
-" QuickRun
-Plug 'thinca/vim-quickrun'
-Plug 'osyo-manga/shabadou.vim'
-" Twitter
-Plug 'basyura/TweetVim'
-Plug 'basyura/twibill.vim'
-Plug 'mattn/webapi-vim'
-Plug 'tyru/open-browser.vim'
-" Git
-Plug 'itchyny/vim-gitbranch'
-Plug 'lambdalisue/vim-gista'
-Plug 'mhinz/vim-signify'
-Plug 'lambdalisue/gina.vim'
-" CtrlP
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mattn/ctrlp-ghq'
-Plug 'mattn/ctrlp-matchfuzzy'
-Plug 'mattn/ctrlp-register'
-Plug 'suy/vim-ctrlp-commandline'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'zeero/vim-ctrlp-help'
-" Test
-Plug 'janko/vim-test'
-" Markdown
-Plug 'previm/previm',                       {'for': 'markdown'}
-" go
-Plug 'mattn/vim-goimports',                 {'for': 'go'}
-Plug 'mattn/vim-godoc',                     {'for': 'go'}
-Plug 'buoto/gotests-vim',                   {'for': 'go'}
-" syntax
-Plug 'zinit-zsh/zinit-vim-syntax',          {'for': 'zsh'}
-Plug 'hashivim/vim-terraform',              {'for': 'terraform'}
 call plug#end()
 
 "----------------------------------------
@@ -311,13 +300,6 @@ autocmd BufRead,BufNewFile .envrc set filetype=sh
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:vcm_s_tab_behavior = 1
-autocmd FileType yaml let b:vcm_tab_complete = "omni"
-autocmd FileType terraform let b:vcm_tab_complete = "omni"
-autocmd FileType go let b:vcm_tab_complete = "omni"
-autocmd FileType python let b:vcm_tab_complete = "omni"
-autocmd FileType vim let b:vcm_tab_complete = "omni"
-autocmd FileType sh let b:vcm_tab_complete = "omni"
-autocmd FileType ruby let b:vcm_tab_complete = "omni"
 " }}}
 " vim-lamp {{{
 autocmd! vimrc User lamp#initialized call s:on_initialized()
@@ -784,6 +766,9 @@ let g:sonictemplate_vim_template_dir = [
       \ '~/dotfiles/vim/template'
       \]
 " }}}
+" reading_vimrc {{{
+autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
+"}}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
@@ -794,41 +779,6 @@ augroup pluginstall
         \| endif
 augroup end
 " }}}
-" auto-cursorline {{{
-augroup vimrc-auto-cursorline
-  autocmd!
-  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
-  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
-  autocmd WinEnter * call s:auto_cursorline('WinEnter')
-  autocmd WinLeave * call s:auto_cursorline('WinLeave')
-
-  set cursorline
-  let s:cursorline_lock = 0
-  function! s:auto_cursorline(event)
-    if a:event ==# 'WinEnter'
-      setlocal cursorline
-      let s:cursorline_lock = 2
-    elseif a:event ==# 'WinLeave'
-      setlocal nocursorline
-    elseif a:event ==# 'CursorMoved'
-      if s:cursorline_lock
-        if 1 < s:cursorline_lock
-          let s:cursorline_lock = 1
-        else
-          setlocal nocursorline
-          let s:cursorline_lock = 0
-        endif
-      endif
-    elseif a:event ==# 'CursorHold'
-      setlocal cursorline
-      let s:cursorline_lock = 1
-    endif
-  endfunction
-augroup END
-" }}}
-" reading_vimrc {{{
-autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
-"}}}
 " Json-jq {{{
 command! -nargs=? Jq call s:Jq(<f-args>)
 function! s:Jq(...)
