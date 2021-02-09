@@ -134,17 +134,17 @@ if exists('+breakindent')
 endif
 " File Backups
 set backupcopy=yes
-let swpdir = expand('~/.vim/swp')
-if !isdirectory(swpdir)
-  call mkdir(swpdir)
+let s:swpdir = $MYVIMDIR .. '/swap'
+if !isdirectory(s:swpdir)
+  call mkdir(s:swpdir)
 endif
-set directory=~/.vim/swp//
+set directory=s:swpdir
 " Persistent Undo
-let undodir = expand('~/.vim/undo')
-if !isdirectory(undodir)
-  call mkdir(undodir)
+let s:undodir = $MYVIMDIR .. '/undo'
+if !isdirectory(s:undodir)
+  call mkdir(s:undodir)
 endif
-set undodir=~/.vim/undo
+set undodir=s:undodir
 set undofile
 let g:is_posix=1
 " }}}
@@ -305,10 +305,18 @@ let g:vcm_s_tab_behavior = 1
 autocmd! vimrc User lamp#initialized call s:on_initialized()
 function! s:on_initialized()
   " built-in setting
-  call lamp#builtin#typescript_language_server()
-  call lamp#builtin#vim_language_server()
-  call lamp#builtin#gopls()
-  call lamp#builtin#pyls()
+  if executable('typescript-language-server')
+    call lamp#builtin#typescript_language_server()
+  endif
+  if executable('vim-language-server')
+    call lamp#builtin#vim_language_server()
+  endif
+  if executable('gopls')
+    call lamp#builtin#gopls()
+  endif
+  if executable('pyls')
+    call lamp#builtin#pyls()
+  endif
 
   " custom setting
   if executable('terraform-lsp')
