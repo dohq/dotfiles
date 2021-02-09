@@ -11,13 +11,6 @@ set guioptions-=l
 set guioptions-=L
 set guioptions-=b
 
-if has('win32')
-  augroup startfullscreen
-    autocmd!
-    autocmd GUIEnter * simalt ~x
-  augroup end
-endif
-
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
@@ -26,7 +19,6 @@ colorscheme gruvbox
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-" set guifont=Cica:h12
 set guifont=Sarasa\ Mono\ J:h12
 
 if has('directx')
