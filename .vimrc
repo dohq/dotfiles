@@ -61,7 +61,6 @@ let g:loaded_netrwFileHandlers = 1
 set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default,latin1,utf-8
 " }}}
 " set opt {{{
-set ambiwidth=double
 set autoread
 " set autowrite
 set backspace=indent,eol,start
@@ -219,7 +218,7 @@ Plug 'golang/vscode-go'
 Plug 'hashicorp/vscode-terraform'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
-Plug 'hrsh7th/vim-lamp'
+Plug 'natebosch/vim-lsc'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
@@ -243,7 +242,7 @@ Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
-Plug 'mhinz/vim-signify' , {'commit': 'd80e507'}
+Plug 'mhinz/vim-signify'
 Plug 'microsoft/vscode-python'
 Plug 'morhetz/gruvbox'
 Plug 'osyo-manga/shabadou.vim'
@@ -301,79 +300,135 @@ autocmd BufRead,BufNewFile .envrc set filetype=sh
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:vcm_s_tab_behavior = 1
 " }}}
-" vim-lamp {{{
-autocmd! vimrc User lamp#initialized call s:on_initialized()
-function! s:on_initialized()
-  " built-in setting
-  if executable('typescript-language-server')
-    call lamp#builtin#typescript_language_server()
-  endif
-  if executable('vim-language-server')
-    call lamp#builtin#vim_language_server()
-  endif
-  if executable('gopls')
-    call lamp#builtin#gopls()
-  endif
-  if executable('pyls')
-    call lamp#builtin#pyls()
-  endif
+" LSC {{{
+let g:lsc_enable_autocomplete = v:true
+let g:lsc_auto_completeopt = v:false
+let g:lsc_enable_snippet_support = v:true
+let g:lsp_ultisnips_integration = 0
+let g:lsc_complete_timeout = 1
+let g:lsc_reference_highlights = v:false
+let g:lsc_enable_diagnostics = v:true
+let g:lsc_trace_level = 'off'
+let g:lsc_auto_map = {
+      \ 'GoToDefinition': 'gd',
+      \ 'GoToDefinitionSplit': 'gD',
+      \ 'FindReferences': 'gR',
+      \ 'NextReference': '<C-n>',
+      \ 'PreviousReference': '<C-p>',
+      \ 'FindImplementations': 'gI',
+      \ 'FindCodeActions': 'ga',
+      \ 'Rename': 'gr',
+      \ 'ShowHover': v:true,
+      \ 'DocumentSymbol': 'go',
+      \ 'WorkspaceSymbol': 'gS',
+      \ 'SignatureHelp': 'gm',
+      \ 'Completion': 'omnifunc',
+      \}
 
-  " custom setting
-  if executable('terraform-lsp')
-    call lamp#register('terraform-lsp', {
-        \   'command': ['terraform-lsp'],
-        \   'filetypes': ['terraform'],
-        \   'root_uri': { -> lamp#findup(['provider.tf']) },
-        \ })
-  endif
-  if executable('bash-language-server')
-    call lamp#register('bash-language-server', {
-        \   'command': ['bash-language-server', 'start'],
-        \   'filetypes': ['sh'],
-        \ })
-  endif
-  if executable('concourse-language-server')
-    call lamp#register('concourse-language-server', {
-        \   'command': ['concourse-language-server'],
-        \   'filetypes': ['yaml.concourse'],
-        \ })
-  endif
-  if executable('yaml-language-server')
-    call lamp#register('yaml-language-server', {
-        \   'command': ['yaml-language-server', '--stdio'],
-        \   'filetypes': ['yaml'],
-        \   'workspace_config': { -> {
-        \     'yaml': {
-        \     'completion': v:true,
-        \     'hover': v:true,
-        \     'validate': v:true,
-        \       'schemas': {
-        \         "https://json.schemastore.org/github-action.json": ["/*.yml"],
-        \       }
-        \     },
-        \   } },
-        \ })
-  endif
-endfunction
-autocmd! vimrc User lamp#text_document_did_open call s:on_text_document_did_open()
-function! s:on_text_document_did_open() abort
-  " completion
-  setlocal omnifunc=lamp#complete
-
-  " commands
-  nnoremap <buffer> gd           :<C-u>LampDefinition edit<CR>
-  nnoremap <buffer> gD           :<C-u>LampDefinition split<CR>
-  nnoremap <buffer> K            :<C-u>LampHover<CR>
-  nnoremap <buffer> gr           :<C-u>LampRename<CR>
-  nnoremap <buffer> gR           :<C-u>LampReferences<CR>
-  nnoremap <buffer> <Leader>f    :<C-u>LampFormatting<CR>
-  vnoremap <buffer> <Leader>f    :LampRangeFormatting<CR>
-  nnoremap <buffer> ga           :<C-u>LampCodeAction<CR>
-  vnoremap <buffer> ga           :LampCodeAction<CR>
-  nnoremap <buffer> <C-k>        :<C-u>LampDiagnosticsPrev<CR>
-  nnoremap <buffer> <C-j>        :<C-u>LampDiagnosticsNext<CR>
-endfunction
-" }}}
+let g:lsc_server_commands = {}
+if executable('pyls')
+  let g:lsc_server_commands['python'] = {
+        \ 'command': 'pyls',
+        \ 'workspace_config': {
+        \   'pyls': {
+        \     'plugins': {
+        \       'jedi_completion': {'enabled': v:true},
+        \       'jedi_definition': {
+        \         'follow_imports': v:true,
+        \         'follow_builtin_imports': v:true
+        \       },
+        \       'jedi_hover': {'enabled': v:true},
+        \       'jedi_references': {'enabled': v:true},
+        \       'jedi_signature_help': {'enabled': v:true},
+        \       'jedi_symbols': {
+        \         'enabled': v:true,
+        \         'all_scopes': v:true,
+        \       },
+        \       'mccabe': {
+        \         'enabled': v:true,
+        \         'threshold': 15,
+        \       },
+        \       'preload': {'enabled': v:true},
+        \       'pylint': {'enabled': v:false},
+        \       'pycodestyle': {
+        \         'enabled': v:true,
+        \         'maxLineLength': 160,
+        \         'ignore': 'W292'
+        \       },
+        \       'pydocstyle': {'enabled': v:false},
+        \       'flake8': {'enabled': v:false},
+        \       'rope_completion': {'enabled': v:true},
+        \       'yapf': {'enabled': v:false},
+        \     }
+        \   },
+        \ },
+        \}
+endif
+if executable('gopls')
+  let g:lsc_server_commands['go'] = {
+        \ 'command': 'gopls serve',
+        \ 'initialization_options': {
+        \   'usePlaceholders': v:true,
+        \   'hoverKind': 'FullDocumentation',
+        \   'completeUnimported': v:true,
+        \   'matcher': 'fuzzy',
+        \ },
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \}
+endif
+if executable('vim-language-server')
+  let g:lsc_server_commands['vim'] = {
+        \ 'command': 'vim-language-server --stdio',
+        \ 'initialization_options': {
+        \   "iskeyword": "",
+        \   "vimruntime": $VIMRUNTIME,
+        \   "runtimepath": &rtp,
+        \   "diagnostic": {
+        \     "enable": v:true
+        \   },
+        \   "indexes": {
+        \     "runtimepath": v:true,
+        \     "gap": 100,
+        \     "count": 3,
+        \   },
+        \   "suggest": {
+        \     "fromVimruntime": v:true,
+        \     "fromRuntimepath": v:false
+        \   }
+        \ },
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \}
+endif
+if executable('solargraph')
+  let g:lsc_server_commands['ruby'] = {
+        \ 'command': 'solargraph stdio',
+        \ 'initialization_options': {'diagnostic': v:true},
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \}
+endif
+if executable('terraform-ls')
+  let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
+endif
+" if executable('terraform-lsp')
+"   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
+" endif
+if executable('bash-language-server')
+  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
+endif
+if executable('concourse-language-server')
+  let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
+endif
+autocmd FileType yaml let b:vcm_tab_complete = "omni"
+autocmd FileType terraform let b:vcm_tab_complete = "omni"
+autocmd FileType go let b:vcm_tab_complete = "omni"
+autocmd FileType python let b:vcm_tab_complete = "omni"
+autocmd FileType vim let b:vcm_tab_complete = "omni"
+autocmd FileType sh let b:vcm_tab_complete = "omni"
+autocmd FileType ruby let b:vcm_tab_complete = "omni"
++" }}}
 " vsnip {{{
 let g:vsnip_snippet_dir = expand('$HOME/dotfiles/vsnip')
 imap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
