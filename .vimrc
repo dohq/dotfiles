@@ -199,7 +199,7 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-" exTools
+Plug 'pearofducks/ansible-vim'
 Plug 'DeepInThought/vscode-shell-snippets'
 Plug 'LeafCage/yankround.vim'
 Plug 'ajh17/VimCompletesMe'
@@ -435,6 +435,28 @@ imap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 smap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+" }}}
+" Ansible {{{
+let g:ansible_unindent_after_newline = 1
+let g:ansible_extra_keywords_highlight = 1
+let g:ansible_goto_role_paths = './roles,../_common/roles'
+
+function! FindAnsibleRoleUnderCursor()
+  if exists("g:ansible_goto_role_paths")
+    let l:role_paths = g:ansible_goto_role_paths
+  else
+    let l:role_paths = "./roles"
+  endif
+  let l:tasks_main = expand("<cfile>") . "/tasks/main.yml"
+  let l:found_role_path = findfile(l:tasks_main, l:role_paths)
+  if l:found_role_path == ""
+    echo l:tasks_main . " not found"
+  else
+    execute "edit " . fnameescape(l:found_role_path)
+  endif
+endfunction
+
+" au BufEnter,BufNewFile FileType yaml.ansible nnoremap <silent> <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
 " }}}
 " AsyncRun {{{
 let g:asyncrun_open = 8
