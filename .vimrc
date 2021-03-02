@@ -238,6 +238,8 @@ Plug 'mattn/ctrlp-register'
 Plug 'mattn/sonictemplate-vim'
 Plug 'mattn/vim-godoc', {'for': 'go'}
 Plug 'mattn/vim-goimports', {'for': 'go'}
+Plug 'mattn/vim-gomod', {'for': 'go'}
+Plug 'mattn/vim-goaddtags', {'for': 'go'}
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
 Plug 'mattn/webapi-vim'
@@ -308,6 +310,7 @@ let g:lsp_ultisnips_integration = 0
 let g:lsc_complete_timeout = 1
 let g:lsc_reference_highlights = v:false
 let g:lsc_enable_diagnostics = v:true
+let g:lsc_autocomplete_length = 2
 let g:lsc_trace_level = 'off'
 let g:lsc_auto_map = {
       \ 'GoToDefinition': 'gd',
@@ -367,11 +370,18 @@ endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {
         \ 'command': 'gopls serve',
-        \ 'initialization_options': {
-        \   'usePlaceholders': v:true,
-        \   'hoverKind': 'FullDocumentation',
-        \   'completeUnimported': v:true,
-        \   'matcher': 'fuzzy',
+        \ 'message_hooks': {
+        \   'initialize': {
+        \     'initializationOptions': {
+        \       'usePlaceholders': v:true,
+        \       'gofumpt': v:true,
+        \       'staticcheck': v:true,
+        \       'analyses': {
+        \         'unreachable': v:true,
+        \         'unusedparams': v:true
+        \       },
+        \     },
+        \   },
         \ },
         \ 'log_level': -1,
         \ 'suppress_stderr': v:true
@@ -380,54 +390,43 @@ endif
 if executable('vim-language-server')
   let g:lsc_server_commands['vim'] = {
         \ 'command': 'vim-language-server --stdio',
-        \ 'initialization_options': {
-        \   "iskeyword": "",
-        \   "vimruntime": $VIMRUNTIME,
-        \   "runtimepath": &rtp,
-        \   "diagnostic": {
-        \     "enable": v:true
+        \ 'message_hooks': {
+        \   'initialize': {
+        \     'initializationOptions': {
+        \       "iskeyword": "",
+        \       "vimruntime": $VIMRUNTIME,
+        \       "runtimepath": &rtp,
+        \       "diagnostic": {
+        \         "enable": v:true
+        \       },
+        \       "indexes": {
+        \         "runtimepath": v:true,
+        \         "gap": 100,
+        \         "count": 3,
+        \       },
+        \       "suggest": {
+        \         "fromVimruntime": v:true,
+        \         "fromRuntimepath": v:false
+        \       }
+        \     },
         \   },
-        \   "indexes": {
-        \     "runtimepath": v:true,
-        \     "gap": 100,
-        \     "count": 3,
-        \   },
-        \   "suggest": {
-        \     "fromVimruntime": v:true,
-        \     "fromRuntimepath": v:false
-        \   }
         \ },
         \ 'log_level': -1,
         \ 'suppress_stderr': v:true
         \}
 endif
 if executable('solargraph')
-  let g:lsc_server_commands['ruby'] = {
-        \ 'command': 'solargraph stdio',
-        \ 'initialization_options': {'diagnostic': v:true},
-        \ 'log_level': -1,
-        \ 'suppress_stderr': v:true
-        \}
+  let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio', 'log_level': -1, 'suppress_stderr': v:true}
 endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
 endif
-" if executable('terraform-lsp')
-"   let g:lsc_server_commands['terraform'] = {'command': 'terraform-lsp', 'suppress_stderr': v:true}
-" endif
 if executable('bash-language-server')
   let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
 endif
 if executable('concourse-language-server')
   let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
 endif
-autocmd FileType yaml let b:vcm_tab_complete = "omni"
-autocmd FileType terraform let b:vcm_tab_complete = "omni"
-autocmd FileType go let b:vcm_tab_complete = "omni"
-autocmd FileType python let b:vcm_tab_complete = "omni"
-autocmd FileType vim let b:vcm_tab_complete = "omni"
-autocmd FileType sh let b:vcm_tab_complete = "omni"
-autocmd FileType ruby let b:vcm_tab_complete = "omni"
 +" }}}
 " vsnip {{{
 let g:vsnip_snippet_dir = expand('$HOME/dotfiles/vsnip')
