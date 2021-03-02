@@ -248,7 +248,6 @@ Plug 'mhinz/vim-signify'
 Plug 'microsoft/vscode-python'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'osyo-manga/shabadou.vim'
-Plug 'osyo-manga/vim-operator-stay-cursor'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'previm/previm', {'for': 'markdown'}
 Plug 'rhysd/try-colorscheme.vim'
@@ -265,12 +264,16 @@ Plug 'tyru/caw.vim'
 Plug 'tyru/eskk.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
 Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
   Plug 'kana/vim-slacky'
+endif
+if !has('nvim')
+  Plug 'rhysd/vim-healthcheck'
 endif
 call plug#end()
 
@@ -853,6 +856,10 @@ let g:sonictemplate_vim_template_dir = [
 " reading_vimrc {{{
 autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
 "}}}
+" translate {{{
+let g:translator_target_lang = 'ja'
+let g:translator_default_engines = ['google']
+" }}}
 " user command {{{
 " Auto plugin install {{{
 augroup pluginstall
