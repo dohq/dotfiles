@@ -244,7 +244,7 @@ Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'microsoft/vscode-python'
-Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'osyo-manga/vim-operator-stay-cursor'
 Plug 'powerman/vim-plugin-AnsiEsc'
@@ -285,7 +285,7 @@ if $TMUX != ""
 endif
 syntax enable
 set background=dark
-colorscheme gruvbox
+colorscheme gruvbox8
 "}}}
 
 "----------------------------------------
@@ -511,7 +511,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " lightline.vim{{{
 let g:lightline = {}
 
-let g:lightline.colorscheme = "gruvbox"
+let g:lightline.colorscheme = "gruvbox8"
 
 let g:lightline.active = {
       \   'left': [['mode', 'paste'],
