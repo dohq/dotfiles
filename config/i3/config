@@ -21,7 +21,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec urxvtc
-bindsym $mod+Return exec $HOME/dotfiles/scripts/run_urxvt.sh
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
