@@ -25,6 +25,21 @@ if command -v ccache >/dev/null; then
   export CCACHE_DIR=$HOME/.cache/ccache
 fi
 
+# fzf
+export FZF_DEFAULT_OPTS='
+--color fg:#ebdbb2,bg:#262626,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+--color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
+--height 70% --no-sort +m --reverse'
+
+# pipenv
+export PIPENV_VENV_IN_PROJECT=true
+
+# If command execution time above min. time, plugins will not output time.
+export ZSH_COMMAND_TIME_MIN_SECONDS=5
+
+# Do not load /etc/profile which override $PATH
+# Ref: http://karur4n.hatenablog.com/entry/2016/01/18/100000
+setopt no_global_rcs
 # PATH
 path=(
   /usr/lib/ccache/bin(N-/)
@@ -39,89 +54,5 @@ path=(
   /usr/local/bin(N-/)
   $path
 )
-
-# Alias作りましょうねー
-alias c='clear'
-alias cp='cp -i --reflink=auto'
-alias mv='mv -i'
-alias rm='rm -i'
-alias ls='ls --color'
-alias ll='ls -lah'
-alias ltr='ls -lhtr'
-alias mkdir='mkdir -p'
-alias m='mkdir -p'
-alias nm="$HOME/bin/notify-me.sh"
-alias pbcopy='xclip -selection c'
-alias pbpaste='xclip -selection c -o'
-alias pi='ping -c 3 google.com'
-alias pp='ps aux | fzf'
-alias tb='nc termbin.com 9999'
-alias tokyo='curl wttr.in/Tokyo'
-alias tree='tree -N'
-alias u='up'
-alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
-alias ssh='TERM=xterm ssh'
-if type vim > /dev/null; then
-  alias vi='vim'
-  alias v='vim'
-  alias vd='vimdiff'
-fi
-alias dohq='cd $HOME/go/src/github.com/dohq'
-
-# openstack
-alias op='openstack'
-# Ansible
-alias a='ansible'
-alias ap='ansible-playbook'
-alias av='ansible-vault'
-alias ag='ansible-galaxy'
-# docker
-alias d='docker'
-alias dim='docker image'
-alias dr='docker run --rm'
-alias dp='docker ps'
-alias dpa='docker ps -a'
-alias dl='docker logs'
-alias dlf='docker logs -f'
-alias dc='docker-compose'
-alias dcu='docker-compose up'
-alias dcud='docker-compose up -d'
-# kubernetes
-alias kns='kubens'
-alias kcx='kubectx'
-# terraform
-alias tf='terraform'
-alias tfpp='terraform plan -out plan --parallelism=30'
-alias tfap='terraform apply plan'
-alias tfop='terraform output'
-alias tfv='terraform validate'
-alias tff='terraform fmt'
-# Gitting
-alias g='git'
-alias ga='git add'
-alias gc='git clone'
-alias gb='git branch'
-alias gco='git checkout'
-alias gd='git diff'
-alias gf='git fetch --all'
-alias gl='git log --oneline --pretty=format:"%h [%cd] %d %s <%an>" --date=format:"%Y/%m/%d %H:%M:%S" --graph'
-alias gm='git commit -v'
-alias gnd='git init && git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
-alias gp='git push'
-alias gs='git status'
-alias gg='ghq get'
-
-# fzf
-export FZF_DEFAULT_OPTS='
---color fg:#ebdbb2,bg:#262626,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
---color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
---height 70% --no-sort +m --reverse'
-
-# sudo の後のコマンドでエイリアスを有効にする
-alias sudo='sudo '
-
-# pipenv
-export PIPENV_VENV_IN_PROJECT=true
-
-# If command execution time above min. time, plugins will not output time.
-export ZSH_COMMAND_TIME_MIN_SECONDS=5
+# remove dupulicate path/PATH
+typeset -U path cdpath fpath manpath

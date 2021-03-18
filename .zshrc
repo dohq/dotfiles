@@ -26,7 +26,14 @@ fi
 # color
 autoload -Uz colors; colors
 # completion
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
+skip_global_compinit=1
+autoload -Uz compinit
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 # 補完後、メニュー選択モードになり左右キーで移動が出来る
 zstyle ':completion:*:default' menu select=1
 # 補完で小文字でも大文字にマッチさせる
@@ -199,24 +206,86 @@ bindkey "^[[3~"   delete-char
 bindkey "^[3;5~"  delete-char
 
 ########################################
+# Alias作りましょうねー
+alias c='clear'
+alias cp='cp -i --reflink=auto'
+alias mv='mv -i'
+alias rm='rm -i'
+alias ls='ls --color'
+alias ll='ls -lah'
+alias ltr='ls -lhtr'
+alias mkdir='mkdir -p'
+alias m='mkdir -p'
+alias nm="$HOME/bin/notify-me.sh"
+alias pbcopy='xclip -selection c'
+alias pbpaste='xclip -selection c -o'
+alias pi='ping -c 3 google.com'
+alias pp='ps aux | fzf'
+alias tb='nc termbin.com 9999'
+alias tky='curl wttr.in/Tokyo'
+alias tree='tree -N'
+alias u='up'
+alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
+alias ssh='TERM=xterm ssh'
+alias sudo='sudo '
+if type vim > /dev/null; then
+  alias vi='vim'
+  alias v='vim'
+  alias vd='vimdiff'
+fi
+alias dohq='cd $HOME/go/src/github.com/dohq'
+
+# openstack
+alias op='openstack'
+# Ansible
+alias a='ansible'
+alias ap='ansible-playbook'
+alias av='ansible-vault'
+alias ag='ansible-galaxy'
+# docker
+alias d='docker'
+alias di='docker images'
+alias dr='docker run --rm'
+alias dp='docker ps'
+alias dpa='docker ps -a'
+alias dl='docker logs -f'
+alias dc='docker-compose'
+alias dcu='docker-compose up'
+alias dcud='docker-compose up -d'
+# kubernetes
+alias kns='kubens'
+alias kcx='kubectx'
+# terraform
+alias tf='terraform'
+alias tfpp='terraform plan -out plan --parallelism=30'
+alias tfap='terraform apply plan'
+alias tfop='terraform output'
+alias tfv='terraform validate'
+alias tff='terraform fmt'
+# Gitting
+alias g='git'
+alias ga='git add'
+alias gc='git clone'
+alias gb='git branch'
+alias gco='git checkout'
+alias gd='git diff'
+alias gf='git fetch --all'
+alias gl='git log --oneline --pretty=format:"%h [%cd] %d %s <%an>" --date=format:"%Y/%m/%d %H:%M:%S" --graph'
+alias gm='git commit -v'
+alias gnd='git init && git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
+alias gp='git push'
+alias gs='git status'
+alias gg='ghq get'
+
+########################################
 # func
 # hub alias
 function git(){hub "$@"}
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
-# remove dupulicate path/PATH
-typeset -U path cdpath fpath manpath
-
-# thefuck
-if type fuck > /dev/null; then
-  f() {
-    eval "$(command thefuck --alias)"
-    fuck
-  }
-fi
 
 ########################################
 # zprof
-if (which zprof > /dev/null 2>&1) ;then
-  zprof
-fi
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi

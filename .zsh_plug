@@ -1,27 +1,25 @@
 zinit light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
   romkatv/gitstatus
-  # jonmosco/kube-ps1 \
-  # mafredri/zsh-async \
+
+zinit lucid reset \
+ atclone"[[ -z ${commands[dircolors]} ]] && local P=g
+    \${P}sed -i '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
+    \${P}dircolors -b LS_COLORS > clrs.zsh" \
+ atpull'%atclone' pick"clrs.zsh" nocompile'!' for \
+    trapd00r/LS_COLORS
 
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
-  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
-    zdharma/fast-syntax-highlighting \
   atpull'zinit creinstall -q .' blockf \
     zsh-users/zsh-completions \
+  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
+    zdharma/fast-syntax-highlighting \
   atload'!_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
-  atclone"local P=${${(M)OSTYPE:#*darwin*}:+g} \
-          \${P}sed -i \
-          '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
-          \${P}dircolors -b LS_COLORS > c.zsh" \
-  atpull'%atclone' pick"c.zsh" nocompile'!' \
-  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
-    trapd00r/LS_COLORS \
   atclone'./libexec/pyenv init - > zpyenv.zsh' \
   atinit'export PYENV_ROOT="$PWD"' atpull'%atclone' \
   as'command' pick'bin/pyenv' src'zpyenv.zsh' nocompile'!' \
@@ -34,8 +32,6 @@ zinit wait lucid light-mode for \
     ahmetb/kubectx \
   as'command' sbin'kubens' id-as'kubens' \
     ahmetb/kubectx \
-  as'command' pick'bin/fzf-tmux' id-as'fzf-tmux' \
-    junegunn/fzf \
   as'command' pick'bin/xpanes' \
     greymd/tmux-xpanes \
   has'kubectl'  id-as'kubectl-completion' \
@@ -49,7 +45,7 @@ zinit wait lucid light-mode for \
 
 # Binary
 # No Wait direnv
-zinit from'gh-r' as'program' sbin'direnv* -> direnv' \
+zinit light-mode from'gh-r' as'program' sbin'direnv* -> direnv' \
   atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' \
   pick'direnv' src='zhook.zsh' for \
     direnv/direnv
@@ -62,6 +58,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'**/hub' @github/hub \
   sbin'**/shellcheck' koalaman/shellcheck \
   sbin'**/pandoc' jgm/pandoc \
+  sbin'**/bat' @sharkdp/bat \
   sbin'shfmt* -> shfmt' @mvdan/sh \
   sbin'docker* -> docker-compose' docker/compose \
   sbin'jq* -> jq' stedolan/jq \
@@ -72,7 +69,10 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
   sbin'bbr-* -> bbr' cloudfoundry-incubator/bosh-backup-and-restore \
-  sbin'clusterctl-*-> clusterctl' kubernetes-sigs/cluster-api \
+  sbin'clusterctl-* -> clusterctl' kubernetes-sigs/cluster-api \
+  sbin'rust-analyzer-* -> rust-analyzer' rust-analyzer/rust-analyzer \
+  sbin'hadolint-* -> hadolint' hadolint/hadolint \
+  sbin'air_* -> air' cosmtrek/air \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'pack' buildpacks/pack \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \
@@ -83,6 +83,10 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'git-bump' b4b4r07/git-bump \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
+  sbin'gosec' securego/gosec \
+  bpick'*x86_64*linux-gnu.tar.gz' sbin'tokei' XAMPPRocky/tokei \
+  bpick'dockle*64bit.tar.gz' sbin'dockle' goodwithtech/dockle \
+  bpick'glow*linux_x86_64.tar.gz' sbin'glow' charmbracelet/glow \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
