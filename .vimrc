@@ -489,7 +489,7 @@ let g:quickrun_config = {
       \   },
       \}
 let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test -v']}
-let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run *.go']}
+let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run .']}
 let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
 let g:quickrun_config['typescript'] = {
       \ 'command': 'npx tsc',
