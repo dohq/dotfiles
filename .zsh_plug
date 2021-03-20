@@ -60,7 +60,6 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'**/pandoc' jgm/pandoc \
   sbin'**/bat' @sharkdp/bat \
   sbin'shfmt* -> shfmt' @mvdan/sh \
-  sbin'docker* -> docker-compose' docker/compose \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
   sbin'kapp-* -> kapp' k14s/kapp \
@@ -93,17 +92,17 @@ zinit wait lucid from'gh-r' as'null' for \
 
 ########## Function
 # history
-zinit ice wait lucid
+zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/fzf-history.zsh'
 # ssh
-zinit ice wait lucid
+zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/fzf-ssh.zsh'
 # branch
-zinit ice wait lucid
+zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/fzf-branch.zsh'
 # ghq
-zinit ice wait lucid
+zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/fzf-ghq.zsh'
 # aws profile
-zinit ice wait lucid
+zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/cm-watanabeseigo/0a103315529d502ce4a82d2a8aab6cd3/raw/.bash_profile_aws-profile'
