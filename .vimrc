@@ -208,6 +208,7 @@ Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
+Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'cocopon/iceberg.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
