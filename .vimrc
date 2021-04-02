@@ -224,6 +224,7 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
+Plug 'itchyny/vim-winfix'
 Plug 'janko/vim-test'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -299,7 +300,6 @@ colorscheme gruvbox8
 "----------------------------------------
 " manual filetype {{{
 autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
-autocmd BufRead,BufNewFile *_test.go set filetype=go.test
 autocmd BufRead,BufNewFile .envrc set filetype=sh
 " }}}
 " VimCompletesMe {{{
@@ -489,7 +489,6 @@ let g:quickrun_config = {
       \       'outputter/quickfix/into' : 0,
       \   },
       \}
-let g:quickrun_config['go.test'] = {'command' : 'go', 'exec' : ['%c test -v']}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run .']}
 let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
 let g:quickrun_config['typescript'] = {
