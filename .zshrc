@@ -263,6 +263,9 @@ alias tfop='terraform output'
 alias tfv='terraform validate'
 alias tff='terraform fmt'
 # Gitting
+if type hub > /dev/null; then
+  alias git='hub'
+fi
 alias g='git'
 alias ga='git add'
 alias gc='git clone'
@@ -279,8 +282,6 @@ alias gg='ghq get'
 
 ########################################
 # func
-# hub alias
-function git(){hub "$@"}
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
 
