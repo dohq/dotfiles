@@ -26,8 +26,7 @@ if command -v ccache >/dev/null; then
 fi
 
 # fzf
-export FZF_DEFAULT_OPTS='
---color fg:#ebdbb2,bg:#262626,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#262626,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
 --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
 --height 70% --no-sort +m --reverse'
 
@@ -37,9 +36,6 @@ export PIPENV_VENV_IN_PROJECT=true
 # If command execution time above min. time, plugins will not output time.
 export ZSH_COMMAND_TIME_MIN_SECONDS=5
 
-# Do not load /etc/profile which override $PATH
-# Ref: http://karur4n.hatenablog.com/entry/2016/01/18/100000
-setopt no_global_rcs
 # PATH
 path=(
   /usr/lib/ccache/bin(N-/)
