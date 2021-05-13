@@ -49,6 +49,7 @@ fi
 if command -v greenclip >/dev/null; then
   /usr/bin/greenclip daemon &
 fi
-urxvtd -o -f
+# urxvtd -o -f
 setxkbmap -option ctrl:nocaps
+blueman-applet &
 exec i3

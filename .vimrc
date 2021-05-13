@@ -199,9 +199,7 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-Plug 'pearofducks/ansible-vim'
 Plug 'DeepInThought/vscode-shell-snippets'
-Plug 'LeafCage/yankround.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
 Plug 'basyura/TweetVim'
@@ -219,7 +217,6 @@ Plug 'golang/vscode-go'
 Plug 'hashicorp/vscode-terraform'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
-Plug 'natebosch/vim-lsc'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
@@ -228,34 +225,37 @@ Plug 'itchyny/vim-winfix'
 Plug 'janko/vim-test'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
+Plug 'kana/vim-slacky'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/vim-gista'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'machakann/vim-sandwich'
 Plug 'markonm/traces.vim'
 Plug 'mattn/ctrlp-ghq'
 Plug 'mattn/ctrlp-matchfuzzy'
 Plug 'mattn/ctrlp-register'
 Plug 'mattn/sonictemplate-vim'
+Plug 'mattn/vim-goaddtags', {'for': 'go'}
 Plug 'mattn/vim-godoc', {'for': 'go'}
 Plug 'mattn/vim-goimports', {'for': 'go'}
 Plug 'mattn/vim-gomod', {'for': 'go'}
-Plug 'mattn/vim-goaddtags', {'for': 'go'}
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'microsoft/vscode-python'
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'natebosch/vim-lsc'
 Plug 'osyo-manga/shabadou.vim'
+Plug 'pearofducks/ansible-vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'previm/previm', {'for': 'markdown'}
+Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'sbdchd/neoformat'
 Plug 'sgur/vim-editorconfig'
-Plug 'skywind3000/asyncrun.vim'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'thinca/vim-qfreplace'
@@ -270,13 +270,6 @@ Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
 Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
-if !has('nvim')
-  Plug 'rbtnn/vim-pterm'
-  Plug 'kana/vim-slacky'
-endif
-if !has('nvim')
-  Plug 'rhysd/vim-healthcheck'
-endif
 call plug#end()
 
 "----------------------------------------
@@ -292,6 +285,8 @@ if $TMUX != ""
 endif
 syntax enable
 set background=dark
+let g:gruvbox_italics = 0
+let g:gruvbox_italicize_strings = 0
 colorscheme gruvbox8
 "}}}
 
@@ -299,7 +294,6 @@ colorscheme gruvbox8
 " Plugin Settings
 "----------------------------------------
 " manual filetype {{{
-autocmd BufRead,BufNewFile *pipeline.yml set filetype=yaml.concourse
 autocmd BufRead,BufNewFile .envrc set filetype=sh
 " }}}
 " VimCompletesMe {{{
@@ -333,43 +327,46 @@ let g:lsc_auto_map = {
       \}
 
 let g:lsc_server_commands = {}
-if executable('pyls')
+
+if filereadable($HOME.'/.local/share/kite/current/kite-lsp')
+  let g:lsc_server_commands['python'] = {'command': $HOME.'/.local/share/kite/current/kite-lsp --editor=vim', 'suppress_stderr': v:true}
+elseif executable('pyls')
   let g:lsc_server_commands['python'] = {
-        \ 'command': 'pyls',
-        \ 'workspace_config': {
-        \   'pyls': {
-        \     'plugins': {
-        \       'jedi_completion': {'enabled': v:true},
-        \       'jedi_definition': {
-        \         'follow_imports': v:true,
-        \         'follow_builtin_imports': v:true
-        \       },
-        \       'jedi_hover': {'enabled': v:true},
-        \       'jedi_references': {'enabled': v:true},
-        \       'jedi_signature_help': {'enabled': v:true},
-        \       'jedi_symbols': {
-        \         'enabled': v:true,
-        \         'all_scopes': v:true,
-        \       },
-        \       'mccabe': {
-        \         'enabled': v:true,
-        \         'threshold': 15,
-        \       },
-        \       'preload': {'enabled': v:true},
-        \       'pylint': {'enabled': v:false},
-        \       'pycodestyle': {
-        \         'enabled': v:true,
-        \         'maxLineLength': 160,
-        \         'ignore': 'W292'
-        \       },
-        \       'pydocstyle': {'enabled': v:false},
-        \       'flake8': {'enabled': v:false},
-        \       'rope_completion': {'enabled': v:true},
-        \       'yapf': {'enabled': v:false},
-        \     }
-        \   },
-        \ },
-        \}
+       \ 'command': 'pyls',
+       \ 'workspace_config': {
+       \   'pyls': {
+       \     'plugins': {
+       \       'jedi_completion': {'enabled': v:true},
+       \       'jedi_definition': {
+       \         'follow_imports': v:true,
+       \         'follow_builtin_imports': v:true
+       \       },
+       \       'jedi_hover': {'enabled': v:true},
+       \       'jedi_references': {'enabled': v:true},
+       \       'jedi_signature_help': {'enabled': v:true},
+       \       'jedi_symbols': {
+       \         'enabled': v:true,
+       \         'all_scopes': v:true,
+       \       },
+       \       'mccabe': {
+       \         'enabled': v:true,
+       \         'threshold': 15,
+       \       },
+       \       'preload': {'enabled': v:true},
+       \       'pylint': {'enabled': v:false},
+       \       'pycodestyle': {
+       \         'enabled': v:true,
+       \         'maxLineLength': 160,
+       \         'ignore': 'W292'
+       \       },
+       \       'pydocstyle': {'enabled': v:false},
+       \       'flake8': {'enabled': v:false},
+       \       'rope_completion': {'enabled': v:true},
+       \       'yapf': {'enabled': v:false},
+       \     }
+       \   },
+       \ },
+       \}
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {
@@ -378,7 +375,6 @@ if executable('gopls')
         \   'initialize': {
         \     'initializationOptions': {
         \       'usePlaceholders': v:true,
-        \       'gofumpt': v:true,
         \       'staticcheck': v:true,
         \       'analyses': {
         \         'unreachable': v:true,
@@ -391,47 +387,10 @@ if executable('gopls')
         \ 'suppress_stderr': v:true
         \}
 endif
-if executable('vim-language-server')
-  let g:lsc_server_commands['vim'] = {
-        \ 'command': 'vim-language-server --stdio',
-        \ 'message_hooks': {
-        \   'initialize': {
-        \     'initializationOptions': {
-        \       "iskeyword": "",
-        \       "vimruntime": $VIMRUNTIME,
-        \       "runtimepath": &rtp,
-        \       "diagnostic": {
-        \         "enable": v:true
-        \       },
-        \       "indexes": {
-        \         "runtimepath": v:true,
-        \         "gap": 100,
-        \         "count": 3,
-        \       },
-        \       "suggest": {
-        \         "fromVimruntime": v:true,
-        \         "fromRuntimepath": v:false
-        \       }
-        \     },
-        \   },
-        \ },
-        \ 'log_level': -1,
-        \ 'suppress_stderr': v:true
-        \}
-endif
-if executable('solargraph')
-  let g:lsc_server_commands['ruby'] = {'command': 'solargraph stdio', 'log_level': -1, 'suppress_stderr': v:true}
-endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
 endif
-if executable('bash-language-server')
-  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'suppress_stderr': v:true}
-endif
-if executable('concourse-language-server')
-  let g:lsc_server_commands['yaml.concourse'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
-endif
-+" }}}
+" }}}
 " vsnip {{{
 let g:vsnip_snippet_dir = expand('$HOME/dotfiles/vsnip')
 imap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
@@ -439,45 +398,10 @@ smap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 " }}}
-" Ansible {{{
-let g:ansible_unindent_after_newline = 1
-let g:ansible_extra_keywords_highlight = 1
-let g:ansible_goto_role_paths = './roles,../_common/roles'
-
-function! FindAnsibleRoleUnderCursor()
-  if exists("g:ansible_goto_role_paths")
-    let l:role_paths = g:ansible_goto_role_paths
-  else
-    let l:role_paths = "./roles"
-  endif
-  let l:tasks_main = expand("<cfile>") . "/tasks/main.yml"
-  let l:found_role_path = findfile(l:tasks_main, l:role_paths)
-  if l:found_role_path == ""
-    echo l:tasks_main . " not found"
-  else
-    execute "edit " . fnameescape(l:found_role_path)
-  endif
-endfunction
-
-" au BufEnter,BufNewFile FileType yaml.ansible nnoremap <silent> <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
-" }}}
-" AsyncRun {{{
-let g:asyncrun_open = 8
-" }}}
-" YankRound {{{
-nmap p <Plug>(yankround-p)
-xmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap gp <Plug>(yankround-gp)
-xmap gp <Plug>(yankround-gp)
-nmap gP <Plug>(yankround-gP)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-" }}}
 " Quick-Run {{{
 let g:quickrun_config = {
       \   '_' : {
-      \       'runner' : 'terminal',
+      \       'runner' : 'job',
       \       'outputter' : 'error',
       \       'hook/neco/enable' : 1,
       \       'hook/neco/wait' : 10,

@@ -174,6 +174,8 @@ setopt hist_no_store
 setopt share_history
 # 同じコマンドをヒストリに残さない
 setopt hist_ignore_all_dups
+# 履歴検索中、(連続してなくとも)重複を飛ばす
+setopt hist_find_no_dups
 # スペースから始まるコマンド行はヒストリに残さない
 setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
@@ -181,7 +183,7 @@ setopt hist_reduce_blanks
 # ヒストリを呼び出してから実行する間に一旦編集
 setopt hist_verify
 # 高機能なワイルドカード展開を使用する
-setopt extended_glob
+# setopt extended_glob
 # 内部コマンド jobs の出力をデフォルトで jobs -l にする
 setopt long_list_jobs
 # 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
@@ -287,6 +289,6 @@ function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
 
 ########################################
 # zprof
-# if (which zprof > /dev/null 2>&1) ;then
-#   zprof
-# fi
+if (which zprof > /dev/null 2>&1) ;then
+  zprof
+fi

@@ -14,7 +14,7 @@ zinit wait lucid light-mode for \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
-  atpull'zinit creinstall -q .' blockf \
+  atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
     zdharma/fast-syntax-highlighting \
@@ -72,6 +72,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'rust-analyzer-* -> rust-analyzer' rust-analyzer/rust-analyzer \
   sbin'hadolint-* -> hadolint' hadolint/hadolint \
   sbin'air_* -> air' cosmtrek/air \
+  sbin'tldr-* -> tldr' mstruebing/tldr \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'pack' buildpacks/pack \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \

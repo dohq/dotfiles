@@ -28,7 +28,7 @@ fi
 # fzf
 export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#262626,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
 --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
---height 70% --no-sort +m --reverse'
+--height 70% --no-sort +m --layout=reverse --info=inline --border --margin=1 --padding=1'
 
 # pipenv
 export PIPENV_VENV_IN_PROJECT=true
