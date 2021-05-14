@@ -204,6 +204,7 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
+Plug 'JAErvin/logstash.vim'
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
