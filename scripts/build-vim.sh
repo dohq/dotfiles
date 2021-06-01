@@ -7,13 +7,13 @@ if [[ ! -d $VIM_DIR ]]; then
 fi
 
 pushd $HOME/go/src/github.com/vim/vim
+git reset --hard
 make distclean
 
 git pull
 
 ./configure \
   --prefix=$HOME/.local \
-  --with-features=huge \
   --enable-gui=no
 make -j$(nproc)
 make install
