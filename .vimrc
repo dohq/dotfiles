@@ -200,11 +200,11 @@ nnoremap <Space> <Nop>
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
 Plug 'DeepInThought/vscode-shell-snippets'
+Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
-Plug 'JAErvin/logstash.vim'
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
@@ -408,7 +408,7 @@ let g:quickrun_config = {
       \       'hook/neco/wait' : 10,
       \       'outputter/error/success' : 'buffer',
       \       'outputter/error/error' : 'quickfix',
-      \       'outputter/buffer/split' : ':botright 8',
+      \       'outputter/buffer/opener' : ':botright 15split',
       \       'outputter/buffer/close_on_empty' : 1,
       \       'outputter/buffer/into' : 0,
       \       'outputter/quickfix/into' : 0,
