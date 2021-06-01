@@ -73,6 +73,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'hadolint-* -> hadolint' hadolint/hadolint \
   sbin'air_* -> air' cosmtrek/air \
   sbin'tldr-* -> tldr' mstruebing/tldr \
+  sbin'reviewdog' reviewdog/reviewdog \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'pack' buildpacks/pack \
   sbin'terraform-lsp' juliosueiras/terraform-lsp \
@@ -87,6 +88,7 @@ zinit wait lucid from'gh-r' as'null' for \
   bpick'*x86_64*linux-gnu.tar.gz' sbin'tokei' XAMPPRocky/tokei \
   bpick'dockle*64bit.tar.gz' sbin'dockle' goodwithtech/dockle \
   bpick'glow*linux_x86_64.tar.gz' sbin'glow' charmbracelet/glow \
+  bpick'*_linux_amd64.tar.gz' sbin'**/gh' cli/cli \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
