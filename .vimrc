@@ -251,6 +251,7 @@ Plug 'microsoft/vscode-python'
 Plug 'natebosch/vim-lsc'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'pearofducks/ansible-vim'
+Plug 'pechorin/any-jump.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'previm/previm', {'for': 'markdown'}
 Plug 'rbtnn/vim-pterm'
@@ -277,9 +278,9 @@ call plug#end()
 " color settings
 "----------------------------------------
 " color {{{
-" if exists('+termguicolors')
-"   set termguicolors
-" endif
+if exists('+termguicolors')
+  set termguicolors
+endif
 if $TMUX != ""
   let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
   let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
@@ -326,7 +327,6 @@ let g:lsc_auto_map = {
       \ 'SignatureHelp': 'gm',
       \ 'Completion': 'omnifunc',
       \}
-
 let g:lsc_server_commands = {}
 
 if filereadable($HOME.'/.local/share/kite/current/kite-lsp')
