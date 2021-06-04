@@ -1,6 +1,7 @@
 zinit light-mode for \
   @zinit-zsh/z-a-bin-gem-node \
-  romkatv/gitstatus
+  atload'!_zsh_git_prompt_precmd_hook' \
+    woefe/git-prompt.zsh
 
 zinit lucid reset \
  atclone"[[ -z ${commands[dircolors]} ]] && local P=g
