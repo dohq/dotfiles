@@ -26,8 +26,6 @@ fi
 # color
 autoload -Uz colors; colors
 # completion
-# autoload -Uz compinit && compinit
-skip_global_compinit=1
 autoload -Uz compinit
 if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
   compinit

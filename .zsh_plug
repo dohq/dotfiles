@@ -3,47 +3,6 @@ zinit light-mode for \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh
 
-zinit lucid reset \
- atclone"[[ -z ${commands[dircolors]} ]] && local P=g
-    \${P}sed -i '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
-    \${P}dircolors -b LS_COLORS > clrs.zsh" \
- atpull'%atclone' pick"clrs.zsh" nocompile'!' for \
-    trapd00r/LS_COLORS
-
-zinit wait lucid light-mode for \
-  peterhurford/up.zsh \
-  hlissner/zsh-autopair \
-  popstas/zsh-command-time \
-  sobolevn/wakatime-zsh-plugin \
-  atpull'zinit creinstall -q "$PWD"' blockf \
-    zsh-users/zsh-completions \
-  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
-    zdharma/fast-syntax-highlighting \
-  atload'!_zsh_autosuggest_start' \
-    zsh-users/zsh-autosuggestions \
-  atclone'./libexec/pyenv init - > zpyenv.zsh' \
-  atinit'export PYENV_ROOT="$PWD"' atpull'%atclone' \
-  as'command' pick'bin/pyenv' src'zpyenv.zsh' nocompile'!' \
-    pyenv/pyenv \
-  atclone'./libexec/rbenv init - > zrbenv.zsh' \
-  atinit'export RBENV_ROOT="$PWD"' atpull'%atclone' \
-  as'command' pick'bin/rbenv' src'zrbenv.zsh' nocompile'!' \
-    rbenv/rbenv \
-  as'command' sbin'kubectx' id-as'kubectx' \
-    ahmetb/kubectx \
-  as'command' sbin'kubens' id-as'kubens' \
-    ahmetb/kubectx \
-  as'command' pick'bin/xpanes' \
-    greymd/tmux-xpanes \
-  has'kubectl'  id-as'kubectl-completion' \
-  as'completion' \
-  atclone'kubectl completion zsh > _kubectl' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma/null \
-  pick'.kubectl_aliases' \
-    ahmetb/kubectl-aliases
-
 # Binary
 # No Wait direnv
 zinit light-mode from'gh-r' as'program' sbin'direnv* -> direnv' \
@@ -86,6 +45,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
   sbin'gosec' securego/gosec \
+  bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
   bpick'*x86_64*linux-gnu.tar.gz' sbin'tokei' XAMPPRocky/tokei \
   bpick'dockle*64bit.tar.gz' sbin'dockle' goodwithtech/dockle \
   bpick'glow*linux_x86_64.tar.gz' sbin'glow' charmbracelet/glow \
@@ -93,6 +53,38 @@ zinit wait lucid from'gh-r' as'null' for \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
+
+zinit wait lucid light-mode for \
+  peterhurford/up.zsh \
+  hlissner/zsh-autopair \
+  popstas/zsh-command-time \
+  sobolevn/wakatime-zsh-plugin \
+  atpull'zinit creinstall -q "$PWD"' blockf \
+    zsh-users/zsh-completions \
+  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
+    zdharma/fast-syntax-highlighting \
+  atload'!_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
+  as'command' sbin'kubectx' id-as'kubectx' \
+    ahmetb/kubectx \
+  as'command' sbin'kubens' id-as'kubens' \
+    ahmetb/kubectx \
+  as'command' pick'bin/xpanes' \
+    greymd/tmux-xpanes \
+  has'kubectl' id-as'kubectl-completion' \
+  as'completion' \
+  atclone'kubectl completion zsh > _kubectl' \
+  atpull'%atclone' \
+  run-atpull \
+    zdharma/null \
+  has'pack' id-as'pack-completion' \
+  as'completion' \
+  atclone'cp $HOME/.pack/completion _pack' \
+  atpull'%atclone' \
+  run-atpull \
+    zdharma/null \
+  pick'.kubectl_aliases' \
+    ahmetb/kubectl-aliases
 
 ########## Function
 # history
