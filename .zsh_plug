@@ -1,14 +1,16 @@
-zinit light-mode for \
-  @zinit-zsh/z-a-bin-gem-node \
+# No Wait
+zinit light-mode lucid for \
+    zinit-zsh/z-a-bin-gem-node \
   atload'!_zsh_git_prompt_precmd_hook' \
-    woefe/git-prompt.zsh
-
-# Binary
-# No Wait direnv
-zinit light-mode from'gh-r' as'program' sbin'direnv* -> direnv' \
+    woefe/git-prompt.zsh \
+  from'gh-r' as'program' sbin'direnv* -> direnv' \
   atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' \
-  pick'direnv' src='zhook.zsh' for \
-    direnv/direnv
+  pick'direnv' src='zhook.zsh' \
+    direnv/direnv \
+  atclone"dircolors -b LS_COLORS > clrs.zsh" \
+  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
+    trapd00r/LS_COLORS
 
 zinit wait lucid from'gh-r' as'null' for \
   sbin'**/peco' peco/peco \
