@@ -20,6 +20,7 @@
 	ff = only
 [merge]
 	ff = false
+	conflictStyle = diff3
 [credential]
 	helper = manager
 [diff]
