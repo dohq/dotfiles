@@ -6,11 +6,7 @@ zinit light-mode lucid for \
   from'gh-r' as'program' sbin'direnv* -> direnv' \
   atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' \
   pick'direnv' src='zhook.zsh' \
-    direnv/direnv \
-  atclone"dircolors -b LS_COLORS > clrs.zsh" \
-  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
-    trapd00r/LS_COLORS
+    direnv/direnv
 
 zinit wait lucid from'gh-r' as'null' for \
   sbin'**/peco' peco/peco \
@@ -61,6 +57,10 @@ zinit wait lucid light-mode for \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
+  atclone"dircolors -b LS_COLORS > clrs.zsh" \
+  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
+    trapd00r/LS_COLORS \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
