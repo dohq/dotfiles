@@ -20,9 +20,9 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'shfmt* -> shfmt' @mvdan/sh \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
-  sbin'kapp-* -> kapp' k14s/kapp \
+  sbin'kapp-* -> kapp' vmware-tanzu/carvel-kapp \
   sbin'img-* -> img' genuinetools/img \
-  sbin'ytt-* -> ytt' k14s/ytt \
+  sbin'ytt-* -> ytt' vmware-tanzu/carvel-ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
   sbin'bbr-* -> bbr' cloudfoundry-incubator/bosh-backup-and-restore \
@@ -49,8 +49,8 @@ zinit wait lucid from'gh-r' as'null' for \
   bpick'glow*linux_x86_64.tar.gz' sbin'glow' charmbracelet/glow \
   bpick'*_linux_amd64.tar.gz' sbin'**/gh' cli/cli \
   bpick'fly-*' sbin'fly' concourse/concourse \
-  bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmwarepivotallabs/cf-mgmt \
-  bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmwarepivotallabs/cf-mgmt
+  bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmware-tanzu-labs/cf-mgmt \
+  bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmware-tanzu-labs/cf-mgmt
 
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
@@ -81,7 +81,7 @@ zinit wait lucid light-mode for \
     zdharma/null \
   has'pack' id-as'pack-completion' \
   as'completion' \
-  atclone'cp $HOME/.pack/completion _pack' \
+  atclone'/bin/cp -f $HOME/.pack/completion _pack' \
   atpull'%atclone' \
   run-atpull \
     zdharma/null \
