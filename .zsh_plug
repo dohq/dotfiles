@@ -44,6 +44,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'jid' simeji/jid \
   sbin'gosec' securego/gosec \
   bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
+  bpick'*Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
   bpick'*x86_64*linux-gnu.tar.gz' sbin'tokei' XAMPPRocky/tokei \
   bpick'dockle*64bit.tar.gz' sbin'dockle' goodwithtech/dockle \
   bpick'glow*linux_x86_64.tar.gz' sbin'glow' charmbracelet/glow \
@@ -76,6 +77,12 @@ zinit wait lucid light-mode for \
   has'kubectl' id-as'kubectl-completion' \
   as'completion' \
   atclone'kubectl completion zsh > _kubectl' \
+  atpull'%atclone' \
+  run-atpull \
+    zdharma/null \
+  has'restic' id-as'restic-completion' \
+  as'completion' \
+  atclone'restic generate --zsh-completion _restic' \
   atpull'%atclone' \
   run-atpull \
     zdharma/null \
