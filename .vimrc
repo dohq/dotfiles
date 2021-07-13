@@ -224,6 +224,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'itchyny/vim-winfix'
 Plug 'janko/vim-test'
+Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-slacky'
@@ -404,6 +405,8 @@ let g:quickrun_config = {
       \   '_' : {
       \       'runner' : 'job',
       \       'outputter' : 'error',
+      \       'hook/time/enable' : 1,
+      \       'hook/time/dest' : 'buffer:append=1',
       \       'hook/neco/enable' : 1,
       \       'hook/neco/wait' : 10,
       \       'outputter/error/success' : 'buffer',
