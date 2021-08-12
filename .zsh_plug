@@ -4,8 +4,7 @@ zinit light-mode lucid for \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh \
   from'gh-r' as'program' sbin'direnv* -> direnv' \
-  atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' \
-  pick'direnv' src='zhook.zsh' \
+  atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' src='zhook.zsh' \
     direnv/direnv
 
 zinit wait lucid from'gh-r' as'null' for \
@@ -31,6 +30,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'hadolint-* -> hadolint' hadolint/hadolint \
   sbin'air_* -> air' cosmtrek/air \
   sbin'tldr-* -> tldr' mstruebing/tldr \
+  sbin'docker-compose* -> docker-compose' docker/compose \
   sbin'reviewdog' reviewdog/reviewdog \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \
   sbin'pack' buildpacks/pack \
@@ -43,6 +43,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
   sbin'gosec' securego/gosec \
+  bpick'*linux_amd64.tar.gz' sbin'pet' knqyf263/pet \
   bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
   bpick'*Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
   bpick'*x86_64*linux-gnu.tar.gz' sbin'tokei' XAMPPRocky/tokei \

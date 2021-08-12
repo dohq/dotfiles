@@ -16,12 +16,6 @@ autoload -Uz _zinit
 source "$HOME/.zsh_plug"
 
 ########################################
-# source zsh_local
-if [[ -f ~/.zsh_local ]]; then
-  source ~/.zsh_local
-fi
-
-########################################
 # autoload {{{
 # color
 autoload -Uz colors; colors
@@ -233,6 +227,18 @@ alias gg='ghq get'
 # func
 # gitignore
 function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
+
+# pet zsh prev function
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new `printf %q "$PREV"`"
+}
+
+########################################
+# source zsh_local
+if [[ -f ~/.zsh_local ]]; then
+  source ~/.zsh_local
+fi
 
 ########################################
 # zprof
