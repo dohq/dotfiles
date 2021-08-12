@@ -62,6 +62,7 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " }}}
 " set opt {{{
 set autoread
+set ambiwidth=double
 " set autowrite
 set backspace=indent,eol,start
 set belloff=all
@@ -82,6 +83,7 @@ set hlsearch
 set ignorecase
 set imdisable
 set incsearch
+set isfname-==
 set laststatus=2
 set lazyredraw
 set list
@@ -133,18 +135,18 @@ if exists('+breakindent')
 endif
 " File Backups
 set backupcopy=yes
-let s:swpdir = $MYVIMDIR .. '/swap'
+let s:swpdir = $MYVIMDIR.'/swap'
 if !isdirectory(s:swpdir)
   call mkdir(s:swpdir)
 endif
 set directory=s:swpdir
 " Persistent Undo
-let s:undodir = $MYVIMDIR .. '/undo'
+set undofile
+let s:undodir = $MYVIMDIR.'/undo'
 if !isdirectory(s:undodir)
   call mkdir(s:undodir)
 endif
 set undodir=s:undodir
-set undofile
 let g:is_posix=1
 " }}}
 " Keybind {{{
@@ -199,7 +201,6 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-Plug 'DeepInThought/vscode-shell-snippets'
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
@@ -215,7 +216,6 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'golang/vscode-go'
 Plug 'hashicorp/vscode-terraform'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
@@ -256,6 +256,7 @@ Plug 'pearofducks/ansible-vim'
 Plug 'pechorin/any-jump.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'previm/previm', {'for': 'markdown'}
+Plug 'rafamadriz/friendly-snippets'
 Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'sbdchd/neoformat'
@@ -406,8 +407,7 @@ let g:quickrun_config = {
       \   '_' : {
       \       'runner' : 'job',
       \       'outputter' : 'error',
-      \       'hook/time/enable' : 1,
-      \       'hook/time/dest' : 'buffer:append=1',
+      \       'hook/time/dest' : 'buffer',
       \       'hook/neco/enable' : 1,
       \       'hook/neco/wait' : 10,
       \       'outputter/error/success' : 'buffer',
