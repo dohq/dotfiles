@@ -1,0 +1,53 @@
+task-config:
+  started: &started
+    params:
+      put: notify
+      alert_type: started
+      channel: ((slack_channel))
+  success: &success
+    params:
+      put: notify
+      alert_type: success
+      channel: ((slack_channel))
+  failed: &failed
+    params:
+      put: notify
+      alert_type: failed
+      channel: ((slack_channel))
+
+resources:
+- name: notify
+  type: slack-notifier
+  icon: slack
+  source:
+    url: ((slack_webhook))
+
+resource_types:
+- name: slack-notifier
+  type: docker-image
+  source:
+    repository: mockersf/concourse-slack-notifier
+
+jobs:
+- name: {{_input_:Job Name}}
+  plan:
+  - put: notify
+    <<: *started
+  - task: {{_input_:Task Name}}
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      run:
+        path: bash
+        args:
+        - -c
+        - |
+          {{_cursor_}}
+    on_failure:
+      put: notify
+      <<: *failed
+  - put: notify
+    <<: *success

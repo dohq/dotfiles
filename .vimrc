@@ -105,8 +105,7 @@ set pumheight=10
 set scrolloff=9999
 set shiftround
 set shiftwidth=2
-set shortmess+=atIc
-set shortmess-=SF
+set shortmess=atTOIc
 set showtabline=0
 set signcolumn=yes
 set smartcase
@@ -300,6 +299,13 @@ colorscheme gruvbox8
 "----------------------------------------
 " manual filetype {{{
 autocmd BufRead,BufNewFile .envrc set filetype=sh
+augroup concourse-pipeline-yaml
+  autocmd!
+  autocmd BufRead,BufNewFile **/*pipeline*.yml set filetype=concourse-pipeline-yaml
+  autocmd BufRead,BufNewFile **/pipeline/*.yml set filetype=concourse-pipeline-yaml
+  autocmd BufRead,BufNewFile **/tasks/*.yml set filetype=concourse-task-yaml
+  autocmd BufRead,BufNewFile **/task.yml set filetype=concourse-task-yaml
+augroup END
 " }}}
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -390,6 +396,24 @@ if executable('gopls')
         \ 'log_level': -1,
         \ 'suppress_stderr': v:true
         \}
+endif
+if executable('yaml-language-server')
+  let g:lsc_server_commands['yaml'] = {
+        \ 'command': 'yaml-language-server --stdio',
+        \ 'workspace_config': {
+        \   'validate': v:true,
+        \   'hover': v:true,
+        \   'completion': v:true,
+        \   'customTags': [],
+        \   'schemas': {
+        \     'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+        \   },
+        \   'schemaStore': {'enable': v:true},
+        \ }
+        \}
+endif
+if executable('concourse-language-server')
+  let g:lsc_server_commands['concourse-pipeline-yaml'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
 endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
@@ -592,7 +616,7 @@ nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch<Space>
 nnoremap    [memo]   <Nop>
 nmap    <Space>m [memo]
 
-" unite.vim keymap
+" memolist keymap
 nnoremap <silent> [memo]n :<C-u>MemoNew<CR>
 nnoremap <silent> [memo]l :<C-u>MemoList<CR>
 nnoremap <silent> [memo]g :<C-u>MemoGrep<CR>
