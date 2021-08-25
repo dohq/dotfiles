@@ -14,12 +14,12 @@ set guioptions-=b
 "----------------------------------------
 " ColorScheme
 "----------------------------------------
-colorscheme gruvbox
+colorscheme gruvbox-material
 
 "----------------------------------------
 " FontSetting
 "----------------------------------------
-set guifont=Sarasa\ Mono\ J:h12
+set guifont=PlemolJP\ Console\ NF:h13
 
 if has('directx')
   set rop=type:directx,renmode:5

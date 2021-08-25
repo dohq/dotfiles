@@ -27,6 +27,7 @@
 	altorithm = histogram
 	compactionHeuristic = true
 	tool = vimdiff
+	colorMoved = dimmed-zebra
 [commit]
 	verbose = true
 	gpgsign = true

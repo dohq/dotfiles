@@ -15,6 +15,6 @@ git pull
 ./configure \
   --prefix=$HOME/.local \
   --enable-gui=no
-make -j$(nproc)
+make -j 6
 make install
 popd

@@ -170,12 +170,13 @@ for_window [class="dosbox"] floating enable
 for_window [class="PacketTracer"] floating enable
 for_window [title="Authy"] floating enable
 for_window [class="Blueman-manager"] floating enable
+for_window [class="NoiseTorch"] floating enable
 for_window [class="xfreerdp"] floating disable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.jpg"
 exec --no-startup-id "zeal"
-exec --no-startup-id "keepassxc"
+exec --no-startup-id "keepassxc --localconfig $HOME/.config/keepassxc/keepassxc.ini"
 
 # activate screenshot
 # bindsym Print exec scrot

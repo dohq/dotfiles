@@ -68,8 +68,10 @@ set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
 set cmdheight=2
-set completeopt+=noinsert,menuone,noselect,popup
-set completeopt-=preview
+if !has('nvim')
+  set completeopt+=noinsert,menuone,noselect,popup
+  set completeopt-=preview
+endif
 if has('nvim-0.3.2') || has('patch-8.1.0360')
   set diffopt+=internal,filler,iblank,closeoff,algorithm:histogram,indent-heuristic
 endif
@@ -232,7 +234,6 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/vim-gista'
-Plug 'lifepillar/vim-gruvbox8'
 Plug 'machakann/vim-sandwich'
 Plug 'markonm/traces.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -248,7 +249,6 @@ Plug 'mattn/vim-textobj-url'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
-Plug 'microsoft/vscode-python'
 Plug 'natebosch/vim-lsc'
 Plug 'osyo-manga/shabadou.vim'
 Plug 'pearofducks/ansible-vim'
@@ -256,8 +256,8 @@ Plug 'pechorin/any-jump.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'previm/previm', {'for': 'markdown'}
 Plug 'rafamadriz/friendly-snippets'
-Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
+Plug 'sainnhe/gruvbox-material'
 Plug 'sbdchd/neoformat'
 Plug 'sgur/vim-editorconfig'
 Plug 'suy/vim-ctrlp-commandline'
@@ -274,6 +274,9 @@ Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
 Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
+if !has('nvim')
+  Plug 'rbtnn/vim-pterm'
+endif
 call plug#end()
 
 "----------------------------------------
@@ -289,9 +292,11 @@ if $TMUX != ""
 endif
 syntax enable
 set background=dark
-let g:gruvbox_italics = 0
-let g:gruvbox_italicize_strings = 0
-colorscheme gruvbox8
+let g:gruvbox_material_disable_italic_comment = 1
+let g:gruvbox_material_statusline_style = 'original'
+let g:gruvbox_material_palette = 'original'
+let g:gruvbox_material_background = 'medium'
+colorscheme gruvbox-material
 "}}}
 
 "----------------------------------------
@@ -418,6 +423,9 @@ endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
 endif
+if executable('vim-language-server')
+  let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'suppress_stderr': v:true}
+endif
 " }}}
 " vsnip {{{
 let g:vsnip_snippet_dir = expand('$HOME/dotfiles/vsnip')
@@ -466,7 +474,7 @@ command! -nargs=+ -complete=command Capture QuickRun -type vim -src <q-args>
 " lightline.vim{{{
 let g:lightline = {}
 
-let g:lightline.colorscheme = "gruvbox8"
+let g:lightline.colorscheme = "gruvbox_material"
 
 let g:lightline.active = {
       \   'left': [['mode', 'paste'],
