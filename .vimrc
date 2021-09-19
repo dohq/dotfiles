@@ -63,14 +63,15 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " set opt {{{
 set autoread
 set ambiwidth=double
-" set autowrite
 set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
+set clipboard=unnamedplus
 set cmdheight=2
+set completeopt-=preview
+set completeopt+=noinsert,menuone,noselect
 if !has('nvim')
-  set completeopt+=noinsert,menuone,noselect,popup
-  set completeopt-=preview
+  set completeopt+=popup
 endif
 if has('nvim-0.3.2') || has('patch-8.1.0360')
   set diffopt+=internal,filler,iblank,closeoff,algorithm:histogram,indent-heuristic
@@ -91,7 +92,6 @@ set lazyredraw
 set list
 set listchars=tab:»-,eol:\ ,extends:»,precedes:«,nbsp:%,trail:-
 set noautoindent
-" set nobackup
 set nofixeol
 set nojoinspaces
 set noequalalways
@@ -134,20 +134,6 @@ if exists('+breakindent')
   set breakindentopt=sbr
   set showbreak=<
 endif
-" File Backups
-set backupcopy=yes
-let s:swpdir = $MYVIMDIR.'/swap'
-if !isdirectory(s:swpdir)
-  call mkdir(s:swpdir)
-endif
-set directory=s:swpdir
-" Persistent Undo
-set undofile
-let s:undodir = $MYVIMDIR.'/undo'
-if !isdirectory(s:undodir)
-  call mkdir(s:undodir)
-endif
-set undodir=s:undodir
 let g:is_posix=1
 " }}}
 " Keybind {{{
@@ -163,14 +149,8 @@ nnoremap : ;
 vnoremap ; :
 vnoremap : ;
 
-nnoremap <c-h> :<C-u>bp <enter>
-nnoremap <c-l> :<C-u>bn <enter>
-
-nnoremap <leader>y "*
+" open under cursor file
 nnoremap gf :<C-u>e <cfile><cr>
-
-" Switch
-nnoremap <silent> <leader>s :Switch<CR>
 
 " sandwich
 nmap s <Nop>
@@ -347,59 +327,40 @@ if filereadable($HOME.'/.local/share/kite/current/kite-lsp')
   let g:lsc_server_commands['python'] = {'command': $HOME.'/.local/share/kite/current/kite-lsp --editor=vim', 'suppress_stderr': v:true}
 elseif executable('pyls')
   let g:lsc_server_commands['python'] = {
-       \ 'command': 'pyls',
-       \ 'workspace_config': {
-       \   'pyls': {
-       \     'plugins': {
-       \       'jedi_completion': {'enabled': v:true},
-       \       'jedi_definition': {
-       \         'follow_imports': v:true,
-       \         'follow_builtin_imports': v:true
-       \       },
-       \       'jedi_hover': {'enabled': v:true},
-       \       'jedi_references': {'enabled': v:true},
-       \       'jedi_signature_help': {'enabled': v:true},
-       \       'jedi_symbols': {
-       \         'enabled': v:true,
-       \         'all_scopes': v:true,
-       \       },
-       \       'mccabe': {
-       \         'enabled': v:true,
-       \         'threshold': 15,
-       \       },
-       \       'preload': {'enabled': v:true},
-       \       'pylint': {'enabled': v:false},
-       \       'pycodestyle': {
-       \         'enabled': v:true,
-       \         'maxLineLength': 160,
-       \         'ignore': 'W292'
-       \       },
-       \       'pydocstyle': {'enabled': v:false},
-       \       'flake8': {'enabled': v:false},
-       \       'rope_completion': {'enabled': v:true},
-       \       'yapf': {'enabled': v:false},
-       \     }
-       \   },
-       \ },
-       \}
-endif
-if executable('gopls')
-  let g:lsc_server_commands['go'] = {
-        \ 'command': 'gopls serve',
-        \ 'message_hooks': {
-        \   'initialize': {
-        \     'initializationOptions': {
-        \       'usePlaceholders': v:true,
-        \       'staticcheck': v:true,
-        \       'analyses': {
-        \         'unreachable': v:true,
-        \         'unusedparams': v:true
+        \ 'command': 'pyls',
+        \ 'workspace_config': {
+        \   'pyls': {
+        \     'plugins': {
+        \       'jedi_completion': {'enabled': v:true},
+        \       'jedi_definition': {
+        \         'follow_imports': v:true,
+        \         'follow_builtin_imports': v:true
         \       },
-        \     },
+        \       'jedi_hover': {'enabled': v:true},
+        \       'jedi_references': {'enabled': v:true},
+        \       'jedi_signature_help': {'enabled': v:true},
+        \       'jedi_symbols': {
+        \         'enabled': v:true,
+        \         'all_scopes': v:true,
+        \       },
+        \       'mccabe': {
+        \         'enabled': v:true,
+        \         'threshold': 15,
+        \       },
+        \       'preload': {'enabled': v:true},
+        \       'pylint': {'enabled': v:false},
+        \       'pycodestyle': {
+        \         'enabled': v:true,
+        \         'maxLineLength': 160,
+        \         'ignore': 'W292'
+        \       },
+        \       'pydocstyle': {'enabled': v:false},
+        \       'flake8': {'enabled': v:false},
+        \       'rope_completion': {'enabled': v:true},
+        \       'yapf': {'enabled': v:false},
+        \     }
         \   },
         \ },
-        \ 'log_level': -1,
-        \ 'suppress_stderr': v:true
         \}
 endif
 if executable('yaml-language-server')
@@ -416,6 +377,9 @@ if executable('yaml-language-server')
         \   'schemaStore': {'enable': v:true},
         \ }
         \}
+endif
+if executable('gopls')
+  let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
 endif
 if executable('concourse-language-server')
   let g:lsc_server_commands['concourse-pipeline-yaml'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
@@ -876,14 +840,8 @@ augroup paste
   autocmd InsertLeave * set nopaste
 augroup END
 " }}}
-" FIXME {{{
-if !has('nvim')
-  augroup usrcmd
-    autocmd!
-    " fix vim script user command syntax highlighting
-    " (should be unnecessary when https://github.com/vim/vim/issues/6587 is fixed)
-    autocmd Syntax vim syn match vimUsrCmd '^\s*\zs\u\%(\w*\)\@>(\@!'
-  augroup end
-endif
 " }}}
+" user custom keymap {{{
+" open github pages
+nnoremap <silent> gb :<C-u>call openbrowser#open('https://github.com/' .. matchstr(getline('.'), '''\zs[^'']\+\ze'''))<cr>
 " }}}

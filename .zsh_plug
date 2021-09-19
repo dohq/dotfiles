@@ -30,6 +30,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'hadolint-* -> hadolint' hadolint/hadolint \
   sbin'air_* -> air' cosmtrek/air \
   sbin'tldr-* -> tldr' mstruebing/tldr \
+  sbin'b2-* -> b2' Backblaze/B2_Command_Line_Tool \
   sbin'docker-compose* -> docker-compose' docker/compose \
   sbin'reviewdog' reviewdog/reviewdog \
   sbin'credhub' cloudfoundry-incubator/credhub-cli \

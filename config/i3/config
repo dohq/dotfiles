@@ -182,8 +182,3 @@ exec --no-startup-id "keepassxc --localconfig $HOME/.config/keepassxc/keepassxc.
 # bindsym Print exec scrot
 bindsym Print --release exec "scrot -s $HOME/Pictures/ScreenShots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
 bindsym Shift+Print exec "scrot $HOME/Pictures/ScreenShots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
-
-# lg gram monitor backlight
-bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 2"
-bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 2"
-bindsym XF86Tools exec --no-startup-id "$HOME/dotfiles/scripts/toggle_touchpad.sh"

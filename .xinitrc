@@ -51,4 +51,5 @@ if command -v greenclip >/dev/null; then
 fi
 setxkbmap -option ctrl:nocaps
 blueman-applet &
+noisetorch -i alsa_input.usb-Astro_Gaming_Astro_A50-00.mono-chat
 exec i3
