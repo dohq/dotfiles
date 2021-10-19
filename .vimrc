@@ -516,8 +516,19 @@ endfunction
 imap <C-j> <Plug>(skkeleton-toggle)
 cmap <C-j> <Plug>(skkeleton-toggle)
 
+if filereadable('/usr/share/skk/SKK-JISYO.L')
+  let s:skk_dic = '/usr/share/skk/SKK-JISYO.L'
+else
+  let s:skk_dic = expand($MYVIMDIR.'/eskk/SKK-JISYO.L')
+  if !filereadable(s:skk_dic)
+    echo s:skk_dic
+    execute 'silent !curl -fLo '.s:skk_dic.' --create-dirs "http://openlab.jp/skk/skk/dic/SKK-JISYO.L"'
+  endif
+endif
+
 call skkeleton#config({
-      \ 'eggLikeNewline':v:true
+      \ 'eggLikeNewline':v:true,
+      \ 'globalJisyo':s:skk_dic
       \ })
 "}}}
 " Git {{{
