@@ -66,7 +66,7 @@ set ambiwidth=double
 set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 set cmdheight=2
 set completeopt-=preview
 set completeopt+=noinsert,menuone,noselect
@@ -247,13 +247,15 @@ Plug 'thinca/vim-quickrun'
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-speeddating'
 Plug 'tyru/caw.vim'
-Plug 'tyru/eskk.vim'
 Plug 'tyru/open-browser.vim'
+Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
 Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
+Plug 'mattn/vim-treesitter', {'do': 'cd server && go build'}
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
 endif
@@ -329,54 +331,54 @@ elseif executable('pyls')
   let g:lsc_server_commands['python'] = {
         \ 'command': 'pyls',
         \ 'workspace_config': {
-        \   'pyls': {
-        \     'plugins': {
-        \       'jedi_completion': {'enabled': v:true},
-        \       'jedi_definition': {
-        \         'follow_imports': v:true,
-        \         'follow_builtin_imports': v:true
-        \       },
-        \       'jedi_hover': {'enabled': v:true},
-        \       'jedi_references': {'enabled': v:true},
-        \       'jedi_signature_help': {'enabled': v:true},
-        \       'jedi_symbols': {
-        \         'enabled': v:true,
-        \         'all_scopes': v:true,
-        \       },
-        \       'mccabe': {
-        \         'enabled': v:true,
-        \         'threshold': 15,
-        \       },
-        \       'preload': {'enabled': v:true},
-        \       'pylint': {'enabled': v:false},
-        \       'pycodestyle': {
-        \         'enabled': v:true,
-        \         'maxLineLength': 160,
-        \         'ignore': 'W292'
-        \       },
-        \       'pydocstyle': {'enabled': v:false},
-        \       'flake8': {'enabled': v:false},
-        \       'rope_completion': {'enabled': v:true},
-        \       'yapf': {'enabled': v:false},
-        \     }
-        \   },
-        \ },
-        \}
+          \   'pyls': {
+            \     'plugins': {
+              \       'jedi_completion': {'enabled': v:true},
+              \       'jedi_definition': {
+                \         'follow_imports': v:true,
+                \         'follow_builtin_imports': v:true
+                \       },
+                \       'jedi_hover': {'enabled': v:true},
+                \       'jedi_references': {'enabled': v:true},
+                \       'jedi_signature_help': {'enabled': v:true},
+                \       'jedi_symbols': {
+                  \         'enabled': v:true,
+                  \         'all_scopes': v:true,
+                  \       },
+                  \       'mccabe': {
+                    \         'enabled': v:true,
+                    \         'threshold': 15,
+                    \       },
+                    \       'preload': {'enabled': v:true},
+                    \       'pylint': {'enabled': v:false},
+                    \       'pycodestyle': {
+                      \         'enabled': v:true,
+                      \         'maxLineLength': 160,
+                      \         'ignore': 'W292'
+                      \       },
+                      \       'pydocstyle': {'enabled': v:false},
+                      \       'flake8': {'enabled': v:false},
+                      \       'rope_completion': {'enabled': v:true},
+                      \       'yapf': {'enabled': v:false},
+                      \     }
+                      \   },
+                      \ },
+                      \}
 endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yaml'] = {
         \ 'command': 'yaml-language-server --stdio',
         \ 'workspace_config': {
-        \   'validate': v:true,
-        \   'hover': v:true,
-        \   'completion': v:true,
-        \   'customTags': [],
-        \   'schemas': {
-        \     'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
-        \   },
-        \   'schemaStore': {'enable': v:true},
-        \ }
-        \}
+          \   'validate': v:true,
+          \   'hover': v:true,
+          \   'completion': v:true,
+          \   'customTags': [],
+          \   'schemas': {
+            \     'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+            \   },
+            \   'schemaStore': {'enable': v:true},
+            \ }
+            \}
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
@@ -401,19 +403,19 @@ smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 " Quick-Run {{{
 let g:quickrun_config = {
       \   '_' : {
-      \       'runner' : 'job',
-      \       'outputter' : 'error',
-      \       'hook/time/dest' : 'buffer',
-      \       'hook/neco/enable' : 1,
-      \       'hook/neco/wait' : 10,
-      \       'outputter/error/success' : 'buffer',
-      \       'outputter/error/error' : 'quickfix',
-      \       'outputter/buffer/opener' : ':botright 15split',
-      \       'outputter/buffer/close_on_empty' : 1,
-      \       'outputter/buffer/into' : 0,
-      \       'outputter/quickfix/into' : 0,
-      \   },
-      \}
+        \       'runner' : 'job',
+        \       'outputter' : 'error',
+        \       'hook/time/dest' : 'buffer',
+        \       'hook/neco/enable' : 1,
+        \       'hook/neco/wait' : 10,
+        \       'outputter/error/success' : 'buffer',
+        \       'outputter/error/error' : 'quickfix',
+        \       'outputter/buffer/opener' : ':botright 15split',
+        \       'outputter/buffer/close_on_empty' : 1,
+        \       'outputter/buffer/into' : 0,
+        \       'outputter/quickfix/into' : 0,
+        \   },
+        \}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run .']}
 let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
 let g:quickrun_config['typescript'] = {
@@ -510,35 +512,13 @@ function! Branch()
   return ''
 endfunction
 " }}}
-" ESKK {{{
-let g:eskk#enable_completion = 0
-let g:eskk#directory = expand($MYVIMDIR.'/eskk')
-if filereadable('/usr/share/skk/SKK-JISYO.L')
-  let s:skk_dic = '/usr/share/skk/SKK-JISYO.L'
-else
-  let s:skk_dic = expand($MYVIMDIR.'/eskk/SKK-JISYO.L')
-  if !filereadable(s:skk_dic)
-    echo s:skk_dic
-    execute 'silent !curl -fLo '.s:skk_dic.' --create-dirs "http://openlab.jp/skk/skk/dic/SKK-JISYO.L"'
-  endif
-endif
-let g:eskk#large_dictionary = {
-      \ 'path': s:skk_dic,
-      \ 'sorted': 1,
-      \}
-" Don't keep state.
-let g:eskk#keep_state = 0
-let g:eskk#show_annotation = 0
-let g:eskk#revert_henkan_style = 'okuri'
-let g:eskk#egg_like_newline = 1
-let g:eskk#egg_like_newline_completion = 1
+" skkleton {{{
+imap <C-j> <Plug>(skkeleton-toggle)
+cmap <C-j> <Plug>(skkeleton-toggle)
 
-"allow InsertMode toggle ESKK
-augroup eskk
-  autocmd!
-  autocmd eskk VimEnter * imap <C-j> <Plug>(eskk:toggle)
-  autocmd eskk VimEnter * cmap <C-j> <Plug>(eskk:toggle)
-augroup END
+call skkeleton#config({
+      \ 'eggLikeNewline':v:true
+      \ })
 "}}}
 " Git {{{
 nnoremap          [Git]   <Nop>
