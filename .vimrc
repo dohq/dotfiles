@@ -329,56 +329,56 @@ if filereadable($HOME.'/.local/share/kite/current/kite-lsp')
   let g:lsc_server_commands['python'] = {'command': $HOME.'/.local/share/kite/current/kite-lsp --editor=vim', 'suppress_stderr': v:true}
 elseif executable('pyls')
   let g:lsc_server_commands['python'] = {
-        \ 'command': 'pyls',
-        \ 'workspace_config': {
-          \   'pyls': {
-            \     'plugins': {
-              \       'jedi_completion': {'enabled': v:true},
-              \       'jedi_definition': {
-                \         'follow_imports': v:true,
-                \         'follow_builtin_imports': v:true
-                \       },
-                \       'jedi_hover': {'enabled': v:true},
-                \       'jedi_references': {'enabled': v:true},
-                \       'jedi_signature_help': {'enabled': v:true},
-                \       'jedi_symbols': {
-                  \         'enabled': v:true,
-                  \         'all_scopes': v:true,
-                  \       },
-                  \       'mccabe': {
-                    \         'enabled': v:true,
-                    \         'threshold': 15,
-                    \       },
-                    \       'preload': {'enabled': v:true},
-                    \       'pylint': {'enabled': v:false},
-                    \       'pycodestyle': {
-                      \         'enabled': v:true,
-                      \         'maxLineLength': 160,
-                      \         'ignore': 'W292'
-                      \       },
-                      \       'pydocstyle': {'enabled': v:false},
-                      \       'flake8': {'enabled': v:false},
-                      \       'rope_completion': {'enabled': v:true},
-                      \       'yapf': {'enabled': v:false},
-                      \     }
-                      \   },
-                      \ },
-                      \}
+      \ 'command': 'pyls',
+      \ 'workspace_config': {
+      \   'pyls': {
+      \     'plugins': {
+      \       'jedi_completion': {'enabled': v:true},
+      \       'jedi_definition': {
+      \         'follow_imports': v:true,
+      \         'follow_builtin_imports': v:true
+      \       },
+      \       'jedi_hover': {'enabled': v:true},
+      \       'jedi_references': {'enabled': v:true},
+      \       'jedi_signature_help': {'enabled': v:true},
+      \       'jedi_symbols': {
+      \         'enabled': v:true,
+      \         'all_scopes': v:true,
+      \       },
+      \       'mccabe': {
+      \         'enabled': v:true,
+      \         'threshold': 15,
+      \       },
+      \       'preload': {'enabled': v:true},
+      \       'pylint': {'enabled': v:false},
+      \       'pycodestyle': {
+      \         'enabled': v:true,
+      \         'maxLineLength': 160,
+      \         'ignore': 'W292'
+      \       },
+      \       'pydocstyle': {'enabled': v:false},
+      \       'flake8': {'enabled': v:false},
+      \       'rope_completion': {'enabled': v:true},
+      \       'yapf': {'enabled': v:false},
+      \     }
+      \   },
+      \ },
+      \}
 endif
 if executable('yaml-language-server')
   let g:lsc_server_commands['yaml'] = {
-        \ 'command': 'yaml-language-server --stdio',
-        \ 'workspace_config': {
-          \   'validate': v:true,
-          \   'hover': v:true,
-          \   'completion': v:true,
-          \   'customTags': [],
-          \   'schemas': {
-            \     'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
-            \   },
-            \   'schemaStore': {'enable': v:true},
-            \ }
-            \}
+      \ 'command': 'yaml-language-server --stdio',
+      \ 'workspace_config': {
+      \   'validate': v:true,
+      \   'hover': v:true,
+      \   'completion': v:true,
+      \   'customTags': [],
+      \   'schemas': {
+      \     'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+      \   },
+      \   'schemaStore': {'enable': v:true},
+      \ }
+      \}
 endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
@@ -403,19 +403,19 @@ smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 " Quick-Run {{{
 let g:quickrun_config = {
       \   '_' : {
-        \       'runner' : 'job',
-        \       'outputter' : 'error',
-        \       'hook/time/dest' : 'buffer',
-        \       'hook/neco/enable' : 1,
-        \       'hook/neco/wait' : 10,
-        \       'outputter/error/success' : 'buffer',
-        \       'outputter/error/error' : 'quickfix',
-        \       'outputter/buffer/opener' : ':botright 15split',
-        \       'outputter/buffer/close_on_empty' : 1,
-        \       'outputter/buffer/into' : 0,
-        \       'outputter/quickfix/into' : 0,
-        \   },
-        \}
+      \       'runner' : 'job',
+      \       'outputter' : 'error',
+      \       'hook/time/dest' : 'buffer',
+      \       'hook/neco/enable' : 1,
+      \       'hook/neco/wait' : 10,
+      \       'outputter/error/success' : 'buffer',
+      \       'outputter/error/error' : 'quickfix',
+      \       'outputter/buffer/opener' : ':botright 15split',
+      \       'outputter/buffer/close_on_empty' : 1,
+      \       'outputter/buffer/into' : 0,
+      \       'outputter/quickfix/into' : 0,
+      \   },
+      \}
 let g:quickrun_config['go'] = {'command': 'go', 'exec': ['%C run .']}
 let g:quickrun_config['terraform'] = {'command': 'terraform', 'exec': ['%C plan -out plan -no-color']}
 let g:quickrun_config['typescript'] = {
@@ -781,9 +781,9 @@ let g:translator_default_engines = ['google']
 augroup pluginstall
   autocmd!
   autocmd VimEnter *
-        \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-        \|   PlugInstall --sync | q
-        \| endif
+      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+      \|   PlugInstall --sync | q
+      \| endif
 augroup end
 " }}}
 " Json-jq {{{
