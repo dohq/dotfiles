@@ -255,7 +255,7 @@ Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
 Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
-Plug 'mattn/vim-treesitter', {'do': 'cd server && go build'}
+Plug 'mattn/vim-treesitter'
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
 endif
@@ -391,6 +391,9 @@ if executable('terraform-ls')
 endif
 if executable('vim-language-server')
   let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'suppress_stderr': v:true}
+endif
+if executable('lua-language-server')
+  let g:lsc_server_commands['lua'] = {'command': 'lua-language-server', 'suppress_stderr': v:true}
 endif
 " }}}
 " vsnip {{{
