@@ -60,6 +60,18 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+# workspace output
+workspace 1 output primary
+workspace 2 output primary
+workspace 3 output primary
+workspace 4 output primary
+workspace 5 output primary
+workspace 6 output HDMI-A-0
+workspace 7 output HDMI-A-0
+workspace 8 output HDMI-A-0
+workspace 9 output HDMI-A-0
+workspace 10 output HDMI-A-0
+
 # switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -125,7 +137,8 @@ set $darkgray #1d2021
 # Basic bar configuration using the Base16 variables.
 bar {
     font pango: Hack 9
-    status_command $HOME/dotfiles/bumblebee-status/bumblebee-status \
+    tray_output primary
+    status_command bumblebee-status \
       -m progress network_traffic sensors cpu memory arch-update datetime \
       -a progress arch-update \
       -p datetime.format='%A %Y-%m-%d %H:%M:%S' \
@@ -155,7 +168,6 @@ client.urgent           $red $red $white $red $red
 
 # floating windows applications
 for_window [class="gimp"] floating disable
-for_window [class="mpv"] floating enable
 for_window [class="vlc"] floating enable
 for_window [class="KeePassXC"] floating enable
 for_window [class="Zeal"] floating enable
@@ -171,6 +183,8 @@ for_window [class="PacketTracer"] floating enable
 for_window [title="Authy"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="NoiseTorch"] floating enable
+for_window [class="YubiKey Manager"] floating enable
+for_window [class="streamlink-twitch-gui"] floating enable
 for_window [class="xfreerdp"] floating disable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
