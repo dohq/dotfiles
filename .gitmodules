@@ -4,6 +4,3 @@
 [submodule "rofi-themes"]
 	path = rofi-themes
 	url = https://github.com/davatorium/rofi-themes
-[submodule "bumblebee-status"]
-	path = bumblebee-status
-	url = https://github.com/tobi-wan-kenobi/bumblebee-status
