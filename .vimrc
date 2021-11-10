@@ -324,61 +324,6 @@ let g:lsc_auto_map = {
       \}
 let g:lsc_server_commands = {}
 
-if filereadable($HOME.'/.local/share/kite/current/kite-lsp')
-  let g:lsc_server_commands['python'] = {'command': $HOME.'/.local/share/kite/current/kite-lsp --editor=vim', 'suppress_stderr': v:true}
-elseif executable('pyls')
-  let g:lsc_server_commands['python'] = {
-      \ 'command': 'pyls',
-      \ 'workspace_config': {
-      \   'pyls': {
-      \     'plugins': {
-      \       'jedi_completion': {'enabled': v:true},
-      \       'jedi_definition': {
-      \         'follow_imports': v:true,
-      \         'follow_builtin_imports': v:true
-      \       },
-      \       'jedi_hover': {'enabled': v:true},
-      \       'jedi_references': {'enabled': v:true},
-      \       'jedi_signature_help': {'enabled': v:true},
-      \       'jedi_symbols': {
-      \         'enabled': v:true,
-      \         'all_scopes': v:true,
-      \       },
-      \       'mccabe': {
-      \         'enabled': v:true,
-      \         'threshold': 15,
-      \       },
-      \       'preload': {'enabled': v:true},
-      \       'pylint': {'enabled': v:false},
-      \       'pycodestyle': {
-      \         'enabled': v:true,
-      \         'maxLineLength': 160,
-      \         'ignore': 'W292'
-      \       },
-      \       'pydocstyle': {'enabled': v:false},
-      \       'flake8': {'enabled': v:false},
-      \       'rope_completion': {'enabled': v:true},
-      \       'yapf': {'enabled': v:false},
-      \     }
-      \   },
-      \ },
-      \}
-endif
-if executable('yaml-language-server')
-  let g:lsc_server_commands['yaml'] = {
-      \ 'command': 'yaml-language-server --stdio',
-      \ 'workspace_config': {
-      \   'validate': v:true,
-      \   'hover': v:true,
-      \   'completion': v:true,
-      \   'customTags': [],
-      \   'schemas': {
-      \     'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
-      \   },
-      \   'schemaStore': {'enable': v:true},
-      \ }
-      \}
-endif
 if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
 endif
@@ -387,12 +332,6 @@ if executable('concourse-language-server')
 endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
-endif
-if executable('vim-language-server')
-  let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'suppress_stderr': v:true}
-endif
-if executable('lua-language-server')
-  let g:lsc_server_commands['lua'] = {'command': 'lua-language-server', 'suppress_stderr': v:true}
 endif
 " }}}
 " vsnip {{{
