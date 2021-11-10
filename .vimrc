@@ -254,7 +254,6 @@ Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
-Plug 'zinit-zsh/zinit-vim-syntax', {'for': 'zsh'}
 Plug 'mattn/vim-treesitter'
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
