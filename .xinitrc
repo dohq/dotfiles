@@ -37,19 +37,4 @@ export QT_IM_MODULE=fcitx
 export GTK_IM_MODULE=fcitx
 export DefaultIMModule=fcitx
 
-if command -v fcitx5 >/dev/null; then
-  fcitx5 &
-fi
-if command -v libinput-gestures-setup >/dev/null; then
-  libinput-gestures-setup start &
-fi
-if command -v redshift >/dev/null; then
-  /usr/bin/redshift &
-fi
-if command -v greenclip >/dev/null; then
-  /usr/bin/greenclip daemon &
-fi
-setxkbmap -option ctrl:nocaps
-blueman-applet &
-noisetorch -i alsa_input.usb-Astro_Gaming_Astro_A50-00.mono-chat
 exec i3

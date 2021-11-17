@@ -119,6 +119,11 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
+# activate screenshot
+# bindsym Print exec scrot
+bindsym Print --release exec "scrot -s $HOME/Pictures/ScreenShots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+bindsym Shift+Print exec "scrot $HOME/Pictures/ScreenShots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+
 #######
 #THEME#
 #######
@@ -188,11 +193,15 @@ for_window [class="streamlink-twitch-gui"] floating enable
 for_window [class="xfreerdp"] floating disable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+
+# StartUp
 exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.jpg"
 exec --no-startup-id "zeal"
 exec --no-startup-id "keepassxc --localconfig $HOME/.config/keepassxc/keepassxc.ini"
-
-# activate screenshot
-# bindsym Print exec scrot
-bindsym Print --release exec "scrot -s $HOME/Pictures/ScreenShots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
-bindsym Shift+Print exec "scrot $HOME/Pictures/ScreenShots/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'"
+exec --no-startup-id "fcitx5"
+exec --no-startup-id "redshift"
+exec --no-startup-id "greenclip daemon"
+exec --no-startup-id "blueman-applet"
+exec --no-startup-id "setxkbmap -option ctrl:nocaps"
+exec --no-startup-id "noisetorch -i alsa_input.usb-Astro_Gaming_Astro_A50-00.mono-chat"
+exec --no-startup-id "$HOME/.screenlayout/default.sh"
