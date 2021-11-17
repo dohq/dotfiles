@@ -4,7 +4,7 @@ ZINIT_BIN_DIR_NAME="${${ZINIT_BIN_DIR_NAME:-$ZPLG_BIN_DIR_NAME}:-bin}"
 ### Added by Zinit's installer
 if [[ ! -f $ZINIT_HOME/$ZINIT_BIN_DIR_NAME/zinit.zsh ]]; then
   print -P "%F{33}▓▒░ %F{220}Installing DHARMA Initiative Plugin Manager (zdharma/zinit)…%f"
-  command sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)" && \
+  command sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma-continuum/zinit/master/doc/install.sh)" && \
     print -P "%F{33}▓▒░ %F{34}Installation successful.%f" || \
     print -P "%F{160}▓▒░ The clone has failed.%f"
 fi
@@ -14,7 +14,7 @@ autoload -Uz _zinit
 # }}}
 # No Wait
 zinit light-mode lucid for \
-    zinit-zsh/z-a-bin-gem-node \
+    zdharma-continuum/zinit-annex-bin-gem-node \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh \
   from'gh-r' as'program' sbin'direnv* -> direnv' \
@@ -79,20 +79,26 @@ zinit wait lucid light-mode for \
   atpull'%atclone' pick"clrs.zsh" nocompile'!' \
   atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
     trapd00r/LS_COLORS \
-  as'completion' id-as'git-completion' mv'git-completion -> _git'\
-    https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
-    zdharma/fast-syntax-highlighting \
+    zdharma-continuum/fast-syntax-highlighting \
+  zsh-users/zsh-history-substring-search \
   atload'!_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
   as'command' sbin'kubectx' id-as'kubectx' \
     ahmetb/kubectx \
   as'command' sbin'kubens' id-as'kubens' \
     ahmetb/kubectx \
-  as'command' pick'bin/xpanes' \
-    greymd/tmux-xpanes \
+  pick'.kubectl_aliases' \
+    ahmetb/kubectl-aliases
+
+# completion
+zinit wait lucid light-mode for \
+  has'hub' id-as'hub-completion' \
+  as'completion' \
+  mv'hub-completion -> _hub'\
+    https://github.com/github/hub/blob/master/etc/hub.zsh_completion \
   has'kubectl' id-as'kubectl-completion' \
   as'completion' \
   atclone'kubectl completion zsh > _kubectl' \
@@ -116,9 +122,7 @@ zinit wait lucid light-mode for \
   atclone'ko completion --zsh > _ko' \
   atpull'%atclone' \
   run-atpull \
-    zdharma/null \
-  pick'.kubectl_aliases' \
-    ahmetb/kubectl-aliases
+    zdharma/null
 
 ########## Function
 # history
