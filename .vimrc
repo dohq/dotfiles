@@ -212,6 +212,7 @@ Plug 'kana/vim-operator-user'
 Plug 'kana/vim-slacky'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
+Plug 'kat0h/bufpreview.vim', {'for': 'markdown'}
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/vim-gista'
 Plug 'machakann/vim-sandwich'
@@ -226,6 +227,7 @@ Plug 'mattn/vim-goimports', {'for': 'go'}
 Plug 'mattn/vim-gomod', {'for': 'go'}
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
+Plug 'mattn/vim-treesitter'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
@@ -234,7 +236,6 @@ Plug 'osyo-manga/shabadou.vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'pechorin/any-jump.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'previm/previm', {'for': 'markdown'}
 Plug 'rafamadriz/friendly-snippets'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'sainnhe/gruvbox-material'
@@ -254,7 +255,6 @@ Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
-Plug 'mattn/vim-treesitter'
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
 endif
