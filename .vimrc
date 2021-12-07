@@ -185,19 +185,18 @@ call plug#begin($MYVIMDIR.'/plugins')
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
-Plug 'basyura/TweetVim'
+Plug 'basyura/TweetVim', {'on': ['TweetVimHomeTimeline', 'TweetVimSay']}
 Plug 'basyura/twibill.vim'
-Plug 'bfrg/vim-jqplay'
+Plug 'bfrg/vim-jqplay', {'on': ['Jqplay', 'JqplayScratch']}
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'cocopon/iceberg.vim'
 Plug 'cohama/lexima.vim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim', {'on': ['CtrlP', 'CtrlPBuffer', 'CtrlPMRU']}
 Plug 'deris/vim-textobj-ipmac'
 Plug 'gkapfham/vim-vitamin-onec'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'hashicorp/vscode-terraform'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'hrsh7th/vim-vsnip'
@@ -233,13 +232,11 @@ Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'natebosch/vim-lsc'
 Plug 'osyo-manga/shabadou.vim'
-Plug 'pearofducks/ansible-vim'
-Plug 'pechorin/any-jump.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'sainnhe/gruvbox-material'
-Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'sgur/vim-editorconfig'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
@@ -255,6 +252,7 @@ Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
+Plug 'stephpy/vim-yaml'
 if !has('nvim')
   Plug 'rbtnn/vim-pterm'
 endif
@@ -308,20 +306,20 @@ let g:lsc_enable_diagnostics = v:true
 let g:lsc_autocomplete_length = 2
 let g:lsc_trace_level = 'off'
 let g:lsc_auto_map = {
-      \ 'GoToDefinition': 'gd',
-      \ 'GoToDefinitionSplit': 'gD',
-      \ 'FindReferences': 'gR',
-      \ 'NextReference': '<C-n>',
-      \ 'PreviousReference': '<C-p>',
-      \ 'FindImplementations': 'gI',
-      \ 'FindCodeActions': 'ga',
-      \ 'Rename': 'gr',
-      \ 'ShowHover': v:true,
-      \ 'DocumentSymbol': 'go',
-      \ 'WorkspaceSymbol': 'gS',
-      \ 'SignatureHelp': 'gm',
-      \ 'Completion': 'omnifunc',
-      \}
+     \ 'GoToDefinition': 'gd',
+     \ 'GoToDefinitionSplit': 'gD',
+     \ 'FindReferences': 'gR',
+     \ 'NextReference': '<C-n>',
+     \ 'PreviousReference': '<C-p>',
+     \ 'FindImplementations': 'gI',
+     \ 'FindCodeActions': 'ga',
+     \ 'Rename': 'gr',
+     \ 'ShowHover': v:true,
+     \ 'DocumentSymbol': 'go',
+     \ 'WorkspaceSymbol': 'gS',
+     \ 'SignatureHelp': 'gm',
+     \ 'Completion': 'omnifunc',
+     \}
 let g:lsc_server_commands = {}
 
 if executable('gopls')
@@ -568,13 +566,6 @@ let g:ctrlp_smarttabs_exclude_quickfix = 1
 nmap <leader>c      <Plug>(caw:hatpos:toggle)
 vmap <leader>c      <Plug>(caw:hatpos:toggle)
 " }}}
-" Previm {{{
-let g:previm_enable_realtime = 1
-let g:previm_disable_vimproc = 1
-let g:netrw_nogx = 1
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
-" }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
 " }}}
@@ -591,8 +582,6 @@ let g:grepper.highlight     = 1
 " Terrafrom {{{
 let g:terraform_align = 1
 let g:terraform_fmt_on_save = 1
-let g:terraform_remap_spacebar = 0
-let g:terraform_completion_keys = 0
 autocmd FileType terraform setlocal commentstring=#%s
 " }}}
 " neoformat {{{
@@ -608,9 +597,6 @@ let g:neoformat_only_msg_on_error = 1
 " }}}
 " vim-test {{{
 let test#strategy = "vimterminal"
-" }}}
-" Python {{{
-let g:neoformat_enabled_python = ['black']
 " }}}
 " operator {{{
 map y <Plug>(operator-flashy)
@@ -710,9 +696,6 @@ let g:sonictemplate_vim_template_dir = [
       \ '~/dotfiles/vim/template'
       \]
 " }}}
-" reading_vimrc {{{
-autocmd vimrc FileType vim vmap <Space> <Plug>(reading_vimrc-update_clipboard)
-"}}}
 " translate {{{
 let g:translator_target_lang = 'ja'
 let g:translator_default_engines = ['google']
