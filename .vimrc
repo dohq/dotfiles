@@ -283,13 +283,29 @@ colorscheme gruvbox-material
 "----------------------------------------
 " manual filetype {{{
 autocmd BufRead,BufNewFile .envrc set filetype=sh
+
 augroup concourse-pipeline-yaml
   autocmd!
-  autocmd BufRead,BufNewFile **/*pipeline*.yml set filetype=concourse-pipeline-yaml
-  autocmd BufRead,BufNewFile **/pipeline/*.yml set filetype=concourse-pipeline-yaml
-  autocmd BufRead,BufNewFile **/tasks/*.yml set filetype=concourse-task-yaml
-  autocmd BufRead,BufNewFile **/task.yml set filetype=concourse-task-yaml
+  autocmd BufRead,BufNewFile **/*pipeline*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/pipeline/*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/tasks/*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/task.yml call SetConcoursePipelineYamlOptions()
 augroup END
+
+function! SetConcoursePipelineYamlOptions()
+  set filetype=concourse-task-yaml
+  set syntax=yaml
+endfunction
+
+augroup manifest-yaml
+  autocmd!
+  autocmd BufRead,BufNewFile **/*manifest*.yml call SetManifestYamlOptions()
+augroup END
+
+function! SetManifestYamlOptions()
+  set filetype=manifest-yaml
+  set syntax=yaml
+endfunction
 " }}}
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -327,6 +343,9 @@ if executable('gopls')
 endif
 if executable('concourse-language-server')
   let g:lsc_server_commands['concourse-pipeline-yaml'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
+endif
+if executable('manifest-yaml-language-server')
+  let g:lsc_server_commands['manifest-yaml'] = {'command': 'manifest-yaml-language-server', 'suppress_stderr': v:true}
 endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
