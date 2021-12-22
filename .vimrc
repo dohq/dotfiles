@@ -185,17 +185,15 @@ call plug#begin($MYVIMDIR.'/plugins')
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
-Plug 'basyura/TweetVim', {'on': ['TweetVimHomeTimeline', 'TweetVimSay']}
+Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
 Plug 'bfrg/vim-jqplay', {'on': ['Jqplay', 'JqplayScratch']}
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
-Plug 'cocopon/iceberg.vim'
 Plug 'cohama/lexima.vim'
-Plug 'ctrlpvim/ctrlp.vim', {'on': ['CtrlP', 'CtrlPBuffer', 'CtrlPMRU']}
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
-Plug 'gkapfham/vim-vitamin-onec'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
@@ -203,7 +201,6 @@ Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
-Plug 'itchyny/vim-winfix'
 Plug 'janko/vim-test'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-operator-replace'
@@ -224,6 +221,7 @@ Plug 'mattn/vim-goaddtags', {'for': 'go'}
 Plug 'mattn/vim-godoc', {'for': 'go'}
 Plug 'mattn/vim-goimports', {'for': 'go'}
 Plug 'mattn/vim-gomod', {'for': 'go'}
+Plug 'mattn/vim-gotmpl', {'for': 'go'}
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
 Plug 'mattn/vim-treesitter'
@@ -231,31 +229,25 @@ Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'natebosch/vim-lsc'
-Plug 'osyo-manga/shabadou.vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'sgur/vim-editorconfig'
+Plug 'stephpy/vim-yaml'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'thinca/vim-qfreplace'
 Plug 'thinca/vim-quickrun'
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-speeddating'
 Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
-Plug 'voldikss/vim-translator'
 Plug 'wakatime/vim-wakatime'
 Plug 'zeero/vim-ctrlp-help'
-Plug 'stephpy/vim-yaml'
-if !has('nvim')
-  Plug 'rbtnn/vim-pterm'
-endif
 call plug#end()
 
 "----------------------------------------
@@ -350,6 +342,35 @@ endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
 endif
+" LSC Diagnostic Sign {{{
+call sign_define("vim-lsc-error", {"text" : "E", "texthl" : "RedSign"})
+call sign_define("vim-lsc-warning", {"text" : "W", "texthl" : "OrangeSign"})
+
+augroup lsc_diag
+  autocmd!
+  autocmd BufEnter * if has_key(g:lsc_server_commands, &filetype) | call s:setSigns() | endif
+  autocmd User LSCDiagnosticsChange call s:setSigns()
+augroup END
+
+function! s:setSigns() abort
+  let s:buf_id = expand('%:p')
+  let s:diagnostics = lsc#diagnostics#forFile(expand('%:p')).ListItems()
+  " clear previous virtual texts
+  call sign_unplace('vim-lsc', {'buffer' : s:buf_id})
+
+  " add signs
+  for diagnostic in s:diagnostics
+    if l:diagnostic['type'] == 'E'
+      let sign = 'vim-lsc-error'
+    elseif l:diagnostic['type'] == 'W'
+      let sign = 'vim-lsc-warning'
+    else
+      return
+    endif
+    call sign_place(1, 'vim-lsc', l:sign, l:diagnostic['bufnr'], {'lnum' : l:diagnostic['lnum']})
+  endfor
+endfunction
+" }}}
 " }}}
 " vsnip {{{
 let g:vsnip_snippet_dir = expand('$HOME/dotfiles/vsnip')
@@ -364,8 +385,6 @@ let g:quickrun_config = {
       \       'runner' : 'job',
       \       'outputter' : 'error',
       \       'hook/time/dest' : 'buffer',
-      \       'hook/neco/enable' : 1,
-      \       'hook/neco/wait' : 10,
       \       'outputter/error/success' : 'buffer',
       \       'outputter/error/error' : 'quickfix',
       \       'outputter/buffer/opener' : ':botright 15split',
@@ -714,10 +733,6 @@ let g:slacky_build_status_text = 'Slacky_build_status_text'
 let g:sonictemplate_vim_template_dir = [
       \ '~/dotfiles/vim/template'
       \]
-" }}}
-" translate {{{
-let g:translator_target_lang = 'ja'
-let g:translator_default_engines = ['google']
 " }}}
 " user command {{{
 " Auto plugin install {{{
