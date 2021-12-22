@@ -1,6 +1,3 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "rofi-themes"]
-	path = rofi-themes
-	url = https://github.com/davatorium/rofi-themes
