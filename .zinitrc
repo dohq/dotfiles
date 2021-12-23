@@ -30,6 +30,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'**/shellcheck' koalaman/shellcheck \
   sbin'**/pandoc' jgm/pandoc \
   sbin'**/bat' @sharkdp/bat \
+  sbin'**/aqua' aquaproj/aqua \
   sbin'shfmt* -> shfmt' @mvdan/sh \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
