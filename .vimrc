@@ -298,6 +298,16 @@ function! SetManifestYamlOptions()
   set filetype=manifest-yaml
   set syntax=yaml
 endfunction
+
+" augroup docker-compose-yaml
+"   autocmd!
+"   autocmd BufRead,BufNewFile **/*docker-compose*.yml call SetDockerComposeYamlOptions()
+" augroup END
+"
+" function! SetDockerComposeYamlOptions()
+"   set filetype=docker-compose-yaml
+"   set syntax=yaml
+" endfunction
 " }}}
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -329,6 +339,21 @@ let g:lsc_auto_map = {
      \ 'Completion': 'omnifunc',
      \}
 let g:lsc_server_commands = {}
+
+if executable('yaml-language-server')
+  let g:lsc_server_commands['yaml'] = {
+        \ 'command': 'yaml-language-server --stdio',
+        \ 'workspace_config': {
+        \   'yaml': {
+        \     'schemas': {
+        \       'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+        \     }
+        \   }
+        \ },
+        \ 'log_level': -1,
+        \ 'suppress_stderr': v:true
+        \}
+endif
 
 if executable('gopls')
   let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
