@@ -347,6 +347,8 @@ if executable('yaml-language-server')
         \   'yaml': {
         \     'schemas': {
         \       'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+        \       'https://json.schemastore.org/prometheus.json': '/prometheus.yml',
+        \       'https://json.schemastore.org/swagger-2.0.json': '/swagger.yml',
         \     }
         \   }
         \ },
@@ -366,6 +368,9 @@ if executable('manifest-yaml-language-server')
 endif
 if executable('terraform-ls')
   let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
+endif
+if executable('vim-language-server')
+  let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
 endif
 " LSC Diagnostic Sign {{{
 call sign_define("vim-lsc-error", {"text" : "E", "texthl" : "RedSign"})
@@ -560,7 +565,7 @@ augroup END
 " Twit {{{
 autocmd vimrc FileType tweetvim call s:tweetvim_my_settings()
 function! s:tweetvim_my_settings()
-  set nowrap
+  set wrap
   set signcolumn=no
 endfunction
 
@@ -575,6 +580,7 @@ nnoremap <silent> [TweetVim]h :<C-u>TweetVimHomeTimeline<CR>
 nnoremap <silent> [TweetVim]m :<C-u>TweetVimMentions<CR>
 nnoremap <silent> [TweetVim]u :<C-u>TweetVimUserTimeline dohq<CR>
 nnoremap <silent> [TweetVim]f :<C-u>TweetVimSearch<Space>
+nnoremap <silent> [TweetVim]l :<C-u>TweetVimListStatuses<Space>
 " }}}
 " Memolist{{{
 " The prefix key.
