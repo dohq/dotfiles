@@ -126,6 +126,7 @@ set updatetime=50
 set whichwrap=b,s,[,],<,>
 set wildmenu
 set wildmode=full
+set wildoptions=fuzzy,pum
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
@@ -182,6 +183,8 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
+"Plug 'mattn/vim-treesitter'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'andymass/vim-matchup'
@@ -207,10 +210,12 @@ Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-slacky'
 Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'kat0h/bufpreview.vim', {'for': 'markdown'}
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/vim-gista'
+Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'machakann/vim-sandwich'
 Plug 'markonm/traces.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -224,13 +229,14 @@ Plug 'mattn/vim-gomod', {'for': 'go'}
 Plug 'mattn/vim-gotmpl', {'for': 'go'}
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
-Plug 'mattn/vim-treesitter'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'natebosch/vim-lsc'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'preservim/nerdcommenter'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'rbtnn/vim-ambiwidth'
 Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
 Plug 'sainnhe/gruvbox-material'
@@ -241,7 +247,6 @@ Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'thinca/vim-qfreplace'
 Plug 'thinca/vim-quickrun'
-Plug 'tyru/caw.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
@@ -349,6 +354,7 @@ if executable('yaml-language-server')
         \       'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
         \       'https://json.schemastore.org/prometheus.json': '/prometheus.yml',
         \       'https://json.schemastore.org/swagger-2.0.json': '/swagger.yml',
+        \       'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json': '/openapi.yml',
         \     }
         \   }
         \ },
@@ -371,6 +377,12 @@ if executable('terraform-ls')
 endif
 if executable('vim-language-server')
   let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
+endif
+if executable('typescript-language-server')
+  let g:lsc_server_commands['typescript'] = {'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
+endif
+if executable('svelteserver')
+  let g:lsc_server_commands['svelte'] = {'command': 'svelteserver --stdio', 'log_level': -1, 'suppress_stderr': v:true}
 endif
 " LSC Diagnostic Sign {{{
 call sign_define("vim-lsc-error", {"text" : "E", "texthl" : "RedSign"})
@@ -631,9 +643,10 @@ let g:ctrlp_match_window = 'order:ttb,max:10'
 let g:ctrlp_smarttabs_modify_tabline = 0
 let g:ctrlp_smarttabs_exclude_quickfix = 1
 " }}}
-" caw.vim {{{
-nmap <leader>c      <Plug>(caw:hatpos:toggle)
-vmap <leader>c      <Plug>(caw:hatpos:toggle)
+" nerdcommenter {{{
+let g:NERDCreateDefaultMappings = 0
+nmap <leader>c <plug>NERDCommenterToggle
+vmap <leader>c <plug>NERDCommenterToggle
 " }}}
 " FixWhitespace {{{
 let g:extra_whitespace_ignored_filetypes = ['markdown', 'J6uil', 'vim-plug', 'tweetvim', 'help']
@@ -764,6 +777,11 @@ let g:slacky_build_status_text = 'Slacky_build_status_text'
 let g:sonictemplate_vim_template_dir = [
       \ '~/dotfiles/vim/template'
       \]
+" }}}
+" svelte {{{
+let g:vim_svelte_plugin_load_full_syntax = 1
+let g:vim_svelte_plugin_use_typescript = 1
+let g:vim_svelte_plugin_has_init_indent = 1
 " }}}
 " user command {{{
 " Auto plugin install {{{
