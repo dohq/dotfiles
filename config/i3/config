@@ -144,8 +144,8 @@ bar {
     font pango: Hack 9
     tray_output primary
     status_command bumblebee-status \
-      -m progress network_traffic sensors cpu memory arch-update datetime \
-      -a progress arch-update \
+      -m network_traffic sensors cpu memory arch-update datetime \
+      -a arch-update \
       -p datetime.format='%A %Y-%m-%d %H:%M:%S' \
       -t gruvbox
     position          top
@@ -189,10 +189,19 @@ for_window [title="Authy"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="NoiseTorch"] floating enable
 for_window [class="YubiKey Manager"] floating enable
+for_window [class="Voicepeak"] floating enable
+for_window [class="qpwgraph"] floating enable
+for_window [class="helvum"] floating enable
+for_window [class="easyeffects"] floating enable
 for_window [class="streamlink-twitch-gui"] floating enable
 for_window [class="xfreerdp"] floating disable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+
+for_window [class="Vivaldi-stable"] move to workspace 2
+for_window [class="biscuit"] move to workspace 5
+for_window [class="discord"] move to workspace 7
+for_window [class="Google-chrome"] move to workspace 8
 
 # StartUp
 exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.jpg"
@@ -204,4 +213,5 @@ exec --no-startup-id "greenclip daemon"
 exec --no-startup-id "blueman-applet"
 exec --no-startup-id "setxkbmap -option ctrl:nocaps"
 exec --no-startup-id "noisetorch -i alsa_input.usb-Astro_Gaming_Astro_A50-00.mono-chat"
+exec --no-startup-id "greenclip daemon>/dev/null"
 exec --no-startup-id "$HOME/.screenlayout/default.sh"

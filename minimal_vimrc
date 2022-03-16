@@ -10,7 +10,6 @@ endif
 " }}}
 
 call plug#begin($MYVIMDIR.'/plugins')
-
 call plug#end()
 
 " check execution_time
