@@ -1,6 +1,7 @@
 ########################################
 # Plugin Manager
 source "$HOME/dotfiles/.zinitrc"
+# source "$HOME/dotfiles/.zimfwrc"
 
 ########################################
 # autoload {{{
@@ -140,6 +141,8 @@ alias c='clear'
 alias cp='cp -i --reflink=auto'
 alias mv='mv -i'
 alias rm='rm -i'
+alias chmod='chmod --preserve-root'
+alias chown='chown --preserve-root'
 alias ls='ls --color'
 alias ll='ls -lah'
 alias ltr='ls -lhtr'
