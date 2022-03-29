@@ -13,8 +13,15 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 # }}}
 # No Wait
-zinit light-mode lucid for \
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
     zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+zinit light-mode for \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh \
   from'gh-r' as'program' sbin'direnv* -> direnv' \
@@ -100,40 +107,47 @@ zinit wait lucid light-mode for \
 zinit wait lucid light-mode for \
   has'hub' id-as'hub-completion' \
   as'completion' \
+  nocompile \
   mv'hub-completion -> _hub'\
     https://github.com/github/hub/blob/master/etc/hub.zsh_completion \
   has'kubectl' id-as'kubectl-completion' \
   as'completion' \
+  nocompile \
   atclone'kubectl completion zsh > _kubectl' \
   atpull'%atclone' \
   run-atpull \
     zdharma-continuum/null \
   has'restic' id-as'restic-completion' \
   as'completion' \
+  nocompile \
   atclone'restic generate --zsh-completion _restic' \
   atpull'%atclone' \
   run-atpull \
     zdharma-continuum/null \
   has'pack' id-as'pack-completion' \
   as'completion' \
+  nocompile \
   atclone'/bin/cp -f $HOME/.pack/completion _pack' \
   atpull'%atclone' \
   run-atpull \
     zdharma-continuum/null \
   has'ko' id-as'ko-completion' \
   as'completion' \
-  atclone'ko completion --zsh > _ko' \
+  nocompile \
+  atclone'ko completion zsh > _ko' \
   atpull'%atclone' \
   run-atpull \
     zdharma-continuum/null \
   has'kapp' id-as'kapp-completion' \
   as'completion' \
+  nocompile \
   atclone"kapp completion zsh | sed -e '$d' > _kapp" \
   atpull'%atclone' \
   run-atpull \
     zdharma-continuum/null \
   has'ytt' id-as'ytt-completion' \
   as'completion' \
+  nocompile \
   atclone'ytt completion zsh > _ytt' \
   atpull'%atclone' \
   run-atpull \
