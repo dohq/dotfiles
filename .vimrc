@@ -183,7 +183,7 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-"Plug 'mattn/vim-treesitter'
+Plug 'mattn/vim-treesitter'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
@@ -252,6 +252,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'wakatime/vim-wakatime'
+Plug 'yasunori-kirin0418/lightline_skk.vim'
 Plug 'zeero/vim-ctrlp-help'
 call plug#end()
 
@@ -462,7 +463,7 @@ let g:lightline = {}
 let g:lightline.colorscheme = "gruvbox_material"
 
 let g:lightline.active = {
-      \   'left': [['mode', 'paste'],
+      \   'left': [['mode', 'paste', 'skk_mode'],
       \            ['gitbranch', 'absolutepath']],
       \   'right': [['lineinfo'],
       \             [ 'error', 'warning', 'info', 'hint', 'fix' ],
@@ -471,6 +472,7 @@ let g:lightline.active = {
 
 let g:lightline.component_function = {
       \   'gitbranch': 'Branch',
+      \   'skk_mode': 'g:lightline_skk#mode',
       \}
 let g:lightline.component_expand = {
       \ 'error'       : 'LightlineErrors',
