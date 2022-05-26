@@ -47,7 +47,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'om-* -> om' pivotal-cf/om \
   sbin'bbr-* -> bbr' cloudfoundry/bosh-backup-and-restore \
   sbin'clusterctl-* -> clusterctl' kubernetes-sigs/cluster-api \
-  sbin'rust-analyzer-* -> rust-analyzer' rust-analyzer/rust-analyzer \
+  sbin'rust-analyzer-* -> rust-analyzer' rust-lang/rust-analyzer \
   sbin'hadolint-* -> hadolint' hadolint/hadolint \
   sbin'air_* -> air' cosmtrek/air \
   sbin'b2-* -> b2' Backblaze/B2_Command_Line_Tool \

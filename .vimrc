@@ -62,7 +62,6 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " }}}
 " set opt {{{
 set autoread
-set ambiwidth=double
 set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
@@ -291,7 +290,7 @@ augroup concourse-pipeline-yaml
 augroup END
 
 function! SetConcoursePipelineYamlOptions()
-  set filetype=concourse-task-yaml
+  set filetype=concourse-pipeline-yaml
   set syntax=yaml
 endfunction
 
@@ -379,11 +378,20 @@ endif
 if executable('vim-language-server')
   let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
 endif
+if executable('bash-language-server')
+  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'log_level': -1, 'suppress_stderr': v:true}
+endif
 if executable('typescript-language-server')
   let g:lsc_server_commands['typescript'] = {'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
 endif
 if executable('svelteserver')
   let g:lsc_server_commands['svelte'] = {'command': 'svelteserver --stdio', 'log_level': -1, 'suppress_stderr': v:true}
+endif
+if executable('clangd')
+  let g:lsc_server_commands['c'] = {'command': 'clangd', 'log_level': -1, 'suppress_stderr': v:true}
+endif
+if filereadable($HOME . '/.local/share/kite/current/kite-lsp')
+  let g:lsc_server_commands['python'] = {'command': 'pyright-langserver --stdio', 'suppress_stderr': v:true}
 endif
 " LSC Diagnostic Sign {{{
 call sign_define("vim-lsc-error", {"text" : "E", "texthl" : "RedSign"})
