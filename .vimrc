@@ -65,7 +65,6 @@ set autoread
 set backspace=indent,eol,start
 set belloff=all
 set colorcolumn=100
-" set clipboard=unnamedplus
 set cmdheight=2
 set completeopt-=preview
 set completeopt+=noinsert,menuone,noselect
@@ -182,7 +181,7 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-Plug 'mattn/vim-treesitter'
+"Plug 'mattn/vim-treesitter'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
@@ -232,6 +231,7 @@ Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'natebosch/vim-lsc'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'preservim/nerdcommenter'
 Plug 'rafamadriz/friendly-snippets'
@@ -792,6 +792,11 @@ let g:sonictemplate_vim_template_dir = [
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
 let g:vim_svelte_plugin_has_init_indent = 1
+" }}}
+" indent-guide {{{
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=2
 " }}}
 " user command {{{
 " Auto plugin install {{{

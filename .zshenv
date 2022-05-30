@@ -1,3 +1,4 @@
+#: ${ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim}
 # zmodload zsh/zprof && zprof
 
 export EDITOR=vim

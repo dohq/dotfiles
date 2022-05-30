@@ -1,9 +1,4 @@
 ########################################
-# Plugin Manager
-source "$HOME/dotfiles/.zinitrc"
-# source "$HOME/dotfiles/.zimfwrc"
-
-########################################
 # autoload {{{
 # color
 autoload -Uz colors; colors
@@ -235,3 +230,7 @@ fi
 if (which zprof > /dev/null 2>&1) ;then
   zprof
 fi
+
+########################################
+# Plugin Manager
+source "$HOME/dotfiles/.zinitrc"
