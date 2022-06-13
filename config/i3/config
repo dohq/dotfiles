@@ -173,6 +173,7 @@ client.urgent           $red $red $white $red $red
 
 # floating windows applications
 for_window [class="gimp"] floating disable
+for_window [class="xfreerdp"] floating disable
 for_window [class="vlc"] floating enable
 for_window [class="KeePassXC"] floating enable
 for_window [class="Zeal"] floating enable
@@ -194,7 +195,6 @@ for_window [class="qpwgraph"] floating enable
 for_window [class="helvum"] floating enable
 for_window [class="easyeffects"] floating enable
 for_window [class="streamlink-twitch-gui"] floating enable
-for_window [class="xfreerdp"] floating disable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 

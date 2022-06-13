@@ -196,6 +196,7 @@ Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
+Plug 'google/vim-jsonnet'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'hrsh7th/vim-vsnip'
@@ -655,6 +656,8 @@ let g:ctrlp_smarttabs_exclude_quickfix = 1
 " }}}
 " nerdcommenter {{{
 let g:NERDCreateDefaultMappings = 0
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
 nmap <leader>c <plug>NERDCommenterToggle
 vmap <leader>c <plug>NERDCommenterToggle
 " }}}
