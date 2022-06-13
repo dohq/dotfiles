@@ -284,8 +284,8 @@ autocmd BufRead,BufNewFile .envrc set filetype=sh
 
 augroup concourse-pipeline-yaml
   autocmd!
-  autocmd BufRead,BufNewFile **/*pipeline*.yml call SetConcoursePipelineYamlOptions()
-  autocmd BufRead,BufNewFile **/pipeline/*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/pipeline-*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/ci/*.yml call SetConcoursePipelineYamlOptions()
   autocmd BufRead,BufNewFile **/tasks/*.yml call SetConcoursePipelineYamlOptions()
   autocmd BufRead,BufNewFile **/task.yml call SetConcoursePipelineYamlOptions()
 augroup END
