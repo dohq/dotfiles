@@ -52,7 +52,9 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'air_* -> air' cosmtrek/air \
   sbin'b2-* -> b2' Backblaze/B2_Command_Line_Tool \
   sbin'dasel* -> dasel' TomWright/dasel \
+  sbin'jsonnet-language-server* -> jsonnet-language-server' grafana/jsonnet-language-server \
   sbin'swagger* -> swagger' go-swagger/go-swagger \
+  sbin'kctrl-* -> kctrl' vmware-tanzu/carvel-kapp-controller \
   sbin'ko' google/ko \
   sbin'reviewdog' reviewdog/reviewdog \
   sbin'credhub' cloudfoundry/credhub-cli \
@@ -104,54 +106,13 @@ zinit wait lucid light-mode for \
     Ryooooooga/commitizen-deno
 
 # completion
-zinit wait lucid light-mode for \
+zinit wait lucid for \
   has'hub' id-as'hub-completion' \
-  as'completion' \
   nocompile \
+  as'completion' \
+  atload'zicompinit; zicdreplay' \
   mv'hub-completion -> _hub'\
-    https://github.com/github/hub/blob/master/etc/hub.zsh_completion \
-  has'kubectl' id-as'kubectl-completion' \
-  as'completion' \
-  nocompile \
-  atclone'kubectl completion zsh > _kubectl' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma-continuum/null \
-  has'restic' id-as'restic-completion' \
-  as'completion' \
-  nocompile \
-  atclone'restic generate --zsh-completion _restic' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma-continuum/null \
-  has'pack' id-as'pack-completion' \
-  as'completion' \
-  nocompile \
-  atclone'/bin/cp -f $HOME/.pack/completion _pack' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma-continuum/null \
-  has'ko' id-as'ko-completion' \
-  as'completion' \
-  nocompile \
-  atclone'ko completion zsh > _ko' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma-continuum/null \
-  has'kapp' id-as'kapp-completion' \
-  as'completion' \
-  nocompile \
-  atclone"kapp completion zsh | sed -e '$d' > _kapp" \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma-continuum/null \
-  has'ytt' id-as'ytt-completion' \
-  as'completion' \
-  nocompile \
-  atclone'ytt completion zsh > _ytt' \
-  atpull'%atclone' \
-  run-atpull \
-    zdharma-continuum/null
+    https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
 ########## Function
 # history

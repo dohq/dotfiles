@@ -215,6 +215,7 @@ Plug 'kat0h/bufpreview.vim', {'for': 'markdown'}
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/vim-gista'
 Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'lepture/vim-jinja'
 Plug 'machakann/vim-sandwich'
 Plug 'markonm/traces.vim'
 Plug 'mattn/ctrlp-ghq'
@@ -234,6 +235,7 @@ Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'natebosch/vim-lsc'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'pearofducks/ansible-vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'pprovost/vim-ps1'
 Plug 'preservim/nerdcommenter'
@@ -283,13 +285,12 @@ colorscheme gruvbox-material
 "----------------------------------------
 " manual filetype {{{
 autocmd BufRead,BufNewFile .envrc set filetype=sh
+autocmd BufRead,BufNewFile *.nomad set filetype=hcl
 
 augroup concourse-pipeline-yaml
   autocmd!
-  autocmd BufRead,BufNewFile **/pipeline*.yml call SetConcoursePipelineYamlOptions()
-  autocmd BufRead,BufNewFile **/ci/*.yml call SetConcoursePipelineYamlOptions()
-  autocmd BufRead,BufNewFile **/tasks/*.yml call SetConcoursePipelineYamlOptions()
-  autocmd BufRead,BufNewFile **/task.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/pipeline-*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/ci/pipeline.yml call SetConcoursePipelineYamlOptions()
 augroup END
 
 function! SetConcoursePipelineYamlOptions()
@@ -307,6 +308,11 @@ function! SetManifestYamlOptions()
   set syntax=yaml
 endfunction
 
+augroup ansible-yaml
+  autocmd!
+  autocmd BufRead,BufNewFile **/playbooks/*.yml set filetype=yaml.ansible
+augroup END
+
 " augroup docker-compose-yaml
 "   autocmd!
 "   autocmd BufRead,BufNewFile **/*docker-compose*.yml call SetDockerComposeYamlOptions()
@@ -320,6 +326,9 @@ endfunction
 " VimCompletesMe {{{
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:vcm_s_tab_behavior = 1
+" }}}
+" denops {{{
+let g:denops_server_addr = '127.0.0.1:32123'
 " }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:true

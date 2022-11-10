@@ -15,6 +15,8 @@ export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 export ZSH_WAKATIME_BIN=$(which wakatime)
 export DOCKER_BUILDKIT=1
+export AWS_VAULT_BACKEND=pass
+export AWS_VAULT_PROMPT=ykman
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 fi
@@ -30,7 +32,7 @@ fi
 # fzf
 export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
 --color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
---height 70% --no-sort +m --layout=reverse --info=inline --border --margin=1 --padding=1'
+--height 60% --no-sort +m --reverse --info=inline --border --margin=1 --padding=1'
 
 # pipenv
 export PIPENV_VENV_IN_PROJECT=true
