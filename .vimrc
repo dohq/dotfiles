@@ -327,9 +327,6 @@ augroup END
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 let g:vcm_s_tab_behavior = 1
 " }}}
-" denops {{{
-let g:denops_server_addr = '127.0.0.1:32123'
-" }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:true
 let g:lsc_auto_completeopt = v:false
