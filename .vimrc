@@ -181,7 +181,6 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-"Plug 'mattn/vim-treesitter'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
@@ -192,6 +191,7 @@ Plug 'bfrg/vim-jqplay', {'on': ['Jqplay', 'JqplayScratch']}
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
@@ -228,12 +228,14 @@ Plug 'mattn/vim-gomod', {'for': 'go'}
 Plug 'mattn/vim-gotmpl', {'for': 'go'}
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
+Plug 'mattn/vim-treesitter'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
 Plug 'natebosch/vim-lsc'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'pprovost/vim-ps1'
 Plug 'preservim/nerdcommenter'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'rbtnn/vim-ambiwidth'
@@ -284,7 +286,7 @@ autocmd BufRead,BufNewFile .envrc set filetype=sh
 
 augroup concourse-pipeline-yaml
   autocmd!
-  autocmd BufRead,BufNewFile **/pipeline-*.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/pipeline*.yml call SetConcoursePipelineYamlOptions()
   autocmd BufRead,BufNewFile **/ci/*.yml call SetConcoursePipelineYamlOptions()
   autocmd BufRead,BufNewFile **/tasks/*.yml call SetConcoursePipelineYamlOptions()
   autocmd BufRead,BufNewFile **/task.yml call SetConcoursePipelineYamlOptions()
@@ -390,9 +392,6 @@ if executable('svelteserver')
 endif
 if executable('clangd')
   let g:lsc_server_commands['c'] = {'command': 'clangd', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-if filereadable($HOME . '/.local/share/kite/current/kite-lsp')
-  let g:lsc_server_commands['python'] = {'command': 'pyright-langserver --stdio', 'suppress_stderr': v:true}
 endif
 " LSC Diagnostic Sign {{{
 call sign_define("vim-lsc-error", {"text" : "E", "texthl" : "RedSign"})
