@@ -16,20 +16,21 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
+  zdharma-continuum/zinit-annex-as-monitor \
+  zdharma-continuum/zinit-annex-bin-gem-node \
+  zdharma-continuum/zinit-annex-patch-dl \
+  zdharma-continuum/zinit-annex-rust
 
 zinit light-mode for \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh \
   from'gh-r' as'program' sbin'direnv* -> direnv' \
   atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' src='zhook.zsh' \
-    direnv/direnv
+    direnv/direnv \
+  pick'async.zsh' \
+      mafredri/zsh-async
 
 zinit wait lucid from'gh-r' as'null' for \
-  sbin'**/peco' peco/peco \
   sbin'**/dust' bootandy/dust \
   sbin'**/rg' BurntSushi/ripgrep \
   sbin'**/ghq' x-motemen/ghq \
@@ -41,41 +42,20 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
   sbin'kapp-* -> kapp' vmware-tanzu/carvel-kapp \
-  sbin'img-* -> img' genuinetools/img \
   sbin'ytt-* -> ytt' vmware-tanzu/carvel-ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
-  sbin'bbr-* -> bbr' cloudfoundry/bosh-backup-and-restore \
-  sbin'clusterctl-* -> clusterctl' kubernetes-sigs/cluster-api \
-  sbin'rust-analyzer-* -> rust-analyzer' rust-lang/rust-analyzer \
-  sbin'hadolint-* -> hadolint' hadolint/hadolint \
   sbin'air_* -> air' cosmtrek/air \
-  sbin'b2-* -> b2' Backblaze/B2_Command_Line_Tool \
   sbin'dasel* -> dasel' TomWright/dasel \
-  sbin'jsonnet-language-server* -> jsonnet-language-server' grafana/jsonnet-language-server \
-  sbin'swagger* -> swagger' go-swagger/go-swagger \
-  sbin'kctrl-* -> kctrl' vmware-tanzu/carvel-kapp-controller \
-  sbin'ko' google/ko \
-  sbin'reviewdog' reviewdog/reviewdog \
   sbin'credhub' cloudfoundry/credhub-cli \
   sbin'pack' buildpacks/pack \
-  sbin'terraform-lsp' juliosueiras/terraform-lsp \
   sbin'terraform-ls' @hashicorp/terraform-ls \
-  sbin'kubeval' instrumenta/kubeval \
-  sbin'jwt' mike-engel/jwt-cli \
   sbin'fzf' id-as'fzf' junegunn/fzf \
-  sbin'git-bump' b4b4r07/git-bump \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
-  sbin'gosec' securego/gosec \
   sbin'sk' lotabout/skim \
-  bpick'*linux_amd64.tar.gz' sbin'pet' knqyf263/pet \
   bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
   bpick'*Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
-  bpick'*x86_64*linux-gnu.tar.gz' sbin'tokei' XAMPPRocky/tokei \
-  bpick'dockle*64bit.tar.gz' sbin'dockle' goodwithtech/dockle \
-  bpick'glow*linux_x86_64.tar.gz' sbin'glow' charmbracelet/glow \
-  bpick'*_linux_amd64.tar.gz' sbin'**/gh' cli/cli \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmware-tanzu-labs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmware-tanzu-labs/cf-mgmt
@@ -85,25 +65,16 @@ zinit wait lucid light-mode for \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
-  atclone"dircolors -b LS_COLORS > clrs.zsh" \
-  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
-    trapd00r/LS_COLORS \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
     zdharma-continuum/fast-syntax-highlighting \
-  zsh-users/zsh-history-substring-search \
   atload'!_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions \
   as'command' sbin'kubectx' id-as'kubectx' \
     ahmetb/kubectx \
   as'command' sbin'kubens' id-as'kubens' \
-    ahmetb/kubectx \
-  pick'.kubectl_aliases' \
-    ahmetb/kubectl-aliases \
-  as'program' \
-    Ryooooooga/commitizen-deno
+    ahmetb/kubectx
 
 # completion
 zinit wait lucid for \
