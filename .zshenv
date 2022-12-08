@@ -43,8 +43,7 @@ export ZSH_COMMAND_TIME_MIN_SECONDS=5
 # PATH
 path=(
   /usr/lib/ccache/bin(N-/)
-  $HOME/.ghg/bin(N-/)
-  $HOME/.aqua/bin(N-/)
+  $HOME/.bin(N-/)
   $HOME/bin(N-/)
   $GOPATH/bin(N-/)
   $HOME/.local/bin(N-/)
