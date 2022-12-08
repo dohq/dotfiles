@@ -24,12 +24,15 @@ zinit light-mode for \
 zinit light-mode for \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh \
+  pick'async.zsh' \
+    mafredri/zsh-async \
   from'gh-r' as'program' sbin'direnv* -> direnv' \
   atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' src='zhook.zsh' \
     direnv/direnv \
-  pick'async.zsh' \
-      mafredri/zsh-async \
-  olets/zsh-abbr
+  atclone"dircolors -b LS_COLORS > clrs.zsh" \
+  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”' \
+    trapd00r/LS_COLORS
 
 zinit wait lucid light-mode for \
   peterhurford/up.zsh \
