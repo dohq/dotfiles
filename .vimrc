@@ -181,6 +181,7 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
+Plug 'jvirtanen/vim-hcl'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
 Plug 'ajh17/VimCompletesMe'
