@@ -1,4 +1,9 @@
 ########################################
+# Plugin Manager
+source "$HOME/dotfiles/.zinitrc"
+
+########################################
+# Basic
 # autoload {{{
 # color
 autoload -Uz colors; colors
@@ -25,53 +30,6 @@ select-word-style default
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 # }}}
-
-########################################
-# ヒストリの設定
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=10000
-
-########################################
-# edit-command
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^E" edit-command-line
-
-########################################
-# プロンプト指定
-# PROMPT {{{
-PROMPT="
-[%n"@"%m %T] %{${fg[yellow]}%}%(5~|%-1~/…/%3~|%4~)%{${reset_color}%}
-%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
-# プロンプト指定(コマンドの続き)
-PROMPT2='[%n]> '
-# もしかして時のプロンプト指定
-SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
-# }}}
-# RPROMPT {{{
-ZSH_THEME_GIT_PROMPT_PREFIX=""
-ZSH_THEME_GIT_PROMPT_SUFFIX=" "
-ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_bold[cyan]%}:"
-ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[white]%} "
-ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[magenta]%}->%{$fg[cyan]%}"
-ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX=" "
-ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_bold[cyan]%}↓ "
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_bold[cyan]%}↑ "
-ZSH_THEME_GIT_PROMPT_UNMERGED=" %{$fg[red]%}X:"
-ZSH_THEME_GIT_PROMPT_STAGED=" %{$fg[green]%}M:"
-ZSH_THEME_GIT_PROMPT_UNSTAGED=" %{$fg[red]%}M:"
-ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fg[red]%}?:"
-ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg_bold[green]%}✔ "
-ZSH_THEME_GIT_PROMPT_STASHED=" %{$fg[blue]%}Stash:"
-ZSH_GIT_PROMPT_SHOW_UPSTREAM=full
-ZSH_GIT_PROMPT_SHOW_STASH=1
-ZSH_GIT_PROMPT_FORCE_BLANK=1
-RPROMPT='$(gitprompt)'
-# }}}
-
-########################################
 # Options {{{
 # もしかして機能
 setopt correct
@@ -122,6 +80,62 @@ setopt auto_list
 # TAB で順に補完候補を切り替える
 setopt auto_menu
 # }}}
+
+########################################
+# Prompt
+# PROMPT {{{
+PROMPT="
+[%n"@"%m %T] %{${fg[yellow]}%}%(5~|%-1~/…/%3~|%4~)%{${reset_color}%}
+%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
+# プロンプト指定(コマンドの続き)
+PROMPT2='[%n]> '
+# もしかして時のプロンプト指定
+SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+# }}}
+# RPROMPT {{{
+ZSH_THEME_GIT_PROMPT_PREFIX=""
+ZSH_THEME_GIT_PROMPT_SUFFIX=" "
+ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_bold[cyan]%}:"
+ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[white]%} "
+ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[magenta]%}->%{$fg[cyan]%}"
+ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX=" "
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_bold[cyan]%}↓ "
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_bold[cyan]%}↑ "
+ZSH_THEME_GIT_PROMPT_UNMERGED=" %{$fg[red]%}X:"
+ZSH_THEME_GIT_PROMPT_STAGED=" %{$fg[green]%}M:"
+ZSH_THEME_GIT_PROMPT_UNSTAGED=" %{$fg[red]%}M:"
+ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fg[red]%}?:"
+ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg_bold[green]%}✔ "
+ZSH_THEME_GIT_PROMPT_STASHED=" %{$fg[blue]%}Stash:"
+ZSH_GIT_PROMPT_SHOW_UPSTREAM=full
+ZSH_GIT_PROMPT_SHOW_STASH=1
+ZSH_GIT_PROMPT_FORCE_BLANK=1
+RPROMPT='$(gitprompt)'
+# }}}
+
+########################################
+# History
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=10000
+
+########################################
+# source zsh_local
+if [[ -f ~/.zsh_local ]]; then
+  source ~/.zsh_local
+fi
+
+########################################
+# func
+# gitignore
+function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
+
+########################################
+# edit-command
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^E" edit-command-line
 
 #######################################
 # Home Endキーを有効に
@@ -209,28 +223,7 @@ alias gs='git status'
 alias gg='ghq get'
 
 ########################################
-# func
-# gitignore
-function gi() { curl -L -s https://www.gitignore.io/api/"$@";}
-
-# pet zsh prev function
-function prev() {
-  PREV=$(fc -lrn | head -n 1)
-  sh -c "pet new `printf %q "$PREV"`"
-}
-
-########################################
-# source zsh_local
-if [[ -f ~/.zsh_local ]]; then
-  source ~/.zsh_local
-fi
-
-########################################
 # zprof
 if (which zprof > /dev/null 2>&1) ;then
   zprof
 fi
-
-########################################
-# Plugin Manager
-source "$HOME/dotfiles/.zinitrc"
