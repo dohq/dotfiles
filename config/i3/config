@@ -206,6 +206,7 @@ for_window [class="Google-chrome"] move to workspace 8
 for_window [class="jasper"] move to workspace 9
 
 # StartUp
+exec --no-startup-id "DISPLAY=':0' picom -b"
 exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.jpg"
 exec --no-startup-id "zeal"
 exec --no-startup-id "keepassxc --localconfig $HOME/.config/keepassxc/keepassxc.ini"
