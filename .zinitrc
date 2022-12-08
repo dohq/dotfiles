@@ -28,8 +28,35 @@ zinit light-mode for \
   atclone'direnv hook zsh > zhook.zsh' atpull'%atclone' src='zhook.zsh' \
     direnv/direnv \
   pick'async.zsh' \
-      mafredri/zsh-async
+      mafredri/zsh-async \
+  olets/zsh-abbr
 
+zinit wait lucid light-mode for \
+  peterhurford/up.zsh \
+  hlissner/zsh-autopair \
+  popstas/zsh-command-time \
+  sobolevn/wakatime-zsh-plugin \
+  atpull'zinit creinstall -q "$PWD"' blockf \
+    zsh-users/zsh-completions \
+  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
+    zdharma-continuum/fast-syntax-highlighting \
+  atload'!_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
+  as'command' sbin'kubectx' id-as'kubectx' \
+    ahmetb/kubectx \
+  as'command' sbin'kubens' id-as'kubens' \
+    ahmetb/kubectx
+
+# completion
+zinit wait lucid for \
+  has'hub' id-as'hub-completion' \
+  nocompile \
+  as'completion' \
+  atload'zicompinit; zicdreplay' \
+  mv'hub-completion -> _hub'\
+    https://github.com/github/hub/blob/master/etc/hub.zsh_completion
+
+# Install Github Release cli
 zinit wait lucid from'gh-r' as'null' for \
   sbin'**/dust' bootandy/dust \
   sbin'**/rg' BurntSushi/ripgrep \
@@ -59,31 +86,6 @@ zinit wait lucid from'gh-r' as'null' for \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmware-tanzu-labs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmware-tanzu-labs/cf-mgmt
-
-zinit wait lucid light-mode for \
-  peterhurford/up.zsh \
-  hlissner/zsh-autopair \
-  popstas/zsh-command-time \
-  sobolevn/wakatime-zsh-plugin \
-  atpull'zinit creinstall -q "$PWD"' blockf \
-    zsh-users/zsh-completions \
-  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
-    zdharma-continuum/fast-syntax-highlighting \
-  atload'!_zsh_autosuggest_start' \
-    zsh-users/zsh-autosuggestions \
-  as'command' sbin'kubectx' id-as'kubectx' \
-    ahmetb/kubectx \
-  as'command' sbin'kubens' id-as'kubens' \
-    ahmetb/kubectx
-
-# completion
-zinit wait lucid for \
-  has'hub' id-as'hub-completion' \
-  nocompile \
-  as'completion' \
-  atload'zicompinit; zicdreplay' \
-  mv'hub-completion -> _hub'\
-    https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
 ########## Function
 # history
