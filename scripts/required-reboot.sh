@@ -12,6 +12,6 @@ done
 if [ ! "${FIND}" = "" ]; then
   CURRENT_KERNEL=`uname -r`
   if [ ! "${CURRENT_KERNEL}" = "${FIND}" ]; then
-    echo "Boot required"
+    echo "Reboot required"
   fi
 fi
