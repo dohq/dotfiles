@@ -42,16 +42,15 @@ export ZSH_COMMAND_TIME_MIN_SECONDS=5
 
 # PATH
 path=(
-  /usr/lib/ccache/bin(N-/)
-  $HOME/.bin(N-/)
   $HOME/bin(N-/)
   $GOPATH/bin(N-/)
   $HOME/.local/bin(N-/)
   $HOME/.cargo/bin(N-/)
-  $HOME/.gem/ruby/2.7.0/bin(N-/)
-  $HOME/perl5/bin(N-/)
   $HOME/.tfenv/bin(N-/)
+  $HOME/.tiup/bin(N-/)
+  $HOME/.vector/bin(N-/)
   /usr/local/bin(N-/)
+  /usr/lib/ccache/bin(N-/)
   $path
 )
 # remove dupulicate path/PATH
