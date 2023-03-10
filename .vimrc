@@ -184,7 +184,7 @@ call plug#begin($MYVIMDIR.'/plugins')
 Plug 'jvirtanen/vim-hcl'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
-Plug 'ajh17/VimCompletesMe'
+Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'andymass/vim-matchup'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
@@ -324,9 +324,11 @@ augroup END
 "   set syntax=yaml
 " endfunction
 " }}}
-" VimCompletesMe {{{
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-let g:vcm_s_tab_behavior = 1
+" AsyncComplete {{{
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+inoremap <c-space> <Plug>(asyncomplete_force_refresh)
 " }}}
 " LSC {{{
 let g:lsc_enable_autocomplete = v:true
