@@ -181,10 +181,8 @@ nnoremap <Space> <Nop>
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-Plug 'jvirtanen/vim-hcl'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'JAErvin/logstash.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'andymass/vim-matchup'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
@@ -205,6 +203,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko/vim-test'
+Plug 'jvirtanen/vim-hcl'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -228,6 +227,7 @@ Plug 'mattn/vim-godoc', {'for': 'go'}
 Plug 'mattn/vim-goimports', {'for': 'go'}
 Plug 'mattn/vim-gomod', {'for': 'go'}
 Plug 'mattn/vim-gotmpl', {'for': 'go'}
+Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
 Plug 'mattn/vim-treesitter'
@@ -239,6 +239,11 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pearofducks/ansible-vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'pprovost/vim-ps1'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdcommenter'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'rbtnn/vim-ambiwidth'
@@ -329,108 +334,85 @@ inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 inoremap <c-space> <Plug>(asyncomplete_force_refresh)
+call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+ \  'name': 'file',
+ \  'allowlist': ['*'],
+ \  'priority': 10,
+ \  'completor': function('asyncomplete#sources#file#completor')
+ \  }))
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+ \  'name': 'buffer',
+ \  'allowlist': ['*'],
+ \  'blocklist': ['go'],
+ \  'completor': function('asyncomplete#sources#buffer#completor'),
+ \  'config': {
+ \     'max_buffer_size': 5000000,
+ \   },
+ \  }))
 " }}}
-" LSC {{{
-let g:lsc_enable_autocomplete = v:true
-let g:lsc_auto_completeopt = v:false
-let g:lsc_enable_snippet_support = v:true
-let g:lsp_ultisnips_integration = 0
-let g:lsc_complete_timeout = 1
-let g:lsc_reference_highlights = v:false
-let g:lsc_enable_diagnostics = v:true
-let g:lsc_autocomplete_length = 2
-let g:lsc_trace_level = 'off'
-let g:lsc_auto_map = {
-     \ 'GoToDefinition': 'gd',
-     \ 'GoToDefinitionSplit': 'gD',
-     \ 'FindReferences': 'gR',
-     \ 'NextReference': '<C-n>',
-     \ 'PreviousReference': '<C-p>',
-     \ 'FindImplementations': 'gI',
-     \ 'FindCodeActions': 'ga',
-     \ 'Rename': 'gr',
-     \ 'ShowHover': v:true,
-     \ 'DocumentSymbol': 'go',
-     \ 'WorkspaceSymbol': 'gS',
-     \ 'SignatureHelp': 'gm',
-     \ 'Completion': 'omnifunc',
-     \}
-let g:lsc_server_commands = {}
+" vim-lsp {{{
+let g:lsp_log_file = expand('/tmp/lsp.log')
+let g:lsp_diagnostics_virtual_text_enabled = 0
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gR <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> gr <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
 
-if executable('yaml-language-server')
-  let g:lsc_server_commands['yaml'] = {
-        \ 'command': 'yaml-language-server --stdio',
-        \ 'workspace_config': {
-        \   'yaml': {
-        \     'schemas': {
-        \       'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
-        \       'https://json.schemastore.org/prometheus.json': '/prometheus.yml',
-        \       'https://json.schemastore.org/swagger-2.0.json': '/swagger.yml',
-        \       'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json': '/openapi.yml',
-        \     }
-        \   }
-        \ },
-        \ 'log_level': -1,
-        \ 'suppress_stderr': v:true
-        \}
-endif
+  let g:lsp_format_sync_timeout = 1000
+  autocmd! BufWritePre *.rs,*.go,*.tf,*.tfvars call execute('LspDocumentFormatSync')
 
-if executable('gopls')
-  let g:lsc_server_commands['go'] = {'command': 'gopls serve', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-if executable('concourse-language-server')
-  let g:lsc_server_commands['concourse-pipeline-yaml'] = {'command': 'concourse-language-server', 'suppress_stderr': v:true}
-endif
-if executable('manifest-yaml-language-server')
-  let g:lsc_server_commands['manifest-yaml'] = {'command': 'manifest-yaml-language-server', 'suppress_stderr': v:true}
-endif
-if executable('terraform-ls')
-  let g:lsc_server_commands['terraform'] = {'command': 'terraform-ls serve', 'suppress_stderr': v:true}
-endif
-if executable('vim-language-server')
-  let g:lsc_server_commands['vim'] = {'command': 'vim-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-if executable('bash-language-server')
-  let g:lsc_server_commands['sh'] = {'command': 'bash-language-server start', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-if executable('typescript-language-server')
-  let g:lsc_server_commands['typescript'] = {'command': 'typescript-language-server --stdio', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-if executable('svelteserver')
-  let g:lsc_server_commands['svelte'] = {'command': 'svelteserver --stdio', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-if executable('clangd')
-  let g:lsc_server_commands['c'] = {'command': 'clangd', 'log_level': -1, 'suppress_stderr': v:true}
-endif
-" LSC Diagnostic Sign {{{
-call sign_define("vim-lsc-error", {"text" : "E", "texthl" : "RedSign"})
-call sign_define("vim-lsc-warning", {"text" : "W", "texthl" : "OrangeSign"})
+  " refer to doc to add more commands
+endfunction
 
-augroup lsc_diag
-  autocmd!
-  autocmd BufEnter * if has_key(g:lsc_server_commands, &filetype) | call s:setSigns() | endif
-  autocmd User LSCDiagnosticsChange call s:setSigns()
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-function! s:setSigns() abort
-  let s:buf_id = expand('%:p')
-  let s:diagnostics = lsc#diagnostics#forFile(expand('%:p')).ListItems()
-  " clear previous virtual texts
-  call sign_unplace('vim-lsc', {'buffer' : s:buf_id})
+ let g:lsp_settings = {
+ \  'yaml-language-server': {
+ \    'workspace_config': {
+ \      'yaml': {
+ \        'schemas': {
+ \          'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+ \          'https://json.schemastore.org/prometheus.json': '/prometheus.yml',
+ \          'https://json.schemastore.org/swagger-2.0.json': '/swagger.yml',
+ \          'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json': '/openapi.yml',
+ \          'https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json': '/**/tasks/**.yml',
+ \        },
+ \        'completion': v:true,
+ \        'hover': v:true,
+ \        'validate': v:true,
+ \      }
+ \    }
+ \  },
+ \}
 
-  " add signs
-  for diagnostic in s:diagnostics
-    if l:diagnostic['type'] == 'E'
-      let sign = 'vim-lsc-error'
-    elseif l:diagnostic['type'] == 'W'
-      let sign = 'vim-lsc-warning'
-    else
-      return
-    endif
-    call sign_place(1, 'vim-lsc', l:sign, l:diagnostic['bufnr'], {'lnum' : l:diagnostic['lnum']})
-  endfor
-endfunction
-" }}}
+if executable('concourse-language-server')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'concourse-language-server',
+    \ 'cmd': {server_info->['concourse-language-server']},
+    \ 'allowlist': ['concourse-pipeline-yaml'],
+    \ })
+endif
+if executable('manifest-yaml-language-server')
+  au User lsp_setup call lsp#register_server({
+    \ 'name': 'manifest-yaml-language-server',
+    \ 'cmd': {server_info->['manifest-yaml-language-server']},
+    \ 'allowlist': ['manifest-yaml'],
+    \ })
+endif
 " }}}
 " vsnip {{{
 let g:vsnip_snippet_dir = expand('$HOME/dotfiles/vsnip')
@@ -438,6 +420,9 @@ imap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 smap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+" }}}
+" vim-signify {{{
+let g:signify_priority = 5
 " }}}
 " Quick-Run {{{
 let g:quickrun_config = {
