@@ -4,19 +4,12 @@
 export EDITOR=vim
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
-export PERL5LIB=$HOME/perl5/lib/perl5
-export PERL_LOCAL_LIB_ROOT=$HOME/perl5
-export PERL_MB_OPT="--install_base \"$HOME/perl5\""
-export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export GOPATH=$HOME/go
 export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
-export SSH_ASKPASS=ssh-askpass
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 export ZSH_WAKATIME_BIN=$(which wakatime)
 export DOCKER_BUILDKIT=1
-export AWS_VAULT_BACKEND=pass
-export AWS_VAULT_PROMPT=ykman
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 fi
