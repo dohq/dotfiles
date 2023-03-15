@@ -230,11 +230,9 @@ Plug 'mattn/vim-gotmpl', {'for': 'go'}
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
-Plug 'mattn/vim-treesitter'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
-Plug 'natebosch/vim-lsc'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'pearofducks/ansible-vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
