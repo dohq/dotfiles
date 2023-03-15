@@ -39,6 +39,7 @@ zinit wait lucid light-mode for \
   hlissner/zsh-autopair \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
+  olets/zsh-abbr \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
@@ -71,8 +72,8 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'shfmt* -> shfmt' @mvdan/sh \
   sbin'jq* -> jq' stedolan/jq \
   sbin'yq* -> yq' mikefarah/yq \
-  sbin'kapp-* -> kapp' vmware-tanzu/carvel-kapp \
-  sbin'ytt-* -> ytt' vmware-tanzu/carvel-ytt \
+  sbin'kapp-* -> kapp' carvel-dev/kapp \
+  sbin'ytt-* -> ytt' carvel-dev/ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
   sbin'air_* -> air' cosmtrek/air \
@@ -83,7 +84,6 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'fzf' id-as'fzf' junegunn/fzf \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
-  sbin'sk' lotabout/skim \
   bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
   bpick'*Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
   bpick'fly-*' sbin'fly' concourse/concourse \
