@@ -35,8 +35,6 @@
 	enabled = true
 [http]
 	postBuffer = 524288000
-[alias]
-	co = checkout
 [grep]
 	lineNumber = true
 	patternType = extended
