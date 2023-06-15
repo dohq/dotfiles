@@ -41,6 +41,7 @@ path=(
   $HOME/.tiup/bin(N-/)
   $HOME/.vector/bin(N-/)
   /usr/local/bin(N-/)
+  /home/dohq/.gem/ruby/3.0.0/bin(N-/)
   $path
 )
 # remove dupulicate path/PATH
