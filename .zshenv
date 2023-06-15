@@ -1,10 +1,6 @@
-#: ${ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim}
 # zmodload zsh/zprof && zprof
 
 export EDITOR=vim
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export GOPATH=$HOME/go
 export JAVA_HOME=/usr/lib/jvm/default
 export GOPROXY=proxy.golang.org
 export VAGRANT_DEFAULT_PROVIDER=libvirt
@@ -21,6 +17,7 @@ if command -v ccache >/dev/null; then
   export USE_CCACHE=1
   export CCACHE_DIR=$HOME/.cache/ccache
 fi
+export PICO_SDK_PATH=/usr/share/pico-sdk
 
 # fzf
 export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
@@ -35,15 +32,15 @@ export ZSH_COMMAND_TIME_MIN_SECONDS=5
 
 # PATH
 path=(
+  /usr/lib/ccache/bin(N-/)
   $HOME/bin(N-/)
-  $GOPATH/bin(N-/)
+  $HOME/go/bin(N-/)
   $HOME/.local/bin(N-/)
   $HOME/.cargo/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   $HOME/.tiup/bin(N-/)
   $HOME/.vector/bin(N-/)
   /usr/local/bin(N-/)
-  /usr/lib/ccache/bin(N-/)
   $path
 )
 # remove dupulicate path/PATH
