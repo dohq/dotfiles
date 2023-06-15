@@ -203,7 +203,6 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko/vim-test'
-Plug 'jvirtanen/vim-hcl'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -230,6 +229,7 @@ Plug 'mattn/vim-gotmpl', {'for': 'go'}
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
+Plug 'mattn/vim-treesitter'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
@@ -247,6 +247,7 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'rbtnn/vim-ambiwidth'
 Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
+Plug 'sago35/tinygo.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'sgur/vim-editorconfig'
@@ -351,6 +352,7 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
 " vim-lsp {{{
 let g:lsp_log_file = expand('/tmp/lsp.log')
 let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_float_cursor = 1
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -367,7 +369,8 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> K <plug>(lsp-hover)
 
   let g:lsp_format_sync_timeout = 1000
-  autocmd! BufWritePre *.rs,*.go,*.tf,*.tfvars call execute('LspDocumentFormatSync')
+  autocmd! BufWritePre *.rs,*.tf,*.tfvars call execute('LspDocumentFormatSync')
+  autocmd! BufWritePre *.go call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports')
 
   " refer to doc to add more commands
 endfunction
