@@ -353,6 +353,8 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
 let g:lsp_log_file = expand('/tmp/lsp.log')
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
+let lsp_diagnostics_float_insert_mode_enabled = 0
+let lsp_document_code_action_signs_enabled = 0
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
