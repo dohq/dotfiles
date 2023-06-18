@@ -66,11 +66,11 @@ workspace 2 output primary
 workspace 3 output primary
 workspace 4 output primary
 workspace 5 output primary
-workspace 6 output HDMI-A-0
-workspace 7 output HDMI-A-0
-workspace 8 output HDMI-A-0
-workspace 9 output HDMI-A-0
-workspace 10 output HDMI-A-0
+workspace 6 output HDMI-A-1
+workspace 7 output HDMI-A-1
+workspace 8 output HDMI-A-1
+workspace 9 output HDMI-A-1
+workspace 10 output HDMI-A-1
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -144,9 +144,10 @@ bar {
     font pango: Hack 9
     tray_output primary
     status_command bumblebee-status \
-      -m network_traffic sensors cpu memory arch-update datetime \
-      -a arch-update \
+      -m progress network_traffic spacer cpu sensors2 spacer memory spacer arch-update aur-update spacer shell datetime \
+      -p shell.command='$HOME/dotfiles/scripts/required-reboot.sh' \
       -p datetime.format='%A %Y-%m-%d %H:%M:%S' \
+      -p sensors2.chip_field_include=zenpower-pci-00c3 \
       -t gruvbox
     position          top
     workspace_buttons yes
@@ -179,43 +180,51 @@ for_window [class="KeePassXC"] floating enable
 for_window [class="NoiseTorch"] floating enable
 for_window [class="PacketTracer"] floating enable
 for_window [class="Pavucontrol"] floating enable
+for_window [class="Psensor"] floating enable
 for_window [class="Virt-manager"] floating enable
 for_window [class="Voicepeak"] floating enable
 for_window [class="Xplorer"] floating enable
 for_window [class="YubiKey Manager"] floating enable
 for_window [class="Zeal"] floating enable
+for_window [class="Zenmonitor"] floating enable
 for_window [class="dosbox"] floating enable
 for_window [class="easyeffects"] floating enable
 for_window [class="feh"] floating enable
 for_window [class="gimp"] floating disable
 for_window [class="helvum"] floating enable
+for_window [class="kwalletmanager5"] floating enable
 for_window [class="looking-glass-client"] floating enable
+for_window [class="openrgb"] floating enable
 for_window [class="qpwgraph"] floating enable
+for_window [class="ryzen-controller"] floating enable
 for_window [class="streamlink-twitch-gui"] floating enable
+for_window [class="uad_gui"] floating enable
+for_window [class="via-nativia"] floating enable
 for_window [class="vlc"] floating enable
 for_window [class="xfreerdp"] floating disable
 for_window [class="zoom"] floating enable
 for_window [title="Authy"] floating enable
+for_window [title="lstopo"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
 for_window [class="Vivaldi-stable"] move to workspace 2
-for_window [class="biscuit"] move to workspace 5
 for_window [class="discord"] move to workspace 7
 for_window [class="Google-chrome"] move to workspace 8
-for_window [class="jasper"] move to workspace 9
+for_window [class="biscuit"] move to workspace 9
+for_window [class="jasper"] move to workspace 10
 
 # StartUp
 exec --no-startup-id "DISPLAY=':0' picom -b"
-exec --no-startup-id "feh --bg-scale $HOME/Pictures/wallpaper.jpg"
 exec --no-startup-id "zeal"
 exec --no-startup-id "keepassxc --localconfig $HOME/.config/keepassxc/keepassxc.ini"
 exec --no-startup-id "fcitx5"
 exec --no-startup-id "redshift"
 exec --no-startup-id "greenclip daemon"
 exec --no-startup-id "blueman-applet"
+exec --no-startup-id "udiskie --tray"
 exec --no-startup-id "qpwgraph -m"
 exec --no-startup-id "setxkbmap -option ctrl:nocaps"
 exec --no-startup-id "greenclip daemon>/dev/null"
-exec --no-startup-id "$HOME/.screenlayout/default.sh"
-exec --no-startup-id "$HOME/dotfiles/scripts/set-gameball-accel-speed.sh"
+exec --no-startup-id "$HOME/.screenlayout/default.sh && feh --bg-scale $HOME/Pictures/wallpaper.jpg"
+exec --no-startup-id "openrgb -p default"
