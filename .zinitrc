@@ -44,12 +44,12 @@ zinit wait lucid light-mode for \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
     zdharma-continuum/fast-syntax-highlighting \
-  atload'!_zsh_autosuggest_start' \
-    zsh-users/zsh-autosuggestions \
   as'command' sbin'kubectx' id-as'kubectx' \
     ahmetb/kubectx \
   as'command' sbin'kubens' id-as'kubens' \
     ahmetb/kubectx
+  # atload'!_zsh_autosuggest_start' \
+  #   zsh-users/zsh-autosuggestions \
 
 # completion
 zinit wait lucid for \
@@ -97,6 +97,9 @@ zinit snippet 'https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b
 # ssh
 zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/fzf-ssh.zsh'
+# ssh-consul
+zinit ice lucid
+zinit snippet 'https://gist.githubusercontent.com/dohq/164de7bc95de765d9b3202d401b4549d/raw/fzf-ssh-consul.zsh'
 # branch
 zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/fzf-branch.zsh'
