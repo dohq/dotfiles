@@ -168,7 +168,6 @@ alias tree='tree -N'
 alias u='up'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 alias ssh='TERM=xterm ssh'
-alias sudo='sudo '
 if type vim > /dev/null; then
   alias vi='vim'
   alias v='vim'
@@ -178,6 +177,13 @@ alias dohq='cd $HOME/go/src/github.com/dohq'
 
 # openstack
 alias op='openstack'
+# nomad
+alias n='nomad'
+alias nf='nomad fmt -write=true -recursive'
+alias njp='nomad job plan'
+alias njr='nomad job run'
+alias njs='nomad job stop -purge'
+alias njv='nomad job validate'
 # Ansible
 alias a='ansible'
 alias ap='ansible-playbook'
