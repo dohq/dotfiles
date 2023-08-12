@@ -40,6 +40,8 @@ zinit wait lucid light-mode for \
   popstas/zsh-command-time \
   sobolevn/wakatime-zsh-plugin \
   olets/zsh-abbr \
+  atload'!_zsh_autosuggest_start' \
+    zsh-users/zsh-autosuggestions \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
@@ -48,8 +50,6 @@ zinit wait lucid light-mode for \
     ahmetb/kubectx \
   as'command' sbin'kubens' id-as'kubens' \
     ahmetb/kubectx
-  # atload'!_zsh_autosuggest_start' \
-  #   zsh-users/zsh-autosuggestions \
 
 # completion
 zinit wait lucid for \
@@ -79,11 +79,10 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'air_* -> air' cosmtrek/air \
   sbin'dasel* -> dasel' TomWright/dasel \
   sbin'credhub' cloudfoundry/credhub-cli \
-  sbin'pack' buildpacks/pack \
-  sbin'terraform-ls' @hashicorp/terraform-ls \
   sbin'fzf' id-as'fzf' junegunn/fzf \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
+  bpick'*-linux.tgz' sbin'pack' buildpacks/pack \
   bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
   bpick'*Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
   bpick'fly-*' sbin'fly' concourse/concourse \
