@@ -167,14 +167,11 @@ alias tky='curl wttr.in/Tokyo'
 alias tree='tree -N'
 alias u='up'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
-alias ssh='TERM=xterm ssh'
 if type vim > /dev/null; then
   alias vi='vim'
   alias v='vim'
   alias vd='vimdiff'
 fi
-alias dohq='cd $HOME/go/src/github.com/dohq'
-
 # openstack
 alias op='openstack'
 # nomad
@@ -202,6 +199,7 @@ alias dcud='docker compose up -d'
 # kubernetes
 alias kns='kubens'
 alias kcx='kubectx'
+alias k='kubectl'
 # terraform
 alias tf='terraform'
 alias tfpp='terraform plan -out plan --parallelism=30'
@@ -227,6 +225,8 @@ alias gnd='git init && git config user.name "dohq" && git config user.email "dor
 alias gp='git push'
 alias gs='git status'
 alias gg='ghq get'
+# goto Dev dir
+alias dohq='cd $HOME/go/src/github.com/dohq'
 
 ########################################
 # zprof
