@@ -101,6 +101,7 @@ set novisualbell
 set nowrap
 set maxmempattern=200000
 set nrformats-=octal
+set nrformats+=unsigned
 set pumheight=10
 set scrolloff=9999
 set shiftround
@@ -210,7 +211,7 @@ Plug 'kana/vim-slacky'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
-Plug 'kat0h/bufpreview.vim', {'for': 'markdown'}
+Plug 'kat0h/bufpreview.vim', {'do': 'deno task prepare', 'for': 'markdown'}
 Plug 'lambdalisue/gina.vim'
 Plug 'lambdalisue/vim-gista'
 Plug 'leafOfTree/vim-svelte-plugin'
@@ -388,11 +389,11 @@ augroup END
  \    'workspace_config': {
  \      'yaml': {
  \        'schemas': {
- \          'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/docker-compose.yml',
+ \          'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/compose.yml',
  \          'https://json.schemastore.org/prometheus.json': '/prometheus.yml',
  \          'https://json.schemastore.org/swagger-2.0.json': '/swagger.yml',
  \          'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json': '/openapi.yml',
- \          'https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json': '/**/tasks/**.yml',
+ \          'https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json': '/**/playbooks/**.yml',
  \        },
  \        'completion': v:true,
  \        'hover': v:true,
