@@ -90,6 +90,8 @@ set lazyredraw
 set list
 set listchars=tab:»-,eol:\ ,extends:»,precedes:«,nbsp:%,trail:-
 set noautoindent
+set nobackup
+set nowritebackup
 set nofixeol
 set nojoinspaces
 set noequalalways
@@ -195,6 +197,7 @@ Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
+" Plug 'Exafunction/codeium.vim'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'google/vim-jsonnet'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
@@ -262,7 +265,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'wakatime/vim-wakatime'
-Plug 'yasunori-kirin0418/lightline_skk.vim'
+Plug 'yasunori0418/statusline_skk.vim', {'branch': 'lightline'}
 Plug 'zeero/vim-ctrlp-help'
 call plug#end()
 
@@ -319,15 +322,6 @@ augroup ansible-yaml
   autocmd BufRead,BufNewFile **/playbooks/*.yml set filetype=yaml.ansible
 augroup END
 
-" augroup docker-compose-yaml
-"   autocmd!
-"   autocmd BufRead,BufNewFile **/*docker-compose*.yml call SetDockerComposeYamlOptions()
-" augroup END
-"
-" function! SetDockerComposeYamlOptions()
-"   set filetype=docker-compose-yaml
-"   set syntax=yaml
-" endfunction
 " }}}
 " AsyncComplete {{{
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -410,6 +404,7 @@ if executable('concourse-language-server')
     \ 'allowlist': ['concourse-pipeline-yaml'],
     \ })
 endif
+
 if executable('manifest-yaml-language-server')
   au User lsp_setup call lsp#register_server({
     \ 'name': 'manifest-yaml-language-server',
@@ -857,4 +852,5 @@ augroup END
 " user custom keymap {{{
 " open github pages
 nnoremap <silent> gb :<C-u>call openbrowser#open('https://github.com/' .. matchstr(getline('.'), '''\zs[^'']\+\ze'''))<cr>
+nnoremap <silent> sh :<C-u>call openbrowser#open('https://github.com/search?type=code&q=' ..  expand("<cword>"))<cr>
 " }}}

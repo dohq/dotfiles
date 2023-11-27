@@ -40,6 +40,7 @@ path=(
   $HOME/.tfenv/bin(N-/)
   $HOME/.tiup/bin(N-/)
   $HOME/.vector/bin(N-/)
+  $HOME/.fly/bin(N-/)
   /usr/local/bin(N-/)
   /home/dohq/.gem/ruby/3.0.0/bin(N-/)
   $path
