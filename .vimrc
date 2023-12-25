@@ -215,7 +215,7 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'kat0h/bufpreview.vim', {'do': 'deno task prepare', 'for': 'markdown'}
-Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/gin.vim'
 Plug 'lambdalisue/vim-gista'
 Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'lepture/vim-jinja'
@@ -265,7 +265,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'wakatime/vim-wakatime'
-Plug 'yasunori0418/statusline_skk.vim', {'branch': 'lightline'}
+Plug 'yasunori0418/statusline_skk.vim', {'tag': 'lightline'}
 Plug 'zeero/vim-ctrlp-help'
 call plug#end()
 
@@ -532,7 +532,7 @@ function! LightlineHints() abort
   return l:count > 0 ? 'H:' . l:count : ''
 endfunction
 
-function! Branch()
+function! Branch() abort
   try
     if &filetype !~? 'vimfiler\|gundo' && exists('*gitbranch#name') && strlen(gitbranch#name())
       return gitbranch#name()
@@ -566,10 +566,12 @@ nmap     <Space>v [Git]
 nnoremap <silent> [Git]g :<C-u>SignifyToggle<CR>
 nnoremap <silent> [Git]r :<C-u>SignifyRefresh<CR>
 " git command
-nnoremap <silent> [Git]a :<C-u>Gina add -- %<CR>
-nnoremap <silent> [Git]m :<C-u>Gina commit -v<CR>
-nnoremap <silent> [Git]s :<C-u>Gina status<CR>
-nnoremap <silent> [Git]d :<C-u>Gina diff %<CR>
+nnoremap <silent> [Git]a :<C-u>Gin ++wait add -- %<CR>
+nnoremap <silent> [Git]m :<C-u>Gin commit -v<CR>
+nnoremap <silent> [Git]s :<C-u>GinStatus<CR>
+nnoremap <silent> [Git]d :<C-u>GinDiff<CR>
+nnoremap <silent> [Git]l :<C-u>GinLog<CR>
+nnoremap <silent> [Git]b :<C-u>GinBrowse<CR>
 " }}}
 " go {{{
 " highlight error
