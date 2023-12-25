@@ -197,7 +197,7 @@ Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
-" Plug 'Exafunction/codeium.vim'
+Plug 'Exafunction/codeium.vim'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'google/vim-jsonnet'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
@@ -419,6 +419,13 @@ imap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 smap <expr> <C-k> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-k>'
 imap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
+" }}}
+" codeium {{{
+let g:codeium_no_map_tab = 1
+imap <silent><script><expr> <C-g> codeium#Accept()
+imap <C-n>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <C-p>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-x>   <Cmd>call codeium#Clear()<CR>
 " }}}
 " vim-signify {{{
 let g:signify_priority = 5
