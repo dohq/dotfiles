@@ -203,6 +203,7 @@ for_window [class="via-nativia"] floating enable
 for_window [class="vlc"] floating enable
 for_window [class="xfreerdp"] floating disable
 for_window [class="zoom"] floating enable
+for_window [class="Pcmanfm"] floating enable
 for_window [title="Authy"] floating enable
 for_window [title="lstopo"] floating enable
 for_window [window_role="pop-up"] floating enable
