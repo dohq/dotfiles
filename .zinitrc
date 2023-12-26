@@ -79,6 +79,7 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'air_* -> air' cosmtrek/air \
   sbin'dasel* -> dasel' TomWright/dasel \
   sbin'credhub' cloudfoundry/credhub-cli \
+  sbin'pack' buildpacks/pack \
   sbin'fzf' id-as'fzf' junegunn/fzf \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \

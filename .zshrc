@@ -233,3 +233,5 @@ alias dohq='cd $HOME/go/src/github.com/dohq'
 if (which zprof > /dev/null 2>&1) ;then
   zprof
 fi
+
+export PATH="$PATH:/home/dohq/.bin"
