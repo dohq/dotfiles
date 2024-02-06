@@ -557,7 +557,7 @@ endif
 
 call skkeleton#config({
       \ 'eggLikeNewline':v:true,
-      \ 'globalJisyo':s:skk_dic
+      \ 'globalDictionaries': [[s:skk_dic, "euc-jp"]],
       \ })
 "}}}
 " Git {{{
