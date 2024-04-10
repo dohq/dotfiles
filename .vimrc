@@ -265,6 +265,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'wakatime/vim-wakatime'
+Plug 'wfxr/minimap.vim'
 Plug 'yasunori0418/statusline_skk.vim', {'tag': 'lightline'}
 Plug 'zeero/vim-ctrlp-help'
 call plug#end()
