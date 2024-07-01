@@ -16,10 +16,7 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-  zdharma-continuum/zinit-annex-as-monitor \
-  zdharma-continuum/zinit-annex-bin-gem-node \
-  zdharma-continuum/zinit-annex-patch-dl \
-  zdharma-continuum/zinit-annex-rust
+  zdharma-continuum/zinit-annex-bin-gem-node
 
 zinit light-mode for \
   atload'!_zsh_git_prompt_precmd_hook' \
@@ -65,12 +62,12 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'**/dust' bootandy/dust \
   sbin'**/rg' BurntSushi/ripgrep \
   sbin'**/ghq' x-motemen/ghq \
-  sbin'**/hub' @github/hub \
+  sbin'**/hub' mislav/hub \
   sbin'**/shellcheck' koalaman/shellcheck \
   sbin'**/pandoc' jgm/pandoc \
   sbin'**/bat' @sharkdp/bat \
   sbin'shfmt* -> shfmt' @mvdan/sh \
-  sbin'jq* -> jq' stedolan/jq \
+  sbin'jq* -> jq' jqlang/jq \
   sbin'yq* -> yq' mikefarah/yq \
   sbin'kapp-* -> kapp' carvel-dev/kapp \
   sbin'ytt-* -> ytt' carvel-dev/ytt \
@@ -80,15 +77,15 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'dasel* -> dasel' TomWright/dasel \
   sbin'credhub' cloudfoundry/credhub-cli \
   sbin'pack' buildpacks/pack \
-  sbin'fzf' id-as'fzf' junegunn/fzf \
+  sbin'fzf' junegunn/fzf \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
   bpick'*-linux.tgz' sbin'pack' buildpacks/pack \
-  bpick'*linux_amd64.tar.gz' sbin'dive' wagoodman/dive \
-  bpick'*Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
   bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmware-tanzu-labs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmware-tanzu-labs/cf-mgmt
+  # sbin'dive' wagoodman/dive \
+  # bpick'*_Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
 
 ########## Function
 # history

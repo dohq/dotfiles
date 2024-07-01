@@ -18,6 +18,7 @@ if command -v ccache >/dev/null; then
   export CCACHE_DIR=$HOME/.cache/ccache
 fi
 export PICO_SDK_PATH=/usr/share/pico-sdk
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # fzf
 export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
@@ -32,17 +33,13 @@ export ZSH_COMMAND_TIME_MIN_SECONDS=5
 
 # PATH
 path=(
-  /usr/lib/ccache/bin(N-/)
   $HOME/bin(N-/)
   $HOME/go/bin(N-/)
   $HOME/.local/bin(N-/)
-  $HOME/.cargo/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   $HOME/.tiup/bin(N-/)
-  $HOME/.vector/bin(N-/)
-  $HOME/.fly/bin(N-/)
   /usr/local/bin(N-/)
-  /home/dohq/.gem/ruby/3.0.0/bin(N-/)
+  /usr/lib/ccache/bin(N-/)
   $path
 )
 # remove dupulicate path/PATH

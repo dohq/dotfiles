@@ -14,70 +14,30 @@ if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
 else
   compinit -C
 fi
-# 補完後、メニュー選択モードになり左右キーで移動が出来る
 zstyle ':completion:*:default' menu select=1
-# 補完で小文字でも大文字にマッチさせる
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# ../ の後は今いるディレクトリを補完しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' ignore-parents parent pwd ..
-# ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-# 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
-# ここで指定した文字は単語区切りとみなされる
-# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 # }}}
 # Options {{{
-# もしかして機能
 setopt correct
-# 日本語ファイル名を表示可能にする
 setopt print_eight_bit
-# beep を無効にする
 setopt no_beep
-# フローコントロールを無効にする
 setopt no_flow_control
-# '#' 以降をコメントとして扱う
 setopt interactive_comments
-# cd したら自動的にpushdする
 setopt auto_pushd
-# 重複したディレクトリを追加しない
 setopt pushd_ignore_dups
-# 同時に起動したzshの間でヒストリを上書きではなく追記する
-setopt append_history
-# 履歴がいっぱいの時は最も古いものを先ず削除
-setopt hist_expire_dups_first
-# history コマンドをヒストリに入れない
-setopt hist_no_store
-# 同時に起動したzshの間でヒストリを共有する
-setopt share_history
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-# 履歴検索中、(連続してなくとも)重複を飛ばす
-setopt hist_find_no_dups
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
-# ヒストリを呼び出してから実行する間に一旦編集
-setopt hist_verify
-# 高機能なワイルドカード展開を使用する
-# setopt extended_glob
-# 内部コマンド jobs の出力をデフォルトで jobs -l にする
 setopt long_list_jobs
-# 補完候補一覧でファイルの種別を識別マーク表示(ls -F の記号)
 setopt list_types
-# --prefix=/usr などの = 以降も補完
 setopt magic_equal_subst
-# ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
-# rm *で確認を求める
 setopt rm_star_wait
-# 補完候補を一覧表示
 setopt auto_list
-# TAB で順に補完候補を切り替える
 setopt auto_menu
 # }}}
 
@@ -87,9 +47,7 @@ setopt auto_menu
 PROMPT="
 [%n"@"%m %T] %{${fg[yellow]}%}%(5~|%-1~/…/%3~|%4~)%{${reset_color}%}
 %(?.%{$fg[green]%}.%{$fg[blue]%})%(?!(*'-') <!(*;-;%)? <)%{${reset_color}%} "
-# プロンプト指定(コマンドの続き)
 PROMPT2='[%n]> '
-# もしかして時のプロンプト指定
 SPROMPT="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
 # }}}
 # RPROMPT {{{
@@ -118,7 +76,18 @@ RPROMPT='$(gitprompt)'
 # History
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
-SAVEHIST=10000
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt append_history
+setopt hist_expire_dups_first
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_no_store
+setopt hist_reduce_blanks
+setopt hist_save_no_dups
+setopt hist_verify
+setopt share_history
 
 ########################################
 # source zsh_local
@@ -166,6 +135,7 @@ alias tb='nc termbin.com 9999'
 alias tky='curl wttr.in/Tokyo'
 alias tree='tree -N'
 alias u='up'
+alias s='sudo'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
 if type vim > /dev/null; then
   alias vi='vim'
@@ -224,14 +194,17 @@ alias gm='git commit -v'
 alias gnd='git init && git config user.name "dohq" && git config user.email "dorastone@gmail.com"'
 alias gp='git push'
 alias gs='git status'
-alias gg='ghq get'
+alias gg='ghq get -p'
 # goto Dev dir
 alias dohq='cd $HOME/go/src/github.com/dohq'
+
+# Eval
+if command -v mise > /dev/null; then
+  eval "$(mise activate zsh)"
+fi
 
 ########################################
 # zprof
 if (which zprof > /dev/null 2>&1) ;then
   zprof
 fi
-
-export PATH="$PATH:/home/dohq/.bin"
