@@ -185,7 +185,6 @@ nnoremap <Space> <Nop>
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'JAErvin/logstash.vim'
 Plug 'andymass/vim-matchup'
 Plug 'basyura/TweetVim'
 Plug 'basyura/twibill.vim'
@@ -197,7 +196,8 @@ Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'deris/vim-textobj-ipmac'
-Plug 'Exafunction/codeium.vim'
+Plug 'diepm/vim-rest-console'
+" Plug 'Exafunction/codeium.vim'
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'google/vim-jsonnet'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
@@ -207,6 +207,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko/vim-test'
+Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -234,6 +235,7 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
 Plug 'mattn/vim-treesitter'
+Plug 'mattn/vim-sqlfmt'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
 Plug 'mhinz/vim-signify'
@@ -265,7 +267,6 @@ Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'wakatime/vim-wakatime'
-Plug 'wfxr/minimap.vim'
 Plug 'yasunori0418/statusline_skk.vim', {'tag': 'lightline'}
 Plug 'zeero/vim-ctrlp-help'
 call plug#end()
@@ -300,7 +301,7 @@ autocmd BufRead,BufNewFile *.nomad set filetype=hcl
 augroup concourse-pipeline-yaml
   autocmd!
   autocmd BufRead,BufNewFile **/pipeline-*.yml call SetConcoursePipelineYamlOptions()
-  autocmd BufRead,BufNewFile **/ci/pipeline.yml call SetConcoursePipelineYamlOptions()
+  autocmd BufRead,BufNewFile **/pipeline.yml call SetConcoursePipelineYamlOptions()
 augroup END
 
 function! SetConcoursePipelineYamlOptions()
@@ -797,6 +798,12 @@ let g:sonictemplate_vim_template_dir = [
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
 let g:vim_svelte_plugin_has_init_indent = 1
+" }}}
+" nerdcommenter {{{
+let g:NERDCustomDelimiters = {
+      \ 'manifest-yaml': {'left': '#','right': ''},
+      \ 'concourse-pipeline-yaml': {'left': '#','right': ''}
+      \ }
 " }}}
 " indent-guide {{{
 let g:indent_guides_enable_on_vim_startup=1
