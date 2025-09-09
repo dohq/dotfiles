@@ -61,11 +61,11 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # workspace output
-workspace 1 output primary
-workspace 2 output primary
-workspace 3 output primary
-workspace 4 output primary
-workspace 5 output primary
+workspace 1 output DisplayPort-1
+workspace 2 output DisplayPort-1
+workspace 3 output DisplayPort-1
+workspace 4 output DisplayPort-1
+workspace 5 output DisplayPort-1
 workspace 6 output HDMI-A-0
 workspace 7 output HDMI-A-0
 workspace 8 output HDMI-A-0
@@ -144,10 +144,10 @@ bar {
     font pango: Hack 9
     tray_output primary
     status_command bumblebee-status \
-      -m progress network_traffic spacer cpu sensors2 spacer memory spacer disk spacer arch-update aur-update spacer shell datetime \
-      -p shell.command="$HOME/dotfiles/scripts/required-reboot.sh" shell.intervel=1h shell.async=true \
+      -m network_traffic spacer cpu sensors2 spacer memory spacer disk spacer arch-update aur-update spacer shell datetime \
+      -p shell.command="$HOME/dotfiles/scripts/required-reboot.sh" shell.intervel=5m shell.async=true \
       -p datetime.format='%A %Y-%m-%d %H:%M' \
-      -p sensors2.chip_field_include=zenpower-pci-00c3 \
+      -p sensors2.chip_field_include=k10temp-pci-00c3 \
       -t gruvbox
     position          top
     workspace_buttons yes
@@ -173,47 +173,44 @@ client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
 client.urgent           $red $red $white $red $red
 
 # floating windows applications
+# for_window [class="Gscreenshot"] floating enable
+# for_window [class="NoiseTorch"] floating enable
+# for_window [class="Pcmanfm"] floating enable
+# for_window [class="YubiKey Manager"] floating enable
+# for_window [class="feh"] floating enable
+# for_window [class="helvum"] floating enable
+# for_window [class="qpwgraph"] floating enable
+# for_window [class="uad_gui"] floating enable
+# for_window [class="zoom"] floating enable
+# for_window [title="Authy"] floating enable
+# for_window [title="lstopo"] floating enable
 for_window [class="Blueman-manager"] floating enable
 for_window [class="Fcitx-config-gtk3"] floating enable
-for_window [class="Gscreenshot"] floating enable
 for_window [class="KeePassXC"] floating enable
-for_window [class="NoiseTorch"] floating enable
+for_window [class="KiCad"] floating enable
 for_window [class="PacketTracer"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Psensor"] floating enable
+for_window [class="PenTablet"] floating enable
 for_window [class="Virt-manager"] floating enable
-for_window [class="Voicepeak"] floating enable
-for_window [class="Xplorer"] floating enable
-for_window [class="YubiKey Manager"] floating enable
 for_window [class="Zeal"] floating enable
-for_window [class="Zenmonitor"] floating enable
+for_window [class="amazon music.exe"] floating enable
 for_window [class="dosbox"] floating enable
-for_window [class="easyeffects"] floating enable
-for_window [class="feh"] floating enable
 for_window [class="gimp"] floating disable
-for_window [class="helvum"] floating enable
 for_window [class="kwalletmanager5"] floating enable
 for_window [class="looking-glass-client"] floating enable
 for_window [class="openrgb"] floating enable
-for_window [class="qpwgraph"] floating enable
-for_window [class="ryzen-controller"] floating enable
+for_window [class="pavucontrol"] floating enable
 for_window [class="streamlink-twitch-gui"] floating enable
-for_window [class="uad_gui"] floating enable
 for_window [class="via-nativia"] floating enable
 for_window [class="vlc"] floating enable
 for_window [class="xfreerdp"] floating disable
-for_window [class="zoom"] floating enable
-for_window [class="Pcmanfm"] floating enable
-for_window [title="Authy"] floating enable
-for_window [title="lstopo"] floating enable
+for_window [title="Siki Setting Window"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
-for_window [title="Siki Setting Window"] floating enable
 
 for_window [class="Vivaldi-stable"] move to workspace 2
 for_window [class="discord"] move to workspace 7
 for_window [class="Google-chrome"] move to workspace 8
-for_window [class="biscuit"] move to workspace 9
+for_window [class="Ferdium"] move to workspace 9
 for_window [class="jasper"] move to workspace 10
 
 # StartUp
@@ -221,13 +218,11 @@ exec --no-startup-id "DISPLAY=':0' picom -b"
 exec --no-startup-id "zeal"
 exec --no-startup-id "keepassxc --localconfig $HOME/.config/keepassxc/keepassxc.ini"
 exec --no-startup-id "fcitx5"
-# exec --no-startup-id "redshift"
-exec --no-startup-id "greenclip daemon"
-exec --no-startup-id "blueman-applet"
+# exec --no-startup-id "blueman-applet"
 exec --no-startup-id "udiskie --tray"
 exec --no-startup-id "qpwgraph -m"
 exec --no-startup-id "setxkbmap -option ctrl:nocaps"
-exec --no-startup-id "greenclip daemon>/dev/null"
-exec --no-startup-id "$HOME/.screenlayout/default.sh && feh --bg-scale $HOME/Pictures/wallpaper.jpg"
-exec --no-startup-id "openrgb -p default"
-exec --no-startup-id 'noisetorch -i -s $(noisetorch -l | grep HyperX_SoloCast | sed -e "s/\tDevice ID:\s//g") -t 80'
+exec --no-startup-id "xrandr --output DisplayPort-1 --primary --mode 2560x1440 --pos 0x0 --rotate normal --rate 165.00 --set TearFree off --output HDMI-A-0 --mode 2560x1440 --rotate normal --rate 144.00 --set TearFree off --right-of DisplayPort-1 && feh --bg-scale $HOME/Pictures/wallpaper.jpg"
+exec --no-startup-id "$HOME/dotfiles/scripts/enable_noisetorch.sh"
+exec --no-startup-id "rquickshare"
+exec --no-startup-id "xbanish"
