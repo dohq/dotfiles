@@ -7,6 +7,7 @@
 	ignorecase = false
 	safecrlf = true
 	whitespace = cr-at-eol
+	sshCommand = "ssh -i ~/.ssh/id_ed25519.pub"
 [color]
 	ui = auto
 [rebase]
@@ -22,7 +23,9 @@
 	ff = false
 	conflictStyle = diff3
 [credential]
-	helper = manager
+	credentialStore = secretservice
+	helper = cache --timeout 21600
+	helper = oauth
 [diff]
 	altorithm = histogram
 	compactionHeuristic = true
@@ -54,3 +57,7 @@
 	defaultBranch = master
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+[safe]
+	directory = /opt/flutter
+[credential "https://dev.azure.com"]
+	useHttpPath = true
