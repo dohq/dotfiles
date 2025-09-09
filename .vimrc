@@ -805,7 +805,6 @@ let g:sonictemplate_vim_template_dir = [
       \ '~/dotfiles/vim/template'
       \]
 " }}}
-<<<<<<< HEAD
 " svelte {{{
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
@@ -817,14 +816,6 @@ let g:NERDCustomDelimiters = {
       \ 'concourse-pipeline-yaml': {'left': '#','right': ''}
       \ }
 " }}}
-||||||| parent of 63fefdb ([mod] vim: plugin 構成更新・Dart LSP・keymap 微調整)
-" svelte {{{
-let g:vim_svelte_plugin_load_full_syntax = 1
-let g:vim_svelte_plugin_use_typescript = 1
-let g:vim_svelte_plugin_has_init_indent = 1
-" }}}
-=======
->>>>>>> 63fefdb ([mod] vim: plugin 構成更新・Dart LSP・keymap 微調整)
 " indent-guide {{{
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
