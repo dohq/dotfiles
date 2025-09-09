@@ -9,7 +9,7 @@ api.map('gt', 'T');
 // an example to remove mapkey `Ctrl-i`
 api.unmap('<ctrl-i>');
 
-settings.blocklistPattern =  /mail.google.com|console.aws.amazon.com|192.168.10.10/i;
+settings.blocklistPattern =  /mail.google.com|console.aws.amazon.com|pmx.home.dohq.dev|192.168.10.*|game.poker-chase.com|e-typing.ne.jp/i;
 
 
 // set theme
