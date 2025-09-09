@@ -1,13 +1,13 @@
 # vim: ft=gitconfig
 [core]
-	editor = vim
-	quotepath = false
-	symlinks = true
-	autocrlf = false
-	ignorecase = false
-	safecrlf = true
-	whitespace = cr-at-eol
-	sshCommand = "ssh -i ~/.ssh/id_ed25519.pub"
+    editor = vim
+    quotepath = false
+    symlinks = true
+    autocrlf = false
+    ignorecase = false
+    safecrlf = true
+    whitespace = cr-at-eol
+    sshCommand = "ssh -i ~/.ssh/id_ed25519"
 [color]
 	ui = auto
 [rebase]
