@@ -178,16 +178,24 @@ nnoremap N Nzz
 
 " disable space keymap
 nnoremap <Space> <Nop>
+
+" clean register for x X
+nnoremap x "_x
+nnoremap X "_X
+xnoremap x "_x
+xnoremap X "_X
 " }}}
 
 "----------------------------------------
 " Plugin list
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
-Plug 'HerringtonDarkholme/yats.vim'
+" completion/AI
+Plug 'Exafunction/codeium.vim'
+
+" syntax/tools
+Plug 'JAErvin/logstash.vim'
 Plug 'andymass/vim-matchup'
-Plug 'basyura/TweetVim'
-Plug 'basyura/twibill.vim'
 Plug 'bfrg/vim-jqplay', {'on': ['Jqplay', 'JqplayScratch']}
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
@@ -195,19 +203,21 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dart-lang/dart-vim-plugin'
 Plug 'deris/vim-textobj-ipmac'
 Plug 'diepm/vim-rest-console'
-" Plug 'Exafunction/codeium.vim'
+Plug 'Einenlum/yaml-revealer', {'for': 'yaml'}
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
-Plug 'google/vim-jsonnet'
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 Plug 'haya14busa/vim-operator-flashy'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'isobit/vim-caddyfile'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko/vim-test'
 Plug 'jasonccox/vim-wayland-clipboard'
+Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-fakeclip'
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
@@ -218,7 +228,6 @@ Plug 'kana/vim-textobj-user'
 Plug 'kat0h/bufpreview.vim', {'do': 'deno task prepare', 'for': 'markdown'}
 Plug 'lambdalisue/gin.vim'
 Plug 'lambdalisue/vim-gista'
-Plug 'leafOfTree/vim-svelte-plugin'
 Plug 'lepture/vim-jinja'
 Plug 'machakann/vim-sandwich'
 Plug 'markonm/traces.vim'
@@ -234,7 +243,6 @@ Plug 'mattn/vim-gotmpl', {'for': 'go'}
 Plug 'mattn/vim-lsp-settings'
 Plug 'mattn/vim-molder'
 Plug 'mattn/vim-textobj-url'
-Plug 'mattn/vim-treesitter'
 Plug 'mattn/vim-sqlfmt'
 Plug 'mattn/webapi-vim'
 Plug 'mhinz/vim-grepper', {'on': ['Grepper', '<plug>(GrepperOperator)']}
@@ -253,7 +261,6 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'rbtnn/vim-ambiwidth'
 Plug 'rbtnn/vim-pterm'
 Plug 'rhysd/try-colorscheme.vim'
-Plug 'sago35/tinygo.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'sgur/vim-editorconfig'
@@ -262,11 +269,13 @@ Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'thinca/vim-qfreplace'
 Plug 'thinca/vim-quickrun'
+Plug 'thosakwe/vim-flutter'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-denops/denops.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-skk/denops-skkeleton.vim'
 Plug 'wakatime/vim-wakatime'
+Plug 'yasufum/vim-deepl'
 Plug 'yasunori0418/statusline_skk.vim', {'tag': 'lightline'}
 Plug 'zeero/vim-ctrlp-help'
 call plug#end()
@@ -297,6 +306,7 @@ colorscheme gruvbox-material
 " manual filetype {{{
 autocmd BufRead,BufNewFile .envrc set filetype=sh
 autocmd BufRead,BufNewFile *.nomad set filetype=hcl
+" autocmd BufRead,BufNewFile *.nomad set filetype=nomad syntax=hcl expandtab smartindent
 
 augroup concourse-pipeline-yaml
   autocmd!
@@ -370,6 +380,7 @@ function! s:on_lsp_buffer_enabled() abort
   let g:lsp_format_sync_timeout = 1000
   autocmd! BufWritePre *.rs,*.tf,*.tfvars call execute('LspDocumentFormatSync')
   autocmd! BufWritePre *.go call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports')
+  autocmd! BufWritePre *.dart call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports') | call execute('LspCodeActionSync source.fixAll')
 
   " refer to doc to add more commands
 endfunction
@@ -427,7 +438,7 @@ let g:codeium_no_map_tab = 1
 imap <silent><script><expr> <C-g> codeium#Accept()
 imap <C-n>   <Cmd>call codeium#CycleCompletions(1)<CR>
 imap <C-p>   <Cmd>call codeium#CycleCompletions(-1)<CR>
-imap <C-x>   <Cmd>call codeium#Clear()<CR>
+imap <C-c>   <Cmd>call codeium#Clear()<CR>
 " }}}
 " vim-signify {{{
 let g:signify_priority = 5
@@ -794,6 +805,7 @@ let g:sonictemplate_vim_template_dir = [
       \ '~/dotfiles/vim/template'
       \]
 " }}}
+<<<<<<< HEAD
 " svelte {{{
 let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
@@ -805,10 +817,30 @@ let g:NERDCustomDelimiters = {
       \ 'concourse-pipeline-yaml': {'left': '#','right': ''}
       \ }
 " }}}
+||||||| parent of 63fefdb ([mod] vim: plugin 構成更新・Dart LSP・keymap 微調整)
+" svelte {{{
+let g:vim_svelte_plugin_load_full_syntax = 1
+let g:vim_svelte_plugin_use_typescript = 1
+let g:vim_svelte_plugin_has_init_indent = 1
+" }}}
+=======
+>>>>>>> 63fefdb ([mod] vim: plugin 構成更新・Dart LSP・keymap 微調整)
 " indent-guide {{{
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
 let g:indent_guides_start_level=2
+" }}}
+" vim-easy-align {{{
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
+" dart {{{
+" let g:dart_format_on_save = 1
+" " }}}
+" yaml-revealer {{{
+" let g:yaml_revealer_separator = '.'
 " }}}
 " user command {{{
 " Auto plugin install {{{
