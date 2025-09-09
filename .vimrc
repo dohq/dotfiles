@@ -199,7 +199,6 @@ Plug 'andymass/vim-matchup'
 Plug 'bfrg/vim-jqplay', {'on': ['Jqplay', 'JqplayScratch']}
 Plug 'bronson/vim-trailing-whitespace', {'on': 'FixWhitespace'}
 Plug 'buoto/gotests-vim', {'for': 'go'}
-Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'chrisbra/csv.vim'
 Plug 'cohama/lexima.vim'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -264,7 +263,6 @@ Plug 'rhysd/try-colorscheme.vim'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sbdchd/neoformat', {'on': ['Neoformat']}
 Plug 'sgur/vim-editorconfig'
-Plug 'stephpy/vim-yaml'
 Plug 'suy/vim-ctrlp-commandline'
 Plug 'tacahiroy/ctrlp-funky'
 Plug 'thinca/vim-qfreplace'
@@ -306,7 +304,7 @@ colorscheme gruvbox-material
 " manual filetype {{{
 autocmd BufRead,BufNewFile .envrc set filetype=sh
 autocmd BufRead,BufNewFile *.nomad set filetype=hcl
-" autocmd BufRead,BufNewFile *.nomad set filetype=nomad syntax=hcl expandtab smartindent
+autocmd BufRead,BufNewFile terraform.tfvars set filetype=terraform-vars syntax=terraform
 
 augroup concourse-pipeline-yaml
   autocmd!
@@ -888,9 +886,4 @@ augroup paste
   autocmd InsertLeave * set nopaste
 augroup END
 " }}}
-" }}}
-" user custom keymap {{{
-" open github pages
-nnoremap <silent> gb :<C-u>call openbrowser#open('https://github.com/' .. matchstr(getline('.'), '''\zs[^'']\+\ze'''))<cr>
-nnoremap <silent> sh :<C-u>call openbrowser#open('https://github.com/search?type=code&q=' ..  expand("<cword>"))<cr>
 " }}}

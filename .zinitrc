@@ -74,18 +74,18 @@ zinit wait lucid from'gh-r' as'null' for \
   sbin'ytt-* -> ytt' carvel-dev/ytt \
   sbin'bosh-cli-* -> bosh' cloudfoundry/bosh-cli \
   sbin'om-* -> om' pivotal-cf/om \
-  sbin'air_* -> air' cosmtrek/air \
   sbin'dasel* -> dasel' TomWright/dasel \
   sbin'credhub' cloudfoundry/credhub-cli \
   sbin'pack' buildpacks/pack \
-  sbin'fzf' junegunn/fzf \
   sbin'tflint' terraform-linters/tflint \
   sbin'jid' simeji/jid \
   bpick'*-linux.tgz' sbin'pack' buildpacks/pack \
-  bpick'fly-*' sbin'fly' concourse/concourse \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmware-tanzu-labs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmware-tanzu-labs/cf-mgmt
+  # bpick'fly-*' sbin'fly' concourse/concourse \
+  # sbin'fzf' junegunn/fzf \
   # sbin'dive' wagoodman/dive \
+  # sbin'air_* -> air' cosmtrek/air \
   # bpick'*_Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
 
 ########## Function
@@ -107,3 +107,5 @@ zinit snippet 'https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69f
 # aws profile
 zinit ice lucid
 zinit snippet 'https://gist.githubusercontent.com/cm-watanabeseigo/0a103315529d502ce4a82d2a8aab6cd3/raw/.bash_profile_aws-profile'
+# aws completion
+zinit snippet https://github.com/aws/aws-cli/blob/v2/bin/aws_zsh_completer.sh

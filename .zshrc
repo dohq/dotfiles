@@ -4,12 +4,17 @@
 source "$HOME/dotfiles/.zinitrc"
 # eval "$(sheldon source)"
 
+if [ ~/dotfiles/.zshrc -nt ~/.zshrc.zwc ]; then
+  zcompile ~/.zshrc
+fi
+
 ########################################
 # Basic
 # autoload {{{
 # color
 autoload -Uz colors; colors
 # completion
+autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
   compinit
@@ -138,7 +143,9 @@ alias tky='curl wttr.in/Tokyo'
 alias tree='tree -N'
 alias u='up'
 alias s='sudo'
+alias yay='yay --sudoloop'
 alias wttr='function _weather(){ curl "wttr.in/$1"; };_weather'
+alias passgen='function _genpass(){cat /dev/urandom | tr -dc "a-kmnpr-zABD-HJL-NQRPT0-9#?_!" | fold -w 12 | head -n 300 | grep -v "^[#?_!]" | grep "[#?_!]" | grep "[0-9]" | grep -vE "(.)\1" | shuf -n $1};_genpass'
 if type vim > /dev/null; then
   alias vi='vim'
   alias v='vim'
