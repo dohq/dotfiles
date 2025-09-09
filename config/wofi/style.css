@@ -1,0 +1,64 @@
+/* Gruvbox-ish wofi style (compatible) */
+window {
+  background-color: #282828;
+  border-radius: 10px;
+  border: 1px solid #3C3836;
+  padding: 6px;
+  font-family: "Hack", "Noto Sans JP", monospace;
+  font-size: 12pt;
+  color: #EBDBB2;
+  opacity: 0.96;
+}
+
+/* input box */
+#input {
+  background-color: rgba(70,60,50,0.06);
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: #BDAE93;
+  font-size: 12pt;
+}
+
+/* list area */
+/* #scroll { */
+/*   margin-top: 6px; */
+/*   max-height: 60vh; */
+/* } */
+
+/* each entry */
+#entry {
+  padding: 6px 8px;
+  margin: 2px 0;
+  border-radius: 6px;
+}
+
+/* main text */
+#text {
+  color: #EBDBB2;
+  font-size: 11pt;
+}
+
+/* secondary text (description) */
+#secondary {
+  color: #BDAE93;
+  font-size: 9pt;
+  padding-left: 8px;
+}
+
+/* selected/wheel hover */
+#entry:selected, #entry:selected > #text, #entry:selected > #secondary {
+  background-color: rgba(104,157,104,0.18); /* aqua-ish */
+  color: #1d2021;
+}
+
+/* hover */
+#entry:hover {
+  background-color: rgba(72,60,50,0.04);
+}
+
+/* prompt */
+#prompt {
+  color: #FABD2F;
+  font-weight: 600;
+  padding-right: 6px;
+}

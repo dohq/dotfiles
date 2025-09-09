@@ -1,0 +1,9 @@
+# wofi config
+mode=drun,run
+style=style.css
+width=40%
+height=20%
+prompt=
+insensitive=true
+hide_scroll=false
+allow_images=true

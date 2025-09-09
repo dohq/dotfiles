@@ -1,0 +1,50 @@
+# Gruvbox-ish mako config (inline comments removed)
+font=Moralerspace Krypton 14
+anchor=top-right
+width=340
+height=120
+max-history=5
+margin=12,12,12
+padding=8
+border-size=2
+border-radius=6
+
+# colors (base)
+# background-color: base00
+background-color=#282828
+# text-color: base06
+text-color=#EBDBB2
+# border-color: base01
+border-color=#3C3836
+
+default-timeout=8000
+group-by=summary
+icons=1
+format=<b>%s</b>\n%b
+
+[urgency=normal]
+text-color=#EBDBB2
+border-color=#83A598
+background-color=#282828
+default-timeout=8000
+
+[urgency=low]
+text-color=#B8BB26
+border-color=#B8BB26
+background-color=#282828
+default-timeout=4000
+
+[urgency=critical]
+text-color=#282828
+border-color=#FB4934
+background-color=#FB4934
+default-timeout=0
+
+[urgency=normal actionable]
+border-color=#D3869B
+
+[urgency=critical actionable]
+border-color=#CC241D
+
+[hidden]
+format=Hidden: %h [%t]
