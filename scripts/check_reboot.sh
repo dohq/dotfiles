@@ -1,7 +1,7 @@
 #!/bin/sh
 NEXTLINE=0
 FIND=""
-for I in `file /boot/vmlinuz*`; do
+for I in $(file /boot/vmlinuz*); do
   if [ ${NEXTLINE} -eq 1 ]; then
     FIND="${I}"
     NEXTLINE=0
@@ -10,7 +10,7 @@ for I in `file /boot/vmlinuz*`; do
   fi
 done
 if [ ! "${FIND}" = "" ]; then
-  CURRENT_KERNEL=`uname -r`
+  CURRENT_KERNEL=$(uname -r)
   if [ ! "${CURRENT_KERNEL}" = "${FIND}" ]; then
     echo "reboot required"
   fi
