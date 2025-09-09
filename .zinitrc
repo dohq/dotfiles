@@ -42,11 +42,12 @@ zinit wait lucid light-mode for \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
   atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
-    zdharma-continuum/fast-syntax-highlighting \
-  as'command' sbin'kubectx' id-as'kubectx' \
-    ahmetb/kubectx \
-  as'command' sbin'kubens' id-as'kubens' \
-    ahmetb/kubectx
+    zdharma-continuum/fast-syntax-highlighting
+  # zdharma-continuum/fast-syntax-highlighting \
+  # as'command' sbin'kubectx' id-as'kubectx' \
+  #   ahmetb/kubectx \
+  # as'command' sbin'kubens' id-as'kubens' \
+  #   ahmetb/kubectx
 
 # completion
 zinit wait lucid for \

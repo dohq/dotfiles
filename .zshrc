@@ -1,6 +1,8 @@
+# zmodload zsh/zprof && zprof
 ########################################
 # Plugin Manager
 source "$HOME/dotfiles/.zinitrc"
+# eval "$(sheldon source)"
 
 ########################################
 # Basic
@@ -203,8 +205,20 @@ if command -v mise > /dev/null; then
   eval "$(mise activate zsh)"
 fi
 
+# interactive environment variable
+# fzf
+export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+--color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
+--height 60% --no-sort +m --reverse --info=inline --border --margin=1 --padding=1'
+
+# pipenv
+export PIPENV_VENV_IN_PROJECT=true
+
+# If command execution time above min. time, plugins will not output time.
+export ZSH_COMMAND_TIME_MIN_SECONDS=5
+
 ########################################
 # zprof
-if (which zprof > /dev/null 2>&1) ;then
-  zprof
-fi
+# if (which zprof > /dev/null 2>&1) ;then
+#   zprof
+# fi
