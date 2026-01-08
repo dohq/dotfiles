@@ -78,6 +78,21 @@ ZSH_GIT_PROMPT_SHOW_STASH=1
 ZSH_GIT_PROMPT_FORCE_BLANK=1
 RPROMPT='$(gitprompt)'
 # }}}
+# Enterを押した時にRPROMPTを一時的に空にする
+function _clear-rprompt-preexec() {
+  RPROMPT=""
+  zle reset-prompt
+  zle accept-line
+}
+
+# 既存のEnter動作を上書き
+zle -N _clear-rprompt-preexec
+bindkey '^M' _clear-rprompt-preexec
+
+# コマンド終了後（次のプロンプト表示前）にRPROMPTを再設定
+function precmd() {
+  RPROMPT='$(gitprompt)'
+}
 
 ########################################
 # History
