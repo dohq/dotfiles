@@ -1,11 +1,8 @@
 # zmodload zsh/zprof && zprof
 
 export EDITOR=vim
-# export JAVA_HOME=/usr/lib/jvm/default
-# export GOPROXY=proxy.golang.org
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 export ZSH_WAKATIME_BIN=$(which wakatime)
-export DOCKER_BUILDKIT=1
 export ANDROID_SDK_ROOT=$HOME/Android/Sdk
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
@@ -26,6 +23,7 @@ path=(
   $HOME/bin(N-/)
   $HOME/go/bin(N-/)
   $HOME/flutter/bin(N-/)
+  $HOME/.krew/bin(N-/)
   $HOME/.local/bin(N-/)
   $HOME/.tfenv/bin(N-/)
   $HOME/.tiup/bin(N-/)
