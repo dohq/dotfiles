@@ -7,16 +7,17 @@ set encoding=utf8
 scriptencoding utf-8
 
 " set MYVIMDIR
-let s:MSWindows = has('win32')
-if s:MSWindows
-  let $MYVIMDIR = expand('$HOME/vimfiles')
-else
-  let $MYVIMDIR = expand('$HOME/.vim')
-endif
+let s:is_win = has('win32')
+let $MYVIMDIR = s:is_win ? expand('~/vimfiles') : expand('~/.vim')
 
-if empty(glob('$MYVIMDIR/autoload/plug.vim'))
-  silent !curl -fLo $MYVIMDIR/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+let s:plug_path = $MYVIMDIR . '/autoload/plug.vim'
+let s:plug_dir  = fnamemodify(s:plug_path, ':h')
+let s:url = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+if empty(glob(s:plug_path))
+  call mkdir(s:plug_dir, 'p')
+  silent execute '!curl -fLo ' . shellescape(s:plug_path) . ' --create-dirs ' . s:url
+
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -191,7 +192,7 @@ xnoremap X "_X
 "----------------------------------------
 call plug#begin($MYVIMDIR.'/plugins')
 " completion/AI
-Plug 'Exafunction/codeium.vim'
+Plug 'Exafunction/windsurf.vim'
 
 " syntax/tools
 Plug 'JAErvin/logstash.vim'
@@ -205,6 +206,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'deris/vim-textobj-ipmac'
 Plug 'diepm/vim-rest-console'
+Plug 'dohq/sops.vim'
 Plug 'Einenlum/yaml-revealer', {'for': 'yaml'}
 Plug 'glidenote/memolist.vim', {'on': ['MemoNew', 'MemoList' ,'MemoGrep']}
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
@@ -355,15 +357,21 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
  \  }))
 " }}}
 " vim-lsp {{{
-let g:lsp_log_file = expand('/tmp/lsp.log')
+let g:lsp_log_file = ''
+let g:lsp_use_native_client = 1
 let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:lsp_diagnostics_float_cursor = 1
-let lsp_diagnostics_float_insert_mode_enabled = 0
-let lsp_document_code_action_signs_enabled = 0
+let g:lsp_diagnostics_float_insert_mode_enabled = 0
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_semantic_enabled = 1
+let g:lsp_document_highlight_enabled = 1
+let g:lsp_format_sync_timeout = 1000
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> ga <plug>(lsp-code-action)
+  vmap <buffer> ga <plug>(lsp-code-action)
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> gs <plug>(lsp-document-symbol-search)
   nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
@@ -374,13 +382,15 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
   nmap <buffer> K <plug>(lsp-hover)
+  nnoremap <buffer> <expr><C-f> lsp#scroll(+4)
+  nnoremap <buffer> <expr><C-d> lsp#scroll(-4)
 
   let g:lsp_format_sync_timeout = 1000
-  autocmd! BufWritePre *.rs,*.tf,*.tfvars call execute('LspDocumentFormatSync')
-  autocmd! BufWritePre *.go call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports')
-  autocmd! BufWritePre *.dart call execute('LspDocumentFormatSync') | call execute('LspCodeActionSync source.organizeImports') | call execute('LspCodeActionSync source.fixAll')
+  autocmd! BufWritePre *.rs,*.tf,*.tfvars,*.dart,*.go call execute('LspDocumentFormatSync')
 
-  " refer to doc to add more commands
+  setlocal foldmethod=expr
+  \  foldexpr=lsp#foldexpr()
+  \  foldtext=lsp#foldtext()
 endfunction
 
 augroup lsp_install
@@ -886,4 +896,93 @@ augroup paste
   autocmd InsertLeave * set nopaste
 augroup END
 " }}}
+" extended quit {{{
+" https://zenn.dev/vim_jp/articles/ff6cd224fab0c7
+function! s:close_special_windows() abort
+  " 現在のウィンドウ番号を取得
+  let current_win = winnr()
+  " すべてのウィンドウをループして調べる
+  for winnr in range(1, winnr('$'))
+    " カレント以外を調査
+    if winnr != current_win
+      let buftype = getbufvar(winbufnr(winnr), '&buftype')
+      " buftypeが空文字（通常のバッファ）があればループ終了
+      if buftype ==# ''
+        return
+      endif
+    endif
+  endfor
+  " ここまで来たらカレント以外がすべて特殊ウィンドウということなので
+  " カレント以外をすべて閉じる
+  only!
+  " この後、ウィンドウ1つの状態でquitが実行されるので、Vimが終了する
+endfunction
+autocmd QuitPre * call s:close_special_windows()
+" }}}
+" extra restart {{{
+command! Restart silent call s:restart()
+function s:restart() abort
+  " 通常バッファ以外を削除
+  for buf in getbufinfo()
+    if getbufvar(buf.bufnr, '&buftype') !=# ''
+      execute 'bwipeout!' buf.bufnr
+    endif
+  endfor
+
+  " 環境変数$VIM_RESTART_SESSIONがなければここでreturn
+  " wrapped vimから起動しているかの確認
+  let restart_session_file = $VIM_RESTART_SESSION
+  if empty(restart_session_file) || restart_session_file !~# '\.vim$'
+    echomsg 'VIM_RESTART_SESSION is not set'
+    return
+  endif
+
+  " 既存のセッションの有無を確認
+  let has_session = !empty(v:this_session)
+  " セッションがあればそれを使用、なければ一時セッションファイルを使用
+  let session = has_session ? v:this_session : restart_session_file
+  " 保存先ディレクトリを作成
+  call mkdir(fnamemodify(session, ':h'), 'p')
+  " セッションを保存 bangがあるのですでにファイルがあれば上書き
+  execute 'mksession!' session
+  if has_session
+    " 既存のセッションを使う場合
+    " restart_session_fileを「本来のセッションを読み込む」という内容で保存
+    call writefile([ 'source ' .. v:this_session ], restart_session_file)
+  else
+    " 一時セッションを使う場合
+    " sessionを読み込んだあと、sessionxでthis_sessionをクリア
+    call writefile([ 'let v:this_session = ""' ], substitute(restart_session_file, '\.vim$', 'x.vim', ''))
+  endif
+
+  " 返り値42で終了
+  cquit 42
+endfunction
+" }}}
+" command result for vsplit {{{
+" コマンド実行結果を垂直分割で開くカスタムコマンド
+function! s:Vrun(cmd)
+  let l:bufname = '__Vrun_Output__'
+  let l:winid = bufwinid(l:bufname)
+
+  if l:winid != -1
+    call win_gotoid(l:winid)
+  else
+    execute 'vertical rightbelow new ' . l:bufname
+  endif
+
+  setlocal buftype=nofile noswapfile modifiable
+  silent %delete _
+
+  execute '0read !' . a:cmd
+  1
+  setlocal nomodifiable
+  nnoremap <buffer> q :close<CR>
+endfunction
+
+command! -nargs=1 -complete=shellcmd Vrun call s:Vrun(<q-args>)
+" }}}
+" }}}
+" markdown {{{
+let g:markdown_fenced_languages = ["ts=typescript"]
 " }}}
