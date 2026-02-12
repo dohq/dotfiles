@@ -382,15 +382,11 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> [g <plug>(lsp-previous-diagnostic)
   nmap <buffer> ]g <plug>(lsp-next-diagnostic)
   nmap <buffer> K <plug>(lsp-hover)
-  nnoremap <buffer> <expr><C-f> lsp#scroll(+4)
-  nnoremap <buffer> <expr><C-d> lsp#scroll(-4)
+  nnoremap <buffer> <expr> <C-d> lsp#document_hover_preview_winid() != v:null ? lsp#scroll(+4) : "\<C-d>"
+  nnoremap <buffer> <expr> <C-u> lsp#document_hover_preview_winid() != v:null ? lsp#scroll(-4) : "\<C-u>"
 
   let g:lsp_format_sync_timeout = 1000
   autocmd! BufWritePre *.rs,*.tf,*.tfvars,*.dart,*.go call execute('LspDocumentFormatSync')
-
-  setlocal foldmethod=expr
-  \  foldexpr=lsp#foldexpr()
-  \  foldtext=lsp#foldtext()
 endfunction
 
 augroup lsp_install
