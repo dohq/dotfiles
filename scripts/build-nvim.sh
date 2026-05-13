@@ -3,16 +3,16 @@
 NVIM_DIR=$HOME/go/src/github.com/neovim/neovim
 
 if [[ ! -d $NVIM_DIR ]]; then
-  git clone https://github.com/neovim/neovim $NVIM_DIR
+  git clone https://github.com/neovim/neovim "$NVIM_DIR"
 fi
 
-pushd $NVIM_DIR
+pushd "$NVIM_DIR" || return
 git reset --hard
 make distclean
 
 git pull
 
-make deps -j 6
-make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=$HOME/.local -j 6
+# make deps -j 6
+make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX="$HOME/.local"
 make install
-popd
+popd || return
