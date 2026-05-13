@@ -14,6 +14,8 @@ fi
 if command -v ccache >/dev/null; then
   export USE_CCACHE=1
   export CCACHE_DIR=$HOME/.cache/ccache
+  export set CC='ccache gcc'
+  export set CXX='ccache g++'
 fi
 export PICO_SDK_PATH=/usr/share/pico-sdk
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
