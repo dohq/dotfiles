@@ -399,25 +399,6 @@ augroup lsp_install
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
- let g:lsp_settings = {
- \  'yaml-language-server': {
- \    'workspace_config': {
- \      'yaml': {
- \        'schemas': {
- \          'https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json': '/compose.yml',
- \          'https://json.schemastore.org/prometheus.json': '/prometheus.yml',
- \          'https://json.schemastore.org/swagger-2.0.json': '/swagger.yml',
- \          'https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json': '/openapi.yml',
- \          'https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json': '/**/playbooks/**.yml',
- \        },
- \        'completion': v:true,
- \        'hover': v:true,
- \        'validate': v:true,
- \      }
- \    }
- \  },
- \}
-
 if executable('concourse-language-server')
   au User lsp_setup call lsp#register_server({
     \ 'name': 'concourse-language-server',
