@@ -79,6 +79,10 @@ set display=lastline
 set expandtab
 set fileformat=unix
 set foldmethod=marker
+if executable('rg')
+  set grepprg=rg\ -H\ --no-heading\ --vimgrep
+  set grepformat=%f:%l:%c:%m
+endif
 set helplang=ja,en
 set hidden
 set hlsearch
