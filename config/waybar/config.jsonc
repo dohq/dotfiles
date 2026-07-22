@@ -8,20 +8,18 @@
     "modules-left": [
         "hyprland/workspaces"
     ],
-    "modules-center": [
-        "clock"
-    ],
+    "modules-center": [],
     "modules-right": [
         "custom/require_reboot",
-        "idle_inhibitor",
         "pulseaudio",
         "network",
+        "temperature",
+        "disk",
         "cpu",
         "memory",
-        "temperature",
+        "custom/pacman",
         "tray",
-        "custom/power",
-        "custom/pacman"
+        "clock"
     ],
     "tray": {
         "spacing": 5
@@ -52,7 +50,8 @@
         "format": "{used:0.1f}G/{total:0.1f}G "
     },
     "temperature": {
-        "hwmon-path": "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input",
+        "hwmon-path-abs": "/sys/module/k10temp/drivers/pci:k10temp/0000:00:18.3/hwmon",
+        "input-filename": "temp1_input",
         "critical-threshold": 80,
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
@@ -106,10 +105,10 @@
         "tooltip": false
     },
     "custom/pacman": {
-      "format": "{icon}{0}",
+      "format": "{icon} {0}",
       "return-type": "json",
       "format-icons": {
-        "pending-updates": " ",
+        "pending-updates": "",
         "updated": ""
       },
       "exec-if": "which waybar-updates",

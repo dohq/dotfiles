@@ -64,6 +64,7 @@ set fileencodings=ucs-bom,utf-8,iso-2022-jp,euc-jp,cp932,utf-16le,utf-16,default
 " set opt {{{
 set autoread
 set backspace=indent,eol,start
+set backupcopy=yes
 set belloff=all
 set colorcolumn=100
 set cmdheight=2
@@ -128,6 +129,8 @@ if !has('nvim')
 endif
 set title
 set ttyfast
+set ttimeout
+set ttimeoutlen=100
 set updatetime=50
 set whichwrap=b,s,[,],<,>
 set wildmenu
@@ -424,7 +427,7 @@ smap <expr> <C-h> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-h>'
 " }}}
 " codeium {{{
 let g:codeium_no_map_tab = 1
-imap <silent><script><expr> <C-g> codeium#Accept()
+imap <silent><script><expr> <C-f> codeium#Accept()
 imap <C-n>   <Cmd>call codeium#CycleCompletions(1)<CR>
 imap <C-p>   <Cmd>call codeium#CycleCompletions(-1)<CR>
 imap <C-c>   <Cmd>call codeium#Clear()<CR>
@@ -821,6 +824,9 @@ nmap ga <Plug>(EasyAlign)
 " " }}}
 " yaml-revealer {{{
 " let g:yaml_revealer_separator = '.'
+" }}}
+" sops.vim {{{
+let g:sops_args = '--age age1zejge6902y677khd7czlp0e740hfnkc9j4egyjm8ekkrpqgup4gs227cwx --encrypted-regex "data"'
 " }}}
 " user command {{{
 " Auto plugin install {{{

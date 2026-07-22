@@ -151,7 +151,7 @@ alias m='mkdir -p'
 alias nm="$HOME/bin/notify-me.sh"
 alias pbcopy='xclip -selection c'
 alias pbpaste='xclip -selection c -o'
-alias pi='ping -c 3 google.com'
+# alias pi='ping -c 3 google.com'
 alias pp='ps aux | fzf'
 alias tb='nc termbin.com 9999'
 alias tky='curl wttr.in/Tokyo'
@@ -226,18 +226,6 @@ alias dohq='cd $HOME/go/src/github.com/dohq'
 if command -v mise > /dev/null; then
   eval "$(mise activate zsh)"
 fi
-
-# interactive environment variable
-# fzf
-export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
---color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
---height 60% --no-sort +m --reverse --info=inline --border --margin=1 --padding=1'
-
-# pipenv
-export PIPENV_VENV_IN_PROJECT=true
-
-# If command execution time above min. time, plugins will not output time.
-export ZSH_COMMAND_TIME_MIN_SECONDS=5
 
 ########################################
 # zprof

@@ -1,13 +1,13 @@
 # vim: ft=gitconfig
 [core]
-    editor = vim
-    quotepath = false
-    symlinks = true
-    autocrlf = false
-    ignorecase = false
-    safecrlf = true
-    whitespace = cr-at-eol
-    sshCommand = "ssh -i ~/.ssh/id_ed25519"
+	editor = vim
+	quotepath = false
+	symlinks = true
+	autocrlf = false
+	ignorecase = false
+	safecrlf = true
+	whitespace = cr-at-eol
+	sshCommand = "ssh -i ~/.ssh/id_ed25519"
 [color]
 	ui = auto
 [rebase]
@@ -55,9 +55,7 @@
 	name = dohq
 [init]
 	defaultBranch = master
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
 [safe]
 	directory = /opt/flutter
-[credential "https://dev.azure.com"]
-	useHttpPath = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/

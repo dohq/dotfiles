@@ -1,17 +1,7 @@
 #!/bin/sh
-NEXTLINE=0
-FIND=""
-for I in `file /boot/vmlinuz*`; do
-  if [ ${NEXTLINE} -eq 1 ]; then
-    FIND="${I}"
-    NEXTLINE=0
-   else
-    if [ "${I}" = "version" ]; then NEXTLINE=1; fi
-  fi
-done
-if [ ! "${FIND}" = "" ]; then
-  CURRENT_KERNEL=`uname -r`
-  if [ ! "${CURRENT_KERNEL}" = "${FIND}" ]; then
-    echo "Reboot required"
-  fi
+latest="$(find /lib/modules -mindepth 1 -maxdepth 1 -type d -printf '%f\n' 2>/dev/null | sort -V | tail -n 1)"
+current="$(uname -r)"
+
+if [ -n "$latest" ] && [ "$current" != "$latest" ]; then
+  printf ' Reboot required'
 fi

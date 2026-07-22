@@ -41,9 +41,8 @@ zinit wait lucid light-mode for \
     zsh-users/zsh-autosuggestions \
   atpull'zinit creinstall -q "$PWD"' blockf \
     zsh-users/zsh-completions \
-  atinit'ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay' \
-    zdharma-continuum/fast-syntax-highlighting
-  # zdharma-continuum/fast-syntax-highlighting \
+  from'gh-r' as'program' pick'zsh-patina-*/zsh-patina' atload'eval "$(zsh-patina activate)"' \
+    michel-kraemer/zsh-patina
   # as'command' sbin'kubectx' id-as'kubectx' \
   #   ahmetb/kubectx \
   # as'command' sbin'kubens' id-as'kubens' \
@@ -82,11 +81,6 @@ zinit wait lucid from'gh-r' as'null' for \
   bpick'*-linux.tgz' sbin'pack' buildpacks/pack \
   bpick'cf-mgmt-config-linux' sbin'cf-mgmt-config-linux -> cf-mgmt-config' id-as'cf-mgmt-config' vmware-tanzu-labs/cf-mgmt \
   bpick'cf-mgmt-linux' sbin'cf-mgmt-linux -> cf-mgmt' id-as'cf-mgmt' vmware-tanzu-labs/cf-mgmt
-  # bpick'fly-*' sbin'fly' concourse/concourse \
-  # sbin'fzf' junegunn/fzf \
-  # sbin'dive' wagoodman/dive \
-  # sbin'air_* -> air' cosmtrek/air \
-  # bpick'*_Linux-64bit.tar.gz' sbin'trivy' aquasecurity/trivy \
 
 ########## Function
 # history

@@ -30,20 +30,7 @@ size = 16.0
 
 [font.normal]
 family = "Moralerspace Xenon HW"
-# family = "HackGen35 Console NF"
-# family = "UDEV Gothic 35NF"
-# family = "NOTONOTO Console"
 style = "Regular"
-
-# [[keyboard.bindings]]
-# action = "Paste"
-# key = "V"
-# mods = "Control|Alt"
-
-# [[keyboard.bindings]]
-# action = "Copy"
-# key = "C"
-# mods = "Control|Alt"
 
 [selection]
 save_to_clipboard = true
@@ -51,3 +38,8 @@ save_to_clipboard = true
 [window]
 dynamic_title = false
 title = "Alacritty"
+
+[[keyboard.bindings]]
+key = "Enter"
+mods = "Shift"
+chars = "\u001b\r"

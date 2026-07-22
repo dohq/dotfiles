@@ -4,7 +4,7 @@
     min-height: 0;
     font-family: "Moralerspace Krypton";
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
     padding: 0;
 }
 
@@ -54,8 +54,6 @@ tooltip {
 }
 
 #clock {
-    background-color: #322d28;
-    border: 2px solid #625343;
     color: #d4be98;
 }
 
@@ -67,15 +65,18 @@ tooltip {
 
 #tray,
 #cpu,
+#disk,
 #memory,
 #network,
 #idle_inhibitor,
 #custom-pacman,
 #custom-require_reboot,
+#custome-power,
 #pulseaudio {
     background-color: #c9af82;
     border: 2px solid #917a53;
     color: #1d2021;
+    margin: 6px 6px 6px 0px;
 }
 
 #custom-pacman.pending-updates,

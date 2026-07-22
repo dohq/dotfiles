@@ -3,7 +3,7 @@
 export EDITOR=vim
 export VAGRANT_DEFAULT_PROVIDER=libvirt
 export ZSH_WAKATIME_BIN=$(which wakatime)
-export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_HOME=$HOME/Android/Sdk
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 fi
@@ -14,11 +14,21 @@ fi
 if command -v ccache >/dev/null; then
   export USE_CCACHE=1
   export CCACHE_DIR=$HOME/.cache/ccache
-  export set CC='ccache gcc'
-  export set CXX='ccache g++'
 fi
 export PICO_SDK_PATH=/usr/share/pico-sdk
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# interactive environment variable
+# fzf
+export FZF_DEFAULT_OPTS='--color fg:#ebdbb2,bg:#282828,hl:#fabd2f,fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f
+--color info:#83a598,prompt:#bdae93,spinner:#fabd2f,pointer:#83a598,marker:#fe8019,header:#665c54
+--height 60% --no-sort +m --reverse --info=inline --border --margin=1 --padding=1'
+
+# pipenv
+export PIPENV_VENV_IN_PROJECT=true
+
+# If command execution time above min. time, plugins will not output time.
+export ZSH_COMMAND_TIME_MIN_SECONDS=5
 
 # PATH
 path=(
