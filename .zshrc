@@ -14,13 +14,7 @@ fi
 # color
 autoload -Uz colors; colors
 # completion
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
+# compinit は .zinitrc の _zinit_compinit (turbo) で実行する
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -76,7 +70,29 @@ ZSH_THEME_GIT_PROMPT_STASHED=" %{$fg[blue]%}Stash:"
 ZSH_GIT_PROMPT_SHOW_UPSTREAM=full
 ZSH_GIT_PROMPT_SHOW_STASH=1
 ZSH_GIT_PROMPT_FORCE_BLANK=1
-RPROMPT='$(gitprompt)'
+KUBE_PS1_SYMBOL_ENABLE=false
+KUBE_PS1_PREFIX=''
+KUBE_PS1_SUFFIX=''
+RPROMPT='$(kube_ps1)$(gitprompt)'
+# kube-ps1 は更新時に kubectl を2回 fork して(計150ms程度)プロンプトを止めるので、
+# precmd hook を外して zsh-async の worker で更新し、結果が変わった時だけ再描画する
+add-zsh-hook -d precmd _kube_ps1_prompt_update
+function _kube_ps1_async_update() {
+  # worker は起動時の環境を引き継ぐので KUBECONFIG の変更は引数で渡す
+  if [[ -n $1 ]]; then export KUBECONFIG=$1; else unset KUBECONFIG; fi
+  _kube_ps1_prompt_update
+  print -r -- "${KUBE_PS1_CONTEXT}"$'\n'"${KUBE_PS1_NAMESPACE}"
+}
+function _kube_ps1_async_done() {
+  local -a lines=("${(@f)3}")
+  [[ $lines[1] == $KUBE_PS1_CONTEXT && $lines[2] == $KUBE_PS1_NAMESPACE ]] && return
+  KUBE_PS1_CONTEXT=$lines[1]
+  KUBE_PS1_NAMESPACE=$lines[2]
+  zle && zle reset-prompt
+}
+async_init
+async_start_worker kube_ps1 -n
+async_register_callback kube_ps1 _kube_ps1_async_done
 # }}}
 # Enterを押した時にRPROMPTを一時的に空にする
 function _clear-rprompt-preexec() {
@@ -91,7 +107,8 @@ bindkey '^M' _clear-rprompt-preexec
 
 # コマンド終了後（次のプロンプト表示前）にRPROMPTを再設定
 function precmd() {
-  RPROMPT='$(gitprompt)'
+  RPROMPT='$(kube_ps1)$(gitprompt)'
+  async_job kube_ps1 _kube_ps1_async_update "$KUBECONFIG"
 }
 
 ########################################

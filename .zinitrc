@@ -11,6 +11,22 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+
+# compaudit を毎回走らせないよう dump が 24h 以内なら -C。
+# glob qualifier は extendedglob off だと効かないので zstat で判定する
+function _zinit_compinit() {
+  zmodload -F zsh/stat b:zstat
+  zmodload zsh/datetime
+  local dump=${ZINIT[ZCOMPDUMP_PATH]:-${ZDOTDIR:-$HOME}/.zcompdump}
+  local -a mt
+  if zstat -A mt +mtime $dump 2>/dev/null && (( EPOCHSECONDS - mt[1] < 86400 )); then
+    zicompinit -C
+  else
+    zicompinit
+  fi
+  zicdreplay
+  autoload -Uz bashcompinit && bashcompinit
+}
 # }}}
 # No Wait
 # Load a few important annexes, without Turbo
@@ -19,6 +35,7 @@ zinit light-mode for \
   zdharma-continuum/zinit-annex-bin-gem-node
 
 zinit light-mode for \
+  jonmosco/kube-ps1 \
   atload'!_zsh_git_prompt_precmd_hook' \
     woefe/git-prompt.zsh \
   pick'async.zsh' \
@@ -48,12 +65,12 @@ zinit wait lucid light-mode for \
   # as'command' sbin'kubens' id-as'kubens' \
   #   ahmetb/kubectx
 
-# completion
+# completion (compinit はここで一度だけ。.zshrc では呼ばない)
 zinit wait lucid for \
-  has'hub' id-as'hub-completion' \
+  id-as'hub-completion' \
   nocompile \
   as'completion' \
-  atload'zicompinit; zicdreplay' \
+  atload'_zinit_compinit' \
   mv'hub-completion -> _hub'\
     https://github.com/github/hub/blob/master/etc/hub.zsh_completion
 
@@ -84,25 +101,26 @@ zinit wait lucid from'gh-r' as'null' for \
 
 ########## Function
 # history
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/9b97e07c865bb608108dd254b5e32fea/raw/fzf-history.zsh'
 # ssh
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/1dc702cc0b46eb62884515ea52330d60/raw/fzf-ssh.zsh'
 # ssh-consul
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/164de7bc95de765d9b3202d401b4549d/raw/fzf-ssh-consul.zsh'
 # branch
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/7cb290f0a9a90e8f24f0f4912f6633b8/raw/fzf-branch.zsh'
 # ghq
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/a643084df0c1957b6990ee69fb3126a1/raw/fzf-ghq.zsh'
 # aws profile
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/cm-watanabeseigo/0a103315529d502ce4a82d2a8aab6cd3/raw/.bash_profile_aws-profile'
 # aws completion
+zinit ice wait lucid
 zinit snippet https://github.com/aws/aws-cli/blob/v2/bin/aws_zsh_completer.sh
 # kubctl stern
-zinit ice lucid
+zinit ice wait lucid
 zinit snippet 'https://gist.githubusercontent.com/dohq/f9c0f6d45a81b8cdf0ede3232a71caf4/raw/32c5525520ab2f1fd6707c87f9c32cc630c1cdfb/ks.zsh'

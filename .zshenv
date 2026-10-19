@@ -2,13 +2,13 @@
 
 export EDITOR=vim
 export VAGRANT_DEFAULT_PROVIDER=libvirt
-export ZSH_WAKATIME_BIN=$(which wakatime)
+export ZSH_WAKATIME_BIN=${commands[wakatime]}
 export ANDROID_HOME=$HOME/Android/Sdk
 if [[ -e $XDG_RUNTIME_DIR/docker.sock ]]; then
   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 fi
 if command -v sccache >/dev/null; then
-  export RUSTC_WRAPPER=$(which sccache)
+  export RUSTC_WRAPPER=${commands[sccache]}
   export SCCACHE_DIR=$HOME/.cache/sccache
 fi
 if command -v ccache >/dev/null; then
